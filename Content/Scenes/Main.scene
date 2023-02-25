@@ -1,0 +1,37 @@
+{
+	"ID": "362b418c43b31919b71055b252931fb3",
+	"TypeName": "FlaxEngine.SceneAsset",
+	"EngineBuild": 6338,
+	"Data": [
+		{
+			"ID": "362b418c43b31919b71055b252931fb3",
+			"TypeName": "FlaxEngine.Scene",
+			"LightmapSettings": {
+				"IndirectLightingIntensity": 1.0,
+				"GlobalObjectsScale": 1.0,
+				"ChartsPadding": 3,
+				"AtlasSize": 1024,
+				"BounceCount": 1,
+				"CompressLightmaps": true,
+				"UseGeometryWithNoMaterials": true,
+				"Quality": 10
+			}
+		},
+		{
+			"ID": "a7523e7a435d1229a41c14a20fadeac4",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "362b418c43b31919b71055b252931fb3",
+			"Name": "Core"
+		},
+		{
+			"ID": "d11712a44dea0d67714775a66cbc6e4a",
+			"TypeName": "FlaxEngine.Networking.NetworkTransform",
+			"ParentID": "a7523e7a435d1229a41c14a20fadeac4"
+		},
+		{
+			"ID": "cc3ef44e4967f6d01d807fa755050781",
+			"TypeName": "Game.Core",
+			"ParentID": "a7523e7a435d1229a41c14a20fadeac4"
+		}
+	]
+}
