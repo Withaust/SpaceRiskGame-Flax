@@ -8,6 +8,9 @@
 	"References": [
 		{
 			"Name": "$(EnginePath)/Flax.flaxproj"
+		},
+		{
+			"Name": "$(EnginePath)/../SteamWorks/SteamWorks.flaxproj"
 		}
 	],
 	"DefaultSceneSpawn": {

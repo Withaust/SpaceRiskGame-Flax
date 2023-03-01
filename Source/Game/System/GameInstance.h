@@ -4,6 +4,8 @@
 #include <Engine/Level/Level.h>
 #include <Engine/Core/Collections/Dictionary.h>
 #include <Engine/Scripting/ManagedCLR/MClass.h>
+#include <Engine/Level/Actor.h>
+#include <Engine/Level/Scene/Scene.h>
 
 #include <Game/System/GameSystem.h>
 
@@ -40,6 +42,15 @@ public:
     {
         static_assert(std::is_base_of<GameSystem, T>::value, "T must inherit GameSystem to be used with GetGameSystem()");
         return static_cast<T*>(GetGameSystem(T::TypeInitializer));
+    }
+
+    template<typename T>
+    void AddGameSystem()
+    {
+        static_assert(std::is_base_of<GameSystem, T>::value, "T must inherit GameSystem to be used with AddGameSystem()");
+        T* NewGameSystem = GetActor()->FindScript<T>();
+        _systems_array.Add(NewGameSystem);
+        _system_dict[T::TypeInitializer.GetType().Fullname] = NewGameSystem;
     }
 
     void LoadSystems();

@@ -1,0 +1,54 @@
+{
+	"ID": "362b418c43b31919b71055b252931fb3",
+	"TypeName": "FlaxEngine.SceneAsset",
+	"EngineBuild": 6338,
+	"Data": [
+		{
+			"ID": "362b418c43b31919b71055b252931fb3",
+			"TypeName": "FlaxEngine.Scene",
+			"LightmapSettings": {
+				"IndirectLightingIntensity": 1.0,
+				"GlobalObjectsScale": 1.0,
+				"ChartsPadding": 3,
+				"AtlasSize": 1024,
+				"BounceCount": 1,
+				"CompressLightmaps": true,
+				"UseGeometryWithNoMaterials": true,
+				"Quality": 10
+			}
+		},
+		{
+			"ID": "15ac28924b9b7025b3e80abc8f082d8c",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "362b418c43b31919b71055b252931fb3",
+			"Name": "Core"
+		},
+		{
+			"ID": "9bfbcf62422c5adef616c8aba73d8584",
+			"TypeName": "Game.GameInstance",
+			"ParentID": "15ac28924b9b7025b3e80abc8f082d8c"
+		},
+		{
+			"ID": "adb2924445e4688bc4514fb892d2a112",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "15ac28924b9b7025b3e80abc8f082d8c",
+			"Name": "LaunchArgs"
+		},
+		{
+			"ID": "60ed003b42265b2e1bc19aadf6c93e26",
+			"TypeName": "Game.LaunchArgs",
+			"ParentID": "adb2924445e4688bc4514fb892d2a112"
+		},
+		{
+			"ID": "4cff9ded4f9b82d89316df9a93f8a292",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "15ac28924b9b7025b3e80abc8f082d8c",
+			"Name": "Steam"
+		},
+		{
+			"ID": "f0137c864ca19eab31fdf4a39a58fe1e",
+			"TypeName": "Game.Steam",
+			"ParentID": "4cff9ded4f9b82d89316df9a93f8a292"
+		}
+	]
+}
