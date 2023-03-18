@@ -2,5 +2,7 @@
 	"IsSteam": false,
 	"IsHost": true,
 	"Hostname": "localhost",
-	"Port": 40808
+	"Port": 40808,
+	"IsModded": false,
+	"Core": "SpaceRiskGame"
 }

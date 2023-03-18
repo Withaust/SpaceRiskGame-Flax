@@ -11,8 +11,15 @@
 		},
 		{
 			"Name": "$(EnginePath)/../SteamWorks/SteamWorks.flaxproj"
+		},
+		{
+			"Name": "$(EnginePath)/../GameAnalytics/GameAnalytics.flaxproj"
+		},
+		{
+			"Name": "$(EnginePath)/../InfoWare/InfoWare.flaxproj"
 		}
 	],
+	"DefaultScene": "362b418c43b31919b71055b252931fb3",
 	"DefaultSceneSpawn": {
 		"Position": {
 			"X": 0.0,
@@ -25,5 +32,6 @@
 			"Z": 1.0
 		}
 	},
-	"MinEngineVersion": "0.0.6194"
+	"MinEngineVersion": "0.0.6194",
+	"EngineNickname": null
 }

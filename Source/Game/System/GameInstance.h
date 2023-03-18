@@ -34,24 +34,33 @@ public:
         return _systems_array;
     }
 
-    API_FUNCTION() GameSystem* GetGameSystem(API_PARAM(Attributes = "TypeReference(typeof(GameSystem))") const MClass* type);
-    GameSystem* GetGameSystem(const ScriptingTypeHandle& type);
+    API_FUNCTION() GameSystem* Get(API_PARAM(Attributes = "TypeReference(typeof(GameSystem))") const MClass* type);
+    GameSystem* Get(const ScriptingTypeHandle& type);
 
     template<typename T>
-    FORCE_INLINE T* GetGameSystem()
+    FORCE_INLINE T* Get()
     {
-        static_assert(std::is_base_of<GameSystem, T>::value, "T must inherit GameSystem to be used with GetGameSystem()");
-        return static_cast<T*>(GetGameSystem(T::TypeInitializer));
+        static_assert(std::is_base_of<GameSystem, T>::value, "T must inherit GameSystem to be used with Get()");
+        return static_cast<T*>(Get(T::TypeInitializer));
     }
 
     template<typename T>
-    void AddGameSystem()
+    void Add()
     {
-        static_assert(std::is_base_of<GameSystem, T>::value, "T must inherit GameSystem to be used with AddGameSystem()");
+        static_assert(std::is_base_of<GameSystem, T>::value, "T must inherit GameSystem to be used with Add()");
         T* NewGameSystem = GetActor()->FindScript<T>();
+        if (NewGameSystem == nullptr)
+        {
+            Platform::Error(String("Failed add system ") + String(T::TypeInitializer.GetType().Fullname));
+            Engine::RequestExit(1);
+            return;
+        }
         _systems_array.Add(NewGameSystem);
         _system_dict[T::TypeInitializer.GetType().Fullname] = NewGameSystem;
+        NewGameSystem->OnInitialize();
     }
 
     void LoadSystems();
 };
+
+#define GET_SYSTEM(System) GameInstance::GetInstance()->Get<System>()

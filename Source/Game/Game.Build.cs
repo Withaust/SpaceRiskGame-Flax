@@ -25,6 +25,8 @@ public class Game : GameModule
 		case TargetPlatform.Linux:
 		case TargetPlatform.Mac:
 			options.PublicDependencies.Add("SteamWorks");
+			options.PublicDependencies.Add("GameAnalytics");
+			options.PublicDependencies.Add("InfoWare");
 			break;
 		}
 

@@ -39,7 +39,11 @@ void LaunchArgs::OnInitialize()
 
     if (!FileSystem::FileExists(LaunchPath))
     {
-        Platform::Error(TEXT("Could not find ") + LaunchPath + TEXT(" in order to launch the game"));
+        String ErrorText = TEXT("Could not find ") + LaunchPath + TEXT(" in order to launch the game");
+#if BUILD_DEBUG
+        DebugLog::LogError(ErrorText);
+#endif
+        Platform::Error(ErrorText);
         Engine::RequestExit(1);
         return;
     }
@@ -47,16 +51,16 @@ void LaunchArgs::OnInitialize()
     Array<byte> Bytes;
     File::ReadAllBytes(LaunchPath, Bytes);
 
-    _file = New<LaunchFile>();
-    JsonSerializer::LoadFromBytes(_file, Bytes, Globals::EngineBuildNumber);
+    _args = New<Args>();
+    JsonSerializer::LoadFromBytes(_args, Bytes, Globals::EngineBuildNumber);
 }
 
 void LaunchArgs::OnDeinitialize()
 {
-    Delete(_file);
+    Delete(_args);
 }
 
-const LaunchFile* LaunchArgs::GetFile()
+const Args* LaunchArgs::GetArgs()
 {
-    return _file;
+    return _args;
 }

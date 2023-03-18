@@ -212,7 +212,7 @@ void Steam::OnInitialize()
 {
     if (RestartAppIfNecessary(_appID))
     {
-        DebugLog::Log(TEXT("Steam asked us to restart an app."));
+        LOG_STR(Info, TEXT("Steam asked us to restart an app."));
         Engine::RequestExit(0);
         return;
     }
@@ -222,7 +222,9 @@ void Steam::OnInitialize()
     if (!_initialized)
     {
         String ErrorText = TEXT("Failed to initialize Steam. Try restarting the app and/or Steam.");
+#if BUILD_DEBUG
         DebugLog::LogError(ErrorText);
+#endif
         Platform::Error(ErrorText);
         Engine::RequestExit(1);
         return;

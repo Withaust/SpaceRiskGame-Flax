@@ -17,10 +17,6 @@ void GameInstance::OnEnable()
 {
     Level::SceneLoaded.Bind<GameInstance, &GameInstance::OnSceneLoaded>(this);
     LoadSystems();
-    for (int i = 0; i < _systems_array.Count(); ++i)
-    {
-        _systems_array[i]->OnInitialize();
-    }
 }
 
 void GameInstance::OnDisable()
@@ -50,21 +46,27 @@ void GameInstance::OnSceneUnloaded(Scene* scene, const Guid& sceneId)
     }
 }
 
-GameSystem* GameInstance::GetGameSystem(const MClass* type)
+GameSystem* GameInstance::Get(const MClass* type)
 {
     return _system_dict[type->GetFullName()];
 }
 
-GameSystem* GameInstance::GetGameSystem(const ScriptingTypeHandle& type)
+GameSystem* GameInstance::Get(const ScriptingTypeHandle& type)
 {
     return _system_dict[type.GetType().Fullname];
 }
 
 #include <Game/System/LaunchArgs.h>
 #include <Game/System/Steam.h>
+#include <Game/System/GameAnalytics.h>
+#include <Game/System/InfoWare.h>
+#include <Game/System/Logger.h>
 
 void GameInstance::LoadSystems()
 {
-    AddGameSystem<LaunchArgs>();
-    AddGameSystem<Steam>();
+    Add<LaunchArgs>();
+    Add<Steam>();
+    Add<GameAnalytics>();
+    Add<InfoWare>();
+    Add<Logger>();
 }

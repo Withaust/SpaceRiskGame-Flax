@@ -49,6 +49,39 @@
 			"ID": "f0137c864ca19eab31fdf4a39a58fe1e",
 			"TypeName": "Game.Steam",
 			"ParentID": "4cff9ded4f9b82d89316df9a93f8a292"
+		},
+		{
+			"ID": "f98daea14b7138cdbf751da511a1f2a0",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "15ac28924b9b7025b3e80abc8f082d8c",
+			"Name": "GameAnalytics"
+		},
+		{
+			"ID": "4ccc266843143f2c7688579f8fd8eed2",
+			"TypeName": "Game.GameAnalytics",
+			"ParentID": "f98daea14b7138cdbf751da511a1f2a0"
+		},
+		{
+			"ID": "4d9994ff40cb19bacc8054b2b30cccd7",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "15ac28924b9b7025b3e80abc8f082d8c",
+			"Name": "Logger"
+		},
+		{
+			"ID": "c79c5aba4a73fa2e4a2a12922c1febaf",
+			"TypeName": "Game.Logger",
+			"ParentID": "4d9994ff40cb19bacc8054b2b30cccd7"
+		},
+		{
+			"ID": "fc459f554a876d3ddf7aae9b89398fd6",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "15ac28924b9b7025b3e80abc8f082d8c",
+			"Name": "InfoWare"
+		},
+		{
+			"ID": "924adc164a661c0126ef8f81d6f23f28",
+			"TypeName": "Game.InfoWare",
+			"ParentID": "fc459f554a876d3ddf7aae9b89398fd6"
 		}
 	]
 }
