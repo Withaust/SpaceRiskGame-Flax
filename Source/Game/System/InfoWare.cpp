@@ -9,43 +9,67 @@ InfoWare::InfoWare(const SpawnParams& params)
 
 void InfoWare::SendSystemInfo()
 {
-	analytics->AddDesignEvent("Telemetry:System:HID:Mice", static_cast<double>(iware::system::mouse_amount()));
-	analytics->AddDesignEvent("Telemetry:System:HID:Keyboards", static_cast<double>(iware::system::keyboard_amount()));
-	analytics->AddDesignEvent("Telemetry:System:HID:Other", static_cast<double>(iware::system::other_HID_amount()));
+    // System
+    const auto Memory = iware::system::memory();
+    StringAnsi MemoryPhysicalAvailable = StringAnsi::Format("Telemetry:System:Memory:PhysicalAvailable:{0}", HumanReadable::ConvertBytes(Memory.physical_available).ToStringAnsi());
+    analytics->AddDesignEvent(MemoryPhysicalAvailable.GetText());
+    StringAnsi MemoryPhysicalTotal = StringAnsi::Format("Telemetry:System:Memory:PhysicalTotal:{0}", HumanReadable::ConvertBytes(Memory.physical_total).ToStringAnsi());
+    analytics->AddDesignEvent(MemoryPhysicalTotal.GetText());
+    StringAnsi MemoryVirtualAvailable = StringAnsi::Format("Telemetry:System:Memory:VirtualAvailable:{0}", HumanReadable::ConvertBytes(Memory.virtual_available).ToStringAnsi());
+    analytics->AddDesignEvent(MemoryVirtualAvailable.GetText());
+    StringAnsi MemoryVirtualTotal = StringAnsi::Format("Telemetry:System:Memory:VirtualTotal:{0}", HumanReadable::ConvertBytes(Memory.virtual_total).ToStringAnsi());
+    analytics->AddDesignEvent(MemoryVirtualTotal.GetText());
 
-	const auto memory = iware::system::memory();
-	analytics->AddDesignEvent("Telemetry:System:Memory:Physical:Available", static_cast<double>(memory.physical_available));
-	analytics->AddDesignEvent("Telemetry:System:Memory:Physical:Total", static_cast<double>(memory.physical_total));
-	analytics->AddDesignEvent("Telemetry:System:Memory:Virtual:Available", static_cast<double>(memory.virtual_available));
-	analytics->AddDesignEvent("Telemetry:System:Memory:Virtual:Total", static_cast<double>(memory.virtual_total));
+    const auto OS = iware::system::OS_info();
+    StringAnsi OSFullName = StringAnsi::Format("Telemetry:System:OS:FullName:{0}", OS.full_name.c_str());
+    analytics->AddDesignEvent(OSFullName.GetText());
+    StringAnsi OSVersion = StringAnsi::Format("Telemetry:System:OS:Version:{0}.{1}.{2}.{3}", OS.major, OS.minor, OS.patch, OS.build_number);
+    analytics->AddDesignEvent(OSVersion.GetText());
 
-	const auto kernel_info = iware::system::kernel_info();
-	StringAnsi KernelVariant = "Telemetry:System:Kernel:Variant:" + StringAnsi(GetKernelName(kernel_info.variant));
-	analytics->AddDesignEvent(KernelVariant.GetText());
-	StringAnsi KernelVersion = StringAnsi::Format("Telemetry:System:Kernel:Version:{0}.{1}.{2}.{3}", kernel_info.major, kernel_info.minor, kernel_info.patch, kernel_info.build_number);
-	analytics->AddDesignEvent(KernelVersion.GetText());
+    const auto Displays = iware::system::displays();
+    for (auto i = 0u; i < Displays.size(); ++i)
+    {
+        const auto& Display = Displays[i];
+        StringAnsi DisplayResolution = StringAnsi::Format("Telemetry:System:Display:Resolution:{0}x{1}", Display.width, Display.height);
+        analytics->AddDesignEvent(DisplayResolution.GetText(), static_cast<double>(i));
+        StringAnsi DisplayDPI = StringAnsi::Format("Telemetry:System:Display:DPI:{0}", Display.dpi);
+        analytics->AddDesignEvent(DisplayDPI.GetText(), static_cast<double>(i));
+        StringAnsi DisplayBPP = StringAnsi::Format("Telemetry:System:Display:BPP:{0}", Display.bpp);
+        analytics->AddDesignEvent(DisplayBPP.GetText(), static_cast<double>(i));
+        StringAnsi DisplayRefresh = StringAnsi::Format("Telemetry:System:Display:Refresh:{0}", HumanReadable::ConvertHertz(static_cast<uint64_t>(Display.refresh_rate)).ToStringAnsi());
+        analytics->AddDesignEvent(DisplayRefresh.GetText(), static_cast<double>(i));
+    }
 
-	const auto OS_info = iware::system::OS_info();
-	StringAnsi OSName = "Telemetry:System:OS:Name:" + StringAnsi(OS_info.name.c_str());
-	analytics->AddDesignEvent(OSName.GetText());
-	StringAnsi OSFullName = "Telemetry:System:OS:FullName:" + StringAnsi(OS_info.full_name.c_str());
-	analytics->AddDesignEvent(OSFullName.GetText());
-	StringAnsi OSVersion = StringAnsi::Format("Telemetry:System:OS:Version:{0}.{1}.{2}.{3}", OS_info.major, OS_info.minor, OS_info.patch, OS_info.build_number);
-	analytics->AddDesignEvent(OSVersion.GetText());
+    // CPU
 
-	const auto displays = iware::system::displays();
-	for (auto i = 0u; i < displays.size(); ++i)
-	{
-		const auto& display = displays[i];
-		StringAnsi DisplayResolution = StringAnsi::Format("Telemetry:System:Display:Resolution:{0}x{1}", display.width, display.height);
-		analytics->AddDesignEvent(DisplayResolution.GetText(), static_cast<double>(i));
-		StringAnsi DisplayDPI = StringAnsi::Format("Telemetry:System:Display:DPI:{0}", display.dpi);
-		analytics->AddDesignEvent(DisplayDPI.GetText(), static_cast<double>(i));
-		StringAnsi DisplayBPP = StringAnsi::Format("Telemetry:System:Display:BPP:{0}", display.bpp);
-		analytics->AddDesignEvent(DisplayBPP.GetText(), static_cast<double>(i));
-		StringAnsi DisplayRefresh = StringAnsi::Format("Telemetry:System:Display:Refresh:{0}", display.refresh_rate);
-		analytics->AddDesignEvent(DisplayRefresh.GetText(), static_cast<double>(i));
-	}
+    StringAnsi CPUArchitecture = StringAnsi::Format("Telemetry:CPU:Architecture:{0}", GetArchitectureName(iware::cpu::architecture()));
+    analytics->AddDesignEvent(CPUArchitecture.GetText());
+    StringAnsi CPUFrequency = StringAnsi::Format("Telemetry:CPU:Frequency:{0}", HumanReadable::ConvertHertz(iware::cpu::frequency()).ToStringAnsi());
+    analytics->AddDesignEvent(CPUFrequency.GetText());
+    StringAnsi CPUEndianness = StringAnsi::Format("Telemetry:CPU:Endianness:{0}", GetEndiannessName(iware::cpu::endianness()));
+    analytics->AddDesignEvent(CPUEndianness.GetText());
+    StringAnsi CPUModelName = StringAnsi::Format("Telemetry:CPU:ModelName:{0}", iware::cpu::model_name().c_str());
+    analytics->AddDesignEvent(CPUModelName.GetText());
+    StringAnsi CPUVendorID = StringAnsi::Format("Telemetry:CPU:VendorID:{0}", iware::cpu::vendor_id().c_str());
+    analytics->AddDesignEvent(CPUVendorID.GetText());
+
+    // GPU
+
+    const auto GPUs = iware::gpu::device_properties();
+    for (auto i = 0u; i < GPUs.size(); ++i) 
+    {
+        const auto& GPU = GPUs[i];
+        StringAnsi GPUVendor = StringAnsi::Format("Telemetry:GPU:Vendor:{0}", GetVendorName(GPU.vendor));
+        analytics->AddDesignEvent(GPUVendor.GetText(), static_cast<double>(i));
+        StringAnsi GPUName = StringAnsi::Format("Telemetry:GPU:Name:{0}", GPU.name.c_str());
+        analytics->AddDesignEvent(GPUName.GetText(), static_cast<double>(i));
+        StringAnsi GPURAM = StringAnsi::Format("Telemetry:GPU:RAM:{0}", HumanReadable::ConvertBytes(GPU.memory_size).ToStringAnsi());
+        analytics->AddDesignEvent(GPURAM.GetText(), static_cast<double>(i));
+        StringAnsi GPUCache = StringAnsi::Format("Telemetry:GPU:Cache:{0}", HumanReadable::ConvertBytes(GPU.cache_size).ToStringAnsi());
+        analytics->AddDesignEvent(GPUCache.GetText(), static_cast<double>(i));
+        StringAnsi GPUFrequency = StringAnsi::Format("Telemetry:GPU:Frequency:{0}", HumanReadable::ConvertHertz(GPU.max_frequency).ToStringAnsi());
+        analytics->AddDesignEvent(GPUFrequency.GetText(), static_cast<double>(i));
+    }
 }
 
 void InfoWare::SendCPUInfo()
@@ -60,12 +84,12 @@ void InfoWare::SendGPUInfo()
 
 void InfoWare::OnInitialize()
 {
-	analytics = GET_SYSTEM(GameAnalytics);
+    analytics = GET_SYSTEM(GameAnalytics);
 
-	SendSystemInfo();
+    SendSystemInfo();
 }
 
 void InfoWare::OnDeinitialize()
 {
-	
+
 }
