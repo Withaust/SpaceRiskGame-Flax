@@ -86,8 +86,12 @@ public:
     void AddProgressionEvent(ProgressionStatus progressionStatus, const char* progression01, const char* progression02, const char* progression03, int score);
 
     void AddDesignEvent(const char* eventId);
+    void AddDesignEvent(const StringAnsi& eventId);
 
     void AddDesignEvent(const char* eventId, double value);
+    void AddDesignEvent(const StringAnsi& eventId, double value);
 
     void AddErrorEvent(ErrorSeverity severity, const char* message);
+    void AddErrorEvent(ErrorSeverity severity, const StringAnsi& message);
+    void AddErrorEvent(ErrorSeverity severity, const String& message);
 };

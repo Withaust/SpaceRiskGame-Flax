@@ -108,12 +108,32 @@ void GameAnalytics::AddDesignEvent(const char* eventId)
     gameanalytics::GameAnalytics::addDesignEvent(eventId);
 }
 
+void GameAnalytics::AddDesignEvent(const StringAnsi& eventId)
+{
+    AddDesignEvent(eventId.GetText());
+}
+
 void GameAnalytics::AddDesignEvent(const char* eventId, double value)
 {
     gameanalytics::GameAnalytics::addDesignEvent(eventId, value);
 }
 
+void GameAnalytics::AddDesignEvent(const StringAnsi& eventId, double value)
+{
+    AddDesignEvent(eventId.GetText(), value);
+}
+
 void GameAnalytics::AddErrorEvent(ErrorSeverity severity, const char* message)
 {
     gameanalytics::GameAnalytics::addErrorEvent(static_cast<gameanalytics::EGAErrorSeverity>(severity), message);
+}
+
+void GameAnalytics::AddErrorEvent(ErrorSeverity severity, const StringAnsi& message)
+{
+    AddErrorEvent(severity, message.GetText());
+}
+
+void GameAnalytics::AddErrorEvent(ErrorSeverity severity, const String& message)
+{
+    AddErrorEvent(severity, message.ToStringAnsi());
 }

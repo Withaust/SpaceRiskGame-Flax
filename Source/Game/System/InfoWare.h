@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <Engine/Scripting/Script.h>
+#include <Engine/Core/Collections/HashSet.h>
 
 #include <Game/System/GameSystem.h>
 #include <Game/System/GameAnalytics.h>
