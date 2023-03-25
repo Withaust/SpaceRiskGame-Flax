@@ -1,5 +1,113 @@
 ﻿#include "Analytics.h"
 
+void DesignEvent::Filter(String& Design)
+{
+    Array<Char> AllowedChars = { TEXT(':'), TEXT('-'), TEXT('_'), TEXT('.'), TEXT(','), TEXT('('), TEXT(')'), TEXT('!'), TEXT('?') };
+    for (int i = 0; i < Design.Length(); ++i)
+    {
+        Char Target = Design[i];
+        if (Target >= TEXT('a') && Target <= TEXT('z'))
+        {
+            continue;
+        }
+        if (Target >= TEXT('A') && Target <= TEXT('Z'))
+        {
+            continue;
+        }
+        if (Target >= TEXT('0') && Target <= TEXT('9'))
+        {
+            continue;
+        }
+        for (int j = 0; j < AllowedChars.Count(); ++j)
+        {
+            if (Target == AllowedChars[j])
+            {
+                continue;
+            }
+        }
+        Design[i] = TEXT(' ');
+    }
+    while (Design.Contains(TEXT("  ")))
+    {
+        Design.Replace(TEXT("  "), TEXT(" "));
+    }
+}
+
+void DesignEvent::FilterAnsi(StringAnsi& Design)
+{
+    Array<char> AllowedChars = { ':', '-', '_', '.', ',', '(', ')', '!', '?' };
+    for (int i = 0; i < Design.Length(); ++i)
+    {
+        char Target = Design[i];
+        if (Target >= 'a' && Target <= 'z')
+        {
+            continue;
+        }
+        if (Target >= 'A' && Target <= 'Z')
+        {
+            continue;
+        }
+        if (Target >= '0' && Target <= '9')
+        {
+            continue;
+        }
+        for (int j = 0; j < AllowedChars.Count(); ++j)
+        {
+            if (Target == AllowedChars[j])
+            {
+                continue;
+            }
+        }
+        Design[i] = ' ';
+    }
+    while (Design.Contains("  "))
+    {
+        Design.Replace("  ", " ");
+    }
+}
+
+DesignEvent::DesignEvent(StringAnsi Part1)
+{
+    FilterAnsi(Part1);
+    Result = Part1;
+}
+
+DesignEvent::DesignEvent(StringAnsi Part1, StringAnsi Part2)
+{
+    FilterAnsi(Part1);
+    FilterAnsi(Part2);
+    Result = StringAnsi::Format("{0}:{1}", Part1, Part2);
+}
+
+DesignEvent::DesignEvent(StringAnsi Part1, StringAnsi Part2, StringAnsi Part3)
+{
+    FilterAnsi(Part1);
+    FilterAnsi(Part2);
+    FilterAnsi(Part3);
+    Result = StringAnsi::Format("{0}:{1}:{2}", Part1, Part2, Part3);
+}
+
+
+DesignEvent::DesignEvent(StringAnsi Part1, StringAnsi Part2, StringAnsi Part3, StringAnsi Part4)
+{
+    FilterAnsi(Part1);
+    FilterAnsi(Part2);
+    FilterAnsi(Part3);
+    FilterAnsi(Part4);
+    Result = StringAnsi::Format("{0}:{1}:{2}:{3}", Part1, Part2, Part3, Part4);
+}
+
+
+DesignEvent::DesignEvent(StringAnsi Part1, StringAnsi Part2, StringAnsi Part3, StringAnsi Part4, StringAnsi Part5)
+{
+    FilterAnsi(Part1);
+    FilterAnsi(Part2);
+    FilterAnsi(Part3);
+    FilterAnsi(Part4);
+    FilterAnsi(Part5);
+    Result = StringAnsi::Format("{0}:{1}:{2}:{3}:{4}", Part1, Part2, Part3, Part4, Part5);
+}
+
 Analytics::Analytics(const SpawnParams& params)
     : ISystem(params)
 {
@@ -34,72 +142,6 @@ void Analytics::OnLog(const char* Message, gameanalytics::EGALoggerMessageType M
     LOG_STR(Info, Result);
 }
 
-void Analytics::FilterDesign(String& Design)
-{
-    Array<Char> AllowedChars = { TEXT('-'), TEXT('_'), TEXT('.'), TEXT(','), TEXT('('), TEXT(')'), TEXT('!'), TEXT('?') };
-    for (int i = 0; i < Design.Length(); ++i)
-    {
-        Char Target = Design[i];
-        if (Target >= TEXT('a') && Target <= TEXT('z'))
-        {
-            continue;
-        }
-        if (Target >= TEXT('A') && Target <= TEXT('Z'))
-        {
-            continue;
-        }
-        if (Target >= TEXT('0') && Target <= TEXT('9'))
-        {
-            continue;
-        }
-        for (int j = 0; j < AllowedChars.Count(); ++j)
-        {
-            if (Target == AllowedChars[j])
-            {
-                continue;
-            }
-        }
-        Design[i] = TEXT(' ');
-    }
-    while (Design.Contains(TEXT("  ")))
-    {
-        Design.Replace(TEXT("  "), TEXT(" "));
-    }
-}
-
-void Analytics::FilterDesignAnsi(StringAnsi& Design)
-{
-    Array<char> AllowedChars = { '-', '_', '.', ',', '(', ')', '!', '?' };
-    for (int i = 0; i < Design.Length(); ++i)
-    {
-        char Target = Design[i];
-        if (Target >= 'a' && Target <= 'z')
-        {
-            continue;
-        }
-        if (Target >= 'A' && Target <= 'Z')
-        {
-            continue;
-        }
-        if (Target >= '0' && Target <= '9')
-        {
-            continue;
-        }
-        for (int j = 0; j < AllowedChars.Count(); ++j)
-        {
-            if (Target == AllowedChars[j])
-            {
-                continue;
-            }
-        }
-        Design[i] = ' ';
-    }
-    while (Design.Contains("  "))
-    {
-        Design.Replace("  ", " ");
-    }
-}
-
 void Analytics::OnInitialize()
 {
     gameanalytics::StringVector Dimensions;
@@ -116,7 +158,6 @@ void Analytics::OnInitialize()
     StringAnsi ID = StringAnsi::Format("{0}", Steam::Get()->GetSteamID64());
     gameanalytics::GameAnalytics::configureUserId(ID.GetText());
 
-    gameanalytics::GameAnalytics::setEnabledInfoLog(true);
     gameanalytics::GameAnalytics::setEnabledErrorReporting(true);
 
     const Args* args = LaunchArgs::Get()->GetArgs();
@@ -166,24 +207,14 @@ void Analytics::AddProgressionEvent(ProgressionStatus progressionStatus, const c
     gameanalytics::GameAnalytics::addProgressionEvent(static_cast<gameanalytics::EGAProgressionStatus>(progressionStatus), progression01, progression02, progression03, score);
 }
 
-void Analytics::AddDesignEvent(const char* eventId)
+void Analytics::AddDesignEvent(DesignEvent Event)
 {
-    gameanalytics::GameAnalytics::addDesignEvent(eventId);
+    gameanalytics::GameAnalytics::addDesignEvent(Event.GetResult());
 }
 
-void Analytics::AddDesignEvent(const StringAnsi& eventId)
+void Analytics::AddDesignEvent(DesignEvent Event, double value)
 {
-    AddDesignEvent(eventId.GetText());
-}
-
-void Analytics::AddDesignEvent(const char* eventId, double value)
-{
-    gameanalytics::GameAnalytics::addDesignEvent(eventId, value);
-}
-
-void Analytics::AddDesignEvent(const StringAnsi& eventId, double value)
-{
-    AddDesignEvent(eventId.GetText(), value);
+    gameanalytics::GameAnalytics::addDesignEvent(Event.GetResult(), value);
 }
 
 void Analytics::AddErrorEvent(ErrorSeverity severity, const char* message)

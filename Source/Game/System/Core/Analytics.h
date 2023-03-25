@@ -13,6 +13,27 @@
 
 #include <GameAnalytics/GameAnalytics.h>
 
+class DesignEvent
+{
+private:
+    StringAnsi Result;
+    void Filter(String& Design);
+    void FilterAnsi(StringAnsi& Design);
+
+public:
+
+    const char* GetResult()
+    {
+        return Result.GetText();
+    }
+
+    DesignEvent(StringAnsi Part1);
+    DesignEvent(StringAnsi Part1, StringAnsi Part2);
+    DesignEvent(StringAnsi Part1, StringAnsi Part2, StringAnsi Part3);
+    DesignEvent(StringAnsi Part1, StringAnsi Part2, StringAnsi Part3, StringAnsi Part4);
+    DesignEvent(StringAnsi Part1, StringAnsi Part2, StringAnsi Part3, StringAnsi Part4, StringAnsi Part5);
+};
+
 API_CLASS() class GAME_API Analytics : public ISystem
 {
     API_AUTO_SERIALIZATION();
@@ -28,9 +49,6 @@ public:
 
     String MessageTypeToString(gameanalytics::EGALoggerMessageType Type);
     void OnLog(const char* Message, gameanalytics::EGALoggerMessageType MessageType);
-
-    void FilterDesign(String& Design);
-    void FilterDesignAnsi(StringAnsi& Design);
 
     void OnInitialize() override;
     void OnDeinitialize() override;
@@ -89,11 +107,8 @@ public:
 
     void AddProgressionEvent(ProgressionStatus progressionStatus, const char* progression01, const char* progression02, const char* progression03, int score);
 
-    void AddDesignEvent(const char* eventId);
-    void AddDesignEvent(const StringAnsi& eventId);
-
-    void AddDesignEvent(const char* eventId, double value);
-    void AddDesignEvent(const StringAnsi& eventId, double value);
+    void AddDesignEvent(DesignEvent Event);
+    void AddDesignEvent(DesignEvent Event, double value);
 
     void AddErrorEvent(ErrorSeverity severity, const char* message);
     void AddErrorEvent(ErrorSeverity severity, const StringAnsi& message);
