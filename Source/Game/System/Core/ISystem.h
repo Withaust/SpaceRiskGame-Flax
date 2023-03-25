@@ -7,7 +7,10 @@ API_CLASS() class GAME_API ISystem : public Script
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(ISystem);
+protected:
+
 public:
+
     API_FUNCTION(Attributes = "NoAnimate") virtual void OnInitialize()
     {
     }

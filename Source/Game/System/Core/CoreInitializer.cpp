@@ -8,7 +8,7 @@ CoreInitializer::CoreInitializer(const SpawnParams& params)
 
 void CoreInitializer::OnInitialize()
 {
-    GET_SYSTEM(LevelManager)->LoadLevel(TEXT("Game"));
+    LevelManager::Get()->LoadLevel(TEXT("Game"));
     CoreInstance::GetInstance()->ReplicateSystems();
 }
 

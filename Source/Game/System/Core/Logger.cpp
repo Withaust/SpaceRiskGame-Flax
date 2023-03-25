@@ -1,8 +1,5 @@
 ﻿#include "Logger.h"
 
-#include <Engine/Platform/Platform.h>
-#include <Engine/Debug/DebugLog.h>
-
 Logger::Logger(const SpawnParams& params)
     : ISystem(params)
 {
@@ -11,7 +8,7 @@ Logger::Logger(const SpawnParams& params)
 
 void Logger::OnInitialize()
 {
-    analytics = GET_SYSTEM(Analytics);
+    analytics = Analytics::Get();
 }
 
 void Logger::OnDeinitialize()

@@ -54,7 +54,7 @@ void Networking::OnSceneUnloaded(Scene* scene)
 
 void Networking::StartGame()
 {
-    const Args* Args = GET_SYSTEM(LaunchArgs)->GetArgs();
+    const Args* Args = LaunchArgs::Get()->GetArgs();
     NetworkSettings* Settings = NetworkSettings::Get();
     Settings->NetworkFPS = 20.0f;
     Settings->Address = Args->Hostname;

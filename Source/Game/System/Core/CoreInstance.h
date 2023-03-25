@@ -69,4 +69,7 @@ public:
     void LoadSystems();
 };
 
-#define GET_SYSTEM(System) CoreInstance::GetInstance()->Get<System>()
+#define USYSTEM(Type) \
+public: \
+    static Type* Get() { return CoreInstance::GetInstance()->Get<Type>(); } \
+private: 

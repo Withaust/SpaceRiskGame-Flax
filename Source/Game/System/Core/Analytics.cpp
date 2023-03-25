@@ -119,7 +119,7 @@ void Analytics::OnInitialize()
     gameanalytics::GameAnalytics::setEnabledInfoLog(true);
     gameanalytics::GameAnalytics::setEnabledErrorReporting(true);
 
-    const Args* args = GET_SYSTEM(LaunchArgs)->GetArgs();
+    const Args* args = LaunchArgs::Get()->GetArgs();
 
 #ifdef BUILD_DEBUG
     gameanalytics::GameAnalytics::setCustomDimension01("Debug");

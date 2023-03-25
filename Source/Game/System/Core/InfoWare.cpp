@@ -113,7 +113,7 @@ void InfoWare::SendGPUInfo()
 
 void InfoWare::OnInitialize()
 {
-    analytics = GET_SYSTEM(Analytics);
+    analytics = Analytics::Get();
 
     SendSystemInfo();
     SendCPUInfo();
