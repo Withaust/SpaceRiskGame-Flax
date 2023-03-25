@@ -1,0 +1,8 @@
+{
+	"IsSteam": false,
+	"IsHost": false,
+	"Hostname": "localhost",
+	"Port": 40808,
+	"IsModded": false,
+	"Core": "SpaceRiskGame"
+}

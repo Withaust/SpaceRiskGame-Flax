@@ -1,7 +1,7 @@
 ﻿#include "LaunchArgs.h"
 
 LaunchArgs::LaunchArgs(const SpawnParams& params)
-    : GameSystem(params)
+    : ISystem(params)
 {
 
 }

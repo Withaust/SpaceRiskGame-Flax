@@ -2,17 +2,17 @@
 
 #include <Engine/Scripting/Script.h>
 
-#include <Game/System/GameInstance.h>
-#include <Game/System/GameAnalytics.h>
+#include <Game/System/Core/CoreInstance.h>
+#include <Game/System/Core/Analytics.h>
 
-API_CLASS() class GAME_API Logger : public GameSystem
+API_CLASS() class GAME_API Logger : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Logger);
 
 private:
 
-    GameAnalytics* analytics = nullptr;
+    Analytics* analytics = nullptr;
 
 public:
 

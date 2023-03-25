@@ -6,22 +6,23 @@
 #include <Engine/Scripting/ManagedCLR/MClass.h>
 #include <Engine/Level/Actor.h>
 #include <Engine/Level/Scene/Scene.h>
+#include <Engine/Networking/NetworkReplicator.h>
 
-#include <Game/System/GameSystem.h>
+#include <Game/System/Core/ISystem.h>
 
-API_CLASS() class GAME_API GameInstance : public Script
+API_CLASS() class GAME_API CoreInstance : public Script
 {
     API_AUTO_SERIALIZATION();
-    DECLARE_SCRIPTING_TYPE(GameInstance);
+    DECLARE_SCRIPTING_TYPE(CoreInstance);
 private:
-    static GameInstance* _instance;
+    static CoreInstance* _instance;
 
-    Array<GameSystem*> _systems_array;
-    Dictionary<StringAnsiView, GameSystem*> _system_dict;
+    Array<ISystem*> _systems_array;
+    Dictionary<StringAnsiView, ISystem*> _system_dict;
 
 public:
 
-    API_PROPERTY() static GameInstance* GetInstance();
+    API_PROPERTY() static CoreInstance* GetInstance();
 
     void OnEnable() override;
     void OnDisable() override;
@@ -29,25 +30,30 @@ public:
     void OnSceneLoaded(Scene* scene, const Guid& sceneId);
     void OnSceneUnloaded(Scene* scene, const Guid& sceneId);
 
-    API_PROPERTY() FORCE_INLINE const Array<GameSystem*>& GetSystems() const
+    void OnPlayerConnected(NetworkClient* client);
+    void OnPlayerDisconnected(NetworkClient* client);
+
+    void ReplicateSystems();
+
+    API_PROPERTY() FORCE_INLINE const Array<ISystem*>& GetSystems() const
     {
         return _systems_array;
     }
 
-    API_FUNCTION() GameSystem* Get(API_PARAM(Attributes = "TypeReference(typeof(GameSystem))") const MClass* type);
-    GameSystem* Get(const ScriptingTypeHandle& type);
+    API_FUNCTION() ISystem* Get(API_PARAM(Attributes = "TypeReference(typeof(ISystem))") const MClass* type);
+    ISystem* Get(const ScriptingTypeHandle& type);
 
     template<typename T>
     FORCE_INLINE T* Get()
     {
-        static_assert(std::is_base_of<GameSystem, T>::value, "T must inherit GameSystem to be used with Get()");
+        static_assert(std::is_base_of<ISystem, T>::value, "T must inherit ISystem to be used with Get()");
         return static_cast<T*>(Get(T::TypeInitializer));
     }
 
     template<typename T>
     void Add()
     {
-        static_assert(std::is_base_of<GameSystem, T>::value, "T must inherit GameSystem to be used with Add()");
+        static_assert(std::is_base_of<ISystem, T>::value, "T must inherit ISystem to be used with Add()");
         T* NewGameSystem = GetActor()->FindScript<T>();
         if (NewGameSystem == nullptr)
         {
@@ -63,4 +69,4 @@ public:
     void LoadSystems();
 };
 
-#define GET_SYSTEM(System) GameInstance::GetInstance()->Get<System>()
+#define GET_SYSTEM(System) CoreInstance::GetInstance()->Get<System>()

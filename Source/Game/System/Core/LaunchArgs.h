@@ -10,7 +10,7 @@
 #include <Engine/Engine/Globals.h>
 #include <Engine/Core/Formatting.h>
 
-#include <Game/System/GameInstance.h>
+#include <Game/System/Core/CoreInstance.h>
 
 API_CLASS() class GAME_API Args : public ISerializable
 {
@@ -31,7 +31,7 @@ public:
         String Core;
 };
 
-API_CLASS() class GAME_API LaunchArgs : public GameSystem
+API_CLASS() class GAME_API LaunchArgs : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(LaunchArgs);

@@ -7,16 +7,16 @@
 #include <Engine/Engine/Engine.h>
 #include <Engine/Engine/Globals.h>
 
-#include <Game/System/GameInstance.h>
-#include <Game/System/LaunchArgs.h>
-#include <Game/System/Steam.h>
+#include <Game/System/Core/CoreInstance.h>
+#include <Game/System/Core/LaunchArgs.h>
+#include <Game/System/Core/Steam.h>
 
 #include <GameAnalytics/GameAnalytics.h>
 
-API_CLASS() class GAME_API GameAnalytics : public GameSystem
+API_CLASS() class GAME_API Analytics : public ISystem
 {
     API_AUTO_SERIALIZATION();
-    DECLARE_SCRIPTING_TYPE(GameAnalytics);
+    DECLARE_SCRIPTING_TYPE(Analytics);
 private:
 
     bool _initialized = false;
@@ -27,6 +27,9 @@ public:
 
     String MessageTypeToString(gameanalytics::EGALoggerMessageType Type);
     void OnLog(const char* Message, gameanalytics::EGALoggerMessageType MessageType);
+
+    void FilterDesign(String& Design);
+    void FilterDesignAnsi(StringAnsi& Design);
 
     void OnInitialize() override;
     void OnDeinitialize() override;

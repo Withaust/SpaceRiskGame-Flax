@@ -1,7 +1,7 @@
 ﻿#include "Steam.h"
 
 Steam::Steam(const SpawnParams& params)
-    : GameSystem(params)
+    : ISystem(params)
 {
     _tickUpdate = true;
 }

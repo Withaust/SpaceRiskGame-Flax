@@ -19,6 +19,9 @@ public class Game : GameModule
 
         options.ScriptingAPI.IgnoreMissingDocumentationWarnings = true;
 		
+        Tags["Network"] = string.Empty;
+        options.PublicDependencies.Add("Networking");
+		
 		switch (options.Platform.Target)
 		{
 		case TargetPlatform.Windows:

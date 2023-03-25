@@ -24,8 +24,8 @@
 			"Name": "Core"
 		},
 		{
-			"ID": "9bfbcf62422c5adef616c8aba73d8584",
-			"TypeName": "Game.GameInstance",
+			"ID": "f8cadb8949d0821b4f847a86cb0dbbac",
+			"TypeName": "Game.CoreInstance",
 			"ParentID": "15ac28924b9b7025b3e80abc8f082d8c"
 		},
 		{
@@ -40,6 +40,17 @@
 			"ParentID": "adb2924445e4688bc4514fb892d2a112"
 		},
 		{
+			"ID": "69f2554443ca7cdbbb23bea1141ba4ff",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "15ac28924b9b7025b3e80abc8f082d8c",
+			"Name": "CoreInitializer"
+		},
+		{
+			"ID": "aafc456549cc8c176d96dd92f46c6dce",
+			"TypeName": "Game.CoreInitializer",
+			"ParentID": "69f2554443ca7cdbbb23bea1141ba4ff"
+		},
+		{
 			"ID": "4cff9ded4f9b82d89316df9a93f8a292",
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "15ac28924b9b7025b3e80abc8f082d8c",
@@ -51,15 +62,37 @@
 			"ParentID": "4cff9ded4f9b82d89316df9a93f8a292"
 		},
 		{
+			"ID": "19de9abd4db0dbc488e2e7b840496f92",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "15ac28924b9b7025b3e80abc8f082d8c",
+			"Name": "LevelManager"
+		},
+		{
+			"ID": "366eeb424b71f9155d486a879c84c240",
+			"TypeName": "Game.LevelManager",
+			"ParentID": "19de9abd4db0dbc488e2e7b840496f92"
+		},
+		{
 			"ID": "f98daea14b7138cdbf751da511a1f2a0",
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "15ac28924b9b7025b3e80abc8f082d8c",
-			"Name": "GameAnalytics"
+			"Name": "Analytics"
 		},
 		{
-			"ID": "4ccc266843143f2c7688579f8fd8eed2",
-			"TypeName": "Game.GameAnalytics",
+			"ID": "0aa2ac25419740774f15bf87346a43d5",
+			"TypeName": "Game.Analytics",
 			"ParentID": "f98daea14b7138cdbf751da511a1f2a0"
+		},
+		{
+			"ID": "468da228488a679292922cabb04f8bb7",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "15ac28924b9b7025b3e80abc8f082d8c",
+			"Name": "Networking"
+		},
+		{
+			"ID": "f8999b4145f6aadc5cee71959795b3b5",
+			"TypeName": "Game.Networking",
+			"ParentID": "468da228488a679292922cabb04f8bb7"
 		},
 		{
 			"ID": "4d9994ff40cb19bacc8054b2b30cccd7",

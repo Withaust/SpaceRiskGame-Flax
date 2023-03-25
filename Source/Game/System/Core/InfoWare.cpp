@@ -2,19 +2,42 @@
 
 
 InfoWare::InfoWare(const SpawnParams& params)
-    : GameSystem(params)
+    : ISystem(params)
 {
 
+}
+
+const char* InfoWare::GetVendorName(iware::gpu::vendor_t vendor)
+{
+    switch (vendor)
+    {
+    case iware::gpu::vendor_t::intel:
+        return "Intel";
+    case iware::gpu::vendor_t::amd:
+        return "AMD";
+    case iware::gpu::vendor_t::nvidia:
+        return "NVidia";
+    case iware::gpu::vendor_t::microsoft:
+        return "Microsoft";
+    case iware::gpu::vendor_t::qualcomm:
+        return "Qualcomm";
+    case iware::gpu::vendor_t::apple:
+        return "Apple";
+    default:
+        return "Unknown";
+    }
 }
 
 void InfoWare::SendSystemInfo()
 {
     const auto Memory = iware::system::memory();
-    analytics->AddDesignEvent(StringAnsi::Format("Telemetry:System:Memory:Physical:{0}", HumanReadable::ConvertBytes(Memory.physical_total).ToStringAnsi()));
-    analytics->AddDesignEvent(StringAnsi::Format("Telemetry:System:Memory:Virtual:{0}", HumanReadable::ConvertBytes(Memory.virtual_total).ToStringAnsi()));
+    analytics->AddDesignEvent(StringAnsi::Format("Telemetry:System:Memory:Physical:{0}", HumanReadable::ConvertBytesAnsi(Memory.physical_total)));
+    analytics->AddDesignEvent(StringAnsi::Format("Telemetry:System:Memory:Virtual:{0}", HumanReadable::ConvertBytesAnsi(Memory.virtual_total)));
 
     const auto OS = iware::system::OS_info();
-    analytics->AddDesignEvent(StringAnsi::Format("Telemetry:System:OS:Name:{0}", OS.full_name.c_str()));
+    StringAnsi OSFullName = OS.full_name.c_str();
+    analytics->FilterDesignAnsi(OSFullName);
+    analytics->AddDesignEvent(StringAnsi::Format("Telemetry:System:OS:Name:{0}", OSFullName));
     analytics->AddDesignEvent(StringAnsi::Format("Telemetry:System:OS:Version:{0}.{1}.{2}.{3}", OS.major, OS.minor, OS.patch, OS.build_number));
 
     HashSet<StringAnsi> CPUResolutions;
@@ -30,7 +53,7 @@ void InfoWare::SendSystemInfo()
         const auto& Display = Displays[i];
         CPUResolutions.Add(StringAnsi::Format("{0}x{1}", Display.width, Display.height));
         CPUDPIs.Add(StringAnsi::Format("{0}", Display.dpi));
-        CPURefreshs.Add(HumanReadable::ConvertHertz(static_cast<uint64_t>(Display.refresh_rate)).ToStringAnsi());
+        CPURefreshs.Add(HumanReadable::ConvertHertzAnsi(static_cast<uint64_t>(Display.refresh_rate)));
     }
 
     for (const auto& Resolution : CPUResolutions)
@@ -51,8 +74,12 @@ void InfoWare::SendSystemInfo()
 
 void InfoWare::SendCPUInfo()
 {
-    analytics->AddDesignEvent(StringAnsi::Format("Telemetry:CPU:ModelName:{0}", iware::cpu::model_name().c_str()));
-    analytics->AddDesignEvent(StringAnsi::Format("Telemetry:CPU:VendorID:{0}", iware::cpu::vendor_id().c_str()));
+    StringAnsi CPUName = iware::cpu::model_name().c_str();
+    analytics->FilterDesignAnsi(CPUName);
+    analytics->AddDesignEvent(StringAnsi::Format("Telemetry:CPU:ModelName:{0}", CPUName));
+    StringAnsi CPUVendor = iware::cpu::vendor_id().c_str();
+    analytics->FilterDesignAnsi(CPUVendor);
+    analytics->AddDesignEvent(StringAnsi::Format("Telemetry:CPU:VendorID:{0}", CPUVendor));
 }
 
 void InfoWare::SendGPUInfo()
@@ -68,7 +95,9 @@ void InfoWare::SendGPUInfo()
     {
         const auto& GPU = GPUs[i];
         GPUVendors.Add(GetVendorName(GPU.vendor));
-        GPUNames.Add(GPU.name.c_str());
+        StringAnsi GPUName = GPU.name.c_str();
+        analytics->FilterDesignAnsi(GPUName);
+        GPUNames.Add(GPUName);
     }
 
     for (const auto& Vendor : GPUVendors)
@@ -84,7 +113,7 @@ void InfoWare::SendGPUInfo()
 
 void InfoWare::OnInitialize()
 {
-    analytics = GET_SYSTEM(GameAnalytics);
+    analytics = GET_SYSTEM(Analytics);
 
     SendSystemInfo();
     SendCPUInfo();

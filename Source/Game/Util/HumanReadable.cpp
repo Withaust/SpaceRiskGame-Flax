@@ -20,9 +20,18 @@ String HumanReadable::ConvertBytes(uint64_t Bytes)
     return ConvertUnits(Bytes, ByteSuffixes);
 }
 
+StringAnsi HumanReadable::ConvertBytesAnsi(uint64_t Bytes)
+{
+    return ConvertBytes(Bytes).ToStringAnsi();
+}
+
 String HumanReadable::ConvertHertz(uint64_t Hertz)
 {
     Array<String> HertzSuffixes = { TEXT("Hz"), TEXT("KHz"), TEXT("MHz"), TEXT("GHz"), TEXT("THz"), TEXT("PHz"), TEXT("EHz"), TEXT("ZHz"), TEXT("YHz") };
     return ConvertUnits(Hertz, HertzSuffixes);
 }
 
+StringAnsi HumanReadable::ConvertHertzAnsi(uint64_t Hertz)
+{
+    return ConvertHertz(Hertz).ToStringAnsi();
+}
