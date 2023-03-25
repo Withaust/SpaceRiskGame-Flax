@@ -113,7 +113,7 @@ void Analytics::OnInitialize()
     StringAnsi EngineVersion = StringAnsi::Format("Flax {0}", Globals::EngineBuildNumber);
     gameanalytics::GameAnalytics::configureSdkGameEngineVersion(EngineVersion.GetText());
 
-    StringAnsi ID = StringAnsi::Format("{0}", CoreInstance::GetInstance()->Get<Steam>()->GetSteamID64());
+    StringAnsi ID = StringAnsi::Format("{0}", Steam::Get()->GetSteamID64());
     gameanalytics::GameAnalytics::configureUserId(ID.GetText());
 
     gameanalytics::GameAnalytics::setEnabledInfoLog(true);

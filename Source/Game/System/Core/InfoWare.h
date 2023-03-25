@@ -15,7 +15,7 @@ API_CLASS() class GAME_API InfoWare : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(InfoWare);
-    USYSTEM(InfoWare);
+    USINGLETON(InfoWare);
 
 private:
 

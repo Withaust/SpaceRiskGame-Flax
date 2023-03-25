@@ -10,7 +10,7 @@ API_CLASS() class GAME_API CoreInitializer : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(CoreInitializer);
-    USYSTEM(CoreInitializer);
+    USINGLETON(CoreInitializer);
 public:
 
     void OnInitialize() override;

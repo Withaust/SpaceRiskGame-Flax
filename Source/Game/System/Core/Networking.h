@@ -15,7 +15,7 @@ API_CLASS() class GAME_API Networking : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Networking);
-    USYSTEM(Networking);
+    USINGLETON(Networking);
 
 private:
 

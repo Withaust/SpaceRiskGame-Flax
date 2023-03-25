@@ -8,7 +8,7 @@ CoreInstance::CoreInstance(const SpawnParams& params)
     _instance = this;
 }
 
-CoreInstance* CoreInstance::GetInstance()
+CoreInstance* CoreInstance::Instance()
 {
     return _instance;
 }

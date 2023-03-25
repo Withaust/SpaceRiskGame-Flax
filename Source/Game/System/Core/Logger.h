@@ -11,7 +11,7 @@ API_CLASS() class GAME_API Logger : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Logger);
-    USYSTEM(Logger);
+    USINGLETON(Logger);
 
 private:
 

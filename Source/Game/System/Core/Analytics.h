@@ -17,7 +17,7 @@ API_CLASS() class GAME_API Analytics : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Analytics);
-    USYSTEM(Analytics);
+    USINGLETON(Analytics);
 private:
 
     bool _initialized = false;

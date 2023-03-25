@@ -22,7 +22,7 @@ private:
 
 public:
 
-    API_PROPERTY() static CoreInstance* GetInstance();
+    API_PROPERTY() static CoreInstance* Instance();
 
     void OnEnable() override;
     void OnDisable() override;
@@ -69,7 +69,7 @@ public:
     void LoadSystems();
 };
 
-#define USYSTEM(Type) \
+#define USINGLETON(Type) \
 public: \
-    static Type* Get() { return CoreInstance::GetInstance()->Get<Type>(); } \
+    static Type* Get() { return CoreInstance::Instance()->Get<Type>(); } \
 private: 
