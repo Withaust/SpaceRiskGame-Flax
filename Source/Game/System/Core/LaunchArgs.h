@@ -35,7 +35,7 @@ API_CLASS() class GAME_API LaunchArgs : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(LaunchArgs);
-    USINGLETON(LaunchArgs);
+    static LaunchArgs* Get() { return CoreInstance::Instance()->Get<LaunchArgs>(); }
 
 private:
 

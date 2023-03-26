@@ -6,6 +6,7 @@
 		{
 			"ID": "a7383811434ac0476b9e57893b2d189d",
 			"TypeName": "FlaxEngine.Scene",
+			"Name": "Game",
 			"LightmapSettings": {
 				"IndirectLightingIntensity": 1.0,
 				"GlobalObjectsScale": 1.0,
@@ -16,6 +17,11 @@
 				"UseGeometryWithNoMaterials": true,
 				"Quality": 10
 			}
+		},
+		{
+			"ID": "6946130441f49553b8f2939f030d639a",
+			"TypeName": "Game.SceneRoot",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d"
 		},
 		{
 			"ID": "700004204b7891803e5dfaba85e3fb05",
@@ -81,6 +87,11 @@
 					}
 				]
 			}
+		},
+		{
+			"ID": "98e0297944a4e730c07f999303a8a6dd",
+			"TypeName": "Game.Test",
+			"ParentID": "52fd28a14bdff6d7405a5f808308e9cc"
 		},
 		{
 			"ID": "589144bd488f2dc7a7931e8090861454",

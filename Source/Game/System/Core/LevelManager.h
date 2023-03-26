@@ -3,8 +3,7 @@
 #include <Engine/Scripting/Script.h>
 #include <Engine/Content/Content.h>
 
-#include <Game/System/Core/CoreInstance.h>
-#include <Game/System/Core/Logger.h>
+#include <Game/Util/Defines.h>
 
 API_CLASS() class GAME_API LevelManager : public ISystem
 {

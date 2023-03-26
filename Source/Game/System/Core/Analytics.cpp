@@ -2,7 +2,7 @@
 
 void DesignEvent::Filter(String& Design)
 {
-    Array<Char> AllowedChars = { TEXT(':'), TEXT('-'), TEXT('_'), TEXT('.'), TEXT(','), TEXT('('), TEXT(')'), TEXT('!'), TEXT('?') };
+    Array<Char> AllowedChars = { TEXT('-'), TEXT('_'), TEXT('.'), TEXT(','), TEXT('('), TEXT(')'), TEXT('!'), TEXT('?') };
     for (int i = 0; i < Design.Length(); ++i)
     {
         Char Target = Design[i];
@@ -35,7 +35,7 @@ void DesignEvent::Filter(String& Design)
 
 void DesignEvent::FilterAnsi(StringAnsi& Design)
 {
-    Array<char> AllowedChars = { ':', '-', '_', '.', ',', '(', ')', '!', '?' };
+    Array<char> AllowedChars = { '-', '_', '.', ',', '(', ')', '!', '?' };
     for (int i = 0; i < Design.Length(); ++i)
     {
         char Target = Design[i];

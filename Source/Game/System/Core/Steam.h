@@ -12,7 +12,7 @@ API_CLASS() class GAME_API Steam : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Steam);
-    USINGLETON(Steam);
+    static Steam* Get() { return CoreInstance::Instance()->Get<Steam>(); }
 
 private:
 

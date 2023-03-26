@@ -3,7 +3,7 @@
 #include <Engine/Scripting/Script.h>
 #include <Engine/Core/Collections/HashSet.h>
 
-#include <Game/System/Core/CoreInstance.h>
+#include <Game/Util/Defines.h>
 #include <Game/System/Core/Analytics.h>
 #include <Game/Util/HumanReadable.h>
 

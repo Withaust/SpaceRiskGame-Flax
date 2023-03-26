@@ -6,6 +6,7 @@
 		{
 			"ID": "362b418c43b31919b71055b252931fb3",
 			"TypeName": "FlaxEngine.Scene",
+			"Name": "Core",
 			"LightmapSettings": {
 				"IndirectLightingIntensity": 1.0,
 				"GlobalObjectsScale": 1.0,

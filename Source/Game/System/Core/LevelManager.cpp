@@ -31,7 +31,7 @@ void LevelManager::LoadLevel(String scene)
     for (int32 i = 0; i < scenes.Count(); i++)
     {
         Scene* Target = scenes[i];
-        if (Target->GetFilename() == TEXT("Core"))
+        if (Target->GetName() == TEXT("Core"))
         {
             continue;
         }

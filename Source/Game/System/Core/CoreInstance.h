@@ -69,7 +69,3 @@ public:
     void LoadSystems();
 };
 
-#define USINGLETON(Type) \
-public: \
-    static Type* Get() { return CoreInstance::Instance()->Get<Type>(); } \
-private: 

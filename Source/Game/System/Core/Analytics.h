@@ -38,7 +38,7 @@ API_CLASS() class GAME_API Analytics : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Analytics);
-    USINGLETON(Analytics);
+    static Analytics* Get() { return CoreInstance::Instance()->Get<Analytics>(); }
 private:
 
     bool _initialized = false;

@@ -85,8 +85,8 @@ ISystem* CoreInstance::Get(const ScriptingTypeHandle& type)
 #include <Game/System/Core/LaunchArgs.h>
 #include <Game/System/Core/Steam.h>
 #include <Game/System/Core/Analytics.h>
-#include <Game/System/Core/InfoWare.h>
 #include <Game/System/Core/Logger.h>
+#include <Game/System/Core/InfoWare.h>
 #include <Game/System/Core/Networking.h>
 #include <Game/System/Core/LevelManager.h>
 // CoreInitializer should always be used last
@@ -97,8 +97,8 @@ void CoreInstance::LoadSystems()
     Add<LaunchArgs>();
     Add<Steam>();
     Add<Analytics>();
-    Add<InfoWare>();
     Add<Logger>();
+    Add<InfoWare>();
     Add<Networking>();
     Add<LevelManager>();
     // CoreInitializer should always be used last

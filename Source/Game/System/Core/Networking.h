@@ -7,9 +7,13 @@
 #include <Engine/Level/Scene/Scene.h>
 #include <Engine/Engine/Engine.h>
 #include <Engine/Networking/NetworkSettings.h>
+#include <Engine/Engine/Engine.h>
+#include <Engine/Platform/Window.h>
+#include <Engine/Scripting/Enums.h>
 
-#include <Game/System/Core/CoreInstance.h>
+#include <Game/Util/Defines.h>
 #include <Game/System/Core/LaunchArgs.h>
+#include <Game/System/Core/Logger.h>
 
 API_CLASS() class GAME_API Networking : public ISystem
 {
@@ -19,6 +23,7 @@ API_CLASS() class GAME_API Networking : public ISystem
 
 private:
 
+    String _windowTitle;
     bool _gameStarted = false;
     bool _isHosting = false;
 
@@ -26,7 +31,6 @@ public:
 
     API_EVENT() Action GameStarting;
 
-    void OnUpdate();
     void OnNetworkStateChanged();
     void OnNetworkClientConnected(NetworkClient* client);
     void OnNetworkClientDisconnected(NetworkClient* client);
