@@ -1,0 +1,15 @@
+{
+  "hlsl.preprocessorDefinitions": {
+    "MY_PREPROCESSOR_DEFINE_1": "Foo",
+    "MY_PREPROCESSOR_DEFINE_2": 1
+  },
+  "hlsl.additionalIncludeDirectories": [
+    "C:\\Code\\MyDirectoryA",
+    "C:\\Code\\MyDirectoryB",
+    ".",
+    "..\\RelativeDirectory"
+  ],
+  "hlsl.virtualDirectoryMappings": {
+    "/Flax": "S:\\SpaceRisk\\FlaxEngine\\Source\\Shaders"
+  }
+}

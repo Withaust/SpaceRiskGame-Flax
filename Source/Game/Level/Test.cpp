@@ -21,6 +21,6 @@ void Test::OnUpdate()
 {
 	USLEEP(Example)
 	{
-		ULOG_DEBUG_STR("EXAMPLE");
+		//ULOG_DEBUG_STR("EXAMPLE");
 	}
 }

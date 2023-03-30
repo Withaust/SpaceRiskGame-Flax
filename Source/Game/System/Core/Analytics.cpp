@@ -138,6 +138,10 @@ String Analytics::MessageTypeToString(gameanalytics::EGALoggerMessageType Type)
 
 void Analytics::OnLog(const char* Message, gameanalytics::EGALoggerMessageType MessageType)
 {
+    if (MessageType == gameanalytics::EGALoggerMessageType::LogDebug || MessageType == gameanalytics::EGALoggerMessageType::LogInfo)
+    {
+        return;
+    }
     String Result = String::Format(TEXT("[GA] {0}: {1}"), MessageTypeToString(MessageType), String(Message));
     LOG_STR(Info, Result);
 }

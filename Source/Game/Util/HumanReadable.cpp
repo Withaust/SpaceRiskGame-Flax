@@ -5,7 +5,7 @@ String HumanReadable::ConvertUnits(uint64_t Units, const Array<String>& Suffixes
 {
     int Magnitude = 0;
     double dValue = static_cast<double>(Units);
-    while (SpaceRisk::Math::Round(dValue, 2) >= 1000)
+    while (UMath::Round(dValue, 2) >= 1000)
     {
         dValue /= 1024;
         Magnitude++;
