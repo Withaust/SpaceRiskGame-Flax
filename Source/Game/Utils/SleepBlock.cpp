@@ -1,4 +1,4 @@
-﻿#include "SleepBlock.h"
+#include "SleepBlock.h"
 
 SleepBlock::SleepBlock(float Tps)
 {

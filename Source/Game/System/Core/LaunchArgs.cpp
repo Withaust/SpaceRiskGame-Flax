@@ -1,4 +1,4 @@
-﻿#include "LaunchArgs.h"
+#include "LaunchArgs.h"
 
 LaunchArgs::LaunchArgs(const SpawnParams& params)
     : ISystem(params)

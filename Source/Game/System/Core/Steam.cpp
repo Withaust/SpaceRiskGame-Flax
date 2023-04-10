@@ -1,4 +1,4 @@
-﻿#include "Steam.h"
+#include "Steam.h"
 
 Steam::Steam(const SpawnParams& params)
     : ISystem(params)

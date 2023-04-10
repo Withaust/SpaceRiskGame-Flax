@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <Engine/Scripting/Script.h>
 #include <Engine/Level/Actors/Camera.h>
@@ -14,36 +14,37 @@
 #include <Engine/Core/Delegate.h>
 #include <Engine/Profiler/Profiler.h>
 
-#include <Game/Util/Defines.h>
+#include <Game/Utils/Defines.h>
 
-API_CLASS() class GAME_API PlayerVisibilityCamera : public Script
+API_CLASS() class GAME_API VisibilityWorker : public Script
 {
     API_AUTO_SERIALIZATION();
-    DECLARE_SCRIPTING_TYPE(PlayerVisibilityCamera);
+    DECLARE_SCRIPTING_TYPE(VisibilityWorker);
 private:
-    
-    Array<Color32> Pixels;
-    Function<void()> DownloadFunc;
-    int _ResolutionX = 48;
-    int _ResolutionY = 48;
-    TextureData DownloadResult;
+
+    Function<void()> _DownloadFunc;
+    int _Resolution = 48;
+    int _Resolution2 = 0;
+    TextureData _DownloadResult;
     GPUTexture* _Output = nullptr;
     SceneRenderTask* _Task = nullptr;
+    Actor* _Target = nullptr;
+    Function<void(float, Actor*)> _Callback;
+    bool _Finished = true;
+    bool _Stop = false;
 
 public:
 
-    int CurrentChild = 0;
-    float Timer = 2.0f;
-    float Counter = 0.0f;
+    bool IsFinished();
+    void Stop();
 
     void CalculateVisibility();
     void OnRenderTask(RenderTask* RenderTask, GPUContext* GPUContext);
 
     API_FIELD() ScriptingObjectReference<Camera> Camera;
     API_FIELD() ScriptingObjectReference<StaticModel> VisibilityBox;
-    API_FIELD() Array<Actor*> Children;
 
     void OnEnable() override;
     void OnDisable() override;
-    void OnUpdate() override;
+    void Queue(Vector3 Origin, Actor* Target, Function<void(float, Actor*)> Callback);
 };

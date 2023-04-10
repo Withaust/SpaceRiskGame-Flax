@@ -1,4 +1,4 @@
-﻿#include "Test.h"
+#include "Test.h"
 
 Test::Test(const SpawnParams& params)
     : Script(params),

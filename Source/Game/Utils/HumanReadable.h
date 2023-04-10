@@ -1,9 +1,9 @@
-﻿#pragma once
+#pragma once
 
 #include <Engine/Scripting/Script.h>
 #include <Engine/Core/Math/Math.h>
 
-#include <Game/Util/UMath.h>
+#include <Game/Utils/UMath.h>
 
 class HumanReadable 
 {

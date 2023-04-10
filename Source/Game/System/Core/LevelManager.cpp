@@ -1,4 +1,4 @@
-﻿#include "LevelManager.h"
+#include "LevelManager.h"
 
 LevelManager::LevelManager(const SpawnParams& params)
     : ISystem(params)

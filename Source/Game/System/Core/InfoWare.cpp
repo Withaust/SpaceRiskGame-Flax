@@ -1,4 +1,4 @@
-﻿#include "InfoWare.h"
+#include "InfoWare.h"
 
 
 InfoWare::InfoWare(const SpawnParams& params)

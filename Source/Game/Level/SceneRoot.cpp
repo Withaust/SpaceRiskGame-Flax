@@ -1,4 +1,4 @@
-﻿#include "SceneRoot.h"
+#include "SceneRoot.h"
 
 SceneRoot::SceneRoot(const SpawnParams& params)
     : Script(params)

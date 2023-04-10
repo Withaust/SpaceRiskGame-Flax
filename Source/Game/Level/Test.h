@@ -1,13 +1,13 @@
-﻿#pragma once
+#pragma once
 
 #include <Engine/Scripting/Script.h>
 
-#include <Game/Util/Defines.h>
+#include <Game/Utils/Defines.h>
 
 API_CLASS() class GAME_API Test : public Script
 {
-API_AUTO_SERIALIZATION();
-DECLARE_SCRIPTING_TYPE(Test);
+    API_AUTO_SERIALIZATION();
+    DECLARE_SCRIPTING_TYPE(Test);
 
 private:
 

@@ -1,8 +1,8 @@
-﻿#pragma once
+#pragma once
 
-#include <Game/System/Core/CoreInstance.h>
+#include <Game/System/CoreInstance.h>
 #include <Game/System/Core/Logger.h>
-#include <Game/Util/SleepBlock.h>
+#include <Game/Utils/SleepBlock.h>
 
 // Declares singleton
 // NOTE: LaunchArgs, Steam, Analytics, Logger cant use this file to define singleton and has to use manual declaration,

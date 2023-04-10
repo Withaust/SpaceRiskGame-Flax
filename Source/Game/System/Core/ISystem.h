@@ -1,8 +1,11 @@
-﻿#pragma once
+#pragma once
 
 #include <Engine/Scripting/Script.h>
 #include <Engine/Networking/NetworkClient.h>
 
+/// <summary>
+/// Base interface class for all systems.
+/// </summary>
 API_CLASS() class GAME_API ISystem : public Script
 {
     API_AUTO_SERIALIZATION();

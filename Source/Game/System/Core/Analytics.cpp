@@ -1,4 +1,4 @@
-﻿#include "Analytics.h"
+#include "Analytics.h"
 
 void DesignEvent::Filter(String& Design)
 {

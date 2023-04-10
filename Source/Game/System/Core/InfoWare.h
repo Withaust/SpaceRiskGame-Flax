@@ -1,11 +1,11 @@
-﻿#pragma once
+#pragma once
 
 #include <Engine/Scripting/Script.h>
 #include <Engine/Core/Collections/HashSet.h>
 
-#include <Game/Util/Defines.h>
+#include <Game/Utils/Defines.h>
 #include <Game/System/Core/Analytics.h>
-#include <Game/Util/HumanReadable.h>
+#include <Game/Utils/HumanReadable.h>
 
 #include <InfoWare/system.hpp>
 #include <InfoWare/cpu.hpp>

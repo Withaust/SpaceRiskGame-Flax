@@ -1,4 +1,4 @@
-﻿#include "Logger.h"
+#include "Logger.h"
 
 Logger::Logger(const SpawnParams& params)
     : ISystem(params)

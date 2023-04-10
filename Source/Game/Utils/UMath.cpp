@@ -1,4 +1,4 @@
-﻿#include "UMath.h"
+#include "UMath.h"
 
 // https://stackoverflow.com/a/26860684
 uint64_t UMath::Pow(uint64_t x, uint64_t y)

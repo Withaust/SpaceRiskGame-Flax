@@ -1,4 +1,4 @@
-﻿#include "CoreInstance.h"
+#include "CoreInstance.h"
 
 CoreInstance* CoreInstance::_instance = nullptr;
 
@@ -34,6 +34,10 @@ void CoreInstance::OnDisable()
 
 void CoreInstance::OnSceneLoaded(Scene* scene, const Guid& sceneId)
 {
+    if (scene->GetName() == TEXT("Core"))
+    {
+        return;
+    }
     for (int i = 0; i < _systems_array.Count(); ++i)
     {
         _systems_array[i]->OnSceneLoaded(scene);
@@ -42,6 +46,10 @@ void CoreInstance::OnSceneLoaded(Scene* scene, const Guid& sceneId)
 
 void CoreInstance::OnSceneUnloaded(Scene* scene, const Guid& sceneId)
 {
+    if (scene->GetName() == TEXT("Core"))
+    {
+        return;
+    }
     for (int i = 0; i < _systems_array.Count(); ++i)
     {
         _systems_array[i]->OnSceneUnloaded(scene);
@@ -82,6 +90,7 @@ ISystem* CoreInstance::Get(const ScriptingTypeHandle& type)
     return _system_dict[type.GetType().Fullname];
 }
 
+// Core
 #include <Game/System/Core/LaunchArgs.h>
 #include <Game/System/Core/Steam.h>
 #include <Game/System/Core/Analytics.h>
@@ -91,9 +100,14 @@ ISystem* CoreInstance::Get(const ScriptingTypeHandle& type)
 #include <Game/System/Core/LevelManager.h>
 // CoreInitializer should always be used last
 #include <Game/System/Core/CoreInitializer.h>
+// Game
+#include <Game/System/Game/VisibilityCPU.h>
+#include <Game/System/Game/VisibilityGPU.h>
+
 
 void CoreInstance::LoadSystems()
 {
+    // Core
     Add<LaunchArgs>();
     Add<Steam>();
     Add<Analytics>();
@@ -103,4 +117,7 @@ void CoreInstance::LoadSystems()
     Add<LevelManager>();
     // CoreInitializer should always be used last
     Add<CoreInitializer>();
+    // Game
+    Add<VisibilityCPU>();
+    Add<VisibilityGPU>();
 }

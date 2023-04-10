@@ -1,4 +1,4 @@
-﻿#include "CoreInitializer.h"
+#include "CoreInitializer.h"
 
 CoreInitializer::CoreInitializer(const SpawnParams& params)
     : ISystem(params)

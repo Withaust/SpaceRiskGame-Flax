@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <Engine/Scripting/Script.h>
 #include <Engine/Engine/Engine.h>
@@ -10,7 +10,7 @@
 #include <Engine/Engine/Globals.h>
 #include <Engine/Core/Formatting.h>
 
-#include <Game/System/Core/CoreInstance.h>
+#include <Game/System/CoreInstance.h>
 
 API_CLASS() class GAME_API Args : public ISerializable
 {

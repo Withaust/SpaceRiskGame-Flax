@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <Engine/Scripting/Script.h>
 #include <Engine/Debug/DebugLog.h>
@@ -6,7 +6,7 @@
 
 #include <SteamWorks/steam_api.h>
 
-#include <Game/System/Core/CoreInstance.h>
+#include <Game/System/CoreInstance.h>
 
 API_CLASS() class GAME_API Steam : public ISystem
 {

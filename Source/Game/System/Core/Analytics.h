@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #pragma warning( disable : 4099 )
 
@@ -7,7 +7,7 @@
 #include <Engine/Engine/Engine.h>
 #include <Engine/Engine/Globals.h>
 
-#include <Game/System/Core/CoreInstance.h>
+#include <Game/System/CoreInstance.h>
 #include <Game/System/Core/LaunchArgs.h>
 #include <Game/System/Core/Steam.h>
 

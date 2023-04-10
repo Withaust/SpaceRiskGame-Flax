@@ -19,15 +19,15 @@
 			}
 		},
 		{
+			"ID": "0139463249e65ba46bd0178578b08e4a",
+			"TypeName": "Game.CoreInstance",
+			"ParentID": "362b418c43b31919b71055b252931fb3"
+		},
+		{
 			"ID": "15ac28924b9b7025b3e80abc8f082d8c",
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "362b418c43b31919b71055b252931fb3",
 			"Name": "Core"
-		},
-		{
-			"ID": "f8cadb8949d0821b4f847a86cb0dbbac",
-			"TypeName": "Game.CoreInstance",
-			"ParentID": "15ac28924b9b7025b3e80abc8f082d8c"
 		},
 		{
 			"ID": "adb2924445e4688bc4514fb892d2a112",
@@ -116,6 +116,36 @@
 			"ID": "924adc164a661c0126ef8f81d6f23f28",
 			"TypeName": "Game.InfoWare",
 			"ParentID": "fc459f554a876d3ddf7aae9b89398fd6"
+		},
+		{
+			"ID": "6089a8c94569c6f7748151b54c9483b0",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "362b418c43b31919b71055b252931fb3",
+			"Name": "Game"
+		},
+		{
+			"ID": "83a51174433927db4e2023b39e80d495",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "6089a8c94569c6f7748151b54c9483b0",
+			"Name": "VisibilityCPU"
+		},
+		{
+			"ID": "da7502de488bc0faaa4fe9a7deb083a8",
+			"TypeName": "Game.VisibilityCPU",
+			"ParentID": "83a51174433927db4e2023b39e80d495",
+			"RaycastMask": 4294967287
+		},
+		{
+			"ID": "3550740d4f5ce6df73eb70a9311868b2",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "6089a8c94569c6f7748151b54c9483b0",
+			"Name": "VisibilityGPU"
+		},
+		{
+			"ID": "d8b04c1242aaa2304336d8bee2c96747",
+			"TypeName": "Game.VisibilityGPU",
+			"ParentID": "3550740d4f5ce6df73eb70a9311868b2",
+			"WorkerPrefab": "df210840436df3234662f6bc770c2802"
 		}
 	]
 }

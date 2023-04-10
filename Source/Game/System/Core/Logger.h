@@ -1,10 +1,10 @@
-﻿#pragma once
+#pragma once
 
 #include <Engine/Scripting/Script.h>
 #include <Engine/Platform/Platform.h>
 #include <Engine/Debug/DebugLog.h>
 
-#include <Game/System/Core/CoreInstance.h>
+#include <Game/System/CoreInstance.h>
 #include <Game/System/Core/Analytics.h>
 
 API_CLASS() class GAME_API Logger : public ISystem

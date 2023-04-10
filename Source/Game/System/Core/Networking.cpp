@@ -1,4 +1,4 @@
-﻿#include "Networking.h"
+#include "Networking.h"
 
 Networking::Networking(const SpawnParams& params)
     : ISystem(params)

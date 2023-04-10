@@ -1,72 +1,86 @@
-﻿#include "PlayerVisibilityCamera.h"
+#include "VisibilityWorker.h"
 
-PlayerVisibilityCamera::PlayerVisibilityCamera(const SpawnParams& params)
+VisibilityWorker::VisibilityWorker(const SpawnParams& params)
     : Script(params)
 {
     _tickUpdate = true;
 }
 
-void PlayerVisibilityCamera::CalculateVisibility()
+bool VisibilityWorker::IsFinished()
 {
-    PROFILE_CPU();
-    const TextureMipData* Data = DownloadResult.GetData(0, 0);    
-    Data->GetPixels(Pixels, _ResolutionX, _ResolutionY, PixelFormat::R8G8B8A8_UNorm);
+    return _Finished;
+}
 
-    int ResolutionAll = _ResolutionX * _ResolutionY;
+void VisibilityWorker::Stop()
+{
+    _Stop = true;
+}
+
+void VisibilityWorker::CalculateVisibility()
+{
+    if (_Stop)
+    {
+        return;
+    }
+
+    BytesContainer& Data = _DownloadResult.GetData(0, 0)->Data;
+
     int DetectedPixels = 0;
 
-    for (int x = 0; x < ResolutionAll; ++x)
+    for (int x = 0; x < Data.Length(); x += 4)
     {
-        if (Pixels[x].R != 0)
+        if (Data[x] != 0)
         {
             DetectedPixels++;
         }
     }
 
-    float Percentage = static_cast<float>(DetectedPixels) * 100.f / static_cast<float>(ResolutionAll);
-
-    ULOG_DEBUG("CPU Detected pixels: {0}", DetectedPixels);
-    ULOG_DEBUG("CPU Visibility percentage: {0} %", Percentage);
+    _Callback(static_cast<float>(DetectedPixels) * 100.f / static_cast<float>(_Resolution2), _Target);
+    _Finished = true;
 }
 
-void PlayerVisibilityCamera::OnRenderTask(RenderTask* RenderTask, GPUContext* GPUContext)
+void VisibilityWorker::OnRenderTask(RenderTask* RenderTask, GPUContext* GPUContext)
 {
-    PROFILE_CPU();
-    _Task->End.Unbind<PlayerVisibilityCamera, &PlayerVisibilityCamera::OnRenderTask>(this);
+    if (_Stop)
+    {
+        return;
+    }
+
+    _Task->End.Unbind<VisibilityWorker, &VisibilityWorker::OnRenderTask>(this);
     _Task->Enabled = false;
     Camera->SetIsActive(false);
     VisibilityBox->SetIsActive(false);
 
-    Task* DownloadTask = _Output->DownloadDataAsync(DownloadResult);
+    Task* DownloadTask = _Output->DownloadDataAsync(_DownloadResult);
     if (DownloadTask == nullptr)
     {
         ULOG_WARN_STR("Cannot create download async task.");
-        Delete<Task>(DownloadTask);
         return;
     }
 
-    DownloadTask->ContinueWith(DownloadFunc, this);
+    DownloadTask->ContinueWith(_DownloadFunc, this);
     DownloadTask->Start();
 }
 
-void PlayerVisibilityCamera::OnEnable()
+void VisibilityWorker::OnEnable()
 {
+    _Resolution2 = _Resolution * _Resolution;
     VisibilityBox->SetIsActive(false);
     Camera->SetIsActive(false);
-    Pixels.Resize(_ResolutionX * _ResolutionY);
 
-    DownloadFunc.Bind<PlayerVisibilityCamera, &PlayerVisibilityCamera::CalculateVisibility>(this);
+    _DownloadFunc.Bind<VisibilityWorker, &VisibilityWorker::CalculateVisibility>(this);
 
     _Output = GPUTexture::New();
 
     GPUTextureDescription desc = GPUTextureDescription::New2D(
-        _ResolutionX,
-        _ResolutionY,
+        _Resolution,
+        _Resolution,
         PixelFormat::R8G8B8A8_UNorm);
     _Output->Init(desc);
 
     _Task = New<SceneRenderTask>();
     _Task->View.Flags = ViewFlags::None;
+    _Task->View.Mode = ViewMode::NoPostFx;
     _Task->View.RenderLayersMask = Camera->RenderLayersMask;
     _Task->View.IsSingleFrame = true;
     _Task->Order = -100;
@@ -74,7 +88,7 @@ void PlayerVisibilityCamera::OnEnable()
     _Task->Output = _Output;
 }
 
-void PlayerVisibilityCamera::OnDisable()
+void VisibilityWorker::OnDisable()
 {
     if (_Task != nullptr)
     {
@@ -89,27 +103,15 @@ void PlayerVisibilityCamera::OnDisable()
     }
 }
 
-void PlayerVisibilityCamera::OnUpdate()
+void VisibilityWorker::Queue(Vector3 Origin, Actor* Target, Function<void(float, Actor*)> Callback)
 {
-    Counter += Time::GetDeltaTime();
-    if (Counter <= Timer)
-    {
-        return;
-    }
-    Counter = 0.0f;
-    CurrentChild++;
-
-    PROFILE_CPU();
-
-    if (CurrentChild >= Children.Count())
-    {
-        CurrentChild = 0;
-    }
-
+    _Finished = false;
+    _Callback = Callback;
+    _Target = Target;
     Camera->SetFieldOfView(1.0f);
+    Camera->SetPosition(Origin);
 
-    Actor* Child = Children[CurrentChild];
-    BoundingBox Box = Child->GetBoxWithChildren();
+    BoundingBox Box = Target->GetBoxWithChildren();
 
     Camera->LookAt(Box.GetCenter(), Vector3::Up);
 
@@ -142,6 +144,6 @@ void PlayerVisibilityCamera::OnUpdate()
     VisibilityBox->SetPosition(Box.GetCenter());
     Camera->SetIsActive(true);
 
-    _Task->End.Bind<PlayerVisibilityCamera, &PlayerVisibilityCamera::OnRenderTask>(this);
+    _Task->End.Bind<VisibilityWorker, &VisibilityWorker::OnRenderTask>(this);
     _Task->Enabled = true;
 }

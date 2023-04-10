@@ -1,9 +1,9 @@
-﻿#pragma once
+#pragma once
 
 #include <Engine/Scripting/Script.h>
 #include <Engine/Level/Level.h>
 
-#include <Game/System/Core/CoreInstance.h>
+#include <Game/Utils/Defines.h>
 #include <Game/System/Core/LevelManager.h>
 
 API_CLASS() class GAME_API CoreInitializer : public ISystem

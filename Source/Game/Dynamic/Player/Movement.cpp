@@ -1,4 +1,4 @@
-﻿#include "Movement.h"
+#include "Movement.h"
 
 PlayerMovement::PlayerMovement(const SpawnParams& params)
     : Script(params)

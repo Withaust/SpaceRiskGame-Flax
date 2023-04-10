@@ -1,9 +1,9 @@
-﻿#pragma once
+#pragma once
 
 #include <Engine/Scripting/Script.h>
 #include <Engine/Content/Content.h>
 
-#include <Game/Util/Defines.h>
+#include <Game/Utils/Defines.h>
 
 API_CLASS() class GAME_API LevelManager : public ISystem
 {

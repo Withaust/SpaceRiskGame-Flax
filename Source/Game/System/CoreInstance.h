@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <Engine/Scripting/Script.h>
 #include <Engine/Level/Level.h>
@@ -68,4 +68,3 @@ public:
 
     void LoadSystems();
 };
-

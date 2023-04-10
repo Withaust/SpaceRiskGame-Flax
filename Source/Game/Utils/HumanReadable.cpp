@@ -1,4 +1,4 @@
-﻿#include "HumanReadable.h"
+#include "HumanReadable.h"
 
 // Port from C# answer https://stackoverflow.com/a/14488941
 String HumanReadable::ConvertUnits(uint64_t Units, const Array<String>& Suffixes)

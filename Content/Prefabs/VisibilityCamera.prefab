@@ -1,0 +1,48 @@
+{
+	"ID": "df210840436df3234662f6bc770c2802",
+	"TypeName": "FlaxEngine.Prefab",
+	"EngineBuild": 6338,
+	"Data": [
+	{
+		"ID": "87f110fd47699626054c72a7fc1fff95",
+		"TypeName": "FlaxEngine.EmptyActor",
+		"Name": "VisibilityCamera"
+	},
+	{
+		"ID": "071263ea46a153042c6298880f888056",
+		"TypeName": "Game.VisibilityWorker",
+		"ParentID": "87f110fd47699626054c72a7fc1fff95",
+		"Camera": "b27cdf7b42f73571411f139e2a615f88",
+		"VisibilityBox": "970dcd534259b30d526e8ebebeb12a9b"
+	},
+	{
+		"ID": "b27cdf7b42f73571411f139e2a615f88",
+		"TypeName": "FlaxEngine.Camera",
+		"ParentID": "87f110fd47699626054c72a7fc1fff95",
+		"IsActive": false,
+		"Name": "Camera",
+		"FOV": 1.0,
+		"CustomAspectRatio": 1.0,
+		"Far": 5000.0,
+		"RenderLayersMask": 4294967287
+	},
+	{
+		"ID": "970dcd534259b30d526e8ebebeb12a9b",
+		"TypeName": "FlaxEngine.StaticModel",
+		"ParentID": "87f110fd47699626054c72a7fc1fff95",
+		"IsActive": false,
+		"Name": "VisibilityBox",
+		"Model": "60093f7e4c7c642f74ffc1b9fc0f3311",
+		"Buffer": {
+			"Entries": [
+				{
+					"Material": "41d92002493e3136e9add79d544566dc",
+					"ShadowsMode": 3,
+					"Visible": true,
+					"ReceiveDecals": true
+				}
+			]
+		}
+	}
+]
+}
