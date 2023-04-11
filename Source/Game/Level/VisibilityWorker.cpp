@@ -83,7 +83,7 @@ void VisibilityWorker::OnEnable()
     _Task->View.Mode = ViewMode::NoPostFx;
     _Task->View.RenderLayersMask = Camera->RenderLayersMask;
     _Task->View.IsSingleFrame = true;
-    _Task->Order = -100;
+    _Task->Order = 9999;
     _Task->Camera = Camera;
     _Task->Output = _Output;
 }

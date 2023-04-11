@@ -2,41 +2,41 @@
 
 SleepBlock::SleepBlock(float Tps)
 {
-    _timeout = 1.0f / Tps;
-    _timer = _timeout + 1.0f;
-    _type = Type::Singular;
+    _Timeout = 1.0f / Tps;
+    _Timer = _Timeout + 1.0f;
+    _Type = Type::Singular;
 }
 
 SleepBlock::SleepBlock(float SleepSeconds, float ActiveSeconds)
 {
-    _span = ActiveSeconds;
-    _timeout = SleepSeconds;
-    _type = Type::Range;
+    _Span = ActiveSeconds;
+    _Timeout = SleepSeconds;
+    _Type = Type::Range;
 }
 
 bool SleepBlock::Poll(float Delta)
 {
     // Acting as sleep with range
-    if (_type == Type::Range)
+    if (_Type == Type::Range)
     {
-        _timer += Delta;
-        if (_sleeping)
+        _Timer += Delta;
+        if (_Sleeping)
         {
-            if (_timer >= _timeout)
+            if (_Timer >= _Timeout)
             {
-                _timer = 0.0f;
+                _Timer = 0.0f;
                 OnActive();
-                _sleeping = false;
+                _Sleeping = false;
                 return true;
             }
         }
         else
         {
-            if (_timer >= _span)
+            if (_Timer >= _Span)
             {
-                _timer = 0.0f;
+                _Timer = 0.0f;
                 OnSleep();
-                _sleeping = true;
+                _Sleeping = true;
             }
         }
         return false;
@@ -44,10 +44,10 @@ bool SleepBlock::Poll(float Delta)
     // Acting as a singular sleep
     else
     {
-        _timer += Delta;
-        if (_timer >= _timeout)
+        _Timer += Delta;
+        if (_Timer >= _Timeout)
         {
-            _timer = 0.0f;
+            _Timer = 0.0f;
             return true;
         }
         return false;

@@ -10,12 +10,12 @@ private:
     {
         Range,
         Singular
-    } _type;
+    } _Type;
 
-    float _span = 0.0f;
-    float _timeout = 0.0f;
-    float _timer = 0.0f;
-    bool _sleeping = false;
+    float _Span = 0.0f;
+    float _Timeout = 0.0f;
+    float _Timer = 0.0f;
+    bool _Sleeping = false;
 public:
 
     Action OnActive;

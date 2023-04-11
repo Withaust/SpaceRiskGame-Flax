@@ -4,24 +4,19 @@ PlayerMovement::PlayerMovement(const SpawnParams& params)
     : Script(params)
 {
     _tickUpdate = true;
-}
-
-void PlayerMovement::AddMovementRotation(float horizontal, float vertical, float pitch, float yaw)
-{
-    _pitch += pitch;
-    _yaw += yaw;
-    _horizontal += horizontal;
-    _vertical += vertical;
+    _tickFixedUpdate = true;
 }
 
 Vector3 PlayerMovement::Accelerate(Vector3 accelDir, Vector3 prevVelocity, float accelerate, float maxVelocity)
 {
-    float projVel = (float)Vector3::Dot(prevVelocity, accelDir); // Vector projection of Current velocity onto accelDir
+    float projVel = Vector3::Dot(prevVelocity, accelDir); // Vector projection of Current velocity onto accelDir
     float accelVel = accelerate * Time::GetDeltaTime(); // Accelerated velocity in direction of movement
 
     // If necessary, truncate the accelerated velocity so the vector projection does not exceed max velocity
     if (projVel + accelVel > maxVelocity)
+    {
         accelVel = maxVelocity - projVel;
+    }
 
     return prevVelocity + accelDir * accelVel;
 }
@@ -48,70 +43,56 @@ Vector3 PlayerMovement::MoveAir(Vector3 accelDir, Vector3 prevVelocity)
 
 Vector3 PlayerMovement::Horizontal(Vector3 v)
 {
-    return Vector3(v.X, 0, v.Z);
-}
-
-void PlayerMovement::OnEnable()
-{
-	
-}
-
-void PlayerMovement::OnDisable()
-{
-	
+    return Vector3(v.X, 0.0f, v.Z);
 }
 
 void PlayerMovement::OnUpdate()
 {
-    bool useInput = Engine::HasGameViewportFocus();
-
     // Movement
-    if (useInput)
+    if (UseMouse)
     {
         _horizontal += Input::GetAxis(TEXT("Horizontal"));
         _vertical += Input::GetAxis(TEXT("Vertical"));
     }
 
-    if (useInput)
+    if (UseMouse)
     {
         // Cursor
         Screen::SetCursorVisible(false);
         Screen::SetCursorLock(CursorLockMode::Locked);
 
         // Mouse
-        Vector2 mouseDelta(Input::GetAxis(TEXT("Mouse X")), Input::GetAxis(TEXT("Mouse Y")));
+        Float2 mouseDelta(Input::GetAxis(TEXT("Mouse X")), Input::GetAxis(TEXT("Mouse Y")));
         _pitch = Math::Clamp(_pitch + mouseDelta.Y, -89.0f, 89.0f);
         _yaw += mouseDelta.X;
     }
 
     // Jump
-    bool jump = useInput && CanJump && Input::GetAction(TEXT("Jump"));
-
-    // Shoot
-    // TODO https://github.com/FlaxEngine/ArizonaFrameworkSample/blob/master/Source/Game/Core/MyPlayerPawn.cs#L24
+    bool jump = UseMouse && CanJump && Input::GetKey(KeyboardKeys::Spacebar); //Input::GetAction(TEXT("Jump"));
 
     // Update camera
-    Transform camTrans = Camera->GetTransform();
-    camTrans.Orientation = Quaternion::Euler(_pitch, _yaw, 0);
-    Camera->SetTransform(camTrans);
+    Transform camTrans = Camera->GetLocalTransform();
+    camTrans.Orientation = Quaternion::Euler(_pitch, _yaw, 0.0f);
+    Camera->SetLocalTransform(camTrans);
 
     // Calculate player movement vector
     Vector3 velocity(_horizontal, 0.0f, _vertical);
-    _horizontal = 0;
-    _vertical = 0;
+    _horizontal = 0.0f;
+    _vertical = 0.0f;
     velocity.Normalize();
     Vector3 rotation = Camera->GetOrientation().GetEuler();
-    rotation.X = 0;
-    rotation.Z = 0;
+    rotation.X = 0.0f;
+    rotation.Z = 0.0f;
     velocity = Vector3::Transform(velocity, Quaternion::Euler(rotation));
-    if (Controller->IsGrounded())
+    velocity.Normalize();
+    if (PlayerController->IsGrounded())
     {
-        velocity = MoveGround(velocity.GetNormalized(), Horizontal(_velocity));
+        velocity = MoveGround(velocity, Horizontal(_velocity));
         velocity.Y = -Math::Abs(Physics::GetGravity().Y * 0.5f);
     }
     else
     {
-        velocity = MoveAir(velocity.GetNormalized(), Horizontal(_velocity));
+        velocity = MoveAir(velocity, Horizontal(_velocity));
         velocity.Y = _velocity.Y;
     }
 
@@ -122,7 +103,7 @@ void PlayerMovement::OnUpdate()
     }
 
     // Jump
-    if (jump && Controller->IsGrounded())
+    if (jump && PlayerController->IsGrounded())
     {
         velocity.Y = JumpForce;
     }
@@ -131,16 +112,16 @@ void PlayerMovement::OnUpdate()
     velocity.Y += -Math::Abs(Physics::GetGravity().Y * 2.5f) * Time::GetDeltaTime();
 
     // Check if player is not blocked by something above head
-    if ((static_cast<int>(Controller->GetFlags()) & static_cast<int>(CharacterController::CollisionFlags::Above)) != 0)
+    if ((static_cast<int>(PlayerController->GetFlags()) & static_cast<int>(CharacterController::CollisionFlags::Above)) != 0)
     {
-        if (velocity.Y > 0)
+        if (velocity.Y > 0.0f)
         {
             // Player head hit something above, zero the gravity acceleration
-            velocity.Y = 0;
+            velocity.Y = 0.0f;
         }
     }
 
     // Move
-    Controller->AddMovement(velocity * Time::GetDeltaTime(), Quaternion::Identity);
+    PlayerController->AddMovement(velocity * Time::GetDeltaTime(), Quaternion::Identity);
     _velocity = velocity;
 }

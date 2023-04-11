@@ -1,4 +1,5 @@
-﻿#if FLAX_EDITOR
+/*
+#if FLAX_EDITOR
 using FlaxEditor;
 using FlaxEditor.GUI;
 using FlaxEngine;
@@ -74,3 +75,4 @@ public class PlayButton : EditorPlugin
     }
 }
 #endif
+*/

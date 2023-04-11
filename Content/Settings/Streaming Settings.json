@@ -1,6 +1,21 @@
 {
 	"ID": "032ffca740c9d866409f84b148390543",
 	"TypeName": "FlaxEditor.Content.Settings.StreamingSettings",
-	"EngineBuild": 6222,
-	"Data": {}
+	"EngineBuild": 6338,
+	"Data": {
+	"TextureGroups": [
+		{
+			"Name": "Terrain",
+			"SamplerFilter": 3,
+			"MaxAnisotropy": 16,
+			"Quality": 1.0,
+			"QualityIfInvisible": 0.5,
+			"TimeToInvisible": 20.0,
+			"MipLevelsMin": 0,
+			"MipLevelsMax": 14,
+			"MipLevelsBias": 0,
+			"MipLevelsMaxPerPlatform": null
+		}
+	]
+}
 }
