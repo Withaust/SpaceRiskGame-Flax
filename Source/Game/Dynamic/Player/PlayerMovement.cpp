@@ -1,10 +1,10 @@
-#include "Movement.h"
+#include "PlayerMovement.h"
 
 PlayerMovement::PlayerMovement(const SpawnParams& params)
-    : Script(params)
+    : Script(params),
+    Print(0.5f)
 {
     _tickUpdate = true;
-    _tickFixedUpdate = true;
 }
 
 Vector3 PlayerMovement::Accelerate(Vector3 accelDir, Vector3 prevVelocity, float accelerate, float maxVelocity)
@@ -46,41 +46,41 @@ Vector3 PlayerMovement::Horizontal(Vector3 v)
     return Vector3(v.X, 0.0f, v.Z);
 }
 
+void PlayerMovement::OnEnable()
+{
+}
+
+void PlayerMovement::OnDisable()
+{
+}
+
 void PlayerMovement::OnUpdate()
 {
+    UNOT_OWNED_RETURN;
+
     // Movement
-    if (UseMouse)
-    {
-        _horizontal += Input::GetAxis(TEXT("Horizontal"));
-        _vertical += Input::GetAxis(TEXT("Vertical"));
-    }
+    _horizontal += Input::GetAxis(TEXT("Horizontal"));
+    _vertical += Input::GetAxis(TEXT("Vertical"));
 
-    if (UseMouse)
-    {
-        // Cursor
-        Screen::SetCursorVisible(false);
-        Screen::SetCursorLock(CursorLockMode::Locked);
-
-        // Mouse
-        Float2 mouseDelta(Input::GetAxis(TEXT("Mouse X")), Input::GetAxis(TEXT("Mouse Y")));
-        _pitch = Math::Clamp(_pitch + mouseDelta.Y, -89.0f, 89.0f);
-        _yaw += mouseDelta.X;
-    }
+    // Mouse
+    Float2 mouseDelta(Input::GetAxis(TEXT("Mouse X")), Input::GetAxis(TEXT("Mouse Y")));
+    _pitch = Math::Clamp(_pitch + mouseDelta.Y, -89.0f, 89.0f);
+    _yaw += mouseDelta.X;
 
     // Jump
-    bool jump = UseMouse && CanJump && Input::GetKey(KeyboardKeys::Spacebar); //Input::GetAction(TEXT("Jump"));
+    bool jump = CanJump && Input::GetKey(KeyboardKeys::Spacebar); //Input::GetAction(TEXT("Jump"));
 
-    // Update camera
-    Transform camTrans = Camera->GetLocalTransform();
-    camTrans.Orientation = Quaternion::Euler(_pitch, _yaw, 0.0f);
-    Camera->SetLocalTransform(camTrans);
+    // Update head
+    Transform headTrans = Head->GetLocalTransform();
+    headTrans.Orientation = Quaternion::Euler(_pitch, _yaw, 0.0f);
+    Head->SetLocalTransform(headTrans);
 
     // Calculate player movement vector
     Vector3 velocity(_horizontal, 0.0f, _vertical);
     _horizontal = 0.0f;
     _vertical = 0.0f;
     velocity.Normalize();
-    Vector3 rotation = Camera->GetOrientation().GetEuler();
+    Vector3 rotation = Head->GetOrientation().GetEuler();
     rotation.X = 0.0f;
     rotation.Z = 0.0f;
     velocity = Vector3::Transform(velocity, Quaternion::Euler(rotation));

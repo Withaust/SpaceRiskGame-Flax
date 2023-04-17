@@ -8,11 +8,16 @@ CoreInitializer::CoreInitializer(const SpawnParams& params)
 
 void CoreInitializer::OnInitialize()
 {
-    LevelManager::Get()->LoadLevel(TEXT("Game"));
-    CoreInstance::Instance()->ReplicateSystems();
+    LevelManager::Get()->LoadLevel(TEXT("Game"));    
 }
 
 void CoreInitializer::OnDeinitialize()
 {
 
+}
+
+void CoreInitializer::OnSceneLoaded(Scene* scene)
+{
+    Networking::Get()->StartGame();
+    CoreInstance::Instance()->ReplicateSystems();
 }

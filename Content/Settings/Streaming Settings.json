@@ -14,7 +14,7 @@
 			"MipLevelsMin": 0,
 			"MipLevelsMax": 14,
 			"MipLevelsBias": 0,
-			"MipLevelsMaxPerPlatform": null
+			"MipLevelsMaxPerPlatform": {}
 		}
 	]
 }

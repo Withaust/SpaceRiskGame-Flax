@@ -285,7 +285,7 @@
 			"TAA_MotionBlending": 0.7
 		},
 		"PostFxMaterials": {
-			"Materials": null
+			"Materials": []
 		}
 	}
 }

@@ -1,0 +1,122 @@
+{
+	"ID": "747e062e424bed9302ec1fa0f050b19e",
+	"TypeName": "FlaxEngine.Prefab",
+	"EngineBuild": 6338,
+	"Data": [
+	{
+		"ID": "9a212b7040ad9c33decb40aa1ee7c0d6",
+		"TypeName": "FlaxEngine.EmptyActor",
+		"Name": "UI"
+	},
+	{
+		"ID": "0a53166448b9334630d001ad25ab9549",
+		"TypeName": "Game.UIRoot",
+		"ParentID": "9a212b7040ad9c33decb40aa1ee7c0d6"
+	},
+	{
+		"ID": "b7f819604c0237618c11f2912cdad4f1",
+		"TypeName": "FlaxEngine.UICanvas",
+		"ParentID": "9a212b7040ad9c33decb40aa1ee7c0d6",
+		"Name": "UICanvas",
+		"Transform": {
+			"Orientation": {
+				"X": 1.0,
+				"Y": 4.371138828673793e-8,
+				"Z": 4.371138828673793e-8,
+				"W": 1.910685465164705e-15
+			}
+		},
+		"V": {}
+	},
+	{
+		"ID": "7ed8de8a43f2e2630dc5709954310721",
+		"TypeName": "FlaxEngine.UIControl",
+		"ParentID": "b7f819604c0237618c11f2912cdad4f1",
+		"Name": "Label",
+		"Transform": {
+			"Orientation": {
+				"X": 1.0,
+				"Y": 4.371138828673793e-8,
+				"Z": 4.371138828673793e-8,
+				"W": 1.910685465164705e-15
+			}
+		},
+		"Control": "FlaxEngine.GUI.Label",
+		"Data": {
+	"Text": "SpaceRisk",
+	"TextColor": {
+		"R": 1.0,
+		"G": 1.0,
+		"B": 1.0,
+		"A": 1.0
+	},
+	"TextColorHighlighted": {
+		"R": 1.0,
+		"G": 1.0,
+		"B": 1.0,
+		"A": 1.0
+	},
+	"HorizontalAlignment": 1,
+	"VerticalAlignment": 1,
+	"Wrapping": 0,
+	"Font": {
+		"Font": "4508d98f4aa1f0bd59362b81d47e38f4",
+		"Size": 9
+	},
+	"Material": null,
+	"Margin": {
+		"Left": 0.0,
+		"Right": 0.0,
+		"Top": 0.0,
+		"Bottom": 0.0
+	},
+	"ClipText": false,
+	"AutoWidth": false,
+	"AutoHeight": false,
+	"AutoFitText": false,
+	"AutoFitTextRange": {
+		"X": 0.1,
+		"Y": 100.0
+	},
+	"ClipChildren": true,
+	"CullChildren": true,
+	"AnchorMin": {
+		"X": 0.0,
+		"Y": 0.0
+	},
+	"AnchorMax": {
+		"X": 0.0,
+		"Y": 0.0
+	},
+	"Offsets": {
+		"Left": 0.0,
+		"Right": 100.0,
+		"Top": 0.0,
+		"Bottom": 20.0
+	},
+	"Scale": {
+		"X": 1.0,
+		"Y": 1.0
+	},
+	"Pivot": {
+		"X": 0.5,
+		"Y": 0.5
+	},
+	"Shear": {
+		"X": 0.0,
+		"Y": 0.0
+	},
+	"Rotation": 0.0,
+	"BackgroundColor": {
+		"R": 0.0,
+		"G": 0.0,
+		"B": 0.0,
+		"A": 0.0
+	},
+	"Enabled": true,
+	"Visible": true,
+	"AutoFocus": false
+}
+	}
+]
+}

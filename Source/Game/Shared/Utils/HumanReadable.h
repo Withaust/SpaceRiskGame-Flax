@@ -3,7 +3,7 @@
 #include <Engine/Scripting/Script.h>
 #include <Engine/Core/Math/Math.h>
 
-#include <Game/Utils/UMath.h>
+#include <Game/Shared/Utils/UMath.h>
 
 class HumanReadable 
 {

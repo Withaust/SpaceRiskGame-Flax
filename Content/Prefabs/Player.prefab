@@ -1,10 +1,10 @@
 {
-	"ID": "a46c981441c878c03c0e4f9b35ae5d36",
+	"ID": "fed0ee4d4ea972374ca1c4958d03a29a",
 	"TypeName": "FlaxEngine.Prefab",
 	"EngineBuild": 6338,
 	"Data": [
 	{
-		"ID": "9f3cd54347fa498db778919f02a79a2b",
+		"ID": "8fb122174e8779f615a39990afc398a8",
 		"TypeName": "FlaxEngine.CharacterController",
 		"Name": "Player",
 		"Transform": {
@@ -21,16 +21,31 @@
 		"Height": 50.0
 	},
 	{
-		"ID": "6a2ba7f042236f6839b3c080d2488583",
+		"ID": "fcff3c3e48e834275a90aa995c38fed5",
 		"TypeName": "Game.PlayerMovement",
-		"ParentID": "9f3cd54347fa498db778919f02a79a2b",
-		"PlayerController": "9f3cd54347fa498db778919f02a79a2b",
-		"Camera": "21a60083486fc6824ad926a8c89fcb18"
+		"ParentID": "8fb122174e8779f615a39990afc398a8",
+		"PlayerController": "8fb122174e8779f615a39990afc398a8",
+		"Head": "a6cc01e14556e4fa4c0efaafcb4f5dc7"
 	},
 	{
-		"ID": "bf4d0a4f4b6f4e70b5aea6bf61f76eb6",
+		"ID": "cd56a00948f186179468bdb08ed764a1",
+		"TypeName": "Game.PlayerNetworking",
+		"ParentID": "8fb122174e8779f615a39990afc398a8",
+		"Camera": "e99dfcd142f04e6a8eab95b9287a6a14"
+	},
+	{
+		"ID": "465793b54c9cb0921cc2e3bfc06faa7c",
+		"TypeName": "Game.NetworkedTransform",
+		"ParentID": "8fb122174e8779f615a39990afc398a8",
+		"Components": 455,
+		"Mode": 1,
+		"Position": "8fb122174e8779f615a39990afc398a8",
+		"Rotation": "a6cc01e14556e4fa4c0efaafcb4f5dc7"
+	},
+	{
+		"ID": "c4bbad864356bd3f092186905be44d07",
 		"TypeName": "FlaxEngine.StaticModel",
-		"ParentID": "9f3cd54347fa498db778919f02a79a2b",
+		"ParentID": "8fb122174e8779f615a39990afc398a8",
 		"Name": "Model",
 		"Transform": {
 			"Translation": {
@@ -52,10 +67,10 @@
 		}
 	},
 	{
-		"ID": "21a60083486fc6824ad926a8c89fcb18",
-		"TypeName": "FlaxEngine.Camera",
-		"ParentID": "9f3cd54347fa498db778919f02a79a2b",
-		"Name": "Camera",
+		"ID": "a6cc01e14556e4fa4c0efaafcb4f5dc7",
+		"TypeName": "FlaxEngine.EmptyActor",
+		"ParentID": "8fb122174e8779f615a39990afc398a8",
+		"Name": "Head",
 		"Transform": {
 			"Translation": {
 				"X": 0.0,
@@ -64,9 +79,45 @@
 			}
 		},
 		"StaticFlags": 0,
+		"Layer": 1
+	},
+	{
+		"ID": "e99dfcd142f04e6a8eab95b9287a6a14",
+		"TypeName": "FlaxEngine.Camera",
+		"ParentID": "a6cc01e14556e4fa4c0efaafcb4f5dc7",
+		"IsActive": false,
+		"Name": "Camera",
+		"StaticFlags": 0,
 		"Layer": 1,
 		"Tag": "Player",
 		"FOV": 100.0
+	},
+	{
+		"ID": "f901c75e4f836955503021ae462076b1",
+		"TypeName": "FlaxEngine.StaticModel",
+		"ParentID": "a6cc01e14556e4fa4c0efaafcb4f5dc7",
+		"Name": "Direction",
+		"Transform": {
+			"Orientation": {
+				"X": 1.0,
+				"Y": 0.0,
+				"Z": 0.0,
+				"W": 1.4901159417490817e-8
+			}
+		},
+		"StaticFlags": 0,
+		"Layer": 1,
+		"Model": "1b002a68437b4030ae49e4a08d95906e",
+		"Buffer": {
+			"Entries": [
+				{
+					"Material": "6738716e49a3f2936b26bf81961e003c",
+					"ShadowsMode": 3,
+					"Visible": true,
+					"ReceiveDecals": true
+				}
+			]
+		}
 	}
 ]
 }

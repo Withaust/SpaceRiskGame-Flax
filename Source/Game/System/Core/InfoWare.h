@@ -3,9 +3,9 @@
 #include <Engine/Scripting/Script.h>
 #include <Engine/Core/Collections/HashSet.h>
 
-#include <Game/Utils/Defines.h>
+#include <Game/Shared/Utils/Defines.h>
 #include <Game/System/Core/Analytics.h>
-#include <Game/Utils/HumanReadable.h>
+#include <Game/Shared/Utils/HumanReadable.h>
 
 #include <InfoWare/system.hpp>
 #include <InfoWare/cpu.hpp>

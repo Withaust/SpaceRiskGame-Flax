@@ -3,8 +3,9 @@
 #include <Engine/Scripting/Script.h>
 #include <Engine/Level/Level.h>
 
-#include <Game/Utils/Defines.h>
+#include <Game/Shared/Utils/Defines.h>
 #include <Game/System/Core/LevelManager.h>
+#include <Game/System/Core/Networking.h>
 
 API_CLASS() class GAME_API CoreInitializer : public ISystem
 {
@@ -15,4 +16,5 @@ public:
 
     void OnInitialize() override;
     void OnDeinitialize() override;
+    void OnSceneLoaded(Scene* scene) override;
 };

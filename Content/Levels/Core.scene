@@ -19,15 +19,16 @@
 			}
 		},
 		{
-			"ID": "0139463249e65ba46bd0178578b08e4a",
+			"ID": "1234567899634f618472363254c776af",
 			"TypeName": "Game.CoreInstance",
-			"ParentID": "362b418c43b31919b71055b252931fb3"
+			"ParentID": "362b418c43b31919b71055b252931fb3",
+			"Name": "CoreInstance"
 		},
 		{
 			"ID": "15ac28924b9b7025b3e80abc8f082d8c",
 			"TypeName": "FlaxEngine.EmptyActor",
-			"ParentID": "362b418c43b31919b71055b252931fb3",
-			"Name": "Core"
+			"ParentID": "1234567899634f618472363254c776af",
+			"Name": "CoreSystems"
 		},
 		{
 			"ID": "adb2924445e4688bc4514fb892d2a112",
@@ -120,8 +121,8 @@
 		{
 			"ID": "6089a8c94569c6f7748151b54c9483b0",
 			"TypeName": "FlaxEngine.EmptyActor",
-			"ParentID": "362b418c43b31919b71055b252931fb3",
-			"Name": "Game"
+			"ParentID": "1234567899634f618472363254c776af",
+			"Name": "GameSystems"
 		},
 		{
 			"ID": "83a51174433927db4e2023b39e80d495",
@@ -146,6 +147,44 @@
 			"TypeName": "Game.VisibilityGPU",
 			"ParentID": "3550740d4f5ce6df73eb70a9311868b2",
 			"WorkerPrefab": "df210840436df3234662f6bc770c2802"
+		},
+		{
+			"ID": "6895e89d4e2f14f3c39c0c82f08c1298",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "6089a8c94569c6f7748151b54c9483b0",
+			"Name": "PlayerRespawn"
+		},
+		{
+			"ID": "55f5ed374e614746499f6484c60520d6",
+			"TypeName": "Game.PlayerRespawn",
+			"ParentID": "6895e89d4e2f14f3c39c0c82f08c1298",
+			"PlayerPrefab": "fed0ee4d4ea972374ca1c4958d03a29a"
+		},
+		{
+			"ID": "6bc643b540a01971f3e9e6b5ae9253e7",
+			"PrefabID": "747e062e424bed9302ec1fa0f050b19e",
+			"PrefabObjectID": "9a212b7040ad9c33decb40aa1ee7c0d6",
+			"ParentID": "1234567899634f618472363254c776af"
+		},
+		{
+			"ID": "aae49c1740c1a7326f372dafef53039c",
+			"PrefabID": "747e062e424bed9302ec1fa0f050b19e",
+			"PrefabObjectID": "0a53166448b9334630d001ad25ab9549",
+			"ParentID": "6bc643b540a01971f3e9e6b5ae9253e7"
+		},
+		{
+			"ID": "e245fa72418d9221a3f50f815914b514",
+			"PrefabID": "747e062e424bed9302ec1fa0f050b19e",
+			"PrefabObjectID": "b7f819604c0237618c11f2912cdad4f1",
+			"ParentID": "6bc643b540a01971f3e9e6b5ae9253e7",
+			"V": {}
+		},
+		{
+			"ID": "7aa03b7d4b8693f929b37b9fb5c8aff6",
+			"PrefabID": "747e062e424bed9302ec1fa0f050b19e",
+			"PrefabObjectID": "7ed8de8a43f2e2630dc5709954310721",
+			"ParentID": "e245fa72418d9221a3f50f815914b514",
+			"Data": {}
 		}
 	]
 }

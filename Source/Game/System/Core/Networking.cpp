@@ -39,23 +39,22 @@ void Networking::OnNetworkStateChanged()
 
 void Networking::OnNetworkClientConnected(NetworkClient* client)
 {
-    ULOG_DEBUG("OnNetworkClientConnected: {0}", client->ClientId);
+    CoreInstance::Instance()->OnPlayerConnected(client);
 }
 
 void Networking::OnNetworkClientDisconnected(NetworkClient* client)
 {
-    ULOG_DEBUG("OnNetworkClientDisconnected: {0}", client->ClientId);
+    CoreInstance::Instance()->OnPlayerDisconnected(client);
 }
 
 void Networking::OnInitialize()
 {
+#if !BUILD_RELEASE
+    NetworkReplicator::EnableLog = true;
+#endif
     NetworkManager::StateChanged.Bind<Networking, &Networking::OnNetworkStateChanged>(this);
     NetworkManager::ClientConnected.Bind<Networking, &Networking::OnNetworkClientConnected>(this);
     NetworkManager::ClientDisconnected.Bind<Networking, &Networking::OnNetworkClientDisconnected>(this);
-
-    StartGame();
-
-
 }
 
 void Networking::OnDeinitialize()

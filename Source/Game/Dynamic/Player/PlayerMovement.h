@@ -11,8 +11,9 @@
 #include <Engine/Physics/Colliders/CharacterController.h>
 #include <Engine/Physics/Physics.h>
 #include <Engine/Debug/DebugDraw.h>
+#include <Engine/Scripting/Enums.h>
 
-#include <Game/Utils/Defines.h>
+#include <Game/Shared/Utils/Defines.h>
 
 API_CLASS() class GAME_API PlayerMovement : public Script
 {
@@ -22,14 +23,13 @@ API_CLASS() class GAME_API PlayerMovement : public Script
 public:
 
     API_FIELD() ScriptingObjectReference<CharacterController> PlayerController;
-    API_FIELD() ScriptingObjectReference<Camera> Camera;
+    API_FIELD() ScriptingObjectReference<Actor> Head;
 
     API_FIELD() float Friction = 8.0f;
     API_FIELD() float GroundAccelerate = 5000.0f;
     API_FIELD() float AirAccelerate = 10000.0f;
     API_FIELD() float MaxVelocityGround = 400.0f;
     API_FIELD() float MaxVelocityAir = 200.0f;
-    API_FIELD() bool UseMouse = true;
     API_FIELD() bool CanJump = true;
     API_FIELD() bool CanShoot = true;
     API_FIELD() float JumpForce = 800.0f;
@@ -43,6 +43,8 @@ private:
     float _horizontal = 0.0f;
     float _vertical = 0.0f;
 
+    SleepBlock Print;
+
     // accelDir: normalized direction that the player has requested to move (taking into account the movement keys and look direction)
     // prevVelocity: The current velocity of the player, before any additional calculations
     // accelerate: The server-defined player acceleration value
@@ -54,5 +56,7 @@ private:
 
 public:
 
+    void OnEnable() override;
+    void OnDisable() override;
     void OnUpdate() override;
 };

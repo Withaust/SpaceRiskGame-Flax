@@ -1,20 +1,27 @@
 #include "CoreInstance.h"
 
-CoreInstance* CoreInstance::_instance = nullptr;
+CoreInstance* CoreInstance::_Instance = nullptr;
 
 CoreInstance::CoreInstance(const SpawnParams& params)
-    : Script(params)
+    //: Actor(SpawnParams(Guid(0x12345678, 0x99634f61, 0x84723632, 0x54c776af), params.Type)) // Override ID to be the same on all clients (a cross-device singleton) to keep network id stable
+    : Actor(params)
 {
-    _instance = this;
+    _Instance = this;
 }
 
 CoreInstance* CoreInstance::Instance()
 {
-    return _instance;
+    return _Instance;
 }
 
 void CoreInstance::OnEnable()
 {
+#if USE_EDITOR
+    if (!Editor::IsPlayMode)
+    {
+        return;
+    }
+#endif
     Level::SceneLoaded.Bind<CoreInstance, &CoreInstance::OnSceneLoaded>(this);
     Level::SceneLoaded.Bind<CoreInstance, &CoreInstance::OnSceneUnloaded>(this);
     LoadSystems();
@@ -22,11 +29,17 @@ void CoreInstance::OnEnable()
 
 void CoreInstance::OnDisable()
 {
-    for (int i = _systems_array.Count() - 1; i >= 0; i--)
+#if USE_EDITOR
+    if (!Editor::IsPlayMode)
     {
-        _system_dict.Remove(_systems_array[i]->GetStaticType().Fullname);
-        _systems_array[i]->OnDeinitialize();
-        _systems_array.RemoveAtKeepOrder(i);
+        return;
+    }
+#endif
+    for (int i = _SystemsArray.Count() - 1; i >= 0; i--)
+    {
+        _SystemsDict.Remove(_SystemsArray[i].Ptr->GetStaticType().Fullname);
+        _SystemsArray[i].Ptr->OnDeinitialize();
+        _SystemsArray.RemoveAtKeepOrder(i);
     }
     Level::SceneLoaded.Unbind<CoreInstance, &CoreInstance::OnSceneLoaded>(this);
     Level::SceneLoaded.Unbind<CoreInstance, &CoreInstance::OnSceneUnloaded>(this);
@@ -38,9 +51,9 @@ void CoreInstance::OnSceneLoaded(Scene* scene, const Guid& sceneId)
     {
         return;
     }
-    for (int i = 0; i < _systems_array.Count(); ++i)
+    for (int i = 0; i < _SystemsArray.Count(); ++i)
     {
-        _systems_array[i]->OnSceneLoaded(scene);
+        _SystemsArray[i].Ptr->OnSceneLoaded(scene);
     }
 }
 
@@ -50,47 +63,63 @@ void CoreInstance::OnSceneUnloaded(Scene* scene, const Guid& sceneId)
     {
         return;
     }
-    for (int i = 0; i < _systems_array.Count(); ++i)
+    for (int i = 0; i < _SystemsArray.Count(); ++i)
     {
-        _systems_array[i]->OnSceneUnloaded(scene);
+        _SystemsArray[i].Ptr->OnSceneUnloaded(scene);
     }
 }
 
 void CoreInstance::OnPlayerConnected(NetworkClient* client)
 {
-    for (int i = 0; i < _systems_array.Count(); ++i)
+    for (int i = 0; i < _SystemsArray.Count(); ++i)
     {
-        _systems_array[i]->OnPlayerConnected(client);
+        _SystemsArray[i].Ptr->OnPlayerConnected(client);
     }
 }
 
 void CoreInstance::OnPlayerDisconnected(NetworkClient* client)
 {
-    for (int i = 0; i < _systems_array.Count(); ++i)
+    for (int i = 0; i < _SystemsArray.Count(); ++i)
     {
-        _systems_array[i]->OnPlayerDisconnected(client);
+        _SystemsArray[i].Ptr->OnPlayerDisconnected(client);
     }
 }
 
 void CoreInstance::ReplicateSystems()
 {
-    for (int i = 0; i < _systems_array.Count(); ++i)
+    NetworkReplicator::AddObject(GetParent());
+    NetworkReplicator::AddObject(this);
+    for (int i = 0; i < _SystemsArray.Count(); ++i)
     {
-        NetworkReplicator::AddObject(_systems_array[i]);
+        const auto& Target = _SystemsArray[i];
+        if (Target.Replicated)
+        {
+            NetworkReplicator::AddObject(Target.Ptr);
+        }
     }
 }
 
 ISystem* CoreInstance::Get(const MClass* type)
 {
-    return _system_dict[type->GetFullName()];
+    SystemEntry* Entry = _SystemsDict.TryGet(type->GetFullName());
+    if (Entry == nullptr)
+    {
+        return nullptr;
+    }
+    return Entry->Ptr;
 }
 
 ISystem* CoreInstance::Get(const ScriptingTypeHandle& type)
 {
-    return _system_dict[type.GetType().Fullname];
+    SystemEntry* Entry = _SystemsDict.TryGet(type.GetType().Fullname);
+    if (Entry == nullptr)
+    {
+        return nullptr;
+    }
+    return Entry->Ptr;
 }
 
-// Core
+// Core systems
 #include <Game/System/Core/LaunchArgs.h>
 #include <Game/System/Core/Steam.h>
 #include <Game/System/Core/Analytics.h>
@@ -98,16 +127,18 @@ ISystem* CoreInstance::Get(const ScriptingTypeHandle& type)
 #include <Game/System/Core/InfoWare.h>
 #include <Game/System/Core/Networking.h>
 #include <Game/System/Core/LevelManager.h>
-// CoreInitializer should always be used last
+// CoreInitializer should always be used last in core
 #include <Game/System/Core/CoreInitializer.h>
-// Game
+// Game systems
 #include <Game/System/Game/VisibilityCPU.h>
 #include <Game/System/Game/VisibilityGPU.h>
-
+#include <Game/System/Game/PlayerRespawn.h>
+// UI systems
+#include <Game/UI/UIRoot.h>
 
 void CoreInstance::LoadSystems()
 {
-    // Core
+    // Core systems
     Add<LaunchArgs>();
     Add<Steam>();
     Add<Analytics>();
@@ -115,9 +146,12 @@ void CoreInstance::LoadSystems()
     Add<InfoWare>();
     Add<Networking>();
     Add<LevelManager>();
-    // CoreInitializer should always be used last
+    // CoreInitializer should always be used last in core
     Add<CoreInitializer>();
-    // Game
+    // Game systems
     Add<VisibilityCPU>();
     Add<VisibilityGPU>();
+    Add<PlayerRespawn>();
+    // UI systems
+    Add<UIRoot>(false);
 }

@@ -38,6 +38,5 @@ void LevelManager::LoadLevel(String scene)
         Level::UnloadScene(Target);
     }
     Level::ScenesLock.Unlock();
-
     Level::LoadSceneAsync(Info.ID);
 }

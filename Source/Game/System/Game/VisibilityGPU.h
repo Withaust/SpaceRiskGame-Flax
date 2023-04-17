@@ -5,8 +5,10 @@
 #include <Engine/Core/Collections/Array.h>
 #include <Engine/Core/Collections/RingBuffer.h>
 #include <Engine/Level/Prefabs/PrefabManager.h>
+#include <Engine/Level/Prefabs/Prefab.h>
+#include <Engine/Content/SoftAssetReference.h>
 
-#include <Game/Utils/Defines.h>
+#include <Game/Shared/Utils/Defines.h>
 #include <Game/Level/VisibilityWorker.h>
 
 class VisibilityTask
@@ -38,7 +40,7 @@ private:
 public:
 
     API_FIELD() int WorkerCount = 4;
-    API_FIELD() ScriptingObjectReference<Prefab> WorkerPrefab;
+    API_FIELD() SoftAssetReference<Prefab> WorkerPrefab;
 
     void OnEnable() override;
     void OnDisable() override;

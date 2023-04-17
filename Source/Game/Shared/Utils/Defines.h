@@ -2,7 +2,7 @@
 
 #include <Game/System/CoreInstance.h>
 #include <Game/System/Core/Logger.h>
-#include <Game/Utils/SleepBlock.h>
+#include <Game/Shared/Utils/SleepBlock.h>
 
 // Declares singleton
 // NOTE: LaunchArgs, Steam, Analytics, Logger cant use this file to define singleton and has to use manual declaration,
@@ -13,10 +13,14 @@ public: \
 private: 
 
 // Checks if current object is owned, if it is, then run code in the block
-#define UOWNED(v) if(NetworkReplicator::IsObjectOwned(this))
+#define UOWNED if(NetworkReplicator::IsObjectOwned(this))
+#define UOWNED_RETURN(v) if(NetworkReplicator::IsObjectOwned(this)) { return v; }
+#define UOWNED_RETURN if(NetworkReplicator::IsObjectOwned(this)) { return; }
 
 // Checks if current object is not owned, if it is, then run code in the block
-#define UNOT_OWNED(v) if(!NetworkReplicator::IsObjectOwned(this))
+#define UNOT_OWNED if(!NetworkReplicator::IsObjectOwned(this))
+#define UNOT_OWNED_RETURN(v) if(!NetworkReplicator::IsObjectOwned(this)) { return v; }
+#define UNOT_OWNED_RETURN if(!NetworkReplicator::IsObjectOwned(this)) { return; }
 
 #ifdef BUILD_DEBUG
 #define ULOG_DEBUG_STR(Text) Logger::Get()->Debug(TEXT(Text), __FILE__, __LINE__)

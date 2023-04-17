@@ -4,7 +4,7 @@
 #include <Engine/Content/Content.h>
 #include <Engine/Content/AssetInfo.h>
 
-#include <Game/Utils/Defines.h>
+#include <Game/Shared/Utils/Defines.h>
 
 API_CLASS() class GAME_API SceneRoot : public Script
 {

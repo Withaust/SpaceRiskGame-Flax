@@ -11,7 +11,7 @@
 #include <Engine/Platform/Window.h>
 #include <Engine/Scripting/Enums.h>
 
-#include <Game/Utils/Defines.h>
+#include <Game/Shared/Utils/Defines.h>
 #include <Game/System/Core/LaunchArgs.h>
 #include <Game/System/Core/Logger.h>
 
