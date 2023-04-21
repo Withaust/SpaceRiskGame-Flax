@@ -13,6 +13,7 @@ API_CLASS() class GAME_API UIRoot : public ISystem
     DECLARE_SCRIPTING_TYPE(UIRoot);
     USINGLETON(UIRoot)
 
+public:
     void OnEnable() override;
     void OnDisable() override;
     void OnUpdate() override;

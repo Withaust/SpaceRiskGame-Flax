@@ -1,42 +1,42 @@
 #include "SleepBlock.h"
 
-SleepBlock::SleepBlock(float Tps)
+SleepBlock::SleepBlock(float tps)
 {
-    _Timeout = 1.0f / Tps;
-    _Timer = _Timeout + 1.0f;
-    _Type = Type::Singular;
+    _timeout = 1.0f / tps;
+    _timer = _timeout + 1.0f;
+    _type = Type::Singular;
 }
 
-SleepBlock::SleepBlock(float SleepSeconds, float ActiveSeconds)
+SleepBlock::SleepBlock(float sleepSeconds, float activeSeconds)
 {
-    _Span = ActiveSeconds;
-    _Timeout = SleepSeconds;
-    _Type = Type::Range;
+    _span = activeSeconds;
+    _timeout = sleepSeconds;
+    _type = Type::Range;
 }
 
-bool SleepBlock::Poll(float Delta)
+bool SleepBlock::Poll(float delta)
 {
     // Acting as sleep with range
-    if (_Type == Type::Range)
+    if (_type == Type::Range)
     {
-        _Timer += Delta;
-        if (_Sleeping)
+        _timer += delta;
+        if (_sleeping)
         {
-            if (_Timer >= _Timeout)
+            if (_timer >= _timeout)
             {
-                _Timer = 0.0f;
+                _timer = 0.0f;
                 OnActive();
-                _Sleeping = false;
+                _sleeping = false;
                 return true;
             }
         }
         else
         {
-            if (_Timer >= _Span)
+            if (_timer >= _span)
             {
-                _Timer = 0.0f;
+                _timer = 0.0f;
                 OnSleep();
-                _Sleeping = true;
+                _sleeping = true;
             }
         }
         return false;
@@ -44,10 +44,10 @@ bool SleepBlock::Poll(float Delta)
     // Acting as a singular sleep
     else
     {
-        _Timer += Delta;
-        if (_Timer >= _Timeout)
+        _timer += delta;
+        if (_timer >= _timeout)
         {
-            _Timer = 0.0f;
+            _timer = 0.0f;
             return true;
         }
         return false;

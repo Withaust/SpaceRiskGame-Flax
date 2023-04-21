@@ -3,56 +3,55 @@
 LaunchArgs::LaunchArgs(const SpawnParams& params)
     : ISystem(params)
 {
-
 }
 
 String LaunchArgs::GetNextArgument(int currentIndex, const Array<String>& args)
 {
-    String Result;
-    int NextIndex = currentIndex + 1;
-    if (NextIndex < 0 || NextIndex > args.Count() - 1)
+    String result;
+    int nextIndex = currentIndex + 1;
+    if (nextIndex < 0 || nextIndex > args.Count() - 1)
     {
-        return Result;
+        return result;
     }
-    return args[NextIndex];
+    return args[nextIndex];
 }
 
 void LaunchArgs::OnInitialize()
 {
-    String LaunchPath = TEXT("Default.launch");
-    String CommandLine = Engine::GetCommandLine();
+    String launchPath = TEXT("Default.launch");
+    String commandLine = Engine::GetCommandLine();
 
-    if (CommandLine.Contains(TEXT(".launch"), StringSearchCase::CaseSensitive))
+    if (commandLine.Contains(TEXT(".launch"), StringSearchCase::CaseSensitive))
     {
-        Array<String> SplitResult;
-        CommandLine.Split(' ', SplitResult);
-        for (int i = 0; i < SplitResult.Count(); ++i)
+        Array<String> splitResult;
+        commandLine.Split(' ', splitResult);
+        for (int i = 0; i < splitResult.Count(); ++i)
         {
-            String Target = SplitResult[i];
-            if (Target == TEXT("-l") || Target == TEXT("--launch"))
+            String target = splitResult[i];
+            if (target == TEXT("-l") || target == TEXT("--launch"))
             {
-                LaunchPath = GetNextArgument(i, SplitResult);
+                launchPath = GetNextArgument(i, splitResult);
                 break;
             }
         }
     }
 
-    if (!FileSystem::FileExists(LaunchPath))
+    if (!FileSystem::FileExists(launchPath))
     {
-        String ErrorText = TEXT("Could not find ") + LaunchPath + TEXT(" in order to launch the game");
+        String errorText = TEXT("Could not find ") + launchPath + TEXT(" in order to launch the game");
 #if BUILD_DEBUG
-        DebugLog::LogError(ErrorText);
+        DebugLog::LogError(errorText);
 #endif
-        Platform::Error(ErrorText);
+        Platform::Error(errorText);
         Engine::RequestExit(1);
         return;
     }
 
-    Array<byte> Bytes;
-    File::ReadAllBytes(LaunchPath, Bytes);
+    Array<byte> bytes;
+    File::ReadAllBytes(launchPath, bytes);
 
     _args = New<Args>();
-    JsonSerializer::LoadFromBytes(_args, Bytes, Globals::EngineBuildNumber);
+    JsonSerializer::LoadFromBytes(_args, bytes, Globals::EngineBuildNumber);
 }
 
 void LaunchArgs::OnDeinitialize()

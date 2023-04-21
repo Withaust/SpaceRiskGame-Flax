@@ -13,18 +13,14 @@ API_CLASS() class GAME_API Logger : public ISystem
     DECLARE_SCRIPTING_TYPE(Logger);
     static Logger* Get() { return CoreInstance::Instance()->Get<Logger>(); }
 
-private:
-
-    Analytics* analytics = nullptr;
-
 public:
 
     void OnInitialize() override;
     void OnDeinitialize() override;
 
-    void Debug(const StringView& Message, const char* File, int Line);
-    void Info(const StringView& Message, const char* File, int Line);
-    void Warning(const StringView& Message, const char* File, int Line);
-    void Error(const StringView& Message, const char* File, int Line);
-    void Critical(const StringView& Message, const char* File, int Line);
+    void Print(const StringView& message, const char* file, int line);
+    void Info(const StringView& message, const char* file, int line);
+    void Warning(const StringView& message, const char* file, int line);
+    void Error(const StringView& message, const char* file, int line);
+    void Critical(bool shutdown, const StringView& message, const char* file, int line);
 };

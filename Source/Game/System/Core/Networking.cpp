@@ -3,12 +3,11 @@
 Networking::Networking(const SpawnParams& params)
     : ISystem(params)
 {
-
 }
 
 void Networking::OnNetworkStateChanged()
 {
-    ULOG_DEBUG("OnNetworkStateChanged: {0}", ScriptingEnum::ToString(NetworkManager::State));
+    UPRINT("OnNetworkStateChanged: {0}", ScriptingEnum::ToString(NetworkManager::State));
 
     switch (NetworkManager::State)
     {
@@ -66,25 +65,23 @@ void Networking::OnDeinitialize()
 
 void Networking::OnSceneLoaded(Scene* scene)
 {
-
 }
 
 void Networking::OnSceneUnloaded(Scene* scene)
 {
-
 }
 
 void Networking::StartGame()
 {
-    const Args* Args = LaunchArgs::Get()->GetArgs();
-    NetworkSettings* Settings = NetworkSettings::Get();
-    Settings->NetworkFPS = 20.0f;
-    Settings->Address = Args->Hostname;
-    Settings->Port = Args->Port;
-    Settings->MaxClients = 6;
-    Settings->Apply();
+    const Args* args = LaunchArgs::Get()->GetArgs();
+    NetworkSettings* settings = NetworkSettings::Get();
+    settings->NetworkFPS = 20.0f;
+    settings->Address = args->Hostname;
+    settings->Port = args->Port;
+    settings->MaxClients = 6;
+    settings->Apply();
 
-    if (Args->IsHost)
+    if (args->IsHost)
     {
         NetworkManager::StartHost();
     }

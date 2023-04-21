@@ -18,6 +18,5 @@ public:
     void OnInitialize() override;
     void OnDeinitialize() override;
 
-    String GetLevelName();
     void LoadLevel(String scene);
 };

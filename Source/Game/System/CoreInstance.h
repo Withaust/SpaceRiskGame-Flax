@@ -26,10 +26,11 @@ public:
     };
 
 private:
-    static CoreInstance* _Instance;
 
-    Array<SystemEntry> _SystemsArray;
-    Dictionary<StringAnsiView, SystemEntry> _SystemsDict;
+    static CoreInstance* _instance;
+
+    Array<SystemEntry> _systemsArray;
+    Dictionary<StringAnsiView, SystemEntry> _systemsDict;
 
 public:
 
@@ -38,8 +39,8 @@ public:
     void OnEnable() override;
     void OnDisable() override;
 
-    void OnSceneLoaded(Scene* scene, const Guid& sceneId);
-    void OnSceneUnloaded(Scene* scene, const Guid& sceneId);
+    void OnSceneLoaded(Scene* scene, const Guid& id);
+    void OnSceneUnloaded(Scene* scene, const Guid& id);
 
     void OnPlayerConnected(NetworkClient* client);
     void OnPlayerDisconnected(NetworkClient* client);
@@ -57,22 +58,22 @@ public:
     }
 
     template<typename T>
-    void Add(bool Replicate = true)
+    void Add(bool replicate = false)
     {
         static_assert(std::is_base_of<ISystem, T>::value, "T must inherit ISystem to be used with Add()");
-        T* NewGameSystem = FindScript<T>();
-        if (NewGameSystem == nullptr)
+        T* newGameSystem = FindScript<T>();
+        if (newGameSystem == nullptr)
         {
             Platform::Error(String("Failed add system ") + String(T::TypeInitializer.GetType().Fullname));
             Engine::RequestExit(1);
             return;
         }
-        SystemEntry NewEntry;
-        NewEntry.Ptr = NewGameSystem;
-        NewEntry.Replicated = Replicate;
-        _SystemsArray.Add(NewEntry);
-        _SystemsDict[T::TypeInitializer.GetType().Fullname] = NewEntry;
-        NewEntry.Ptr->OnInitialize();
+        SystemEntry newEntry;
+        newEntry.Ptr = newGameSystem;
+        newEntry.Replicated = replicate;
+        _systemsArray.Add(newEntry);
+        _systemsDict[T::TypeInitializer.GetType().Fullname] = newEntry;
+        newEntry.Ptr->OnInitialize();
     }
 
     void LoadSystems();

@@ -1,11 +1,11 @@
 #include "Analytics.h"
 
-void DesignEvent::Filter(String& Design)
+void DesignEvent::Filter(String& design)
 {
-    Array<Char> AllowedChars = { TEXT('-'), TEXT('_'), TEXT('.'), TEXT(','), TEXT('('), TEXT(')'), TEXT('!'), TEXT('?') };
-    for (int i = 0; i < Design.Length(); ++i)
+    Array<Char> allowedChars = { TEXT('-'), TEXT('_'), TEXT('.'), TEXT(','), TEXT('('), TEXT(')'), TEXT('!'), TEXT('?') };
+    for (int i = 0; i < design.Length(); ++i)
     {
-        Char Target = Design[i];
+        Char Target = design[i];
         if (Target >= TEXT('a') && Target <= TEXT('z'))
         {
             continue;
@@ -18,27 +18,27 @@ void DesignEvent::Filter(String& Design)
         {
             continue;
         }
-        for (int j = 0; j < AllowedChars.Count(); ++j)
+        for (int j = 0; j < allowedChars.Count(); ++j)
         {
-            if (Target == AllowedChars[j])
+            if (Target == allowedChars[j])
             {
                 continue;
             }
         }
-        Design[i] = TEXT(' ');
+        design[i] = TEXT(' ');
     }
-    while (Design.Contains(TEXT("  ")))
+    while (design.Contains(TEXT("  ")))
     {
-        Design.Replace(TEXT("  "), TEXT(" "));
+        design.Replace(TEXT("  "), TEXT(" "));
     }
 }
 
-void DesignEvent::FilterAnsi(StringAnsi& Design)
+void DesignEvent::FilterAnsi(StringAnsi& design)
 {
-    Array<char> AllowedChars = { '-', '_', '.', ',', '(', ')', '!', '?' };
-    for (int i = 0; i < Design.Length(); ++i)
+    Array<char> allowedChars = { '-', '_', '.', ',', '(', ')', '!', '?' };
+    for (int i = 0; i < design.Length(); ++i)
     {
-        char Target = Design[i];
+        char Target = design[i];
         if (Target >= 'a' && Target <= 'z')
         {
             continue;
@@ -51,116 +51,120 @@ void DesignEvent::FilterAnsi(StringAnsi& Design)
         {
             continue;
         }
-        for (int j = 0; j < AllowedChars.Count(); ++j)
+        for (int j = 0; j < allowedChars.Count(); ++j)
         {
-            if (Target == AllowedChars[j])
+            if (Target == allowedChars[j])
             {
                 continue;
             }
         }
-        Design[i] = ' ';
+        design[i] = ' ';
     }
-    while (Design.Contains("  "))
+    while (design.Contains("  "))
     {
-        Design.Replace("  ", " ");
+        design.Replace("  ", " ");
     }
 }
 
-DesignEvent::DesignEvent(StringAnsi Part1)
+DesignEvent::DesignEvent(StringAnsi part1)
 {
-    FilterAnsi(Part1);
-    Result = Part1;
+    FilterAnsi(part1);
+    _result = part1;
 }
 
-DesignEvent::DesignEvent(StringAnsi Part1, StringAnsi Part2)
+DesignEvent::DesignEvent(StringAnsi part1, StringAnsi part2)
 {
-    FilterAnsi(Part1);
-    FilterAnsi(Part2);
-    Result = StringAnsi::Format("{0}:{1}", Part1, Part2);
+    FilterAnsi(part1);
+    FilterAnsi(part2);
+    _result = StringAnsi::Format("{0}:{1}", part1, part2);
 }
 
-DesignEvent::DesignEvent(StringAnsi Part1, StringAnsi Part2, StringAnsi Part3)
+DesignEvent::DesignEvent(StringAnsi part1, StringAnsi part2, StringAnsi part3)
 {
-    FilterAnsi(Part1);
-    FilterAnsi(Part2);
-    FilterAnsi(Part3);
-    Result = StringAnsi::Format("{0}:{1}:{2}", Part1, Part2, Part3);
-}
-
-
-DesignEvent::DesignEvent(StringAnsi Part1, StringAnsi Part2, StringAnsi Part3, StringAnsi Part4)
-{
-    FilterAnsi(Part1);
-    FilterAnsi(Part2);
-    FilterAnsi(Part3);
-    FilterAnsi(Part4);
-    Result = StringAnsi::Format("{0}:{1}:{2}:{3}", Part1, Part2, Part3, Part4);
+    FilterAnsi(part1);
+    FilterAnsi(part2);
+    FilterAnsi(part3);
+    _result = StringAnsi::Format("{0}:{1}:{2}", part1, part2, part3);
 }
 
 
-DesignEvent::DesignEvent(StringAnsi Part1, StringAnsi Part2, StringAnsi Part3, StringAnsi Part4, StringAnsi Part5)
+DesignEvent::DesignEvent(StringAnsi part1, StringAnsi part2, StringAnsi part3, StringAnsi part4)
 {
-    FilterAnsi(Part1);
-    FilterAnsi(Part2);
-    FilterAnsi(Part3);
-    FilterAnsi(Part4);
-    FilterAnsi(Part5);
-    Result = StringAnsi::Format("{0}:{1}:{2}:{3}:{4}", Part1, Part2, Part3, Part4, Part5);
+    FilterAnsi(part1);
+    FilterAnsi(part2);
+    FilterAnsi(part3);
+    FilterAnsi(part4);
+    _result = StringAnsi::Format("{0}:{1}:{2}:{3}", part1, part2, part3, part4);
+}
+
+
+DesignEvent::DesignEvent(StringAnsi part1, StringAnsi part2, StringAnsi part3, StringAnsi part4, StringAnsi part5)
+{
+    FilterAnsi(part1);
+    FilterAnsi(part2);
+    FilterAnsi(part3);
+    FilterAnsi(part4);
+    FilterAnsi(part5);
+    _result = StringAnsi::Format("{0}:{1}:{2}:{3}:{4}", part1, part2, part3, part4, part5);
 }
 
 Analytics::Analytics(const SpawnParams& params)
     : ISystem(params)
 {
-
 }
 
-String Analytics::MessageTypeToString(gameanalytics::EGALoggerMessageType Type)
+String Analytics::MessageTypeToString(gameanalytics::EGALoggerMessageType type)
 {
-    switch (Type)
+    switch (type)
     {
     case gameanalytics::LogError:
+    {
         return TEXT("Error");
-        break;
+    }
     case gameanalytics::LogWarning:
+    {
         return TEXT("Warning");
-        break;
+    }
     case gameanalytics::LogInfo:
+    {
         return TEXT("Info");
-        break;
+    }
     case gameanalytics::LogDebug:
+    {
         return TEXT("Debug");
-        break;
+    }
     default:
+    {
         return TEXT("");
-        break;
+    }
     }
 }
 
-void Analytics::OnLog(const char* Message, gameanalytics::EGALoggerMessageType MessageType)
+void Analytics::OnLog(const char* message, gameanalytics::EGALoggerMessageType messageType)
 {
-    if (MessageType == gameanalytics::EGALoggerMessageType::LogDebug || MessageType == gameanalytics::EGALoggerMessageType::LogInfo)
+    if (messageType == gameanalytics::EGALoggerMessageType::LogDebug || messageType == gameanalytics::EGALoggerMessageType::LogInfo)
     {
         return;
     }
-    String Result = String::Format(TEXT("[GA] {0}: {1}"), MessageTypeToString(MessageType), String(Message));
-    LOG_STR(Info, Result);
+    String result = String::Format(TEXT("[GA] {0}: {1}"), MessageTypeToString(messageType), String(message));
+    LOG_STR(Info, result);
 }
 
 void Analytics::OnInitialize()
 {
-    gameanalytics::StringVector Dimensions;
-    Dimensions.add("Debug");
-    Dimensions.add("Modded");
-    Dimensions.add("Vanilla");
-    gameanalytics::GameAnalytics::configureAvailableCustomDimensions01(Dimensions);
+    gameanalytics::StringVector dimensions;
+    dimensions.add("Debug");
+    dimensions.add("Modded");
+    dimensions.add("Vanilla");
+    gameanalytics::GameAnalytics::configureAvailableCustomDimensions01(dimensions);
 
     gameanalytics::GameAnalytics::configureCustomLogHandler(std::bind(&Analytics::OnLog, this, std::placeholders::_1, std::placeholders::_2));
 
-    StringAnsi EngineVersion = StringAnsi::Format("Flax {0}", Globals::EngineBuildNumber);
-    gameanalytics::GameAnalytics::configureSdkGameEngineVersion(EngineVersion.GetText());
+    StringAnsi engineVersion = StringAnsi::Format("Flax {0}", Globals::EngineBuildNumber);
+    gameanalytics::GameAnalytics::configureSdkGameEngineVersion(engineVersion.GetText());
 
-    StringAnsi ID = StringAnsi::Format("{0}", Steam::Get()->GetSteamID64());
-    gameanalytics::GameAnalytics::configureUserId(ID.GetText());
+    StringAnsi id = StringAnsi::Format("{0}", Steam::Get()->GetSteamID64());
+    gameanalytics::GameAnalytics::configureUserId(id.GetText());
 
     gameanalytics::GameAnalytics::setEnabledErrorReporting(true);
 
@@ -179,9 +183,9 @@ void Analytics::OnInitialize()
     }
 #endif
 
-    gameanalytics::StringVector CoreMods;
-    CoreMods.add(args->Core.ToStringAnsi().GetText());
-    gameanalytics::GameAnalytics::configureAvailableCustomDimensions02(CoreMods);
+    gameanalytics::StringVector coreMods;
+    coreMods.add(args->Core.ToStringAnsi().GetText());
+    gameanalytics::GameAnalytics::configureAvailableCustomDimensions02(coreMods);
     gameanalytics::GameAnalytics::setCustomDimension02(args->Core.ToStringAnsi().GetText());
 
     gameanalytics::GameAnalytics::initialize(_gameKey.GetText(), _gameSecret.GetText());
@@ -211,14 +215,14 @@ void Analytics::AddProgressionEvent(ProgressionStatus progressionStatus, const c
     gameanalytics::GameAnalytics::addProgressionEvent(static_cast<gameanalytics::EGAProgressionStatus>(progressionStatus), progression01, progression02, progression03, score);
 }
 
-void Analytics::AddDesignEvent(DesignEvent Event)
+void Analytics::AddDesignEvent(DesignEvent event)
 {
-    gameanalytics::GameAnalytics::addDesignEvent(Event.GetResult());
+    gameanalytics::GameAnalytics::addDesignEvent(event.GetResult());
 }
 
-void Analytics::AddDesignEvent(DesignEvent Event, double value)
+void Analytics::AddDesignEvent(DesignEvent event, double value)
 {
-    gameanalytics::GameAnalytics::addDesignEvent(Event.GetResult(), value);
+    gameanalytics::GameAnalytics::addDesignEvent(event.GetResult(), value);
 }
 
 void Analytics::AddErrorEvent(ErrorSeverity severity, const char* message)

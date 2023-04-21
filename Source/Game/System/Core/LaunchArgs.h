@@ -17,18 +17,12 @@ API_CLASS() class GAME_API Args : public ISerializable
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE_NO_SPAWN(Args);
 public:
-    API_FIELD()
-        bool IsSteam = false;
-    API_FIELD()
-        bool IsHost = true;
-    API_FIELD()
-        String Hostname;
-    API_FIELD()
-        int Port = 40808;
-    API_FIELD()
-        bool IsModded = false;
-    API_FIELD()
-        String Core;
+    API_FIELD() bool IsSteam = false;
+    API_FIELD() bool IsHost = true;
+    API_FIELD() String Hostname;
+    API_FIELD() int Port = 40808;
+    API_FIELD() bool IsModded = false;
+    API_FIELD() String Core;
 };
 
 API_CLASS() class GAME_API LaunchArgs : public ISystem

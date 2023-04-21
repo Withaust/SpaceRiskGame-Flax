@@ -5,12 +5,12 @@
 
 #include <Game/Shared/Utils/UMath.h>
 
-class HumanReadable 
+class HumanReadable
 {
 public:
-    static String ConvertUnits(uint64_t Units, const Array<String>& Suffixes);
-    static String ConvertBytes(uint64_t Bytes);
-    static StringAnsi ConvertBytesAnsi(uint64_t Bytes);
-    static String ConvertHertz(uint64_t Hertz);
-    static StringAnsi ConvertHertzAnsi(uint64_t Hertz);
+    static String ConvertUnits(uint64_t units, const Array<String>& suffixes);
+    static String ConvertBytes(uint64_t bytes);
+    static StringAnsi ConvertBytesAnsi(uint64_t bytes);
+    static String ConvertHertz(uint64_t hertz);
+    static StringAnsi ConvertHertzAnsi(uint64_t hertz);
 };

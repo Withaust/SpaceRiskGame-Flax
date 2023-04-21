@@ -7,13 +7,6 @@
 		"ID": "8fb122174e8779f615a39990afc398a8",
 		"TypeName": "FlaxEngine.CharacterController",
 		"Name": "Player",
-		"Transform": {
-			"Translation": {
-				"X": 22.871868133544923,
-				"Y": 84.06491088867188,
-				"Z": 107.03744506835938
-			}
-		},
 		"StaticFlags": 0,
 		"Layer": 1,
 		"Tag": "Player",
@@ -24,20 +17,20 @@
 		"ID": "fcff3c3e48e834275a90aa995c38fed5",
 		"TypeName": "Game.PlayerMovement",
 		"ParentID": "8fb122174e8779f615a39990afc398a8",
-		"PlayerController": "8fb122174e8779f615a39990afc398a8",
+		"Controller": "8fb122174e8779f615a39990afc398a8",
 		"Head": "a6cc01e14556e4fa4c0efaafcb4f5dc7"
 	},
 	{
 		"ID": "cd56a00948f186179468bdb08ed764a1",
 		"TypeName": "Game.PlayerNetworking",
 		"ParentID": "8fb122174e8779f615a39990afc398a8",
-		"Camera": "e99dfcd142f04e6a8eab95b9287a6a14"
+		"Camera": "e99dfcd142f04e6a8eab95b9287a6a14",
+		"Direction": "f901c75e4f836955503021ae462076b1"
 	},
 	{
 		"ID": "465793b54c9cb0921cc2e3bfc06faa7c",
 		"TypeName": "Game.NetworkedTransform",
 		"ParentID": "8fb122174e8779f615a39990afc398a8",
-		"Components": 455,
 		"Mode": 1,
 		"Position": "8fb122174e8779f615a39990afc398a8",
 		"Rotation": "a6cc01e14556e4fa4c0efaafcb4f5dc7"
@@ -111,7 +104,7 @@
 		"Buffer": {
 			"Entries": [
 				{
-					"Material": "6738716e49a3f2936b26bf81961e003c",
+					"Material": "00000000000000000000000000000000",
 					"ShadowsMode": 3,
 					"Visible": true,
 					"ReceiveDecals": true

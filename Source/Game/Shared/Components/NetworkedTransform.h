@@ -31,36 +31,12 @@ API_CLASS() class GAME_API NetworkedTransform : public Script, public INetworkSe
     {
         // No sync.
         None = 0,
-
         // Position X component.
-        PositionX = 1 << 0,
+        Position = 1 << 0,
         // Position Y component.
-        PositionY = 1 << 1,
-        // Position Z component.
-        PositionZ = 1 << 2,
-        // Position XYZ components (full).
-        Position = PositionX | PositionY | PositionZ,
-
-        // Scale X component.
-        ScaleX = 1 << 3,
-        // Scale Y component.
-        ScaleY = 1 << 4,
-        // Scale Z component.
-        ScaleZ = 1 << 5,
-        // Scale XYZ components (full).
-        Scale = ScaleX | ScaleY | ScaleZ,
-
-        // Position X component.
-        RotationX = 1 << 6,
-        // Position Y component.
-        RotationY = 1 << 7,
-        // Position Z component.
-        RotationZ = 1 << 8,
-        // Rotation XYZ components (full).
-        Rotation = RotationX | RotationY | RotationZ,
-
+        Rotation = 1 << 1,
         // All components fully synchronized.
-        All = Position | Scale | Rotation,
+        All = Position | Rotation,
     };
 
     /// <summary>
@@ -94,26 +70,22 @@ public:
     /// <summary>
     /// Actor transform replication components (flags).
     /// </summary>
-    API_FIELD(Attributes = "EditorOrder(10)")
-        ReplicationComponents Components = ReplicationComponents::All;
+    API_FIELD(Attributes = "EditorOrder(10)") ReplicationComponents Components = ReplicationComponents::All;
 
     /// <summary>
     /// Actor transform replication mode.
     /// </summary>
-    API_FIELD(Attributes = "EditorOrder(20)")
-        ReplicationModes Mode = ReplicationModes::Default;
+    API_FIELD(Attributes = "EditorOrder(20)") ReplicationModes Mode = ReplicationModes::Default;
 
     /// <summary>
     /// Target position to transform.
     /// </summary>
-    API_FIELD(Attributes = "EditorOrder(30)")
-        ScriptingObjectReference<Actor> Position;
+    API_FIELD(Attributes = "EditorOrder(30)") ScriptingObjectReference<Actor> Position;
 
     /// <summary>
     /// Target rotation to transform.
     /// </summary>
-    API_FIELD(Attributes = "EditorOrder(40)")
-        ScriptingObjectReference<Actor> Rotation;
+    API_FIELD(Attributes = "EditorOrder(40)") ScriptingObjectReference<Actor> Rotation;
 
 private:
     API_FUNCTION(Hidden, NetworkRpc = Server) void SetSequenceIndex(uint16 value);

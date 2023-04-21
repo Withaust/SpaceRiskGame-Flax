@@ -22,16 +22,16 @@ API_CLASS() class GAME_API VisibilityWorker : public Script
     DECLARE_SCRIPTING_TYPE(VisibilityWorker);
 private:
 
-    Function<void()> _DownloadFunc;
-    int _Resolution = 48;
-    int _Resolution2 = 0;
-    TextureData _DownloadResult;
-    GPUTexture* _Output = nullptr;
-    SceneRenderTask* _Task = nullptr;
-    Actor* _Target = nullptr;
-    Function<void(float, Actor*)> _Callback;
-    bool _Finished = true;
-    bool _Stop = false;
+    Function<void()> _downloadFunc;
+    int _resolution = 48;
+    int _resolution2 = 0;
+    TextureData _downloadResult;
+    GPUTexture* _output = nullptr;
+    SceneRenderTask* _task = nullptr;
+    Actor* _target = nullptr;
+    Function<void(float, Actor*)> _callback;
+    bool _finished = true;
+    bool _stop = false;
 
 public:
 
@@ -39,12 +39,12 @@ public:
     void Stop();
 
     void CalculateVisibility();
-    void OnRenderTask(RenderTask* RenderTask, GPUContext* GPUContext);
+    void OnRenderTask(RenderTask* renderTask, GPUContext* gpuContext);
 
     API_FIELD() ScriptingObjectReference<Camera> Camera;
     API_FIELD() ScriptingObjectReference<StaticModel> VisibilityBox;
 
     void OnEnable() override;
     void OnDisable() override;
-    void Queue(Vector3 Origin, Actor* Target, Function<void(float, Actor*)> Callback);
+    void Queue(Vector3 origin, Actor* target, Function<void(float, Actor*)> callback);
 };

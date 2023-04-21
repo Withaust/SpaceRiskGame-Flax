@@ -14,7 +14,6 @@ void UIRoot::OnEnable()
 
 void UIRoot::OnDisable()
 {
-	
 }
 
 void UIRoot::OnUpdate()

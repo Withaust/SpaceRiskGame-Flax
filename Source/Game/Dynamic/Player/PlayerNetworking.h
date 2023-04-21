@@ -16,6 +16,7 @@ API_CLASS() class GAME_API PlayerNetworking : public Script, public INetworkObje
 public:
 
     API_FIELD() ScriptingObjectReference<Camera> Camera;
+    API_FIELD() ScriptingObjectReference<Actor> Direction;
 
     void ClaimAuthority();
     void OnNetworkSpawn() override;

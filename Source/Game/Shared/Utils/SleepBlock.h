@@ -6,16 +6,18 @@
 class SleepBlock
 {
 private:
+
     enum class Type
     {
         Range,
         Singular
-    } _Type;
+    } _type;
 
-    float _Span = 0.0f;
-    float _Timeout = 0.0f;
-    float _Timer = 0.0f;
-    bool _Sleeping = false;
+    float _span = 0.0f;
+    float _timeout = 0.0f;
+    float _timer = 0.0f;
+    bool _sleeping = false;
+
 public:
 
     Action OnActive;
@@ -27,12 +29,12 @@ public:
     // 1.0f - 1 time per second
     // 0.5f - 1 time every 2 seconds
     // 0.25f - 1 time every 4 seconds
-    SleepBlock(float Tps);
+    SleepBlock(float tps);
     // SleepSeconds - for how many seconds should the function sleep
     // ActiveSeconds - for how many seconds should the function run
     // For example, if we want to have a trigger that would enable itself every 3 second, and
     // would be working for 0.5 seconds, params would be SleepBlock(3.0f, 0.5f)
-    SleepBlock(float SleepSeconds, float ActiveSeconds);
+    SleepBlock(float sleepSeconds, float activeSeconds);
 
-    bool Poll(float Delta);
+    bool Poll(float delta);
 };

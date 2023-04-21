@@ -29,8 +29,6 @@ private:
 
 public:
 
-    API_EVENT() Action GameStarting;
-
     void OnNetworkStateChanged();
     void OnNetworkClientConnected(NetworkClient* client);
     void OnNetworkClientDisconnected(NetworkClient* client);
@@ -41,4 +39,6 @@ public:
     void OnSceneUnloaded(Scene* scene) override;
 
     void StartGame();
+
+    // TODO: Add prefab spawning/syncing mechanism & level script registration
 };

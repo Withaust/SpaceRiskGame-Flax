@@ -9,10 +9,6 @@ API_CLASS() class GAME_API Test : public Script
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Test);
 
-private:
-
-    SleepBlock Example;
-
 public:
 
     void OnEnable() override;

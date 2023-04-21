@@ -1,17 +1,16 @@
 #include "CoreInstance.h"
 
-CoreInstance* CoreInstance::_Instance = nullptr;
+CoreInstance* CoreInstance::_instance = nullptr;
 
 CoreInstance::CoreInstance(const SpawnParams& params)
-    //: Actor(SpawnParams(Guid(0x12345678, 0x99634f61, 0x84723632, 0x54c776af), params.Type)) // Override ID to be the same on all clients (a cross-device singleton) to keep network id stable
     : Actor(params)
 {
-    _Instance = this;
+    _instance = this;
 }
 
 CoreInstance* CoreInstance::Instance()
 {
-    return _Instance;
+    return _instance;
 }
 
 void CoreInstance::OnEnable()
@@ -35,53 +34,53 @@ void CoreInstance::OnDisable()
         return;
     }
 #endif
-    for (int i = _SystemsArray.Count() - 1; i >= 0; i--)
+    for (int i = _systemsArray.Count() - 1; i >= 0; i--)
     {
-        _SystemsDict.Remove(_SystemsArray[i].Ptr->GetStaticType().Fullname);
-        _SystemsArray[i].Ptr->OnDeinitialize();
-        _SystemsArray.RemoveAtKeepOrder(i);
+        _systemsDict.Remove(_systemsArray[i].Ptr->GetStaticType().Fullname);
+        _systemsArray[i].Ptr->OnDeinitialize();
+        _systemsArray.RemoveAtKeepOrder(i);
     }
     Level::SceneLoaded.Unbind<CoreInstance, &CoreInstance::OnSceneLoaded>(this);
     Level::SceneLoaded.Unbind<CoreInstance, &CoreInstance::OnSceneUnloaded>(this);
 }
 
-void CoreInstance::OnSceneLoaded(Scene* scene, const Guid& sceneId)
+void CoreInstance::OnSceneLoaded(Scene* scene, const Guid& id)
 {
     if (scene->GetName() == TEXT("Core"))
     {
         return;
     }
-    for (int i = 0; i < _SystemsArray.Count(); ++i)
+    for (int i = 0; i < _systemsArray.Count(); ++i)
     {
-        _SystemsArray[i].Ptr->OnSceneLoaded(scene);
+        _systemsArray[i].Ptr->OnSceneLoaded(scene);
     }
 }
 
-void CoreInstance::OnSceneUnloaded(Scene* scene, const Guid& sceneId)
+void CoreInstance::OnSceneUnloaded(Scene* scene, const Guid& id)
 {
     if (scene->GetName() == TEXT("Core"))
     {
         return;
     }
-    for (int i = 0; i < _SystemsArray.Count(); ++i)
+    for (int i = 0; i < _systemsArray.Count(); ++i)
     {
-        _SystemsArray[i].Ptr->OnSceneUnloaded(scene);
+        _systemsArray[i].Ptr->OnSceneUnloaded(scene);
     }
 }
 
 void CoreInstance::OnPlayerConnected(NetworkClient* client)
 {
-    for (int i = 0; i < _SystemsArray.Count(); ++i)
+    for (int i = 0; i < _systemsArray.Count(); ++i)
     {
-        _SystemsArray[i].Ptr->OnPlayerConnected(client);
+        _systemsArray[i].Ptr->OnPlayerConnected(client);
     }
 }
 
 void CoreInstance::OnPlayerDisconnected(NetworkClient* client)
 {
-    for (int i = 0; i < _SystemsArray.Count(); ++i)
+    for (int i = 0; i < _systemsArray.Count(); ++i)
     {
-        _SystemsArray[i].Ptr->OnPlayerDisconnected(client);
+        _systemsArray[i].Ptr->OnPlayerDisconnected(client);
     }
 }
 
@@ -89,11 +88,13 @@ void CoreInstance::ReplicateSystems()
 {
     NetworkReplicator::AddObject(GetParent());
     NetworkReplicator::AddObject(this);
-    for (int i = 0; i < _SystemsArray.Count(); ++i)
+
+    for (int i = 0; i < _systemsArray.Count(); ++i)
     {
-        const auto& Target = _SystemsArray[i];
+        const auto& Target = _systemsArray[i];
         if (Target.Replicated)
         {
+            NetworkReplicator::AddObject(Target.Ptr->GetParent());
             NetworkReplicator::AddObject(Target.Ptr);
         }
     }
@@ -101,7 +102,7 @@ void CoreInstance::ReplicateSystems()
 
 ISystem* CoreInstance::Get(const MClass* type)
 {
-    SystemEntry* Entry = _SystemsDict.TryGet(type->GetFullName());
+    SystemEntry* Entry = _systemsDict.TryGet(type->GetFullName());
     if (Entry == nullptr)
     {
         return nullptr;
@@ -111,7 +112,7 @@ ISystem* CoreInstance::Get(const MClass* type)
 
 ISystem* CoreInstance::Get(const ScriptingTypeHandle& type)
 {
-    SystemEntry* Entry = _SystemsDict.TryGet(type.GetType().Fullname);
+    SystemEntry* Entry = _systemsDict.TryGet(type.GetType().Fullname);
     if (Entry == nullptr)
     {
         return nullptr;
@@ -151,7 +152,7 @@ void CoreInstance::LoadSystems()
     // Game systems
     Add<VisibilityCPU>();
     Add<VisibilityGPU>();
-    Add<PlayerRespawn>();
+    Add<PlayerRespawn>(true);
     // UI systems
-    Add<UIRoot>(false);
+    Add<UIRoot>();
 }

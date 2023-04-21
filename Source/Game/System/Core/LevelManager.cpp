@@ -3,25 +3,22 @@
 LevelManager::LevelManager(const SpawnParams& params)
     : ISystem(params)
 {
-
 }
 
 void LevelManager::OnInitialize()
 {
-
 }
 
 void LevelManager::OnDeinitialize()
 {
-
 }
 
 void LevelManager::LoadLevel(String scene)
 {
-    AssetInfo Info;
-    Content::GetAssetInfo(String::Format(TEXT("Content/Levels/{0}.scene"), scene), Info);
+    AssetInfo info;
+    Content::GetAssetInfo(String::Format(TEXT("Content/Levels/{0}.scene"), scene), info);
 
-    if (Level::FindScene(Info.ID) != nullptr)
+    if (Level::FindScene(info.ID) != nullptr)
     {
         return;
     }
@@ -30,13 +27,13 @@ void LevelManager::LoadLevel(String scene)
     auto scenes = Level::Scenes;
     for (int32 i = 0; i < scenes.Count(); i++)
     {
-        Scene* Target = scenes[i];
-        if (Target->GetName() == TEXT("Core"))
+        Scene* target = scenes[i];
+        if (target->GetName() == TEXT("Core"))
         {
             continue;
         }
-        Level::UnloadScene(Target);
+        Level::UnloadScene(target);
     }
     Level::ScenesLock.Unlock();
-    Level::LoadSceneAsync(Info.ID);
+    Level::LoadSceneAsync(info.ID);
 }

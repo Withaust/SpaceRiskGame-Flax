@@ -3,53 +3,53 @@
 PlayerRespawn::PlayerRespawn(const SpawnParams& params)
     : ISystem(params)
 {
-
 }
 
 void PlayerRespawn::OnInitialize()
 {
-
 }
 
 void PlayerRespawn::OnDeinitialize()
 {
-
 }
 
 void PlayerRespawn::OnPlayerConnected(NetworkClient* client)
 {
-    Actor* NewPlayer = PrefabManager::SpawnPrefab(PlayerPrefab, CoreInstance::Instance());
-    _Players[client] = NewPlayer;
+    Actor* newPlayer = PrefabManager::SpawnPrefab(PlayerPrefab, GetActor());
+    _players[client] = newPlayer;
 
     if (NetworkManager::LocalClientId != client->ClientId)
     {
-        NetworkReplicator::SpawnObject(NewPlayer);
-        for (int i = 0; i < NewPlayer->Scripts.Count(); ++i)
+        NetworkReplicator::SpawnObject(newPlayer);
+        for (int i = 0; i < newPlayer->Scripts.Count(); ++i)
         {
-            NetworkReplicator::SpawnObject(NewPlayer->Scripts[i]);
+            NetworkReplicator::SpawnObject(newPlayer->Scripts[i]);
         }
-        NetworkReplicator::SetObjectOwnership(NewPlayer, client->ClientId, NetworkObjectRole::ReplicatedSimulated, true);
+        NetworkReplicator::SetObjectOwnership(newPlayer, client->ClientId, NetworkObjectRole::ReplicatedSimulated, true);
     }
     else
     {
-        NetworkReplicator::SpawnObject(NewPlayer);
-        for (int i = 0; i < NewPlayer->Scripts.Count(); ++i)
+        NetworkReplicator::SpawnObject(newPlayer);
+        for (int i = 0; i < newPlayer->Scripts.Count(); ++i)
         {
-            NetworkReplicator::SpawnObject(NewPlayer->Scripts[i]);
+            NetworkReplicator::SpawnObject(newPlayer->Scripts[i]);
         }
-        NetworkReplicator::SetObjectOwnership(NewPlayer, client->ClientId, NetworkObjectRole::OwnedAuthoritative, true);
-        NewPlayer->GetScript<PlayerNetworking>()->ClaimAuthority();
+        NetworkReplicator::SetObjectOwnership(newPlayer, client->ClientId, NetworkObjectRole::OwnedAuthoritative, true);
+        newPlayer->GetScript<PlayerNetworking>()->ClaimAuthority();
     }
-    
-    Level::SpawnActor(NewPlayer);
+
+    Level::SpawnActor(newPlayer, GetActor());
+
+    // TODO: Teleport to the nearest spawnpoint
+    newPlayer->SetPosition(Vector3());
 }
 
 void PlayerRespawn::OnPlayerDisconnected(NetworkClient* client)
 {
-    if (!_Players.ContainsKey(client))
+    if (!_players.ContainsKey(client))
     {
         return;
     }
-    NetworkReplicator::DespawnObject(_Players[client]);
-    _Players.Remove(client);
+    NetworkReplicator::DespawnObject(_players[client]);
+    _players.Remove(client);
 }

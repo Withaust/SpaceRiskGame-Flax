@@ -8,110 +8,110 @@ VisibilityWorker::VisibilityWorker(const SpawnParams& params)
 
 bool VisibilityWorker::IsFinished()
 {
-    return _Finished;
+    return _finished;
 }
 
 void VisibilityWorker::Stop()
 {
-    _Stop = true;
+    _stop = true;
 }
 
 void VisibilityWorker::CalculateVisibility()
 {
-    if (_Stop)
+    if (_stop)
     {
         return;
     }
 
-    BytesContainer& Data = _DownloadResult.GetData(0, 0)->Data;
+    BytesContainer& data = _downloadResult.GetData(0, 0)->Data;
 
-    int DetectedPixels = 0;
+    int detectedPixels = 0;
 
-    for (int x = 0; x < Data.Length(); x += 4)
+    for (int x = 0; x < data.Length(); x += 4)
     {
-        if (Data[x] != 0)
+        if (data[x] != 0)
         {
-            DetectedPixels++;
+            detectedPixels++;
         }
     }
 
-    _Callback(static_cast<float>(DetectedPixels) * 100.f / static_cast<float>(_Resolution2), _Target);
-    _Finished = true;
+    _callback(static_cast<float>(detectedPixels) * 100.f / static_cast<float>(_resolution2), _target);
+    _finished = true;
 }
 
-void VisibilityWorker::OnRenderTask(RenderTask* RenderTask, GPUContext* GPUContext)
+void VisibilityWorker::OnRenderTask(RenderTask* renderTask, GPUContext* gpuContext)
 {
-    if (_Stop)
+    if (_stop)
     {
         return;
     }
 
-    _Task->End.Unbind<VisibilityWorker, &VisibilityWorker::OnRenderTask>(this);
-    _Task->Enabled = false;
+    _task->End.Unbind<VisibilityWorker, &VisibilityWorker::OnRenderTask>(this);
+    _task->Enabled = false;
     Camera->SetIsActive(false);
     VisibilityBox->SetIsActive(false);
 
-    Task* DownloadTask = _Output->DownloadDataAsync(_DownloadResult);
-    if (DownloadTask == nullptr)
+    Task* downloadTask = _output->DownloadDataAsync(_downloadResult);
+    if (downloadTask == nullptr)
     {
-        ULOG_WARN_STR("Cannot create download async task.");
+        UERR_STR("Cannot create download async task.");
         return;
     }
 
-    DownloadTask->ContinueWith(_DownloadFunc, this);
-    DownloadTask->Start();
+    downloadTask->ContinueWith(_downloadFunc, this);
+    downloadTask->Start();
 }
 
 void VisibilityWorker::OnEnable()
 {
-    _Resolution2 = _Resolution * _Resolution;
+    _resolution2 = _resolution * _resolution;
     VisibilityBox->SetIsActive(false);
     Camera->SetIsActive(false);
 
-    _DownloadFunc.Bind<VisibilityWorker, &VisibilityWorker::CalculateVisibility>(this);
+    _downloadFunc.Bind<VisibilityWorker, &VisibilityWorker::CalculateVisibility>(this);
 
-    _Output = GPUTexture::New();
+    _output = GPUTexture::New();
 
     GPUTextureDescription desc = GPUTextureDescription::New2D(
-        _Resolution,
-        _Resolution,
+        _resolution,
+        _resolution,
         PixelFormat::R8G8B8A8_UNorm);
-    _Output->Init(desc);
+    _output->Init(desc);
 
-    _Task = New<SceneRenderTask>();
-    _Task->View.Flags = ViewFlags::None;
-    _Task->View.Mode = ViewMode::NoPostFx;
-    _Task->View.RenderLayersMask = Camera->RenderLayersMask;
-    _Task->View.IsSingleFrame = true;
-    _Task->Order = 9999;
-    _Task->Camera = Camera;
-    _Task->Output = _Output;
+    _task = New<SceneRenderTask>();
+    _task->View.Flags = ViewFlags::None;
+    _task->View.Mode = ViewMode::NoPostFx;
+    _task->View.RenderLayersMask = Camera->RenderLayersMask;
+    _task->View.IsSingleFrame = true;
+    _task->Order = 9999;
+    _task->Camera = Camera;
+    _task->Output = _output;
 }
 
 void VisibilityWorker::OnDisable()
 {
-    if (_Task != nullptr)
+    if (_task != nullptr)
     {
-        _Task->Enabled = false;
-        Delete(_Task);
+        _task->Enabled = false;
+        Delete(_task);
     }
 
-    if (_Output != nullptr)
+    if (_output != nullptr)
     {
-        _Output->ReleaseGPU();
-        Delete(_Output);
+        _output->ReleaseGPU();
+        Delete(_output);
     }
 }
 
-void VisibilityWorker::Queue(Vector3 Origin, Actor* Target, Function<void(float, Actor*)> Callback)
+void VisibilityWorker::Queue(Vector3 origin, Actor* target, Function<void(float, Actor*)> callback)
 {
-    _Finished = false;
-    _Callback = Callback;
-    _Target = Target;
+    _finished = false;
+    _callback = callback;
+    _target = target;
     Camera->SetFieldOfView(1.0f);
-    Camera->SetPosition(Origin);
+    Camera->SetPosition(origin);
 
-    BoundingBox Box = Target->GetBoxWithChildren();
+    BoundingBox Box = target->GetBoxWithChildren();
 
     Camera->LookAt(Box.GetCenter(), Vector3::Up);
 
@@ -144,6 +144,6 @@ void VisibilityWorker::Queue(Vector3 Origin, Actor* Target, Function<void(float,
     VisibilityBox->SetPosition(Box.GetCenter());
     Camera->SetIsActive(true);
 
-    _Task->End.Bind<VisibilityWorker, &VisibilityWorker::OnRenderTask>(this);
-    _Task->Enabled = true;
+    _task->End.Bind<VisibilityWorker, &VisibilityWorker::OnRenderTask>(this);
+    _task->Enabled = true;
 }

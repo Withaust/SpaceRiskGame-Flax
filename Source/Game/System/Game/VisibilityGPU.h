@@ -13,9 +13,9 @@
 
 class VisibilityTask
 {
-    Vector3 _Origin;
-    Actor* _Target;
-    Function<void(float, Actor*)> _Callback;
+    Vector3 _origin;
+    Actor* _target;
+    Function<void(float, Actor*)> _callback;
 
 public:
 
@@ -24,7 +24,7 @@ public:
     Function<void(float, Actor*)> GetCallback() const;
 
     VisibilityTask() = delete;
-    VisibilityTask(Vector3 Origin, Actor* Target, Function<void(float, Actor*)> Callback);
+    VisibilityTask(Vector3 origin, Actor* target, Function<void(float, Actor*)> callback);
 };
 
 API_CLASS() class GAME_API VisibilityGPU : public ISystem
@@ -34,8 +34,8 @@ API_CLASS() class GAME_API VisibilityGPU : public ISystem
     USINGLETON(ISystem);
 
 private:
-    Array<VisibilityWorker*> Workers;
-    RingBuffer<VisibilityTask> Tasks;
+    Array<VisibilityWorker*> _workers;
+    RingBuffer<VisibilityTask> _tasks;
 
 public:
 
@@ -45,5 +45,5 @@ public:
     void OnEnable() override;
     void OnDisable() override;
     void OnUpdate() override;
-    void Queue(Vector3 Origin, Actor* Target, Function<void(float, Actor*)> Callback);
+    void Queue(Vector3 origin, Actor* target, Function<void(float, Actor*)> callback);
 };

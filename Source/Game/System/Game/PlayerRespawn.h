@@ -16,12 +16,11 @@ API_CLASS() class GAME_API PlayerRespawn : public ISystem
     USINGLETON(PlayerRespawn);
 private:
 
-    Dictionary<NetworkClient*, Actor*> _Players;
+    Dictionary<NetworkClient*, Actor*> _players;
 
 public:
 
     API_FIELD() SoftAssetReference<Prefab> PlayerPrefab;
-    API_FIELD() SoftAssetReference<Prefab> UIPrefab;
 
     void OnInitialize() override;
     void OnDeinitialize() override;

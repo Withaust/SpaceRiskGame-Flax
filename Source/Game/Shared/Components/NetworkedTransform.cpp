@@ -11,7 +11,7 @@ PACK_STRUCT(struct Data
     NetworkedTransform::ReplicationComponents Components : 9;
 });
 
-static_assert((int32)NetworkedTransform::ReplicationComponents::All + 1 == 512, "Invalid ReplicationComponents bit count for Data.");
+static_assert((int32)NetworkedTransform::ReplicationComponents::All == 3, "Invalid ReplicationComponents bit count for Data.");
 
 namespace
 {
@@ -46,16 +46,10 @@ void NetworkedTransform::OnEnable()
     _currentSequenceIndex = 0;
     _lastFrameTransform = GetActor() ? GetActor()->GetTransform() : Transform::Identity;
     _buffer.Clear();
-
-    // Register for replication
-    //NetworkReplicator::AddObject(this);
 }
 
 void NetworkedTransform::OnDisable()
 {
-    // Unregister from replication
-    //NetworkReplicator::RemoveObject(this);
-
     _buffer.Resize(0);
 }
 
@@ -64,7 +58,9 @@ void NetworkedTransform::OnUpdate()
     // TODO: cache role in Deserialize to improve cpu perf
     const NetworkObjectRole role = NetworkReplicator::GetObjectRole(this);
     if (role == NetworkObjectRole::OwnedAuthoritative)
+    {
         return; // Ignore itself
+    }
     if (Mode == ReplicationModes::Default)
     {
         // Transform replicated in Deserialize
@@ -117,7 +113,9 @@ void NetworkedTransform::OnUpdate()
 
         // Drop older positions
         while (_buffer.Count() >= 2 && _buffer[1].Timestamp <= gameTime)
+        {
             _buffer.RemoveAtKeepOrder(0);
+        }
 
         // Interpolate between the two surrounding authoritative positions
         if (_buffer.Count() >= 2 && _buffer[0].Timestamp <= gameTime && gameTime <= _buffer[1].Timestamp)
@@ -157,46 +155,16 @@ void NetworkedTransform::Serialize(NetworkStream* stream)
         {
             stream->Write(transform.Translation);
         }
-        else if (EnumHasAnyFlags(data.Components, ReplicationComponents::Position))
-        {
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::PositionX))
-                stream->Write(transform.Translation.X);
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::PositionY))
-                stream->Write(transform.Translation.X);
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::PositionZ))
-                stream->Write(transform.Translation.X);
-        }
-        if (EnumHasAllFlags(data.Components, ReplicationComponents::Scale))
-        {
-            stream->Write(transform.Scale);
-        }
-        else if (EnumHasAnyFlags(data.Components, ReplicationComponents::Scale))
-        {
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::ScaleX))
-                stream->Write(transform.Scale.X);
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::ScaleY))
-                stream->Write(transform.Scale.X);
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::ScaleZ))
-                stream->Write(transform.Scale.X);
-        }
         if (EnumHasAllFlags(data.Components, ReplicationComponents::Rotation))
         {
             const Float3 rotation = transform.Orientation.GetEuler();
             stream->Write(rotation);
         }
-        else if (EnumHasAnyFlags(data.Components, ReplicationComponents::Rotation))
-        {
-            const Float3 rotation = transform.Orientation.GetEuler();
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::RotationX))
-                stream->Write(rotation.X);
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::RotationY))
-                stream->Write(rotation.Y);
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::RotationZ))
-                stream->Write(rotation.Z);
-        }
     }
     if (data.HasSequenceIndex)
+    {
         stream->Write(_currentSequenceIndex);
+    }
 }
 
 void NetworkedTransform::Deserialize(NetworkStream* stream)
@@ -218,55 +186,24 @@ void NetworkedTransform::Deserialize(NetworkStream* stream)
         {
             stream->Read(transform.Translation);
         }
-        else if (EnumHasAnyFlags(data.Components, ReplicationComponents::Position))
-        {
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::PositionX))
-                stream->Read(transform.Translation.X);
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::PositionY))
-                stream->Read(transform.Translation.X);
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::PositionZ))
-                stream->Read(transform.Translation.X);
-        }
-        if (EnumHasAllFlags(data.Components, ReplicationComponents::Scale))
-        {
-            stream->Read(transform.Scale);
-        }
-        else if (EnumHasAnyFlags(data.Components, ReplicationComponents::Scale))
-        {
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::ScaleX))
-                stream->Read(transform.Scale.X);
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::ScaleY))
-                stream->Read(transform.Scale.X);
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::ScaleZ))
-                stream->Read(transform.Scale.X);
-        }
         if (EnumHasAllFlags(data.Components, ReplicationComponents::Rotation))
         {
             Float3 rotation;
             stream->Read(rotation);
             transform.Orientation = Quaternion::Euler(rotation);
         }
-        else if (EnumHasAnyFlags(data.Components, ReplicationComponents::Rotation))
-        {
-            Float3 rotation = transform.Orientation.GetEuler();
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::RotationX))
-                stream->Read(rotation.X);
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::RotationY))
-                stream->Read(rotation.Y);
-            if (EnumHasAnyFlags(data.Components, ReplicationComponents::RotationZ))
-                stream->Read(rotation.Z);
-            transform.Orientation = Quaternion::Euler(rotation);
-        }
     }
     uint16 sequenceIndex = 0;
     if (data.HasSequenceIndex)
+    {
         stream->Read(sequenceIndex);
-    //if (data.LocalSpace != LocalSpace)
-    //    return; // TODO: convert transform space if server-client have different values set
+    }
 
     const NetworkObjectRole role = NetworkReplicator::GetObjectRole(this);
     if (role == NetworkObjectRole::OwnedAuthoritative)
+    {
         return; // Ignore itself
+    }
     if (Mode == ReplicationModes::Default)
     {
         // Immediate set
@@ -293,16 +230,13 @@ void NetworkedTransform::Deserialize(NetworkStream* stream)
         for (auto& e : _buffer)
         {
             transform.Translation = transform.Translation + e.Value.Translation;
-            transform.Scale = transform.Scale * e.Value.Scale;
         }
         // TODO: use euler angles or similar to cache/reapply rotation deltas (Quaternion jitters)
         transform.Orientation = transformLocal.Orientation;
 
         // If local simulation is very close to the authoritative server value then ignore slight error (based relative delta threshold)
         const Transform transformDeltaAfter = transformAuthoritative - transform;
-        if (IsWithinPrecision(transformDeltaBefore.Translation, transformDeltaAfter.Translation) &&
-            IsWithinPrecision(transformDeltaBefore.Scale, transformDeltaAfter.Scale)
-            )
+        if (IsWithinPrecision(transformDeltaBefore.Translation, transformDeltaAfter.Translation))
         {
             return;
         }

@@ -16,22 +16,22 @@
 class DesignEvent
 {
 private:
-    StringAnsi Result;
-    void Filter(String& Design);
-    void FilterAnsi(StringAnsi& Design);
+    StringAnsi _result;
+    void Filter(String& design);
+    void FilterAnsi(StringAnsi& design);
 
 public:
 
     const char* GetResult()
     {
-        return Result.GetText();
+        return _result.GetText();
     }
 
-    DesignEvent(StringAnsi Part1);
-    DesignEvent(StringAnsi Part1, StringAnsi Part2);
-    DesignEvent(StringAnsi Part1, StringAnsi Part2, StringAnsi Part3);
-    DesignEvent(StringAnsi Part1, StringAnsi Part2, StringAnsi Part3, StringAnsi Part4);
-    DesignEvent(StringAnsi Part1, StringAnsi Part2, StringAnsi Part3, StringAnsi Part4, StringAnsi Part5);
+    DesignEvent(StringAnsi part1);
+    DesignEvent(StringAnsi part1, StringAnsi part2);
+    DesignEvent(StringAnsi part1, StringAnsi part2, StringAnsi part3);
+    DesignEvent(StringAnsi part1, StringAnsi part2, StringAnsi part3, StringAnsi part4);
+    DesignEvent(StringAnsi part1, StringAnsi part2, StringAnsi part3, StringAnsi part4, StringAnsi part5);
 };
 
 API_CLASS() class GAME_API Analytics : public ISystem
@@ -47,8 +47,8 @@ private:
 
 public:
 
-    String MessageTypeToString(gameanalytics::EGALoggerMessageType Type);
-    void OnLog(const char* Message, gameanalytics::EGALoggerMessageType MessageType);
+    String MessageTypeToString(gameanalytics::EGALoggerMessageType type);
+    void OnLog(const char* message, gameanalytics::EGALoggerMessageType messageType);
 
     void OnInitialize() override;
     void OnDeinitialize() override;
@@ -104,11 +104,10 @@ public:
     void AddResourceEvent(FlowType flowType, const char* currency, float amount, const char* itemType, const char* itemId);
 
     void AddProgressionEvent(ProgressionStatus progressionStatus, const char* progression01, const char* progression02, const char* progression03);
-
     void AddProgressionEvent(ProgressionStatus progressionStatus, const char* progression01, const char* progression02, const char* progression03, int score);
 
-    void AddDesignEvent(DesignEvent Event);
-    void AddDesignEvent(DesignEvent Event, double value);
+    void AddDesignEvent(DesignEvent event);
+    void AddDesignEvent(DesignEvent event, double value);
 
     void AddErrorEvent(ErrorSeverity severity, const char* message);
     void AddErrorEvent(ErrorSeverity severity, const StringAnsi& message);

@@ -1,4 +1,7 @@
 /*
+
+Causes strainge crashes when trying to offload different prefabs, better not use for now
+
 #if FLAX_EDITOR
 using FlaxEditor;
 using FlaxEditor.GUI;
@@ -8,19 +11,19 @@ using System.Linq;
 
 public class PlayButton : EditorPlugin
 {
-    private List<Scene> Scenes;
+    private List<Scene> _scenes;
 
-    public void OnSceneUnloaded(Scene Scene, System.Guid Id)
+    public void OnSceneUnloaded(Scene scene, System.Guid id)
     {
-        if(Level.ScenesCount == 0)
+        if (Level.ScenesCount == 0)
         {
             Level.SceneUnloaded -= OnSceneUnloaded;
             Level.UnloadAllScenesAsync();
-            for (int i = 0; i < Scenes.Count; ++i)
+            for (int i = 0; i < _scenes.Count; ++i)
             {
-                Level.LoadSceneAsync(Scenes[i].ID);
+                Level.LoadSceneAsync(_scenes[i].ID);
             }
-            Scenes.Clear();
+            _scenes.Clear();
         }
     }
 
@@ -34,11 +37,11 @@ public class PlayButton : EditorPlugin
         {
             //Remove scenes and load core
             Level.SaveAllScenes();
-            Scenes = Level.Scenes.ToList();
+            _scenes = Level.Scenes.ToList();
             Level.UnloadAllScenes();
-            AssetInfo Info;
-            Content.GetAssetInfo("Content/Levels/Core.scene", out Info);
-            Level.LoadScene(Info.ID);
+            AssetInfo info;
+            Content.GetAssetInfo("Content/Levels/Core.scene", out info);
+            Level.LoadScene(info.ID);
         }
         Editor.Simulation.RequestPlayOrStopPlay();
     }
@@ -50,23 +53,23 @@ public class PlayButton : EditorPlugin
         //Disable key input, since it brings hooking issues
         Editor.Options.Options.Input.Play = new FlaxEditor.Options.InputBinding(KeyboardKeys.None);
 
-        ToolStripButton Play = null;
+        ToolStripButton play = null;
         for (int i = 0; i < Editor.UI.ToolStrip.ChildrenCount; ++i)
         {
-            var Target = Editor.UI.ToolStrip.GetChild(i);
-            if (!(Target is ToolStripButton))
+            var target = Editor.UI.ToolStrip.GetChild(i);
+            if (!(target is ToolStripButton))
             {
                 continue;
             }
-            Play = (ToolStripButton)Target;
-            if (Play == null || Play.Clicked != Editor.Simulation.RequestPlayOrStopPlay)
+            play = (ToolStripButton)target;
+            if (play == null || play.Clicked != Editor.Simulation.RequestPlayOrStopPlay)
             {
                 continue;
             }
             break;
         }
-        Play.LinkTooltip("Start/Stop the game");
-        Play.Clicked = OnClicked;
+        play.LinkTooltip("Start/Stop the game");
+        play.Clicked = OnClicked;
     }
 
     public override void Deinitialize()

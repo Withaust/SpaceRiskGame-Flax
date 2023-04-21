@@ -1,8 +1,7 @@
 #include "PlayerMovement.h"
 
 PlayerMovement::PlayerMovement(const SpawnParams& params)
-    : Script(params),
-    Print(0.5f)
+    : Script(params)
 {
     _tickUpdate = true;
 }
@@ -41,9 +40,14 @@ Vector3 PlayerMovement::MoveAir(Vector3 accelDir, Vector3 prevVelocity)
     return Accelerate(accelDir, prevVelocity, AirAccelerate, MaxVelocityAir);
 }
 
-Vector3 PlayerMovement::Horizontal(Vector3 v)
+Vector3 PlayerMovement::ClampHorizontal(Vector3 velocity)
 {
-    return Vector3(v.X, 0.0f, v.Z);
+    return Vector3(velocity.X, 0.0f, velocity.Z);
+}
+
+Vector3 PlayerMovement::ClampNonHorizontal(Vector3 velocity)
+{
+    return Vector3(0.0f, velocity.Y, 0.0f);
 }
 
 void PlayerMovement::OnEnable()
@@ -67,13 +71,18 @@ void PlayerMovement::OnUpdate()
     _pitch = Math::Clamp(_pitch + mouseDelta.Y, -89.0f, 89.0f);
     _yaw += mouseDelta.X;
 
-    // Jump
-    bool jump = CanJump && Input::GetKey(KeyboardKeys::Spacebar); //Input::GetAction(TEXT("Jump"));
-
     // Update head
     Transform headTrans = Head->GetLocalTransform();
     headTrans.Orientation = Quaternion::Euler(_pitch, _yaw, 0.0f);
     Head->SetLocalTransform(headTrans);
+
+    if (!_respawned && Controller->IsGrounded())
+    {
+        _respawned = true;
+    }
+
+    // Jump
+    bool jump = CanJump && Input::GetKey(KeyboardKeys::Spacebar); //Input::GetAction(TEXT("Jump"));
 
     // Calculate player movement vector
     Vector3 velocity(_horizontal, 0.0f, _vertical);
@@ -85,14 +94,14 @@ void PlayerMovement::OnUpdate()
     rotation.Z = 0.0f;
     velocity = Vector3::Transform(velocity, Quaternion::Euler(rotation));
     velocity.Normalize();
-    if (PlayerController->IsGrounded())
+    if (Controller->IsGrounded())
     {
-        velocity = MoveGround(velocity, Horizontal(_velocity));
+        velocity = MoveGround(velocity, ClampHorizontal(_velocity));
         velocity.Y = -Math::Abs(Physics::GetGravity().Y * 0.5f);
     }
     else
     {
-        velocity = MoveAir(velocity, Horizontal(_velocity));
+        velocity = MoveAir(velocity, ClampHorizontal(_velocity));
         velocity.Y = _velocity.Y;
     }
 
@@ -103,7 +112,7 @@ void PlayerMovement::OnUpdate()
     }
 
     // Jump
-    if (jump && PlayerController->IsGrounded())
+    if (jump && Controller->IsGrounded())
     {
         velocity.Y = JumpForce;
     }
@@ -112,7 +121,7 @@ void PlayerMovement::OnUpdate()
     velocity.Y += -Math::Abs(Physics::GetGravity().Y * 2.5f) * Time::GetDeltaTime();
 
     // Check if player is not blocked by something above head
-    if ((static_cast<int>(PlayerController->GetFlags()) & static_cast<int>(CharacterController::CollisionFlags::Above)) != 0)
+    if ((static_cast<int>(Controller->GetFlags()) & static_cast<int>(CharacterController::CollisionFlags::Above)) != 0)
     {
         if (velocity.Y > 0.0f)
         {
@@ -121,7 +130,18 @@ void PlayerMovement::OnUpdate()
         }
     }
 
+    velocity.X = Math::Clamp(velocity.X, -MaxVelocityClamp, MaxVelocityClamp);
+    velocity.Y = Math::Clamp(velocity.Y, -MaxVelocityClamp, MaxVelocityClamp);
+    velocity.Z = Math::Clamp(velocity.Z, -MaxVelocityClamp, MaxVelocityClamp);
+
     // Move
-    PlayerController->AddMovement(velocity * Time::GetDeltaTime(), Quaternion::Identity);
+    if (_respawned)
+    {
+        Controller->AddMovement(velocity * Time::GetDeltaTime(), Quaternion::Identity);
+    }
+    else
+    {
+        Controller->AddMovement(ClampNonHorizontal(velocity) * Time::GetDeltaTime(), Quaternion::Identity);
+    }
     _velocity = velocity;
 }

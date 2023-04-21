@@ -10,6 +10,7 @@ void PlayerNetworking::ClaimAuthority()
 {
     GetActor()->SetName(TEXT("Local Player"));
     Camera->SetIsActive(true);
+    Direction->SetIsActive(false);
 }
 
 void PlayerNetworking::OnNetworkSpawn()

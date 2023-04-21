@@ -3,55 +3,55 @@
 Logger::Logger(const SpawnParams& params)
     : ISystem(params)
 {
-
 }
 
 void Logger::OnInitialize()
 {
-    analytics = Analytics::Get();
 }
 
 void Logger::OnDeinitialize()
 {
-
 }
 
-void Logger::Debug(const StringView& Message, const char* File, int Line)
-{
-    LOG_STR(Info, Message);
-    analytics->AddErrorEvent(Analytics::ErrorSeverity::Debug, String::Format(TEXT("{0} in file {1} at line {2}"), Message, String(File), Line).ToStringAnsi().GetText());
-}
-
-void Logger::Info(const StringView& Message, const char* File, int Line)
+void Logger::Print(const StringView& message, const char* file, int line)
 {
 #ifdef BUILD_DEBUG
-    DebugLog::Log(Message);
+    LOG_STR(Info, message);
 #endif
-    analytics->AddErrorEvent(Analytics::ErrorSeverity::Info, String::Format(TEXT("{0} in file {1} at line {2}"), Message, String(File), Line).ToStringAnsi().GetText());
 }
 
-void Logger::Warning(const StringView& Message, const char* File, int Line)
+void Logger::Info(const StringView& message, const char* file, int line)
 {
 #ifdef BUILD_DEBUG
-    DebugLog::LogWarning(Message);
+    DebugLog::Log(message);
 #endif
-    analytics->AddErrorEvent(Analytics::ErrorSeverity::Warning, String::Format(TEXT("{0} in file {1} at line {2}"), Message, String(File), Line).ToStringAnsi().GetText());
 }
 
-void Logger::Error(const StringView& Message, const char* File, int Line)
+void Logger::Warning(const StringView& message, const char* file, int line)
 {
 #ifdef BUILD_DEBUG
-    DebugLog::LogError(Message);
+    DebugLog::LogWarning(message);
 #endif
-    analytics->AddErrorEvent(Analytics::ErrorSeverity::Error, String::Format(TEXT("{0} in file {1} at line {2}"), Message, String(File), Line).ToStringAnsi().GetText());
+    Analytics::Get()->AddErrorEvent(Analytics::ErrorSeverity::Warning, String::Format(TEXT("{0} in file {1} at line {2}"), message, String(file), line).ToStringAnsi().GetText());
 }
 
-void Logger::Critical(const StringView& Message, const char* File, int Line)
+void Logger::Error(const StringView& message, const char* file, int line)
 {
 #ifdef BUILD_DEBUG
-    DebugLog::LogError(Message);
+    DebugLog::LogError(message);
 #endif
-    analytics->AddErrorEvent(Analytics::ErrorSeverity::Critical, String::Format(TEXT("{0} in file {1} at line {2}"), Message, String(File), Line).ToStringAnsi().GetText());
-    Platform::Error(Message);
-    Engine::RequestExit(1);
+    Analytics::Get()->AddErrorEvent(Analytics::ErrorSeverity::Error, String::Format(TEXT("{0} in file {1} at line {2}"), message, String(file), line).ToStringAnsi().GetText());
+}
+
+void Logger::Critical(bool shutdown, const StringView& message, const char* file, int line)
+{
+#ifdef BUILD_DEBUG
+    DebugLog::LogError(message);
+#endif
+    Analytics::Get()->AddErrorEvent(Analytics::ErrorSeverity::Critical, String::Format(TEXT("{0} in file {1} at line {2}"), message, String(file), line).ToStringAnsi().GetText());
+    if (shutdown)
+    {
+        Platform::Error(message);
+        Engine::RequestExit(1);
+    }
 }

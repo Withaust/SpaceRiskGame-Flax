@@ -12,13 +12,11 @@ API_CLASS() class GAME_API VisibilityCPU : public ISystem
     DECLARE_SCRIPTING_TYPE(VisibilityCPU);
     USINGLETON(VisibilityCPU);
 
-private:
-
 public:
 
     API_FIELD() LayersMask RaycastMask;
 
     void OnInitialize() override;
     void OnDeinitialize() override;
-    bool Queue(Vector3 Origin, Vector3 Direction);
+    bool Queue(Vector3 origin, Vector3 direction);
 };

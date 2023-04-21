@@ -19,8 +19,6 @@ API_CLASS() class GAME_API InfoWare : public ISystem
 
 private:
 
-    Analytics* analytics = nullptr;
-
     const char* GetVendorName(iware::gpu::vendor_t vendor);
 
     void SendSystemInfo();
