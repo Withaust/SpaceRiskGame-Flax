@@ -5,43 +5,31 @@ PlayerRespawn::PlayerRespawn(const SpawnParams& params)
 {
 }
 
-void PlayerRespawn::OnInitialize()
+void PlayerRespawn::Register(PlayerSpawn* spawn)
 {
+    _spawns.Add(spawn);
 }
 
-void PlayerRespawn::OnDeinitialize()
+void PlayerRespawn::Unregister(PlayerSpawn* spawn)
 {
+    _spawns.Remove(spawn);
 }
 
 void PlayerRespawn::OnPlayerConnected(NetworkClient* client)
 {
-    Actor* newPlayer = PrefabManager::SpawnPrefab(PlayerPrefab, GetActor());
-    _players[client] = newPlayer;
+    RandomStream random;
+    random.GenerateNewSeed();
+    int index = random.RandRange(0, _spawns.Count() - 1);
+    PlayerSpawn* spawn = _spawns[index];
 
-    if (NetworkManager::LocalClientId != client->ClientId)
+    UPRINT("Using spawn #{0}", index);
+
+    Actor* newPlayer = Networking::Get()->SpawnPrefab(PlayerPrefab, GetActor(), client->ClientId, spawn->GetActor()->GetPosition(), spawn->GetActor()->GetOrientation());
+    if (NetworkManager::LocalClientId == client->ClientId)
     {
-        NetworkReplicator::SpawnObject(newPlayer);
-        for (int i = 0; i < newPlayer->Scripts.Count(); ++i)
-        {
-            NetworkReplicator::SpawnObject(newPlayer->Scripts[i]);
-        }
-        NetworkReplicator::SetObjectOwnership(newPlayer, client->ClientId, NetworkObjectRole::ReplicatedSimulated, true);
-    }
-    else
-    {
-        NetworkReplicator::SpawnObject(newPlayer);
-        for (int i = 0; i < newPlayer->Scripts.Count(); ++i)
-        {
-            NetworkReplicator::SpawnObject(newPlayer->Scripts[i]);
-        }
-        NetworkReplicator::SetObjectOwnership(newPlayer, client->ClientId, NetworkObjectRole::OwnedAuthoritative, true);
         newPlayer->GetScript<PlayerNetworking>()->ClaimAuthority();
     }
-
-    Level::SpawnActor(newPlayer, GetActor());
-
-    // TODO: Teleport to the nearest spawnpoint
-    newPlayer->SetPosition(Vector3());
+    _players[client] = newPlayer;
 }
 
 void PlayerRespawn::OnPlayerDisconnected(NetworkClient* client)
@@ -50,6 +38,6 @@ void PlayerRespawn::OnPlayerDisconnected(NetworkClient* client)
     {
         return;
     }
-    NetworkReplicator::DespawnObject(_players[client]);
+    Networking::Get()->DespawnPrefab(_players[client]);
     _players.Remove(client);
 }

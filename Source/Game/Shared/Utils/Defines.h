@@ -1,8 +1,13 @@
 #pragma once
+#pragma warning (disable: 4003)
 
 #include <Game/System/CoreInstance.h>
 #include <Game/System/Core/Logger.h>
 #include <Game/Shared/Utils/SleepBlock.h>
+#if USE_EDITOR
+#include <Editor/Editor.h>
+#include <Editor/Managed/ManagedEditor.h>
+#endif
 
 // Declares singleton
 // NOTE: LaunchArgs, Steam, Analytics, Logger cant use this file to define singleton and has to use manual declaration,
@@ -15,12 +20,10 @@ private:
 // Checks if current object is owned, if it is, then run code in the block
 #define UOWNED if(NetworkReplicator::IsObjectOwned(this))
 #define UOWNED_RETURN(returnValue) if(NetworkReplicator::IsObjectOwned(this)) { return returnValue; }
-#define UOWNED_RETURN if(NetworkReplicator::IsObjectOwned(this)) { return; }
 
 // Checks if current object is not owned, if it is, then run code in the block
 #define UNOT_OWNED if(!NetworkReplicator::IsObjectOwned(this))
 #define UNOT_OWNED_RETURN(returnValue) if(!NetworkReplicator::IsObjectOwned(this)) { return returnValue; }
-#define UNOT_OWNED_RETURN if(!NetworkReplicator::IsObjectOwned(this)) { return; }
 
 #ifdef BUILD_DEBUG
 #define UPRINT_STR(text) Logger::Get()->Print(TEXT(text), __FILE__, __LINE__)
@@ -45,3 +48,10 @@ private:
 
 // Polls target SleepGroup, and runs code block below as necessary
 #define USLEEP(sleepBlock) if(sleepBlock.Poll(Time::GetDeltaTime()))
+
+// Allows for the code to run in play mode only
+#if USE_EDITOR
+#define UNO_EDITOR(returnValue) if (!Editor::IsPlayMode) { return returnValue; }
+#else
+#define UNO_EDITOR(returnValue)
+#endif

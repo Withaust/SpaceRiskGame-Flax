@@ -15,6 +15,6 @@ void PlayerNetworking::ClaimAuthority()
 
 void PlayerNetworking::OnNetworkSpawn()
 {
-    UNOT_OWNED_RETURN;
+    UNOT_OWNED_RETURN();
     ClaimAuthority();
 }

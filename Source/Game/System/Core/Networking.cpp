@@ -90,3 +90,50 @@ void Networking::StartGame()
         NetworkManager::StartClient();
     }
 }
+
+Actor* Networking::SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId, const Vector3& position, const Quaternion& rotation)
+{
+    Actor* newActor = PrefabManager::SpawnPrefab(prefab, parent);
+
+    NetworkReplicator::SpawnObject(newActor);
+    for (int i = 0; i < newActor->Scripts.Count(); ++i)
+    {
+        NetworkReplicator::SpawnObject(newActor->Scripts[i]);
+    }
+
+    if (NetworkManager::LocalClientId == ownerId)
+    {
+        NetworkReplicator::SetObjectOwnership(newActor, ownerId, NetworkObjectRole::OwnedAuthoritative, true);
+    }
+    else
+    {   
+        NetworkReplicator::SetObjectOwnership(newActor, ownerId, NetworkObjectRole::ReplicatedSimulated, true);
+    }
+
+    Level::SpawnActor(newActor, parent);
+
+    newActor->SetPosition(position);
+    newActor->SetOrientation(rotation);
+
+    return newActor;
+}
+
+void Networking::DespawnPrefab(Actor* target)
+{
+    NetworkReplicator::DespawnObject(target);
+}
+
+void Networking::StartReplicating(ScriptingObject* target)
+{
+    NetworkReplicator::AddObject(target);
+}
+
+void Networking::StopReplicating(ScriptingObject* target)
+{
+    NetworkReplicator::RemoveObject(target);
+}
+
+void Networking::DespawnReplicating(ScriptingObject* target)
+{
+    NetworkReplicator::DespawnObject(target);
+}

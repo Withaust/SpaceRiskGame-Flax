@@ -22,6 +22,9 @@ API_CLASS() class GAME_API PlayerMovement : public Script
 
 public:
 
+    static const int Height = 50;
+    static const int Radius = 25;
+
     API_FIELD() ScriptingObjectReference<CharacterController> Controller;
     API_FIELD() ScriptingObjectReference<Actor> Head;
 
@@ -33,15 +36,18 @@ public:
     API_FIELD() float MaxVelocityClamp = 3000.0f;
     API_FIELD() bool CanJump = true;
     API_FIELD() float JumpForce = 800.0f;
+    API_FIELD() int FreezeFrames = 3;
 
 private:
 
+    int _freezeCounter = 0;
     bool _respawned = false;
     Vector3 _velocity;
     float _pitch = 0.0f;
     float _yaw = 0.0f;
     float _horizontal = 0.0f;
     float _vertical = 0.0f;
+
 
     // AccelDir: normalized direction that the player has requested to move (taking into account the movement keys and look direction)
     // PrevVelocity: The current velocity of the player, before any additional calculations

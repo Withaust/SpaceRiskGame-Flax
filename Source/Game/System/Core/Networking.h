@@ -5,6 +5,8 @@
 #include <Engine/Networking/NetworkReplicator.h>
 #include <Engine/Level/Level.h>
 #include <Engine/Level/Scene/Scene.h>
+#include <Engine/Level/Prefabs/Prefab.h>
+#include <Engine/Level/Prefabs/PrefabManager.h>
 #include <Engine/Engine/Engine.h>
 #include <Engine/Networking/NetworkSettings.h>
 #include <Engine/Engine/Engine.h>
@@ -40,5 +42,10 @@ public:
 
     void StartGame();
 
-    // TODO: Add prefab spawning/syncing mechanism & level script registration
+    Actor* SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId = NetworkManager::LocalClientId, const Vector3& position = {}, const Quaternion& rotation = {});
+    void DespawnPrefab(Actor* target);
+
+    void StartReplicating(ScriptingObject* target);
+    void StopReplicating(ScriptingObject* target);
+    void DespawnReplicating(ScriptingObject* target);
 };

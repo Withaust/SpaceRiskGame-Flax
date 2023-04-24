@@ -16,8 +16,7 @@
 
 API_CLASS() class GAME_API CoreInstance : public Actor
 {
-    API_AUTO_SERIALIZATION();
-    DECLARE_SCRIPTING_TYPE(CoreInstance);
+    DECLARE_SCENE_OBJECT(CoreInstance);
 public:
     struct SystemEntry
     {

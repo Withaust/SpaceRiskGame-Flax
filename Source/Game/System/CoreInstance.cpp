@@ -15,6 +15,7 @@ CoreInstance* CoreInstance::Instance()
 
 void CoreInstance::OnEnable()
 {
+    Level::ReversedUnload = true;
 #if USE_EDITOR
     if (!Editor::IsPlayMode)
     {

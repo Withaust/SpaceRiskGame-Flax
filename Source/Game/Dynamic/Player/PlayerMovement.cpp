@@ -60,7 +60,7 @@ void PlayerMovement::OnDisable()
 
 void PlayerMovement::OnUpdate()
 {
-    UNOT_OWNED_RETURN;
+    UNOT_OWNED_RETURN();
 
     // Movement
     _horizontal += Input::GetAxis(TEXT("Horizontal"));
@@ -130,9 +130,20 @@ void PlayerMovement::OnUpdate()
         }
     }
 
-    velocity.X = Math::Clamp(velocity.X, -MaxVelocityClamp, MaxVelocityClamp);
-    velocity.Y = Math::Clamp(velocity.Y, -MaxVelocityClamp, MaxVelocityClamp);
-    velocity.Z = Math::Clamp(velocity.Z, -MaxVelocityClamp, MaxVelocityClamp);
+    _freezeCounter++;
+
+    if (_freezeCounter < FreezeFrames)
+    {
+        velocity.X = Math::Clamp(velocity.X, -1.0f, 1.0f);
+        velocity.Y = Math::Clamp(velocity.Y, -1.0f, 1.0f);
+        velocity.Z = Math::Clamp(velocity.Z, -1.0f, 1.0f);
+    }
+    else
+    {
+        velocity.X = Math::Clamp(velocity.X, -MaxVelocityClamp, MaxVelocityClamp);
+        velocity.Y = Math::Clamp(velocity.Y, -MaxVelocityClamp, MaxVelocityClamp);
+        velocity.Z = Math::Clamp(velocity.Z, -MaxVelocityClamp, MaxVelocityClamp);
+    }
 
     // Move
     if (_respawned)
