@@ -6,7 +6,8 @@
 	{
 		"ID": "9a212b7040ad9c33decb40aa1ee7c0d6",
 		"TypeName": "FlaxEngine.EmptyActor",
-		"Name": "UI"
+		"Name": "UI",
+		"Layer": 31
 	},
 	{
 		"ID": "0a53166448b9334630d001ad25ab9549",
@@ -26,6 +27,7 @@
 				"W": 1.910685465164705e-15
 			}
 		},
+		"Layer": 31,
 		"V": {}
 	},
 	{
@@ -41,6 +43,7 @@
 				"W": 1.910685465164705e-15
 			}
 		},
+		"Layer": 31,
 		"Control": "FlaxEngine.GUI.Label",
 		"Data": {
 	"Text": "SpaceRisk",

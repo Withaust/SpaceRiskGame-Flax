@@ -8,7 +8,7 @@
 		"TypeName": "FlaxEngine.CharacterController",
 		"Name": "Player",
 		"StaticFlags": 0,
-		"Layer": 1,
+		"Layer": 4,
 		"Tag": "Player",
 		"Radius": 25.0,
 		"Height": 50.0
@@ -47,6 +47,7 @@
 				"Z": 0.0
 			}
 		},
+		"Layer": 4,
 		"Model": "3f82e57744f57c28285150b646ad2198",
 		"Buffer": {
 			"Entries": [
@@ -72,7 +73,7 @@
 			}
 		},
 		"StaticFlags": 0,
-		"Layer": 1
+		"Layer": 4
 	},
 	{
 		"ID": "e99dfcd142f04e6a8eab95b9287a6a14",
@@ -81,7 +82,7 @@
 		"IsActive": false,
 		"Name": "Camera",
 		"StaticFlags": 0,
-		"Layer": 1,
+		"Layer": 4,
 		"Tag": "Player",
 		"FOV": 100.0
 	},
@@ -99,7 +100,7 @@
 			}
 		},
 		"StaticFlags": 0,
-		"Layer": 1,
+		"Layer": 4,
 		"Model": "1b002a68437b4030ae49e4a08d95906e",
 		"Buffer": {
 			"Entries": [

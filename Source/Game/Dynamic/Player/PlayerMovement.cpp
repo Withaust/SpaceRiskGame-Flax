@@ -130,8 +130,6 @@ void PlayerMovement::OnUpdate()
         }
     }
 
-    _freezeCounter++;
-
     if (_freezeCounter < FreezeFrames)
     {
         velocity.X = Math::Clamp(velocity.X, -1.0f, 1.0f);
@@ -144,6 +142,8 @@ void PlayerMovement::OnUpdate()
         velocity.Y = Math::Clamp(velocity.Y, -MaxVelocityClamp, MaxVelocityClamp);
         velocity.Z = Math::Clamp(velocity.Z, -MaxVelocityClamp, MaxVelocityClamp);
     }
+
+    _freezeCounter++;
 
     // Move
     if (_respawned)

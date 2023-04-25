@@ -6,7 +6,8 @@
 	{
 		"ID": "87f110fd47699626054c72a7fc1fff95",
 		"TypeName": "FlaxEngine.EmptyActor",
-		"Name": "VisibilityCamera"
+		"Name": "VisibilityCamera",
+		"Layer": 31
 	},
 	{
 		"ID": "071263ea46a153042c6298880f888056",
@@ -21,10 +22,11 @@
 		"ParentID": "87f110fd47699626054c72a7fc1fff95",
 		"IsActive": false,
 		"Name": "Camera",
+		"Layer": 31,
 		"FOV": 1.0,
 		"CustomAspectRatio": 1.0,
 		"Far": 5000.0,
-		"RenderLayersMask": 4294967287
+		"RenderLayersMask": 4294967279
 	},
 	{
 		"ID": "970dcd534259b30d526e8ebebeb12a9b",
@@ -32,6 +34,7 @@
 		"ParentID": "87f110fd47699626054c72a7fc1fff95",
 		"IsActive": false,
 		"Name": "VisibilityBox",
+		"Layer": 31,
 		"Model": "60093f7e4c7c642f74ffc1b9fc0f3311",
 		"Buffer": {
 			"Entries": [
