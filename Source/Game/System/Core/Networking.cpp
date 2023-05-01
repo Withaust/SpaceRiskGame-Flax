@@ -5,10 +5,13 @@ Networking::Networking(const SpawnParams& params)
 {
 }
 
+bool Networking::CheckImmediateOwnership(ScriptingObject* target)
+{
+    return _immediateOwner.Contains(target);
+}
+
 void Networking::OnNetworkStateChanged()
 {
-    UPRINT("OnNetworkStateChanged: {0}", ScriptingEnum::ToString(NetworkManager::State));
-
     switch (NetworkManager::State)
     {
     case NetworkConnectionState::Connected:
@@ -20,6 +23,7 @@ void Networking::OnNetworkStateChanged()
             Engine::MainWindow->SetTitle(String::Format(TEXT("{} - {} Id {}"), _windowTitle, NetworkManager::IsClient() ? TEXT("Client") : TEXT("Host"), NetworkManager::LocalClientId));
         }
 #endif
+        CoreInstance::Instance()->OnConnected();
         break;
     }
     case NetworkConnectionState::Offline:
@@ -31,6 +35,7 @@ void Networking::OnNetworkStateChanged()
             Engine::MainWindow->SetTitle(_windowTitle);
         }
 #endif
+        CoreInstance::Instance()->OnDisconnected();
         break;
     }
     }
@@ -61,14 +66,6 @@ void Networking::OnDeinitialize()
     NetworkManager::StateChanged.Unbind<Networking, &Networking::OnNetworkStateChanged>(this);
     NetworkManager::ClientConnected.Unbind<Networking, &Networking::OnNetworkClientConnected>(this);
     NetworkManager::ClientDisconnected.Unbind<Networking, &Networking::OnNetworkClientDisconnected>(this);
-}
-
-void Networking::OnSceneLoaded(Scene* scene)
-{
-}
-
-void Networking::OnSceneUnloaded(Scene* scene)
-{
 }
 
 void Networking::StartGame()
@@ -104,9 +101,10 @@ Actor* Networking::SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId, co
     if (NetworkManager::LocalClientId == ownerId)
     {
         NetworkReplicator::SetObjectOwnership(newActor, ownerId, NetworkObjectRole::OwnedAuthoritative, true);
+        _immediateOwner.Add(newActor);
     }
     else
-    {   
+    {
         NetworkReplicator::SetObjectOwnership(newActor, ownerId, NetworkObjectRole::ReplicatedSimulated, true);
     }
 
@@ -115,25 +113,61 @@ Actor* Networking::SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId, co
     newActor->SetPosition(position);
     newActor->SetOrientation(rotation);
 
+    // Force executing on a spawned prefab even not on networked event
+    for (int i = 0; i < newActor->Scripts.Count(); ++i)
+    {
+        INetworkObject* netObj = ScriptingObject::ToInterface<INetworkObject>(newActor->Scripts[i]);
+        if (netObj)
+        {
+            netObj->OnNetworkSpawn();
+        }
+    }
+
     return newActor;
 }
 
 void Networking::DespawnPrefab(Actor* target)
 {
+    // Force executing on a spawned prefab even not on networked event
+    for (int i = 0; i < target->Scripts.Count(); ++i)
+    {
+        INetworkObject* netObj = ScriptingObject::ToInterface<INetworkObject>(target->Scripts[i]);
+        if (netObj)
+        {
+            netObj->OnNetworkDespawn();
+        }
+    }
+
     NetworkReplicator::DespawnObject(target);
+    _immediateOwner.Remove(target);
 }
 
 void Networking::StartReplicating(ScriptingObject* target)
 {
     NetworkReplicator::AddObject(target);
+    INetworkObject* netObj = ScriptingObject::ToInterface<INetworkObject>(target);
+    if (netObj)
+    {
+        netObj->OnNetworkSpawn();
+    }
 }
 
 void Networking::StopReplicating(ScriptingObject* target)
 {
+    INetworkObject* netObj = ScriptingObject::ToInterface<INetworkObject>(target);
+    if (netObj)
+    {
+        netObj->OnNetworkDespawn();
+    }
     NetworkReplicator::RemoveObject(target);
 }
 
 void Networking::DespawnReplicating(ScriptingObject* target)
 {
+    INetworkObject* netObj = ScriptingObject::ToInterface<INetworkObject>(target);
+    if (netObj)
+    {
+        netObj->OnNetworkDespawn();
+    }
     NetworkReplicator::DespawnObject(target);
 }

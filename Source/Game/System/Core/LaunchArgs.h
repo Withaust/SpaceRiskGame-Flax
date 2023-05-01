@@ -17,10 +17,14 @@ API_CLASS() class GAME_API Args : public ISerializable
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE_NO_SPAWN(Args);
 public:
+    // Steam
     API_FIELD() bool IsSteam = false;
+    API_FIELD() String Name;
+    // Networking
     API_FIELD() bool IsHost = true;
     API_FIELD() String Hostname;
     API_FIELD() int Port = 40808;
+    // Mod support
     API_FIELD() bool IsModded = false;
     API_FIELD() String Core;
 };

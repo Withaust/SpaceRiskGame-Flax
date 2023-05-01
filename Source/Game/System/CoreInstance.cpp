@@ -22,8 +22,6 @@ void CoreInstance::OnEnable()
         return;
     }
 #endif
-    Level::SceneLoaded.Bind<CoreInstance, &CoreInstance::OnSceneLoaded>(this);
-    Level::SceneLoaded.Bind<CoreInstance, &CoreInstance::OnSceneUnloaded>(this);
     LoadSystems();
 }
 
@@ -41,48 +39,7 @@ void CoreInstance::OnDisable()
         _systemsArray[i].Ptr->OnDeinitialize();
         _systemsArray.RemoveAtKeepOrder(i);
     }
-    Level::SceneLoaded.Unbind<CoreInstance, &CoreInstance::OnSceneLoaded>(this);
-    Level::SceneLoaded.Unbind<CoreInstance, &CoreInstance::OnSceneUnloaded>(this);
-}
 
-void CoreInstance::OnSceneLoaded(Scene* scene, const Guid& id)
-{
-    if (scene->GetName() == TEXT("Core"))
-    {
-        return;
-    }
-    for (int i = 0; i < _systemsArray.Count(); ++i)
-    {
-        _systemsArray[i].Ptr->OnSceneLoaded(scene);
-    }
-}
-
-void CoreInstance::OnSceneUnloaded(Scene* scene, const Guid& id)
-{
-    if (scene->GetName() == TEXT("Core"))
-    {
-        return;
-    }
-    for (int i = 0; i < _systemsArray.Count(); ++i)
-    {
-        _systemsArray[i].Ptr->OnSceneUnloaded(scene);
-    }
-}
-
-void CoreInstance::OnPlayerConnected(NetworkClient* client)
-{
-    for (int i = 0; i < _systemsArray.Count(); ++i)
-    {
-        _systemsArray[i].Ptr->OnPlayerConnected(client);
-    }
-}
-
-void CoreInstance::OnPlayerDisconnected(NetworkClient* client)
-{
-    for (int i = 0; i < _systemsArray.Count(); ++i)
-    {
-        _systemsArray[i].Ptr->OnPlayerDisconnected(client);
-    }
 }
 
 void CoreInstance::ReplicateSystems()
@@ -135,6 +92,7 @@ ISystem* CoreInstance::Get(const ScriptingTypeHandle& type)
 #include <Game/System/Game/VisibilityCPU.h>
 #include <Game/System/Game/VisibilityGPU.h>
 #include <Game/System/Game/PlayerRespawn.h>
+#include <Game/System/Game/Chat.h>
 // UI systems
 #include <Game/UI/UIRoot.h>
 
@@ -154,6 +112,7 @@ void CoreInstance::LoadSystems()
     Add<VisibilityCPU>();
     Add<VisibilityGPU>();
     Add<PlayerRespawn>(true);
+    Add<Chat>(true);
     // UI systems
     Add<UIRoot>();
 }

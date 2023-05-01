@@ -3,10 +3,12 @@
 #include <Engine/Scripting/Script.h>
 #include <Engine/Debug/DebugLog.h>
 #include <Engine/Engine/Engine.h>
+#include <Engine/Core/RandomStream.h>
 
 #include <SteamWorks/steam_api.h>
 
 #include <Game/System/CoreInstance.h>
+#include <Game/System/Core/LaunchArgs.h>
 
 API_CLASS() class GAME_API Steam : public ISystem
 {
@@ -18,6 +20,8 @@ private:
 
     bool _initialized = false;
     const int _appID = 1436420;
+    String _name;
+    CSteamID _steamID;
 
 public:
 
@@ -36,6 +40,7 @@ public:
     // ISteamAppTicket Interface
     // ISteamClient Interface
     // ISteamFriends Interface
+    String GetPersonaName();
     // ISteamGameCoordinator Interface
     // ISteamGameServer Interface
     // ISteamGameServerStats Interface

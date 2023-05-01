@@ -3,7 +3,6 @@
 PlayerNetworking::PlayerNetworking(const SpawnParams& params)
     : Script(params)
 {
-    _tickUpdate = true;
 }
 
 void PlayerNetworking::ClaimAuthority()

@@ -12,7 +12,7 @@
 #include <Editor/Managed/ManagedEditor.h>
 #endif
 
-#include <Game/System/Core/ISystem.h>
+#include <Game/System/ISystem.h>
 
 API_CLASS() class GAME_API CoreInstance : public Actor
 {
@@ -38,11 +38,20 @@ public:
     void OnEnable() override;
     void OnDisable() override;
 
-    void OnSceneLoaded(Scene* scene, const Guid& id);
-    void OnSceneUnloaded(Scene* scene, const Guid& id);
+#define DISPATCH_SYSTEM(name, ...) \
+    for (int i = 0; i < _systemsArray.Count(); ++i) \
+    { \
+        _systemsArray[i].Ptr->name(__VA_ARGS__); \
+    }
 
-    void OnPlayerConnected(NetworkClient* client);
-    void OnPlayerDisconnected(NetworkClient* client);
+    void OnSceneLoaded(Scene* scene) { DISPATCH_SYSTEM(OnSceneLoaded, scene) }
+    void OnSceneUnloaded(Scene* scene) { DISPATCH_SYSTEM(OnSceneUnloaded, scene) }
+    void OnConnected() { DISPATCH_SYSTEM(OnConnected) }
+    void OnDisconnected() { DISPATCH_SYSTEM(OnDisconnected) }
+    void OnPlayerConnected(NetworkClient* client) { DISPATCH_SYSTEM(OnPlayerConnected, client) }
+    void OnPlayerDisconnected(NetworkClient* client) { DISPATCH_SYSTEM(OnPlayerDisconnected, client) }
+
+#undef DISPATCH_SYSTEM
 
     void ReplicateSystems();
 

@@ -11,12 +11,13 @@ API_CLASS() class GAME_API LevelManager : public ISystem
     DECLARE_SCRIPTING_TYPE(LevelManager);
     USINGLETON(LevelManager);
 
-private:
-
 public:
 
     void OnInitialize() override;
     void OnDeinitialize() override;
+
+    void OnSceneLoaded(Scene* scene, const Guid& id);
+    void OnSceneUnloaded(Scene* scene, const Guid& id);
 
     void LoadLevel(String scene);
 };

@@ -36,6 +36,11 @@
 		"Rotation": "a6cc01e14556e4fa4c0efaafcb4f5dc7"
 	},
 	{
+		"ID": "ef2abd3a40775ce73913578b7cf5bfd0",
+		"TypeName": "Game.PlayerInfo",
+		"ParentID": "8fb122174e8779f615a39990afc398a8"
+	},
+	{
 		"ID": "c4bbad864356bd3f092186905be44d07",
 		"TypeName": "FlaxEngine.StaticModel",
 		"ParentID": "8fb122174e8779f615a39990afc398a8",

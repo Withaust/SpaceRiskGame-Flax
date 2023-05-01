@@ -39,10 +39,24 @@ void Steam::ReleaseCurrentThreadMemory()
 {
     SteamAPI_ReleaseCurrentThreadMemory();
 }
+
 // ISteamApps Interface
 // ISteamAppTicket Interface
 // ISteamClient Interface
+
 // ISteamFriends Interface
+
+String Steam::GetPersonaName()
+{
+    if (!_initialized)
+    {
+        return _name;
+    }
+    const char* name = SteamFriends()->GetPersonaName();
+    int32 outLength;
+    return StringUtils::ConvertUTF82UTF16(name, StringUtils::Length(name), outLength);
+}
+
 // ISteamGameCoordinator Interface
 // ISteamGameServer Interface
 // ISteamGameServerStats Interface
@@ -181,7 +195,7 @@ CSteamID Steam::GetSteamID()
 {
     if (!_initialized)
     {
-        return CSteamID();
+        return _steamID;
     }
     return SteamUser()->GetSteamID();
 }
@@ -190,17 +204,13 @@ uint64_t Steam::GetSteamID64()
 {
     if (!_initialized)
     {
-        return 0;
+        return _steamID.ConvertToUint64();
     }
     return SteamUser()->GetSteamID().ConvertToUint64();
 }
 
 uint64_t Steam::GetSteamID64(CSteamID SteamID)
 {
-    if (!_initialized)
-    {
-        return 0;
-    }
     return SteamID.ConvertToUint64();
 }
 
@@ -210,6 +220,27 @@ uint64_t Steam::GetSteamID64(CSteamID SteamID)
 
 void Steam::OnInitialize()
 {
+    const Args* args = CoreInstance::Instance()->Get<LaunchArgs>()->GetArgs();
+
+    if (!args->IsSteam)
+    {
+        _name = args->Name;
+        // Derive fake steamId from given name
+        RandomStream random(static_cast<int32>(StringUtils::GetHashCode(_name.GetText(), _name.Length())));
+        uint64 steamId;
+        byte* steamIdPtr = reinterpret_cast<byte*>(&steamId);
+        uint32 randomInt;
+        randomInt = random.GetUnsignedInt();
+        Platform::MemoryCopy(steamIdPtr, &randomInt, sizeof(uint32));
+        // This gives steamId a consistent look with a real id like 7656119XXXXXXXXXX
+        steamIdPtr[4] = 1;
+        steamIdPtr[5] = 0;
+        steamIdPtr[6] = 16;
+        steamIdPtr[7] = 1;
+        _steamID = CSteamID(steamId);
+        return;
+    }
+
     if (RestartAppIfNecessary(_appID))
     {
         LOG_STR(Info, TEXT("Steam asked us to restart an app."));
@@ -228,7 +259,7 @@ void Steam::OnInitialize()
         Platform::Error(ErrorText);
         Engine::RequestExit(1);
         return;
-    }
+}
 
     InitRelayNetworkAccess();
 }

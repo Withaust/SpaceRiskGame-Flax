@@ -12,8 +12,9 @@
 #include <Engine/Engine/Engine.h>
 #include <Engine/Platform/Window.h>
 #include <Engine/Scripting/Enums.h>
+#include <Engine/Networking/INetworkObject.h>
+#include <Engine/Core/Collections/HashSet.h>
 
-#include <Game/Shared/Utils/Defines.h>
 #include <Game/System/Core/LaunchArgs.h>
 #include <Game/System/Core/Logger.h>
 
@@ -21,15 +22,20 @@ API_CLASS() class GAME_API Networking : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Networking);
-    USINGLETON(Networking);
+    static Networking* Get() { return CoreInstance::Instance()->Get<Networking>(); }
 
 private:
 
     String _windowTitle;
     bool _gameStarted = false;
     bool _isHosting = false;
+    HashSet<ScriptingObject*> _immediateOwner;
 
 public:
+
+    // TODO: This is dumb fix, I hope this issue will be resolved
+    // https://github.com/FlaxEngine/FlaxEngine/issues/1066
+    bool CheckImmediateOwnership(ScriptingObject* target);
 
     void OnNetworkStateChanged();
     void OnNetworkClientConnected(NetworkClient* client);
@@ -37,8 +43,6 @@ public:
 
     void OnInitialize() override;
     void OnDeinitialize() override;
-    void OnSceneLoaded(Scene* scene) override;
-    void OnSceneUnloaded(Scene* scene) override;
 
     void StartGame();
 

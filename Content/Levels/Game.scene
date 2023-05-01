@@ -71,15 +71,15 @@
 			"Name": "DirectionalLight",
 			"Transform": {
 				"Translation": {
-					"X": 0.0,
-					"Y": 78.0,
-					"Z": 0.0
+					"X": -287.4748840332031,
+					"Y": -181.7435760498047,
+					"Z": -33.77154541015625
 				},
 				"Orientation": {
-					"X": 0.8870108723640442,
+					"X": 0.9650431275367737,
 					"Y": 0.0,
 					"Z": 0.0,
-					"W": 0.4617486000061035
+					"W": 0.26209118962287905
 				}
 			},
 			"Layer": 31
@@ -97,7 +97,6 @@
 				}
 			},
 			"Layer": 1,
-			"LODDistribution": 0.0,
 			"Material": "6738716e49a3f2936b26bf81961e003c",
 			"LODCount": 1,
 			"ChunkSize": 31,
@@ -464,6 +463,54 @@
 			"ID": "31da96154756b932d6e4f49d8d5d8ac2",
 			"TypeName": "Game.PlayerSpawn",
 			"ParentID": "0c2b573e4404f6b68b408fbf9f34965e"
+		},
+		{
+			"ID": "55d6530d42e049d51c19e3a859b78c65",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "Default",
+			"Transform": {
+				"Translation": {
+					"X": -211.30523681640626,
+					"Y": -226.47079467773438,
+					"Z": -129.91868591308595
+				}
+			},
+			"Model": "b43f0f8f4aaba3f3156896a5a22ba493",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "d1678f1e47a11d96c28bb38823844dd4",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
+		},
+		{
+			"ID": "e63a235e45744b9c191df495bc46fb05",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "Crunched",
+			"Transform": {
+				"Translation": {
+					"X": -330.1308898925781,
+					"Y": -226.781982421875,
+					"Z": -128.83181762695313
+				}
+			},
+			"Model": "b43f0f8f4aaba3f3156896a5a22ba493",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "b4da29b14c362c46e8e807b627b82517",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
 		}
 	]
 }

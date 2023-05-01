@@ -1,5 +1,6 @@
 {
 	"IsSteam": false,
+	"Name": "Host",
 	"IsHost": true,
 	"Hostname": "localhost",
 	"Port": 40808,

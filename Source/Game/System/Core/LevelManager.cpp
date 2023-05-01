@@ -7,10 +7,32 @@ LevelManager::LevelManager(const SpawnParams& params)
 
 void LevelManager::OnInitialize()
 {
+    Level::SceneLoaded.Bind<LevelManager, &LevelManager::OnSceneLoaded>(this);
+    Level::SceneLoaded.Bind<LevelManager, &LevelManager::OnSceneUnloaded>(this);
 }
 
 void LevelManager::OnDeinitialize()
 {
+    Level::SceneLoaded.Unbind<LevelManager, &LevelManager::OnSceneLoaded>(this);
+    Level::SceneLoaded.Unbind<LevelManager, &LevelManager::OnSceneUnloaded>(this);
+}
+
+void LevelManager::OnSceneLoaded(Scene* scene, const Guid& id)
+{
+    if (scene->GetName() == TEXT("Core"))
+    {
+        return;
+    }
+    CoreInstance::Instance()->OnSceneLoaded(scene);
+}
+
+void LevelManager::OnSceneUnloaded(Scene* scene, const Guid& id)
+{
+    if (scene->GetName() == TEXT("Core"))
+    {
+        return;
+    }
+    CoreInstance::Instance()->OnSceneUnloaded(scene);
 }
 
 void LevelManager::LoadLevel(String scene)

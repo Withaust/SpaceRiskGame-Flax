@@ -161,6 +161,17 @@
 			"PlayerPrefab": "fed0ee4d4ea972374ca1c4958d03a29a"
 		},
 		{
+			"ID": "7d7233cc4fb409101aff038aee263ad3",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "6089a8c94569c6f7748151b54c9483b0",
+			"Name": "Chat"
+		},
+		{
+			"ID": "65890a614e71ddd32ff1a9bf6ec3fa13",
+			"TypeName": "Game.Chat",
+			"ParentID": "7d7233cc4fb409101aff038aee263ad3"
+		},
+		{
 			"ID": "0f86e27c4ec8fcd5396c508c4320d8f1",
 			"PrefabID": "747e062e424bed9302ec1fa0f050b19e",
 			"PrefabObjectID": "9a212b7040ad9c33decb40aa1ee7c0d6",

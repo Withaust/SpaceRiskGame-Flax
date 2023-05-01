@@ -50,14 +50,6 @@ Vector3 PlayerMovement::ClampNonHorizontal(Vector3 velocity)
     return Vector3(0.0f, velocity.Y, 0.0f);
 }
 
-void PlayerMovement::OnEnable()
-{
-}
-
-void PlayerMovement::OnDisable()
-{
-}
-
 void PlayerMovement::OnUpdate()
 {
     UNOT_OWNED_RETURN();

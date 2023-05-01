@@ -13,14 +13,18 @@ API_CLASS() class GAME_API PlayerNetworking : public Script, public INetworkObje
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(PlayerNetworking);
+
+private:
+
+    void ClaimAuthority();
+
 public:
 
     API_FIELD() ScriptingObjectReference<Camera> Camera;
     API_FIELD() ScriptingObjectReference<Actor> Direction;
 
-    void ClaimAuthority();
+    
     void OnNetworkSpawn() override;
-
     void OnNetworkDespawn() override {};
     void OnNetworkSerialize() override {};
     void OnNetworkDeserialize() override {};
