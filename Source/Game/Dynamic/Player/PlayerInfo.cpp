@@ -5,30 +5,6 @@ PlayerInfo::PlayerInfo(const SpawnParams& params)
 {
 }
 
-void PlayerInfo::OnEnable()
-{
-    if (NetworkReplicator::IsObjectOwned(this))
-    {
-        UPRINT("OnEnable() -> Owned");
-    }
-    else
-    {
-        UPRINT("OnEnable() -> Not Owned");
-    }
-}
-
-void PlayerInfo::OnStart()
-{
-    if (NetworkReplicator::IsObjectOwned(this))
-    {
-        UPRINT("OnStart() -> Owned");
-    }
-    else
-    {
-        UPRINT("OnStart() -> Not Owned");
-    }
-}
-
 void PlayerInfo::OnNetworkSpawn()
 {
     UNOT_OWNED_RETURN();

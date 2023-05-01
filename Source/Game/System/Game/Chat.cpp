@@ -13,7 +13,7 @@ void Chat::OnUpdate()
     {
         if (NetworkManager::IsConnected() && !NetworkManager::IsHost())
         {
-            SendMessage(TEXT("MESSAGE FROM CLIENT!"));
+            //SendMessage(TEXT("MESSAGE FROM CLIENT!"));
         }
     }
 }

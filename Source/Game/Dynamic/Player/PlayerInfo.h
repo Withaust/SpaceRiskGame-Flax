@@ -19,8 +19,6 @@ public:
     API_FIELD(NetworkReplicated) int Skill2;
     API_FIELD(NetworkReplicated) int TemplateId;
 
-    void OnEnable() override;
-    void OnStart() override;
     void OnNetworkSpawn() override;
     void OnNetworkDespawn() override {};
     void OnNetworkSerialize() override {};
