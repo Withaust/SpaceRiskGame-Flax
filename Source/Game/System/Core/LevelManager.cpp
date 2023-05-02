@@ -17,6 +17,20 @@ void LevelManager::OnDeinitialize()
     Level::SceneLoaded.Unbind<LevelManager, &LevelManager::OnSceneUnloaded>(this);
 }
 
+void LevelManager::OnPlayerConnected(NetworkClient* client)
+{
+    if (client->ClientId == NetworkManager::LocalClientId)
+    {
+        return;
+    }
+
+    NetworkRpcParams params;
+    uint32 targets[] = { client->ClientId };
+    Span<uint32>(targets, 1);
+
+    RequestLoadLevel(params, mainScene);
+}
+
 void LevelManager::OnSceneLoaded(Scene* scene, const Guid& id)
 {
     if (scene->GetName() == TEXT("Core"))
@@ -33,6 +47,12 @@ void LevelManager::OnSceneUnloaded(Scene* scene, const Guid& id)
         return;
     }
     CoreInstance::Instance()->OnSceneUnloaded(scene);
+}
+
+void LevelManager::RequestLoadLevel(NetworkRpcParams info, String scene)
+{
+    NETWORK_RPC_IMPL(LevelManager, RequestLoadLevel, info, scene);
+    LoadLevel(scene);
 }
 
 void LevelManager::LoadLevel(String scene)
@@ -58,4 +78,8 @@ void LevelManager::LoadLevel(String scene)
     }
     Level::ScenesLock.Unlock();
     Level::LoadSceneAsync(info.ID);
+    if (LaunchArgs::Get()->GetArgs()->IsHost)
+    {
+        mainScene = scene;
+    }
 }

@@ -13,15 +13,15 @@ void Chat::OnUpdate()
     {
         if (NetworkManager::IsConnected() && !NetworkManager::IsHost())
         {
-            //SendMessage(TEXT("MESSAGE FROM CLIENT!"));
+            //SendMessage({}, TEXT("MESSAGE FROM CLIENT!"));
         }
     }
 }
 
-void Chat::SendMessage(const String& text)
+void Chat::SendMessage(NetworkRpcParams info, const String& text)
 {
-    NETWORK_RPC_IMPL(Chat, SendMessage, text);
-    RecieveMessage(NetworkManager::RPCInvoker, text);
+    NETWORK_RPC_IMPL(Chat, SendMessage, info, text);
+    RecieveMessage(info.SenderId, text);
 }
 
 void Chat::RecieveMessage(uint32 sender, const String& text)

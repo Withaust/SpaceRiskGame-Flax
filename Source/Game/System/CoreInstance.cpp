@@ -86,8 +86,6 @@ ISystem* CoreInstance::Get(const ScriptingTypeHandle& type)
 #include <Game/System/Core/InfoWare.h>
 #include <Game/System/Core/Networking.h>
 #include <Game/System/Core/LevelManager.h>
-// CoreInitializer should always be used last in core
-#include <Game/System/Core/CoreInitializer.h>
 // Game systems
 #include <Game/System/Game/VisibilityCPU.h>
 #include <Game/System/Game/VisibilityGPU.h>
@@ -95,6 +93,9 @@ ISystem* CoreInstance::Get(const ScriptingTypeHandle& type)
 #include <Game/System/Game/Chat.h>
 // UI systems
 #include <Game/UI/UIRoot.h>
+
+// CoreInitializer should always be used last
+#include <Game/System/Core/CoreInitializer.h>
 
 void CoreInstance::LoadSystems()
 {
@@ -105,9 +106,7 @@ void CoreInstance::LoadSystems()
     Add<Logger>();
     Add<InfoWare>();
     Add<Networking>();
-    Add<LevelManager>();
-    // CoreInitializer should always be used last in core
-    Add<CoreInitializer>();
+    Add<LevelManager>(true);
     // Game systems
     Add<VisibilityCPU>();
     Add<VisibilityGPU>();
@@ -115,4 +114,7 @@ void CoreInstance::LoadSystems()
     Add<Chat>(true);
     // UI systems
     Add<UIRoot>();
+
+    // CoreInitializer should always be used last
+    Add<CoreInitializer>();
 }

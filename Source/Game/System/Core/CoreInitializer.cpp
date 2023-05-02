@@ -7,7 +7,15 @@ CoreInitializer::CoreInitializer(const SpawnParams& params)
 
 void CoreInitializer::OnInitialize()
 {
-    LevelManager::Get()->LoadLevel(TEXT("Game"));
+    if(LaunchArgs::Get()->GetArgs()->IsHost)
+    {
+        LevelManager::Get()->LoadLevel(TEXT("Game"));
+    }
+    else
+    {
+        Networking::Get()->StartGame();
+        CoreInstance::Instance()->ReplicateSystems();
+    }
 }
 
 void CoreInitializer::OnDeinitialize()
@@ -16,6 +24,9 @@ void CoreInitializer::OnDeinitialize()
 
 void CoreInitializer::OnSceneLoaded(Scene* scene)
 {
-    Networking::Get()->StartGame();
-    CoreInstance::Instance()->ReplicateSystems();
+    if (LaunchArgs::Get()->GetArgs()->IsHost)
+    {
+        Networking::Get()->StartGame();
+        CoreInstance::Instance()->ReplicateSystems();
+    }
 }

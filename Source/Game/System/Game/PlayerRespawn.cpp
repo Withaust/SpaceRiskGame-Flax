@@ -25,10 +25,6 @@ void PlayerRespawn::OnPlayerConnected(NetworkClient* client)
     UPRINT("Using spawn {0}", index);
 
     Actor* newPlayer = Networking::Get()->SpawnPrefab(PlayerPrefab, GetActor(), client->ClientId, spawn->GetActor()->GetPosition(), spawn->GetActor()->GetOrientation());
-    if (NetworkManager::LocalClientId == client->ClientId)
-    {
-        //newPlayer->GetScript<PlayerNetworking>()->ClaimAuthority();
-    }
     _players[client] = newPlayer;
 }
 

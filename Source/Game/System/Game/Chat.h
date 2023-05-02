@@ -15,7 +15,7 @@ API_CLASS() class GAME_API Chat : public ISystem
 
     void OnUpdate() override;
 
-    API_FUNCTION(NetworkRpc = "Server, Reliable") void SendMessage(const String& text);
+    API_FUNCTION(NetworkRpc = "Server, Reliable") void SendMessage(NetworkRpcParams info, const String& text);
     API_FUNCTION(NetworkRpc = "Client, Reliable") void RecieveMessage(uint32 sender, const String& text);
 
 };
