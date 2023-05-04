@@ -7,14 +7,13 @@
 
 #include <SteamWorks/steam_api.h>
 
-#include <Game/System/CoreInstance.h>
+#include <Game/System/Core.h>
 #include <Game/System/Core/LaunchArgs.h>
 
 API_CLASS() class GAME_API Steam : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Steam);
-    static Steam* Get() { return CoreInstance::Instance()->Get<Steam>(); }
 
 private:
 

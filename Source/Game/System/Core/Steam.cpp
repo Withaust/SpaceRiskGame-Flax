@@ -220,7 +220,7 @@ uint64_t Steam::GetSteamID64(CSteamID SteamID)
 
 void Steam::OnInitialize()
 {
-    const Args* args = CoreInstance::Instance()->Get<LaunchArgs>()->GetArgs();
+    const Args* args = Core::Get<LaunchArgs>()->GetArgs();
 
     if (!args->IsSteam)
     {

@@ -10,7 +10,6 @@ API_CLASS() class GAME_API VisibilityCPU : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(VisibilityCPU);
-    USINGLETON(VisibilityCPU);
 
 public:
 

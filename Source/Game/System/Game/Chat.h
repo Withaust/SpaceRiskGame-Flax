@@ -6,7 +6,7 @@
 
 #include <Game/Shared/Utils/Defines.h>
 
-API_CLASS() class GAME_API Chat : public ISystem
+API_CLASS(Namespace = "Game") class GAME_API Chat : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Chat);
@@ -14,6 +14,8 @@ API_CLASS() class GAME_API Chat : public ISystem
     SleepBlock Event;
 
     void OnUpdate() override;
+
+    API_EVENT() Delegate<uint32, String> OnChatMessage;
 
     API_FUNCTION(NetworkRpc = "Server, Reliable") void SendMessage(NetworkRpcParams info, const String& text);
     API_FUNCTION(NetworkRpc = "Client, Reliable") void RecieveMessage(uint32 sender, const String& text);

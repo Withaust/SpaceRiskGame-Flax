@@ -54,14 +54,22 @@ void PlayerMovement::OnUpdate()
 {
     UNOT_OWNED_RETURN();
 
-    // Movement
-    _horizontal += Input::GetAxis(TEXT("Horizontal"));
-    _vertical += Input::GetAxis(TEXT("Vertical"));
+    bool jump = false;
 
-    // Mouse
-    Float2 mouseDelta(Input::GetAxis(TEXT("Mouse X")), Input::GetAxis(TEXT("Mouse Y")));
-    _pitch = Math::Clamp(_pitch + mouseDelta.Y, -89.0f, 89.0f);
-    _yaw += mouseDelta.X;
+    if (CanMove)
+    {
+        // Movement
+        _horizontal += Input::GetAxis(TEXT("Horizontal"));
+        _vertical += Input::GetAxis(TEXT("Vertical"));
+
+        // Mouse
+        Float2 mouseDelta(Input::GetAxis(TEXT("Mouse X")), Input::GetAxis(TEXT("Mouse Y")));
+        _pitch = Math::Clamp(_pitch + mouseDelta.Y, -89.0f, 89.0f);
+        _yaw += mouseDelta.X;
+
+        // Jump
+        jump = CanJump && Input::GetKey(KeyboardKeys::Spacebar); //Input::GetAction(TEXT("Jump"));
+    }
 
     // Update head
     Transform headTrans = Head->GetLocalTransform();
@@ -72,9 +80,6 @@ void PlayerMovement::OnUpdate()
     {
         _respawned = true;
     }
-
-    // Jump
-    bool jump = CanJump && Input::GetKey(KeyboardKeys::Spacebar); //Input::GetAction(TEXT("Jump"));
 
     // Calculate player movement vector
     Vector3 velocity(_horizontal, 0.0f, _vertical);

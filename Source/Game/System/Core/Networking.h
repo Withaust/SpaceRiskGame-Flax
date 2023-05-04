@@ -22,11 +22,8 @@ API_CLASS() class GAME_API Networking : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Networking);
-    static Networking* Get() { return CoreInstance::Instance()->Get<Networking>(); }
 
 private:
-
-    String _windowTitle;
     bool _gameStarted = false;
     bool _isHosting = false;
     HashSet<ScriptingObject*> _immediateOwner;

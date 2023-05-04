@@ -31,7 +31,6 @@ API_CLASS() class GAME_API VisibilityGPU : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(VisibilityGPU);
-    USINGLETON(ISystem);
 
 private:
     Array<VisibilityWorker*> _workers;

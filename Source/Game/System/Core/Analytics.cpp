@@ -163,12 +163,12 @@ void Analytics::OnInitialize()
     StringAnsi engineVersion = StringAnsi::Format("Flax {0}", Globals::EngineBuildNumber);
     gameanalytics::GameAnalytics::configureSdkGameEngineVersion(engineVersion.GetText());
 
-    StringAnsi id = StringAnsi::Format("{0}", Steam::Get()->GetSteamID64());
+    StringAnsi id = StringAnsi::Format("{0}", Core::Get<Steam>()->GetSteamID64());
     gameanalytics::GameAnalytics::configureUserId(id.GetText());
 
     gameanalytics::GameAnalytics::setEnabledErrorReporting(true);
 
-    const Args* args = LaunchArgs::Get()->GetArgs();
+    const Args* args = Core::Get<LaunchArgs>()->GetArgs();
 
 #ifdef BUILD_DEBUG
     gameanalytics::GameAnalytics::setCustomDimension01("Debug");

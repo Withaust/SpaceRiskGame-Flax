@@ -10,7 +10,7 @@
 #include <Engine/Engine/Globals.h>
 #include <Engine/Core/Formatting.h>
 
-#include <Game/System/CoreInstance.h>
+#include <Game/System/Core.h>
 
 API_CLASS() class GAME_API Args : public ISerializable
 {
@@ -33,8 +33,6 @@ API_CLASS() class GAME_API LaunchArgs : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(LaunchArgs);
-    static LaunchArgs* Get() { return CoreInstance::Instance()->Get<LaunchArgs>(); }
-
 private:
 
     Args* _args = nullptr;

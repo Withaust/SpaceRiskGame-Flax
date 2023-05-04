@@ -1,12 +1,14 @@
 #pragma once
 
 #include <Engine/Scripting/Script.h>
+#include <Engine/Scripting/Scripting.h>
 #include <Engine/Level/Level.h>
 #include <Engine/Core/Collections/Dictionary.h>
 #include <Engine/Scripting/ManagedCLR/MClass.h>
 #include <Engine/Level/Actor.h>
 #include <Engine/Level/Scene/Scene.h>
 #include <Engine/Networking/NetworkReplicator.h>
+#include <Engine/Engine/Engine.h>
 #if USE_EDITOR
 #include <Editor/Editor.h>
 #include <Editor/Managed/ManagedEditor.h>
@@ -14,9 +16,10 @@
 
 #include <Game/System/ISystem.h>
 
-API_CLASS() class GAME_API CoreInstance : public Actor
+API_CLASS(Attributes = "ActorContextMenu(\"New/Other/Core\"), ActorToolbox(\"Core\")") 
+class GAME_API Core : public Actor
 {
-    DECLARE_SCENE_OBJECT(CoreInstance);
+    DECLARE_SCENE_OBJECT(Core);
 public:
     struct SystemEntry
     {
@@ -26,14 +29,14 @@ public:
 
 private:
 
-    static CoreInstance* _instance;
+    static Core* _instance;
 
-    Array<SystemEntry> _systemsArray;
-    Dictionary<StringAnsiView, SystemEntry> _systemsDict;
+    static Array<SystemEntry> _systemsArray;
+    static Dictionary<StringAnsiView, SystemEntry> _systemsDict;
 
 public:
 
-    API_PROPERTY() static CoreInstance* Instance();
+    API_PROPERTY() static Core* Instance();
 
     void OnEnable() override;
     void OnDisable() override;
@@ -55,21 +58,21 @@ public:
 
     void ReplicateSystems();
 
-    API_FUNCTION() ISystem* Get(API_PARAM(Attributes = "TypeReference(typeof(ISystem))") const MClass* type);
-    ISystem* Get(const ScriptingTypeHandle& type);
+    API_FUNCTION() static ISystem* Get(API_PARAM(Attributes = "TypeReference(typeof(ISystem))") const MClass* type);
+    static ISystem* Get(const ScriptingTypeHandle& type);
 
     template<typename T>
-    FORCE_INLINE T* Get()
+    FORCE_INLINE static T* Get()
     {
         static_assert(std::is_base_of<ISystem, T>::value, "T must inherit ISystem to be used with Get()");
         return static_cast<T*>(Get(T::TypeInitializer));
     }
 
     template<typename T>
-    void Add(bool replicate = false)
+    static void Add(bool replicate = false)
     {
         static_assert(std::is_base_of<ISystem, T>::value, "T must inherit ISystem to be used with Add()");
-        T* newGameSystem = FindScript<T>();
+        T* newGameSystem = _instance->FindScript<T>();
         if (newGameSystem == nullptr)
         {
             Platform::Error(String("Failed add system ") + String(T::TypeInitializer.GetType().Fullname));
@@ -84,5 +87,31 @@ public:
         newEntry.Ptr->OnInitialize();
     }
 
-    void LoadSystems();
+    static void Add(const StringAnsiView& scriptName, bool replicate = false)
+    {
+        const MString scriptNameStd = scriptName.ToStringAnsi();
+        const ScriptingTypeHandle scriptingType = Scripting::FindScriptingType(scriptNameStd);
+        if (!scriptingType)
+        {
+            Platform::Error(String("Failed add system ") + String(scriptName));
+            Engine::RequestExit(1);
+            return;
+        }
+        MClass* mclass = scriptingType.GetType().ManagedClass;
+        ISystem* newGameSystem = static_cast<ISystem*>(_instance->FindScript(mclass));
+        if (newGameSystem == nullptr)
+        {
+            Platform::Error(String("Failed add system ") + String(scriptName));
+            Engine::RequestExit(1);
+            return;
+        }
+        SystemEntry newEntry;
+        newEntry.Ptr = newGameSystem;
+        newEntry.Replicated = replicate;
+        _systemsArray.Add(newEntry);
+        _systemsDict[scriptName] = newEntry;
+        newEntry.Ptr->OnInitialize();
+    }
+
+    static void LoadSystems();
 };

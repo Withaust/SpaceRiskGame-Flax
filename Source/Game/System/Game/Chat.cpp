@@ -27,13 +27,5 @@ void Chat::SendMessage(NetworkRpcParams info, const String& text)
 void Chat::RecieveMessage(uint32 sender, const String& text)
 {
     NETWORK_RPC_IMPL(Chat, RecieveMessage, sender, text);
-
-    if (sender == NetworkManager::LocalClientId)
-    {
-        LOG(Info, "Got local call: {0}", text);
-    }
-    else
-    {
-        LOG(Info, "Got remote call: {0}", text);
-    }
+    OnChatMessage(sender, text);
 }

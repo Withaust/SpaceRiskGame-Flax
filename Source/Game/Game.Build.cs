@@ -8,7 +8,6 @@ public class Game : GameModule
     {
         base.Init();
 
-        // C#-only scripting
         BuildNativeCode = true;
     }
 
@@ -32,10 +31,5 @@ public class Game : GameModule
 			options.PublicDependencies.Add("InfoWare");
 			break;
 		}
-
-        // Here you can modify the build options for your game module
-        // To reference another module use: options.PublicDependencies.Add("Audio");
-        // To add C++ define use: options.PublicDefinitions.Add("COMPILE_WITH_FLAX");
-        // To learn more see scripting documentation.
     }
 }

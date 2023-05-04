@@ -7,16 +7,13 @@
 #include <Engine/Networking/INetworkObject.h>
 #include <Engine/Level/Actors/Camera.h>
 
+#include <Game/System/Game/PlayerManager.h>
 #include <Game/Shared/Utils/Defines.h>
 
 API_CLASS() class GAME_API PlayerNetworking : public Script, public INetworkObject
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(PlayerNetworking);
-
-private:
-
-    void ClaimAuthority();
 
 public:
 

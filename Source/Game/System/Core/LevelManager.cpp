@@ -37,7 +37,7 @@ void LevelManager::OnSceneLoaded(Scene* scene, const Guid& id)
     {
         return;
     }
-    CoreInstance::Instance()->OnSceneLoaded(scene);
+    Core::Instance()->OnSceneLoaded(scene);
 }
 
 void LevelManager::OnSceneUnloaded(Scene* scene, const Guid& id)
@@ -46,7 +46,7 @@ void LevelManager::OnSceneUnloaded(Scene* scene, const Guid& id)
     {
         return;
     }
-    CoreInstance::Instance()->OnSceneUnloaded(scene);
+    Core::Instance()->OnSceneUnloaded(scene);
 }
 
 void LevelManager::RequestLoadLevel(NetworkRpcParams info, String scene)
@@ -78,7 +78,7 @@ void LevelManager::LoadLevel(String scene)
     }
     Level::ScenesLock.Unlock();
     Level::LoadSceneAsync(info.ID);
-    if (LaunchArgs::Get()->GetArgs()->IsHost)
+    if (Core::Get<LaunchArgs>()->GetArgs()->IsHost)
     {
         mainScene = scene;
     }

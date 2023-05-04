@@ -18,7 +18,7 @@ void SceneRoot::OnAwake()
             return;
         }
     }
-    if (CoreInstance::Instance() == nullptr || !hasCore)
+    if (Core::Instance() == nullptr || !hasCore)
     {
         Platform::Error(TEXT("You are not supposed to launch any scene besides \"Core\". Engine will now force-quit, since the game would have crashed anyway."));
         Engine::Exit(1);

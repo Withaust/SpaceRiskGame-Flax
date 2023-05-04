@@ -1,19 +1,21 @@
-#include "CoreInstance.h"
+#include "Core.h"
 
-CoreInstance* CoreInstance::_instance = nullptr;
+Core* Core::_instance = nullptr;
+Array<Core::SystemEntry> Core::_systemsArray;
+Dictionary<StringAnsiView, Core::SystemEntry> Core::_systemsDict;
 
-CoreInstance::CoreInstance(const SpawnParams& params)
+Core::Core(const SpawnParams& params)
     : Actor(params)
 {
     _instance = this;
 }
 
-CoreInstance* CoreInstance::Instance()
+Core* Core::Instance()
 {
     return _instance;
 }
 
-void CoreInstance::OnEnable()
+void Core::OnEnable()
 {
     Level::ReversedUnload = true;
 #if USE_EDITOR
@@ -25,7 +27,7 @@ void CoreInstance::OnEnable()
     LoadSystems();
 }
 
-void CoreInstance::OnDisable()
+void Core::OnDisable()
 {
 #if USE_EDITOR
     if (!Editor::IsPlayMode)
@@ -39,10 +41,9 @@ void CoreInstance::OnDisable()
         _systemsArray[i].Ptr->OnDeinitialize();
         _systemsArray.RemoveAtKeepOrder(i);
     }
-
 }
 
-void CoreInstance::ReplicateSystems()
+void Core::ReplicateSystems()
 {
     NetworkReplicator::AddObject(GetParent());
     NetworkReplicator::AddObject(this);
@@ -58,21 +59,25 @@ void CoreInstance::ReplicateSystems()
     }
 }
 
-ISystem* CoreInstance::Get(const MClass* type)
+ISystem* Core::Get(const MClass* type)
 {
     SystemEntry* Entry = _systemsDict.TryGet(type->GetFullName());
     if (Entry == nullptr)
     {
+        Platform::Error(String("Failed to get system ") + String(type->GetFullName()));
+        Engine::RequestExit(1);
         return nullptr;
     }
     return Entry->Ptr;
 }
 
-ISystem* CoreInstance::Get(const ScriptingTypeHandle& type)
+ISystem* Core::Get(const ScriptingTypeHandle& type)
 {
     SystemEntry* Entry = _systemsDict.TryGet(type.GetType().Fullname);
     if (Entry == nullptr)
     {
+        Platform::Error(String("Failed to get system ") + String(type.GetType().Fullname));
+        Engine::RequestExit(1);
         return nullptr;
     }
     return Entry->Ptr;
@@ -89,15 +94,16 @@ ISystem* CoreInstance::Get(const ScriptingTypeHandle& type)
 // Game systems
 #include <Game/System/Game/VisibilityCPU.h>
 #include <Game/System/Game/VisibilityGPU.h>
-#include <Game/System/Game/PlayerRespawn.h>
+#include <Game/System/Game/PlayerRespawns.h>
+#include <Game/System/Game/PlayerManager.h>
 #include <Game/System/Game/Chat.h>
-// UI systems
-#include <Game/UI/UIRoot.h>
+// UI
+#include <Game/System/Core/UI.h>
 
 // CoreInitializer should always be used last
 #include <Game/System/Core/CoreInitializer.h>
 
-void CoreInstance::LoadSystems()
+void Core::LoadSystems()
 {
     // Core systems
     Add<LaunchArgs>();
@@ -110,10 +116,11 @@ void CoreInstance::LoadSystems()
     // Game systems
     Add<VisibilityCPU>();
     Add<VisibilityGPU>();
-    Add<PlayerRespawn>(true);
+    Add<PlayerRespawns>(true);
+    Add<PlayerManager>(true);
     Add<Chat>(true);
-    // UI systems
-    Add<UIRoot>();
+    // UI
+    Add<UI>();
 
     // CoreInitializer should always be used last
     Add<CoreInitializer>();

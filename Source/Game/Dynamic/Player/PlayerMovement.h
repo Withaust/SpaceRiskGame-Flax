@@ -35,6 +35,7 @@ public:
     API_FIELD() float MaxVelocityAir = 100.0f;
     API_FIELD() float MaxVelocityClamp = 3000.0f;
     API_FIELD() bool CanJump = true;
+    API_FIELD() bool CanMove = true;
     API_FIELD() float JumpForce = 800.0f;
     API_FIELD() int FreezeFrames = 3;
 

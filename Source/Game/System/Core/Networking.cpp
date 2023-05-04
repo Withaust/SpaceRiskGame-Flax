@@ -19,23 +19,16 @@ void Networking::OnNetworkStateChanged()
 #if !BUILD_RELEASE
         if (Engine::MainWindow)
         {
-            _windowTitle = Engine::MainWindow->GetTitle();
-            Engine::MainWindow->SetTitle(String::Format(TEXT("{} - {} Id {}"), _windowTitle, NetworkManager::IsClient() ? TEXT("Client") : TEXT("Host"), NetworkManager::LocalClientId));
+            Engine::MainWindow->SetTitle(String::Format(TEXT("{} - {}"), NetworkManager::IsClient() ? TEXT("Client") : TEXT("Host"), NetworkManager::LocalClientId));
         }
 #endif
-        CoreInstance::Instance()->OnConnected();
+        Core::Instance()->OnConnected();
         break;
     }
     case NetworkConnectionState::Offline:
     case NetworkConnectionState::Disconnected:
     {
-#if !BUILD_RELEASE
-        if (Engine::MainWindow)
-        {
-            Engine::MainWindow->SetTitle(_windowTitle);
-        }
-#endif
-        CoreInstance::Instance()->OnDisconnected();
+        Core::Instance()->OnDisconnected();
         break;
     }
     }
@@ -43,12 +36,12 @@ void Networking::OnNetworkStateChanged()
 
 void Networking::OnNetworkClientConnected(NetworkClient* client)
 {
-    CoreInstance::Instance()->OnPlayerConnected(client);
+    Core::Instance()->OnPlayerConnected(client);
 }
 
 void Networking::OnNetworkClientDisconnected(NetworkClient* client)
 {
-    CoreInstance::Instance()->OnPlayerDisconnected(client);
+    Core::Instance()->OnPlayerDisconnected(client);
 }
 
 void Networking::OnInitialize()
@@ -70,7 +63,7 @@ void Networking::OnDeinitialize()
 
 void Networking::StartGame()
 {
-    const Args* args = LaunchArgs::Get()->GetArgs();
+    const Args* args = Core::Get<LaunchArgs>()->GetArgs();
     NetworkSettings* settings = NetworkSettings::Get();
     settings->NetworkFPS = 20.0f;
     settings->Address = args->Hostname;

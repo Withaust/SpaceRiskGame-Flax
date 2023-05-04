@@ -9,6 +9,9 @@ using FlaxEngine;
 using System.Collections.Generic;
 using System.Linq;
 
+namespace Game
+{
+
 public class PlayButton : EditorPlugin
 {
     private List<Scene> _scenes;
@@ -76,6 +79,7 @@ public class PlayButton : EditorPlugin
     {
         base.Deinitialize();
     }
+}
 }
 #endif
 */

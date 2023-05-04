@@ -8,7 +8,7 @@
 
 #include <Game/Shared/Utils/Defines.h>
 #include <Game/Level/PlayerSpawn.h>
-#include <Game/System/Game/PlayerRespawn.h>
+#include <Game/System/Game/PlayerRespawns.h>
 
 API_CLASS() class GAME_API PlayerSpawnGroup : public Script
 {

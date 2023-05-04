@@ -1,55 +1,58 @@
 using FlaxEngine;
-using Game;
 #if FLAX_EDITOR
 using System;
 using FlaxEditor;
 using FlaxEditor.SceneGraph;
-
-[ActorContextMenu("New/ActorBase")]
-[ActorToolbox("Other")]
 #endif
-public class ActorBase : Actor
+namespace Game
 {
 #if FLAX_EDITOR
-    private Guid _added;
-
-    public Texture Icon;
-
-    static ActorBase()
-    {
-        SceneGraphFactory.CustomNodesTypes.Add(typeof(ActorBase), typeof(ActorIconProxy));
-    }
-
-    public override void OnEnable()
-    {
-        base.OnEnable();
-        if (Icon)
-        {
-            ViewportIconsRenderer.AddActorWithTexture(this, Icon);
-            _added = Icon.ID;
-        }
-    }
-
-    public override void OnDisable()
-    {
-        if (_added != Guid.Empty)
-        {
-            ViewportIconsRenderer.RemoveActor(this);
-        }
-        base.OnDisable();
-    }
-
-    public override void OnDebugDrawSelected()
-    {
-        base.OnDebugDrawSelected();
-        if (Icon.ID != _added)
-        {
-            ViewportIconsRenderer.RemoveActor(this);
-            ViewportIconsRenderer.AddActorWithTexture(this, Icon);
-            _added = Icon.ID;
-        }
-    }
+    [ActorContextMenu("New/ActorBase")]
+    [ActorToolbox("Other")]
 #endif
+    public class ActorBase : Actor
+    {
+#if FLAX_EDITOR
+        private Guid _added;
+
+        public Texture Icon;
+
+        static ActorBase()
+        {
+            SceneGraphFactory.CustomNodesTypes.Add(typeof(ActorBase), typeof(ActorIconProxy));
+        }
+
+        public override void OnEnable()
+        {
+            base.OnEnable();
+            if (Icon)
+            {
+                ViewportIconsRenderer.AddActorWithTexture(this, Icon);
+                _added = Icon.ID;
+            }
+        }
+
+        public override void OnDisable()
+        {
+            if (_added != Guid.Empty)
+            {
+                ViewportIconsRenderer.RemoveActor(this);
+            }
+            base.OnDisable();
+        }
+
+        public override void OnDebugDrawSelected()
+        {
+            base.OnDebugDrawSelected();
+            if (Icon.ID != _added)
+            {
+                ViewportIconsRenderer.RemoveActor(this);
+                ViewportIconsRenderer.AddActorWithTexture(this, Icon);
+                _added = Icon.ID;
+            }
+        }
+#endif
+    }
 }
 
 #if FLAX_EDITOR

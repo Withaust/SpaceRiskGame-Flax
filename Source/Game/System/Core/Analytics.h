@@ -7,7 +7,7 @@
 #include <Engine/Engine/Engine.h>
 #include <Engine/Engine/Globals.h>
 
-#include <Game/System/CoreInstance.h>
+#include <Game/System/Core.h>
 #include <Game/System/Core/LaunchArgs.h>
 #include <Game/System/Core/Steam.h>
 
@@ -38,7 +38,6 @@ API_CLASS() class GAME_API Analytics : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Analytics);
-    static Analytics* Get() { return CoreInstance::Instance()->Get<Analytics>(); }
 private:
 
     bool _initialized = false;

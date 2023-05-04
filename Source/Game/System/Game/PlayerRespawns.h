@@ -13,26 +13,21 @@
 #include <Game/Dynamic/Player/PlayerNetworking.h>
 #include <Game/Level/PlayerSpawn.h>
 
-API_CLASS() class GAME_API PlayerRespawn : public ISystem
+API_CLASS() class GAME_API PlayerRespawns : public ISystem
 {
     API_AUTO_SERIALIZATION();
-    DECLARE_SCRIPTING_TYPE(PlayerRespawn);
-    USINGLETON(PlayerRespawn);
+    DECLARE_SCRIPTING_TYPE(PlayerRespawns);
 
     friend class PlayerSpawn;
 
 private:
 
-    Dictionary<NetworkClient*, Actor*> _players;
-    Array<PlayerSpawn*> _spawns;
+    Array<ScriptingObjectReference<PlayerSpawn>> _spawns;
 
 public:
 
-    API_FIELD() SoftAssetReference<Prefab> PlayerPrefab;
+    ScriptingObjectReference<PlayerSpawn> GetRandomSpawn();
 
-    void Register(PlayerSpawn* spawn);
-    void Unregister(PlayerSpawn* spawn);
-
-    void OnPlayerConnected(NetworkClient* client) override;
-    void OnPlayerDisconnected(NetworkClient* client) override;
+    void Register(ScriptingObjectReference<PlayerSpawn> spawn);
+    void Unregister(ScriptingObjectReference<PlayerSpawn> spawn);
 };

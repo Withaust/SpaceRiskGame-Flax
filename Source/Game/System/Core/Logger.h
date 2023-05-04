@@ -4,14 +4,13 @@
 #include <Engine/Platform/Platform.h>
 #include <Engine/Debug/DebugLog.h>
 
-#include <Game/System/CoreInstance.h>
+#include <Game/System/Core.h>
 #include <Game/System/Core/Analytics.h>
 
 API_CLASS() class GAME_API Logger : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Logger);
-    static Logger* Get() { return CoreInstance::Instance()->Get<Logger>(); }
 
 public:
 

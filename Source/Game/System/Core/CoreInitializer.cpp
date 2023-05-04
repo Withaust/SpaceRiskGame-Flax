@@ -7,14 +7,15 @@ CoreInitializer::CoreInitializer(const SpawnParams& params)
 
 void CoreInitializer::OnInitialize()
 {
-    if(LaunchArgs::Get()->GetArgs()->IsHost)
+    if (Core::Get<LaunchArgs>()->GetArgs()->IsHost)
     {
-        LevelManager::Get()->LoadLevel(TEXT("Game"));
+        Core::Get<LevelManager>()->LoadLevel(TEXT("Game"));
     }
     else
     {
-        Networking::Get()->StartGame();
-        CoreInstance::Instance()->ReplicateSystems();
+        Core::Get<Networking>()->StartGame();
+        Core::Instance()->ReplicateSystems();
+        Core::Get<UI>()->GoForward(TEXT("Game.UIGame"));
     }
 }
 
@@ -24,9 +25,10 @@ void CoreInitializer::OnDeinitialize()
 
 void CoreInitializer::OnSceneLoaded(Scene* scene)
 {
-    if (LaunchArgs::Get()->GetArgs()->IsHost)
+    if (Core::Get<LaunchArgs>()->GetArgs()->IsHost)
     {
-        Networking::Get()->StartGame();
-        CoreInstance::Instance()->ReplicateSystems();
+        Core::Get<Networking>()->StartGame();
+        Core::Instance()->ReplicateSystems();
+        Core::Get<UI>()->GoForward(TEXT("Game.UIGame"));
     }
 }
