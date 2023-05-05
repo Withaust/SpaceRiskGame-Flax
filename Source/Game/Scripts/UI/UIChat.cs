@@ -33,17 +33,16 @@ namespace Game
             Core.Get<PlayerManager>().GetOurPlayer().GetScript<PlayerMovement>().CanMove = false;
         }
 
-        public void OnSendMessageBox(TextBoxBase textBase)
+        public void OnSendMessage(KeyboardKeys keys)
         {
-            OnSendMessage();
-        }
-
-        public void OnSendMessage()
-        {
+            if(keys != KeyboardKeys.Escape && keys != KeyboardKeys.Return)
+            {
+                return;
+            }
             Core.Get<Chat>().SendMessage(new NetworkRpcParams(), TextBox.Get<TextBox>().Text);
+            TextBox.Control.Defocus();
             TextBox.Get<TextBox>().Text = "";
             Core.Get<PlayerManager>().GetOurPlayer().GetScript<PlayerMovement>().CanMove = true;
-            //TextBox.Control.Defocus();
             IsFocused = false;
         }
 
@@ -51,7 +50,7 @@ namespace Game
         {
             Messages = new Queue<Label>();
             Core.Get<Chat>().OnChatMessage += OnChatMessage;
-            TextBox.Get<TextBox>().EditEnd += OnSendMessage;
+            TextBox.Get<TextBox>().KeyDown += OnSendMessage;
         }
     }
 }

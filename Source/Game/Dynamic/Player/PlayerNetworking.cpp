@@ -1,11 +1,11 @@
 #include "PlayerNetworking.h"
 
 PlayerNetworking::PlayerNetworking(const SpawnParams& params)
-    : Script(params)
+    : INetworked(params)
 {
 }
 
-void PlayerNetworking::OnNetworkSpawn()
+void PlayerNetworking::OnSpawn()
 {
     UNOT_OWNED_RETURN();
     GetActor()->SetName(TEXT("Local Player"));

@@ -1,11 +1,11 @@
 #include "PlayerInfo.h"
 
 PlayerInfo::PlayerInfo(const SpawnParams& params)
-    : Script(params)
+    : INetworked(params)
 {
 }
 
-void PlayerInfo::OnNetworkSpawn()
+void PlayerInfo::OnSpawn()
 {
     UNOT_OWNED_RETURN();
     Id = NetworkManager::LocalClientId;
@@ -17,12 +17,12 @@ void PlayerInfo::OnNetworkSpawn()
     Core::Get<PlayerManager>()->Register(Id, GetActor());
 }
 
-void PlayerInfo::OnNetworkDespawn()
+void PlayerInfo::OnDespawn()
 {
     Core::Get<PlayerManager>()->Unregister(Id);
 }
 
-void PlayerInfo::OnNetworkDeserialize()
+void PlayerInfo::OnSync()
 {
     if (!clientRegistered)
     {

@@ -1,13 +1,13 @@
 #pragma once
 
 #include <Engine/Scripting/Script.h>
-#include <Engine/Networking/INetworkObject.h>
 
 #include <Game/Shared/Utils/Defines.h>
+#include <Game/Shared/INetworked.h>
 #include <Game/System/Core/Steam.h>
 #include <Game/System/Game/PlayerManager.h>
 
-API_CLASS() class GAME_API PlayerInfo : public Script, public INetworkObject
+API_CLASS() class GAME_API PlayerInfo : public INetworked
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(PlayerInfo);
@@ -23,8 +23,7 @@ public:
     API_FIELD(NetworkReplicated) int Skill2;
     API_FIELD(NetworkReplicated) int TemplateId;
 
-    void OnNetworkSpawn() override;
-    void OnNetworkDespawn() override;
-    void OnNetworkSerialize() override {};
-    void OnNetworkDeserialize() override;
+    void OnSpawn() override;
+    void OnDespawn() override;
+    void OnSync() override;
 };
