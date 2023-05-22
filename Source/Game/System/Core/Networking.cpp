@@ -5,11 +5,6 @@ Networking::Networking(const SpawnParams& params)
 {
 }
 
-bool Networking::CheckImmediateOwnership(ScriptingObject* target)
-{
-    return _immediateOwner.Contains(target);
-}
-
 void Networking::OnNetworkStateChanged()
 {
     switch (NetworkManager::State)
@@ -94,7 +89,6 @@ Actor* Networking::SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId, co
     if (NetworkManager::LocalClientId == ownerId)
     {
         NetworkReplicator::SetObjectOwnership(newActor, ownerId, NetworkObjectRole::OwnedAuthoritative, true);
-        _immediateOwner.Add(newActor);
     }
     else
     {
@@ -132,7 +126,6 @@ void Networking::DespawnPrefab(Actor* target)
     }
 
     NetworkReplicator::DespawnObject(target);
-    _immediateOwner.Remove(target);
 }
 
 void Networking::StartReplicating(ScriptingObject* target)

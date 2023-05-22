@@ -11,12 +11,12 @@
 #endif
 
 // Checks if current object is owned, if it is, then run code in the block
-#define UOWNED if(Core::Get<Networking>()->CheckImmediateOwnership(GetActor()) || NetworkReplicator::IsObjectOwned(this))
-#define UOWNED_RETURN(returnValue) if(Core::Get<Networking>()->CheckImmediateOwnership(GetActor()) || NetworkReplicator::IsObjectOwned(this)) { return returnValue; }
+#define UOWNED if(NetworkReplicator::IsObjectOwned(this))
+#define UOWNED_RETURN(returnValue) if(NetworkReplicator::IsObjectOwned(this)) { return returnValue; }
 
 // Checks if current object is not owned, if it is, then run code in the block
-#define UNOT_OWNED if(!Core::Get<Networking>()->CheckImmediateOwnership(GetActor()) && !NetworkReplicator::IsObjectOwned(this))
-#define UNOT_OWNED_RETURN(returnValue) if(!Core::Get<Networking>()->CheckImmediateOwnership(GetActor()) && !NetworkReplicator::IsObjectOwned(this)) { return returnValue; }
+#define UNOT_OWNED if(!NetworkReplicator::IsObjectOwned(this))
+#define UNOT_OWNED_RETURN(returnValue) if(!NetworkReplicator::IsObjectOwned(this)) { return returnValue; }
 
 #ifdef BUILD_DEBUG
 #define UPRINT_STR(text) Core::Get<Logger>()->Print(TEXT(text), __FILE__, __LINE__)

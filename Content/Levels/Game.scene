@@ -420,6 +420,12 @@
 			}
 		},
 		{
+			"ID": "ef28bdd04798c7478b181fabd7621f8b",
+			"TypeName": "14297b324293cdc499f31f95d08d148f",
+			"ParentID": "e63a235e45744b9c191df495bc46fb05",
+			"D": {}
+		},
+		{
 			"ID": "ba5ec12e44c504ae635b08a8e4aff733",
 			"TypeName": "Game.ActorBase",
 			"ParentID": "a7383811434ac0476b9e57893b2d189d",

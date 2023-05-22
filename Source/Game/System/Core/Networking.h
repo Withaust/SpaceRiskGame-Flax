@@ -26,13 +26,8 @@ API_CLASS() class GAME_API Networking : public ISystem
 private:
     bool _gameStarted = false;
     bool _isHosting = false;
-    HashSet<ScriptingObject*> _immediateOwner;
 
 public:
-
-    // TODO: This is dumb fix, I hope this issue will be resolved
-    // https://github.com/FlaxEngine/FlaxEngine/issues/1066
-    bool CheckImmediateOwnership(ScriptingObject* target);
 
     void OnNetworkStateChanged();
     void OnNetworkClientConnected(NetworkClient* client);
