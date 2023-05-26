@@ -12,10 +12,10 @@
 
 #include <Game/System/Core.h>
 
-API_CLASS() class GAME_API Args : public ISerializable
+API_CLASS() class GAME_API Args : public ScriptingObject, public ISerializable
 {
     API_AUTO_SERIALIZATION();
-    DECLARE_SCRIPTING_TYPE_NO_SPAWN(Args);
+    DECLARE_SCRIPTING_TYPE(Args);
 public:
     // Steam
     API_FIELD() bool IsSteam = false;
@@ -35,11 +35,10 @@ API_CLASS() class GAME_API LaunchArgs : public ISystem
     DECLARE_SCRIPTING_TYPE(LaunchArgs);
 private:
 
-    Args* _args = nullptr;
+    static ScriptingObjectReference<Args> _args;
     String GetNextArgument(int currentIndex, const Array<String>& args);
 
 public:
     void OnInitialize() override;
-    void OnDeinitialize() override;
-    const Args* GetArgs();
+    API_FUNCTION() static const ScriptingObjectReference<Args> GetArgs();
 };

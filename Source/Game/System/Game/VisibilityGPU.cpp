@@ -1,5 +1,8 @@
 #include "VisibilityGPU.h"
 
+Array<VisibilityWorker*> VisibilityGPU::_workers;
+RingBuffer<VisibilityTask> VisibilityGPU::_tasks;
+
 Vector3 VisibilityTask::GetOrigin() const
 {
     return _origin;

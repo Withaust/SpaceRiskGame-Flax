@@ -1,18 +1,26 @@
 #pragma once
 
 #include <Engine/Scripting/Script.h>
-#include <Game/Shared/Utils/Defines.h>
+#include <Game/Shared/Defines.h>
 
-API_CLASS(Attributes = "ActorContextMenu(\"New/Other/Test\"), ActorToolbox(\"Other\")")
-class GAME_API Test : public Actor
+API_CLASS() class GAME_API ClassA : public Actor
 {
     API_AUTO_SERIALIZATION();
-    DECLARE_SCRIPTING_TYPE(Test);
+    DECLARE_SCRIPTING_TYPE(ClassA);
 
 public:
 
-    API_FIELD() Array<Actor*> Spawns;
+    API_FIELD() int Int;
+    API_FIELD() float Float;
+};
 
-    void OnEnable() override;
-    void OnDisable() override;
+API_CLASS() class GAME_API ClassB : public ClassA
+{
+    API_AUTO_SERIALIZATION();
+    DECLARE_SCRIPTING_TYPE(ClassB);
+
+public:
+
+    API_FIELD() bool Bool;
+    API_FIELD() double Double;
 };

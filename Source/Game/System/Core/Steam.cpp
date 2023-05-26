@@ -1,5 +1,10 @@
 #include "Steam.h"
 
+bool Steam::_initialized = false;
+const int Steam::_appID = 1436420;
+String Steam::_name;
+CSteamID Steam::_steamID;
+
 Steam::Steam(const SpawnParams& params)
     : ISystem(params)
 {
@@ -200,7 +205,7 @@ CSteamID Steam::GetSteamID()
     return SteamUser()->GetSteamID();
 }
 
-uint64_t Steam::GetSteamID64()
+uint64 Steam::GetSteamID64()
 {
     if (!_initialized)
     {
@@ -209,7 +214,7 @@ uint64_t Steam::GetSteamID64()
     return SteamUser()->GetSteamID().ConvertToUint64();
 }
 
-uint64_t Steam::GetSteamID64(CSteamID SteamID)
+uint64 Steam::GetSteamID64(CSteamID SteamID)
 {
     return SteamID.ConvertToUint64();
 }

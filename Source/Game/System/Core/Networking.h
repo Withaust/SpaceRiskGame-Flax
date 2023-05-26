@@ -36,12 +36,12 @@ public:
     void OnInitialize() override;
     void OnDeinitialize() override;
 
-    void StartGame();
+    API_FUNCTION() static void StartGame();
 
-    Actor* SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId = NetworkManager::LocalClientId, const Vector3& position = {}, const Quaternion& rotation = {});
-    void DespawnPrefab(Actor* target);
+    API_FUNCTION() static Actor* SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId = NetworkManager::ServerClientId, const Vector3& position = Vector3(), const Quaternion& rotation = Quaternion());
+    API_FUNCTION() static void DespawnPrefab(Actor* target);
 
-    void StartReplicating(ScriptingObject* target);
-    void StopReplicating(ScriptingObject* target);
-    void DespawnReplicating(ScriptingObject* target);
+    API_FUNCTION() static void StartReplicating(ScriptingObject* target);
+    API_FUNCTION() static void StopReplicating(ScriptingObject* target);
+    API_FUNCTION() static void DespawnReplicating(ScriptingObject* target);
 };

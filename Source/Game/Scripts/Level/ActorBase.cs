@@ -17,6 +17,8 @@ namespace Game
 
         public Texture Icon;
 
+        public float PropertyTest { get; set; }
+
         static ActorBase()
         {
             SceneGraphFactory.CustomNodesTypes.Add(typeof(ActorBase), typeof(ActorIconProxy));

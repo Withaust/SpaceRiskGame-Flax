@@ -17,10 +17,10 @@ API_CLASS() class GAME_API Steam : public ISystem
 
 private:
 
-    bool _initialized = false;
-    const int _appID = 1436420;
-    String _name;
-    CSteamID _steamID;
+    static bool _initialized;
+    static const int _appID;
+    static String _name;
+    static CSteamID _steamID;
 
 public:
 
@@ -30,16 +30,16 @@ public:
     API_EVENT() Delegate<SteamNetConnectionStatusChangedCallback_t*> SteamNetConnectionStatusChanged;
 
     // SteamAPI
-    bool Init();
-    void RunCallbacks();
-    void Shutdown();
-    bool RestartAppIfNecessary(uint32 unOwnAppID);
-    void ReleaseCurrentThreadMemory();
+    API_FUNCTION() static bool Init();
+    API_FUNCTION() static void RunCallbacks();
+    API_FUNCTION() static void Shutdown();
+    API_FUNCTION() static bool RestartAppIfNecessary(uint32 unOwnAppID);
+    API_FUNCTION() static void ReleaseCurrentThreadMemory();
     // ISteamApps Interface
     // ISteamAppTicket Interface
     // ISteamClient Interface
     // ISteamFriends Interface
-    String GetPersonaName();
+    API_FUNCTION() static String GetPersonaName();
     // ISteamGameCoordinator Interface
     // ISteamGameServer Interface
     // ISteamGameServerStats Interface
@@ -74,8 +74,8 @@ public:
     // ISteamUGC Interface
     // ISteamUser Interface
     CSteamID GetSteamID();
-    uint64_t GetSteamID64();
-    uint64_t GetSteamID64(CSteamID SteamID);
+    API_FUNCTION() static uint64 GetSteamID64();
+    uint64 GetSteamID64(CSteamID SteamID);
     // ISteamUserStats Interface
     // ISteamUtils Interface
     // ISteamVideo Interface

@@ -7,15 +7,15 @@ CoreInitializer::CoreInitializer(const SpawnParams& params)
 
 void CoreInitializer::OnInitialize()
 {
-    if (Core::Get<LaunchArgs>()->GetArgs()->IsHost)
+    if (Core::Instance()->Get<LaunchArgs>()->GetArgs()->IsHost)
     {
-        Core::Get<LevelManager>()->LoadLevel(TEXT("Game"));
+        Core::Instance()->Get<LevelManager>()->LoadLevel(TEXT("Game"));
     }
     else
     {
-        Core::Get<Networking>()->StartGame();
-        Core::Instance()->ReplicateSystems();
-        Core::Get<UI>()->GoForward(TEXT("Game.UIGame"));
+        Core::Instance()->Get<Networking>()->StartGame();
+        Core::ReplicateSystems();
+        Core::Instance()->Get<UI>()->GoForward(TEXT("Game.UIGame"));
     }
 }
 

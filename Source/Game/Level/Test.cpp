@@ -1,14 +1,11 @@
 #include "Test.h"
 
-Test::Test(const SpawnParams& params)
+ClassA::ClassA(const SpawnParams& params)
     : Actor(params)
 {
 }
 
-void Test::OnEnable()
-{
-}
-
-void Test::OnDisable()
+ClassB::ClassB(const SpawnParams& params)
+    : ClassA(params)
 {
 }

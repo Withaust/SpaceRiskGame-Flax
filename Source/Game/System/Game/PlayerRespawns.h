@@ -8,7 +8,7 @@
 #include <Engine/Core/Collections/HashSet.h>
 #include <Engine/Core/RandomStream.h>
 
-#include <Game/Shared/Utils/Defines.h>
+#include <Game/Shared/Defines.h>
 #include <Game/System/Core/Networking.h>
 #include <Game/Dynamic/Player/PlayerNetworking.h>
 #include <Game/Level/PlayerSpawn.h>
@@ -22,12 +22,12 @@ API_CLASS() class GAME_API PlayerRespawns : public ISystem
 
 private:
 
-    Array<ScriptingObjectReference<PlayerSpawn>> _spawns;
+    static Array<ScriptingObjectReference<PlayerSpawn>> _spawns;
 
 public:
 
-    ScriptingObjectReference<PlayerSpawn> GetRandomSpawn();
+    API_FUNCTION() static ScriptingObjectReference<PlayerSpawn> GetRandomSpawn();
 
-    void Register(ScriptingObjectReference<PlayerSpawn> spawn);
-    void Unregister(ScriptingObjectReference<PlayerSpawn> spawn);
+    API_FUNCTION() static void Register(ScriptingObjectReference<PlayerSpawn> spawn);
+    API_FUNCTION() static void Unregister(ScriptingObjectReference<PlayerSpawn> spawn);
 };

@@ -1,7 +1,5 @@
 #pragma once
 
-#pragma warning( disable : 4099 )
-
 #include <Engine/Scripting/Script.h>
 #include <Engine/Debug/DebugLog.h>
 #include <Engine/Engine/Engine.h>
@@ -11,28 +9,15 @@
 #include <Game/System/Core/LaunchArgs.h>
 #include <Game/System/Core/Steam.h>
 
+#if BUILD_DEBUG == 0
+__pragma(warning(push))
+#pragma warning(push)
+__pragma(warning(disable : 4099))
+#pragma warning( disable : 4099 )
 #include <GameAnalytics/GameAnalytics.h>
-
-class DesignEvent
-{
-private:
-    StringAnsi _result;
-    void Filter(String& design);
-    void FilterAnsi(StringAnsi& design);
-
-public:
-
-    const char* GetResult()
-    {
-        return _result.GetText();
-    }
-
-    DesignEvent(StringAnsi part1);
-    DesignEvent(StringAnsi part1, StringAnsi part2);
-    DesignEvent(StringAnsi part1, StringAnsi part2, StringAnsi part3);
-    DesignEvent(StringAnsi part1, StringAnsi part2, StringAnsi part3, StringAnsi part4);
-    DesignEvent(StringAnsi part1, StringAnsi part2, StringAnsi part3, StringAnsi part4, StringAnsi part5);
-};
+__pragma (warning(pop))
+#pragma warning(pop)
+#endif // BUILD_DEBUG
 
 API_CLASS() class GAME_API Analytics : public ISystem
 {
@@ -43,19 +28,20 @@ private:
     bool _initialized = false;
     StringAnsi _gameKey = "d5d99280fc61340c92a04b7520ddcdda";
     StringAnsi _gameSecret = "215fe92fa38665c64ebb197279e549c6b0c88ec3";
+    static void Filter(StringAnsi& design);
 
 public:
-
+#if BUILD_DEBUG == 0
     String MessageTypeToString(gameanalytics::EGALoggerMessageType type);
     void OnLog(const char* message, gameanalytics::EGALoggerMessageType messageType);
-
+#endif // BUILD_DEBUG
     void OnInitialize() override;
     void OnDeinitialize() override;
 
     /// <summary>
     /// This enum is used to specify flow in resource events
     /// </summary>
-    enum class FlowType
+    API_ENUM() enum class FlowType
     {
         /// <summary>
         /// Used when adding to a resource currency
@@ -70,7 +56,7 @@ public:
     /// <summary>
     /// This enum is used to specify status for progression event
     /// </summary>
-    enum class ProgressionStatus
+    API_ENUM() enum class ProgressionStatus
     {
         /// <summary>
         /// User started progression
@@ -89,7 +75,7 @@ public:
     /// <summary>
     /// This enum is used to specify severity of an error event
     /// </summary>
-    enum class ErrorSeverity
+    API_ENUM() enum class ErrorSeverity
     {
         Debug = 1,
         Info = 2,
@@ -100,15 +86,15 @@ public:
 
 public:
 
-    void AddResourceEvent(FlowType flowType, const char* currency, float amount, const char* itemType, const char* itemId);
+    API_FUNCTION() static void AddResourceEvent(FlowType flowType, StringAnsi currency, float amount, StringAnsi itemType, StringAnsi itemId);
 
-    void AddProgressionEvent(ProgressionStatus progressionStatus, const char* progression01, const char* progression02, const char* progression03);
-    void AddProgressionEvent(ProgressionStatus progressionStatus, const char* progression01, const char* progression02, const char* progression03, int score);
+    API_FUNCTION() static void AddProgressionEvent(ProgressionStatus progressionStatus, StringAnsi progression01, StringAnsi progression02, StringAnsi progression03);
+    API_FUNCTION() static void AddProgressionEvent(ProgressionStatus progressionStatus, StringAnsi progression01, StringAnsi progression02, StringAnsi progression03, int score);
 
-    void AddDesignEvent(DesignEvent event);
-    void AddDesignEvent(DesignEvent event, double value);
+    API_FUNCTION() static void AddDesignEvent(StringAnsi eventName);
+    API_FUNCTION() static void AddDesignEvent(StringAnsi eventName, double value);
 
-    void AddErrorEvent(ErrorSeverity severity, const char* message);
-    void AddErrorEvent(ErrorSeverity severity, const StringAnsi& message);
-    void AddErrorEvent(ErrorSeverity severity, const String& message);
+    static void AddErrorEvent(ErrorSeverity severity, const char* message);
+    static void AddErrorEvent(ErrorSeverity severity, const StringAnsi& message);
+    API_FUNCTION() static void AddErrorEvent(ErrorSeverity severity, const String& message);
 };

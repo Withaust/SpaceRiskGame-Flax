@@ -1,15 +1,15 @@
 #include "PlayerNetworking.h"
 
 PlayerNetworking::PlayerNetworking(const SpawnParams& params)
-    : INetworked(params)
+    : Script(params)
 {
 }
 
-void PlayerNetworking::OnSpawn()
+void PlayerNetworking::OnNetworkSpawn()
 {
     UNOT_OWNED_RETURN();
     GetActor()->SetName(TEXT("Local Player"));
     Camera->SetIsActive(true);
     Direction->SetIsActive(false);
-    Core::Get<PlayerManager>()->SetOurPlayer(GetActor());
+    PlayerManager::SetOurPlayer(GetActor());
 }

@@ -13,7 +13,7 @@
 #include <Engine/Debug/DebugDraw.h>
 #include <Engine/Scripting/Enums.h>
 
-#include <Game/Shared/Utils/Defines.h>
+#include <Game/Shared/Defines.h>
 
 API_CLASS() class GAME_API PlayerMovement : public Script
 {

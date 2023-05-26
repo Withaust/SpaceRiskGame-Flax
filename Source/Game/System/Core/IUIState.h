@@ -2,7 +2,7 @@
 
 #include <Engine/Scripting/Script.h>
 
-#include <Game/Shared/Utils/Defines.h>
+#include <Game/Shared/Defines.h>
 
 API_CLASS() class GAME_API IUIState : public Script
 {

@@ -1,32 +1,28 @@
 #include "PlayerInfo.h"
 
 PlayerInfo::PlayerInfo(const SpawnParams& params)
-    : INetworked(params)
+    : Script(params)
 {
 }
 
-void PlayerInfo::OnSpawn()
+void PlayerInfo::OnNetworkSpawn()
 {
     UNOT_OWNED_RETURN();
     Id = NetworkManager::LocalClientId;
-    Name = Core::Get<Steam>()->GetPersonaName();
+    Name = Steam::GetPersonaName();
     Level = 1;
     Skill1 = 2;
     Skill2 = 3;
     TemplateId = 4;
-    Core::Get<PlayerManager>()->Register(Id, GetActor());
+    PlayerManager::Register(Id, GetActor());
 }
 
-void PlayerInfo::OnDespawn()
+void PlayerInfo::OnNetworkDespawn()
 {
-    Core::Get<PlayerManager>()->Unregister(Id);
+    PlayerManager::Unregister(Id);
 }
 
-void PlayerInfo::OnSync()
+void PlayerInfo::OnNetworkSync()
 {
-    if (!clientRegistered)
-    {
-        Core::Get<PlayerManager>()->Register(Id, GetActor());
-        clientRegistered = true;
-    }
+    PlayerManager::Register(Id, GetActor());
 }

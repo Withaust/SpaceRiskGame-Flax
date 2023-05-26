@@ -4,7 +4,7 @@
 #include <Engine/Physics/Physics.h>
 #include <Engine/Core/Types/LayersMask.h>
 
-#include <Game/Shared/Utils/Defines.h>
+#include <Game/Shared/Defines.h>
 
 API_CLASS() class GAME_API VisibilityCPU : public ISystem
 {
@@ -13,9 +13,9 @@ API_CLASS() class GAME_API VisibilityCPU : public ISystem
 
 public:
 
-    API_FIELD() LayersMask RaycastMask;
+    API_FIELD() static LayersMask RaycastMask;
 
     void OnInitialize() override;
     void OnDeinitialize() override;
-    bool Queue(Vector3 origin, Vector3 direction);
+    API_FUNCTION() static bool Queue(Vector3 origin, Vector3 direction);
 };

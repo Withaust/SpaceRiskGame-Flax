@@ -1,5 +1,7 @@
 #include "LevelManager.h"
 
+String LevelManager::_mainScene;
+
 LevelManager::LevelManager(const SpawnParams& params)
     : ISystem(params)
 {
@@ -28,7 +30,7 @@ void LevelManager::OnPlayerConnected(NetworkClient* client)
     uint32 targets[] = { client->ClientId };
     Span<uint32>(targets, 1);
 
-    RequestLoadLevel(params, mainScene);
+    RequestLoadLevel(params, _mainScene);
 }
 
 void LevelManager::OnSceneLoaded(Scene* scene, const Guid& id)
@@ -51,7 +53,7 @@ void LevelManager::OnSceneUnloaded(Scene* scene, const Guid& id)
 
 void LevelManager::RequestLoadLevel(NetworkRpcParams info, String scene)
 {
-    NETWORK_RPC_IMPL(LevelManager, RequestLoadLevel, info, scene);
+    NETWORK_RPC_SYSTEM_IMPL(LevelManager, RequestLoadLevel, info, scene);
     LoadLevel(scene);
 }
 
@@ -80,6 +82,6 @@ void LevelManager::LoadLevel(String scene)
     Level::LoadSceneAsync(info.ID);
     if (Core::Get<LaunchArgs>()->GetArgs()->IsHost)
     {
-        mainScene = scene;
+        _mainScene = scene;
     }
 }

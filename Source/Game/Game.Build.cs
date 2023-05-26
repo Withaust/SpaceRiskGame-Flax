@@ -17,19 +17,30 @@ public class Game : GameModule
         base.Setup(options);
 
         options.ScriptingAPI.IgnoreMissingDocumentationWarnings = true;
-		
+
         Tags["Network"] = string.Empty;
         options.PublicDependencies.Add("Networking");
-		
-		switch (options.Platform.Target)
-		{
-		case TargetPlatform.Windows:
-		case TargetPlatform.Linux:
-		case TargetPlatform.Mac:
-			options.PublicDependencies.Add("SteamWorks");
-			options.PublicDependencies.Add("GameAnalytics");
-			options.PublicDependencies.Add("InfoWare");
-			break;
-		}
+
+        switch (options.Platform.Target)
+        {
+            case TargetPlatform.Windows:
+                {
+                    options.LinkEnv.CustomArgs.Add("/IGNORE:4099");
+                    break;
+                }
+            case TargetPlatform.Linux:
+            case TargetPlatform.Mac:
+                {
+                    // TODO: Add pdb linking ignores for other platforms as well
+                    break;
+                }
+        }
+
+        options.PublicDependencies.Add("SteamWorks");
+        if (options.Configuration != TargetConfiguration.Debug)
+        {
+            options.PublicDependencies.Add("GameAnalytics");
+        }
+        options.PublicDependencies.Add("InfoWare");
     }
 }

@@ -6,7 +6,7 @@
 #include <Engine/Renderer/DrawCall.h>
 #include <Engine/Content/Content.h>
 
-#include <Game/Shared/Utils/Defines.h>
+#include <Game/Shared/Defines.h>
 #include <Game/Dynamic/Player/PlayerMovement.h>
 
 API_CLASS() class GAME_API PlayerSpawn : public Script

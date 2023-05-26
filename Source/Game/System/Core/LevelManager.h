@@ -4,7 +4,7 @@
 #include <Engine/Content/Content.h>
 #include <Engine/Networking/NetworkRpc.h>
 
-#include <Game/Shared/Utils/Defines.h>
+#include <Game/Shared/Defines.h>
 
 API_CLASS() class GAME_API LevelManager : public ISystem
 {
@@ -13,7 +13,7 @@ API_CLASS() class GAME_API LevelManager : public ISystem
 
 private:
 
-    String mainScene;
+    static String _mainScene;
 
 public:
 
@@ -25,7 +25,6 @@ public:
     void OnSceneLoaded(Scene* scene, const Guid& id);
     void OnSceneUnloaded(Scene* scene, const Guid& id);
 
-    API_FUNCTION(NetworkRpc = "Client, Reliable") void RequestLoadLevel(NetworkRpcParams info, String scene);
-
-    void LoadLevel(String scene);
+    API_FUNCTION(NetworkRpc = "Client, Reliable") static void RequestLoadLevel(NetworkRpcParams info, String scene);
+    API_FUNCTION() static void LoadLevel(String scene);
 };

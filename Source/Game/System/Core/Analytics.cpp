@@ -1,41 +1,13 @@
 #include "Analytics.h"
 
-void DesignEvent::Filter(String& design)
+Analytics::Analytics(const SpawnParams& params)
+    : ISystem(params)
 {
-    Array<Char> allowedChars = { TEXT('-'), TEXT('_'), TEXT('.'), TEXT(','), TEXT('('), TEXT(')'), TEXT('!'), TEXT('?') };
-    for (int i = 0; i < design.Length(); ++i)
-    {
-        Char Target = design[i];
-        if (Target >= TEXT('a') && Target <= TEXT('z'))
-        {
-            continue;
-        }
-        if (Target >= TEXT('A') && Target <= TEXT('Z'))
-        {
-            continue;
-        }
-        if (Target >= TEXT('0') && Target <= TEXT('9'))
-        {
-            continue;
-        }
-        for (int j = 0; j < allowedChars.Count(); ++j)
-        {
-            if (Target == allowedChars[j])
-            {
-                continue;
-            }
-        }
-        design[i] = TEXT(' ');
-    }
-    while (design.Contains(TEXT("  ")))
-    {
-        design.Replace(TEXT("  "), TEXT(" "));
-    }
 }
 
-void DesignEvent::FilterAnsi(StringAnsi& design)
+void Analytics::Filter(StringAnsi& design)
 {
-    Array<char> allowedChars = { '-', '_', '.', ',', '(', ')', '!', '?' };
+    Array<char> allowedChars = { '-', '_', '.', ',', '(', ')', '!', '?', ':' };
     for (int i = 0; i < design.Length(); ++i)
     {
         char Target = design[i];
@@ -65,54 +37,7 @@ void DesignEvent::FilterAnsi(StringAnsi& design)
         design.Replace("  ", " ");
     }
 }
-
-DesignEvent::DesignEvent(StringAnsi part1)
-{
-    FilterAnsi(part1);
-    _result = part1;
-}
-
-DesignEvent::DesignEvent(StringAnsi part1, StringAnsi part2)
-{
-    FilterAnsi(part1);
-    FilterAnsi(part2);
-    _result = StringAnsi::Format("{0}:{1}", part1, part2);
-}
-
-DesignEvent::DesignEvent(StringAnsi part1, StringAnsi part2, StringAnsi part3)
-{
-    FilterAnsi(part1);
-    FilterAnsi(part2);
-    FilterAnsi(part3);
-    _result = StringAnsi::Format("{0}:{1}:{2}", part1, part2, part3);
-}
-
-
-DesignEvent::DesignEvent(StringAnsi part1, StringAnsi part2, StringAnsi part3, StringAnsi part4)
-{
-    FilterAnsi(part1);
-    FilterAnsi(part2);
-    FilterAnsi(part3);
-    FilterAnsi(part4);
-    _result = StringAnsi::Format("{0}:{1}:{2}:{3}", part1, part2, part3, part4);
-}
-
-
-DesignEvent::DesignEvent(StringAnsi part1, StringAnsi part2, StringAnsi part3, StringAnsi part4, StringAnsi part5)
-{
-    FilterAnsi(part1);
-    FilterAnsi(part2);
-    FilterAnsi(part3);
-    FilterAnsi(part4);
-    FilterAnsi(part5);
-    _result = StringAnsi::Format("{0}:{1}:{2}:{3}:{4}", part1, part2, part3, part4, part5);
-}
-
-Analytics::Analytics(const SpawnParams& params)
-    : ISystem(params)
-{
-}
-
+#if BUILD_DEBUG == 0
 String Analytics::MessageTypeToString(gameanalytics::EGALoggerMessageType type)
 {
     switch (type)
@@ -146,12 +71,13 @@ void Analytics::OnLog(const char* message, gameanalytics::EGALoggerMessageType m
     {
         return;
     }
-    String result = String::Format(TEXT("[GA] {0}: {1}"), MessageTypeToString(messageType), String(message));
+    String result = String::Format(TEXT("[Analytics] {0}: {1}"), MessageTypeToString(messageType), String(message));
     LOG_STR(Info, result);
 }
-
+#endif // BUILD_DEBUG
 void Analytics::OnInitialize()
 {
+#if BUILD_DEBUG == 0
     gameanalytics::StringVector dimensions;
     dimensions.add("Debug");
     dimensions.add("Modded");
@@ -169,10 +95,9 @@ void Analytics::OnInitialize()
     gameanalytics::GameAnalytics::setEnabledErrorReporting(true);
 
     const Args* args = Core::Get<LaunchArgs>()->GetArgs();
-
-#ifdef BUILD_DEBUG
+#if BUILD_DEVELOPMENT == 1
     gameanalytics::GameAnalytics::setCustomDimension01("Debug");
-#else
+#elif BUILD_RELEASE == 1
     if (args->IsModded)
     {
         gameanalytics::GameAnalytics::setCustomDimension01("Modded");
@@ -182,7 +107,6 @@ void Analytics::OnInitialize()
         gameanalytics::GameAnalytics::setCustomDimension01("Vanilla");
     }
 #endif
-
     gameanalytics::StringVector coreMods;
     coreMods.add(args->Core.ToStringAnsi().GetText());
     gameanalytics::GameAnalytics::configureAvailableCustomDimensions02(coreMods);
@@ -192,50 +116,77 @@ void Analytics::OnInitialize()
     gameanalytics::GameAnalytics::startSession();
 
     _initialized = true;
+#endif // BUILD_DEBUG
 }
 
 void Analytics::OnDeinitialize()
 {
+#if BUILD_DEBUG == 0
     gameanalytics::GameAnalytics::endSession();
     gameanalytics::GameAnalytics::onQuit();
+#endif // BUILD_DEBUG
 }
 
-void Analytics::AddResourceEvent(FlowType flowType, const char* currency, float amount, const char* itemType, const char* itemId)
+void Analytics::AddResourceEvent(FlowType flowType, StringAnsi currency, float amount, StringAnsi itemType, StringAnsi itemId)
 {
-    gameanalytics::GameAnalytics::addResourceEvent(static_cast<gameanalytics::EGAResourceFlowType>(flowType), currency, amount, itemType, itemId);
+#if BUILD_DEBUG == 0
+    gameanalytics::GameAnalytics::addResourceEvent(static_cast<gameanalytics::EGAResourceFlowType>(flowType), currency.GetText(), amount, itemType.GetText(), itemId.GetText());
+#endif // BUILD_DEBUG
 }
 
-void Analytics::AddProgressionEvent(ProgressionStatus progressionStatus, const char* progression01, const char* progression02, const char* progression03)
+void Analytics::AddProgressionEvent(ProgressionStatus progressionStatus, StringAnsi progression01, StringAnsi progression02, StringAnsi progression03)
 {
-    gameanalytics::GameAnalytics::addProgressionEvent(static_cast<gameanalytics::EGAProgressionStatus>(progressionStatus), progression01, progression02, progression03);
+#if BUILD_DEBUG == 0
+    gameanalytics::GameAnalytics::addProgressionEvent(static_cast<gameanalytics::EGAProgressionStatus>(progressionStatus), progression01.GetText(), progression02.GetText(), progression03.GetText());
+#endif // BUILD_DEBUG
 }
 
-void Analytics::AddProgressionEvent(ProgressionStatus progressionStatus, const char* progression01, const char* progression02, const char* progression03, int score)
+void Analytics::AddProgressionEvent(ProgressionStatus progressionStatus, StringAnsi progression01, StringAnsi progression02, StringAnsi progression03, int score)
 {
-    gameanalytics::GameAnalytics::addProgressionEvent(static_cast<gameanalytics::EGAProgressionStatus>(progressionStatus), progression01, progression02, progression03, score);
+#if BUILD_DEBUG == 0
+    gameanalytics::GameAnalytics::addProgressionEvent(static_cast<gameanalytics::EGAProgressionStatus>(progressionStatus), progression01.GetText(), progression02.GetText(), progression03.GetText(), score);
+#endif // BUILD_DEBUG
 }
 
-void Analytics::AddDesignEvent(DesignEvent event)
+void Analytics::AddDesignEvent(StringAnsi eventName)
 {
-    gameanalytics::GameAnalytics::addDesignEvent(event.GetResult());
+#if BUILD_DEBUG == 0
+    Filter(eventName);
+    if (eventName.Contains(":"))
+    {
+        gameanalytics::GameAnalytics::addDesignEvent(eventName.GetText());
+    }
+#endif // BUILD_DEBUG
 }
 
-void Analytics::AddDesignEvent(DesignEvent event, double value)
+void Analytics::AddDesignEvent(StringAnsi eventName, double value)
 {
-    gameanalytics::GameAnalytics::addDesignEvent(event.GetResult(), value);
+#if BUILD_DEBUG == 0
+    Filter(eventName);
+    if (eventName.Contains(":"))
+    {
+        gameanalytics::GameAnalytics::addDesignEvent(eventName.GetText(), value);
+    }
+#endif // BUILD_DEBUG
 }
 
 void Analytics::AddErrorEvent(ErrorSeverity severity, const char* message)
 {
+#if BUILD_DEBUG == 0
     gameanalytics::GameAnalytics::addErrorEvent(static_cast<gameanalytics::EGAErrorSeverity>(severity), message);
+#endif // BUILD_DEBUG
 }
 
 void Analytics::AddErrorEvent(ErrorSeverity severity, const StringAnsi& message)
 {
+#if BUILD_DEBUG == 0
     AddErrorEvent(severity, message.GetText());
+#endif // BUILD_DEBUG
 }
 
 void Analytics::AddErrorEvent(ErrorSeverity severity, const String& message)
 {
+#if BUILD_DEBUG == 0
     AddErrorEvent(severity, message.ToStringAnsi());
+#endif // BUILD_DEBUG
 }

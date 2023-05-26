@@ -1,5 +1,8 @@
 #include "UI.h"
 
+IUIState* UI::_currentState = nullptr;
+Dictionary<String, IUIState*> UI::_states;
+
 UI::UI(const SpawnParams& params)
     : ISystem(params)
 {
@@ -76,12 +79,11 @@ void UI::GoForward(String state)
     {
         return;
     }
-
-    if (_currentState != nullptr)
+    if (_currentState != nullptr && _currentState->HasParent())
     {
         _currentState->GetActor()->SetIsActive(false);
         Array<Script*> scripts;
-        FindScripts(_currentState->GetActor(), scripts);
+        Core::Get<UI>()->FindScripts(_currentState->GetActor(), scripts);
         for (const auto& script : scripts)
         {
             script->SetEnabled(false);
@@ -91,7 +93,7 @@ void UI::GoForward(String state)
     IUIState* target = _states[state];
     target->GetActor()->SetIsActive(true);
     Array<Script*> scripts;
-    FindScripts(target->GetActor(), scripts);
+    Core::Get<UI>()->FindScripts(target->GetActor(), scripts);
     for (const auto& script : scripts)
     {
         script->SetEnabled(true);

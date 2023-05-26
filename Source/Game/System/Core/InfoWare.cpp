@@ -43,12 +43,12 @@ const char* InfoWare::GetVendorName(iware::gpu::vendor_t vendor)
 void InfoWare::SendSystemInfo()
 {
     const auto memory = iware::system::memory();
-    Core::Get<Analytics>()->AddDesignEvent(DesignEvent("Telemetry", "System", "Memory", "Physical", HumanReadable::ConvertBytesAnsi(memory.physical_total)));
-    Core::Get<Analytics>()->AddDesignEvent(DesignEvent("Telemetry", "System", "Memory", "Virtual", HumanReadable::ConvertBytesAnsi(memory.virtual_total)));
+    Analytics::AddDesignEvent(StringAnsi::Format("{0}:{1}:{2}:{3}:{4}", "Telemetry", "System", "Memory", "Physical", Utilities::BytesToText(memory.physical_total).ToStringAnsi()));
+    Analytics::AddDesignEvent(StringAnsi::Format("{0}:{1}:{2}:{3}:{4}", "Telemetry", "System", "Memory", "Virtual", Utilities::BytesToText(memory.virtual_total).ToStringAnsi()));
 
     const auto os = iware::system::OS_info();
-    Core::Get<Analytics>()->AddDesignEvent(DesignEvent("Telemetry", "System", "OS", "Name", os.full_name.c_str()));
-    Core::Get<Analytics>()->AddDesignEvent(DesignEvent("Telemetry", "System", "OS", "Version", StringAnsi::Format("{0}.{1}.{2}.{3}", os.major, os.minor, os.patch, os.build_number)));
+    Analytics::AddDesignEvent(StringAnsi::Format("{0}:{1}:{2}:{3}:{4}", "Telemetry", "System", "OS", "Name", os.full_name.c_str()));
+    Analytics::AddDesignEvent(StringAnsi::Format("{0}:{1}:{2}:{3}:{4}.{5}.{6}.{7}", "Telemetry", "System", "OS", "Version", os.major, os.minor, os.patch, os.build_number));
 
     HashSet<StringAnsi> resolutions;
     HashSet<StringAnsi> dpis;
@@ -56,36 +56,36 @@ void InfoWare::SendSystemInfo()
 
     const auto displays = iware::system::displays();
 
-    Core::Get<Analytics>()->AddDesignEvent(DesignEvent("Telemetry", "System", "Display", "Count", StringAnsi::Format("{0}", displays.size())));
+    Analytics::AddDesignEvent(StringAnsi::Format("{0}:{1}:{2}:{3}:{4}", "Telemetry", "System", "Display", "Count", displays.size()));
 
     for (auto i = 0u; i < displays.size(); ++i)
     {
         const auto& display = displays[i];
         resolutions.Add(StringAnsi::Format("{0}x{1}", display.width, display.height));
         dpis.Add(StringAnsi::Format("{0}", display.dpi));
-        refreshs.Add(HumanReadable::ConvertHertzAnsi(static_cast<uint64_t>(display.refresh_rate)));
+        refreshs.Add(Utilities::HertzToText(static_cast<uint64_t>(display.refresh_rate)).ToStringAnsi());
     }
 
     for (const auto& resolution : resolutions)
     {
-        Core::Get<Analytics>()->AddDesignEvent(DesignEvent("Telemetry", "System", "Display", "Resolution", resolution.Item));
+        Analytics::AddDesignEvent(StringAnsi::Format("{0}:{1}:{2}:{3}:{4}", "Telemetry", "System", "Display", "Resolution", resolution.Item));
     }
 
     for (const auto& dpi : dpis)
     {
-        Core::Get<Analytics>()->AddDesignEvent(DesignEvent("Telemetry", "System", "Display", "DPI", dpi.Item));
+        Analytics::AddDesignEvent(StringAnsi::Format("{0}:{1}:{2}:{3}:{4}", "Telemetry", "System", "Display", "DPI", dpi.Item));
     }
 
     for (const auto& refresh : refreshs)
     {
-        Core::Get<Analytics>()->AddDesignEvent(DesignEvent("Telemetry", "System", "Display", "Refresh", refresh.Item));
+        Analytics::AddDesignEvent(StringAnsi::Format("{0}:{1}:{2}:{3}:{4}", "Telemetry", "System", "Display", "Refresh", refresh.Item));
     }
 }
 
 void InfoWare::SendCPUInfo()
 {
-    Core::Get<Analytics>()->AddDesignEvent(DesignEvent("Telemetry", "CPU", "ModelName", iware::cpu::model_name().c_str()));
-    Core::Get<Analytics>()->AddDesignEvent(DesignEvent("Telemetry", "CPU", "VendorID", iware::cpu::vendor_id().c_str()));
+    Analytics::AddDesignEvent(StringAnsi::Format("{0}:{1}:{2}:{3}", "Telemetry", "CPU", "ModelName", iware::cpu::model_name().c_str()));
+    Analytics::AddDesignEvent(StringAnsi::Format("{0}:{1}:{2}:{3}", "Telemetry", "CPU", "VendorID", iware::cpu::vendor_id().c_str()));
 }
 
 void InfoWare::SendGPUInfo()
@@ -95,7 +95,7 @@ void InfoWare::SendGPUInfo()
 
     const auto gpus = iware::gpu::device_properties();
 
-    Core::Get<Analytics>()->AddDesignEvent(DesignEvent("Telemetry", "GPU", "Count", StringAnsi::Format("{0}", gpus.size())));
+    Analytics::AddDesignEvent(StringAnsi::Format("{0}:{1}:{2}:{3}", "Telemetry", "GPU", "Count", gpus.size()));
 
     for (auto i = 0u; i < gpus.size(); ++i)
     {
@@ -106,12 +106,12 @@ void InfoWare::SendGPUInfo()
 
     for (const auto& vendor : vendors)
     {
-        Core::Get<Analytics>()->AddDesignEvent(DesignEvent("Telemetry", "GPU", "Vendor", vendor.Item));
+        Analytics::AddDesignEvent(StringAnsi::Format("{0}:{1}:{2}:{3}", "Telemetry", "GPU", "Vendor", vendor.Item));
     }
 
     for (const auto& name : names)
     {
-        Core::Get<Analytics>()->AddDesignEvent(DesignEvent("Telemetry", "GPU", "Name", name.Item));
+        Analytics::AddDesignEvent(StringAnsi::Format("{0}:{1}:{2}:{3}", "Telemetry", "GPU", "Name", name.Item));
     }
 }
 
@@ -120,8 +120,4 @@ void InfoWare::OnInitialize()
     SendSystemInfo();
     SendCPUInfo();
     SendGPUInfo();
-}
-
-void InfoWare::OnDeinitialize()
-{
 }

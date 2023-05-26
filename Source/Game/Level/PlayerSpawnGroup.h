@@ -6,7 +6,7 @@
 #include <Engine/Renderer/DrawCall.h>
 #include <Engine/Content/Content.h>
 
-#include <Game/Shared/Utils/Defines.h>
+#include <Game/Shared/Defines.h>
 #include <Game/Level/PlayerSpawn.h>
 #include <Game/System/Game/PlayerRespawns.h>
 

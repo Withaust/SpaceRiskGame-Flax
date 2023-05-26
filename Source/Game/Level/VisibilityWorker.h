@@ -14,7 +14,7 @@
 #include <Engine/Core/Delegate.h>
 #include <Engine/Profiler/Profiler.h>
 
-#include <Game/Shared/Utils/Defines.h>
+#include <Game/Shared/Defines.h>
 
 API_CLASS() class GAME_API VisibilityWorker : public Script
 {

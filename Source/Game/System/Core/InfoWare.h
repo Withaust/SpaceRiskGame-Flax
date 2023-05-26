@@ -1,11 +1,11 @@
 #pragma once
 
 #include <Engine/Scripting/Script.h>
+#include <Engine/Core/Utilities.h>
 #include <Engine/Core/Collections/HashSet.h>
 
-#include <Game/Shared/Utils/Defines.h>
+#include <Game/Shared/Defines.h>
 #include <Game/System/Core/Analytics.h>
-#include <Game/Shared/Utils/HumanReadable.h>
 
 #include <InfoWare/system.hpp>
 #include <InfoWare/cpu.hpp>
@@ -26,5 +26,4 @@ private:
 
 public:
     void OnInitialize() override;
-    void OnDeinitialize() override;
 };

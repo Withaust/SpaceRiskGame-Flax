@@ -1,5 +1,7 @@
 #include "PlayerRespawns.h"
 
+Array<ScriptingObjectReference<PlayerSpawn>> PlayerRespawns::_spawns;
+
 PlayerRespawns::PlayerRespawns(const SpawnParams& params)
     : ISystem(params)
 {

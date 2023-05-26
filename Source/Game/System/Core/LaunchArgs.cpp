@@ -1,5 +1,12 @@
 #include "LaunchArgs.h"
 
+ScriptingObjectReference<Args> LaunchArgs::_args;
+
+Args::Args(const SpawnParams& params)
+    : ScriptingObject(params)
+{
+}
+
 LaunchArgs::LaunchArgs(const SpawnParams& params)
     : ISystem(params)
 {
@@ -54,12 +61,7 @@ void LaunchArgs::OnInitialize()
     JsonSerializer::LoadFromBytes(_args, bytes, Globals::EngineBuildNumber);
 }
 
-void LaunchArgs::OnDeinitialize()
-{
-    Delete(_args);
-}
-
-const Args* LaunchArgs::GetArgs()
+const ScriptingObjectReference<Args> LaunchArgs::GetArgs()
 {
     return _args;
 }

@@ -17,9 +17,15 @@ public:
     void OnInitialize() override;
     void OnDeinitialize() override;
 
-    void Print(const StringView& message, const char* file, int line);
-    void Info(const StringView& message, const char* file, int line);
-    void Warning(const StringView& message, const char* file, int line);
-    void Error(const StringView& message, const char* file, int line);
-    void Critical(bool shutdown, const StringView& message, const char* file, int line);
+    API_FUNCTION() static void Print(const StringView& message);
+    API_FUNCTION() static void Info(const StringView& message);
+
+    API_FUNCTION() static void Warning(const StringView& message);
+    static void Warning(const StringView& message, const char* file, int line);
+
+    API_FUNCTION() static void Error(const StringView& message);
+    static void Error(const StringView& message, const char* file, int line);
+    
+    API_FUNCTION() static void Critical(bool shutdown, const StringView& message);
+    static void Critical(bool shutdown, const StringView& message, const char* file, int line);
 };

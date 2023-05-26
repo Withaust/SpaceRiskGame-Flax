@@ -1,5 +1,10 @@
 #include "PlayerManager.h"
 
+#include <Engine/Serialization/JsonWriters.h>
+
+ScriptingObjectReference<Actor> PlayerManager::_ourPlayer;
+Dictionary<uint32, ScriptingObjectReference<Actor>> PlayerManager::_players;
+
 PlayerManager::PlayerManager(const SpawnParams& params)
     : ISystem(params)
 {

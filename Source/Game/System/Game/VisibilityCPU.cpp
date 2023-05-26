@@ -1,5 +1,7 @@
 #include "VisibilityCPU.h"
 
+LayersMask VisibilityCPU::RaycastMask;
+
 VisibilityCPU::VisibilityCPU(const SpawnParams& params)
     : ISystem(params)
 {

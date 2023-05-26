@@ -44,8 +44,8 @@ void Core::OnDisable()
 
 void Core::ReplicateSystems()
 {
-    NetworkReplicator::AddObject(GetParent());
-    NetworkReplicator::AddObject(this);
+    NetworkReplicator::AddObject(Instance()->GetParent());
+    NetworkReplicator::AddObject(Instance());
 
     for (int i = 0; i < _systemsArray.Count(); ++i)
     {

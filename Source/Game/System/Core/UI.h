@@ -2,7 +2,7 @@
 
 #include <Engine/Scripting/Script.h>
 
-#include <Game/Shared/Utils/Defines.h>
+#include <Game/Shared/Defines.h>
 #include <Game/System/Core/IUIState.h>
 
 API_CLASS() class GAME_API UI : public ISystem
@@ -11,8 +11,8 @@ API_CLASS() class GAME_API UI : public ISystem
     DECLARE_SCRIPTING_TYPE(UI);
 private:
 
-    IUIState* _currentState = nullptr;
-    Dictionary<String, IUIState*> _states;
+    static IUIState* _currentState;
+    static Dictionary<String, IUIState*> _states;
 
     void FindStates(Actor* target, Array<IUIState*>& result);
     void FindScripts(Actor* target, Array<Script*>& result);
@@ -22,6 +22,6 @@ public:
     void OnInitialize() override;
     void OnDeinitialize() override;
 
-    API_FUNCTION() void GoForward(String state);
-    API_FUNCTION() void GoBack();
+    API_FUNCTION() static void GoForward(String state);
+    API_FUNCTION() static void GoBack();
 };

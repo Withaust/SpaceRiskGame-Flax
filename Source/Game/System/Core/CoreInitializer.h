@@ -3,7 +3,7 @@
 #include <Engine/Scripting/Script.h>
 #include <Engine/Level/Level.h>
 
-#include <Game/Shared/Utils/Defines.h>
+#include <Game/Shared/Defines.h>
 #include <Game/System/Core/LaunchArgs.h>
 #include <Game/System/Core/LevelManager.h>
 #include <Game/System/Core/Networking.h>

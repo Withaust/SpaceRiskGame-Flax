@@ -8,7 +8,7 @@
 #include <Engine/Level/Prefabs/Prefab.h>
 #include <Engine/Content/SoftAssetReference.h>
 
-#include <Game/Shared/Utils/Defines.h>
+#include <Game/Shared/Defines.h>
 #include <Game/Level/VisibilityWorker.h>
 
 class VisibilityTask
@@ -33,8 +33,8 @@ API_CLASS() class GAME_API VisibilityGPU : public ISystem
     DECLARE_SCRIPTING_TYPE(VisibilityGPU);
 
 private:
-    Array<VisibilityWorker*> _workers;
-    RingBuffer<VisibilityTask> _tasks;
+    static Array<VisibilityWorker*> _workers;
+    static RingBuffer<VisibilityTask> _tasks;
 
 public:
 
@@ -44,5 +44,5 @@ public:
     void OnEnable() override;
     void OnDisable() override;
     void OnUpdate() override;
-    void Queue(Vector3 origin, Actor* target, Function<void(float, Actor*)> callback);
+    API_FUNCTION() static void Queue(Vector3 origin, Actor* target, Function<void(float, Actor*)> callback);
 };
