@@ -9,7 +9,15 @@ void CoreInitializer::OnInitialize()
 {
     if (Core::Instance()->Get<LaunchArgs>()->GetArgs()->IsHost)
     {
-        Core::Instance()->Get<LevelManager>()->LoadLevel(TEXT("Game"));
+        String Level = TEXT("Main");
+        if (SceneRoot::EditorScene != String::Empty)
+        {
+            Level = SceneRoot::EditorScene;
+            // Editor does not perform full domain reload, so static
+            // members never get reset without manual help
+            SceneRoot::EditorScene = String::Empty;
+        }
+        Core::Instance()->Get<LevelManager>()->LoadLevel(Level);
     }
     else
     {

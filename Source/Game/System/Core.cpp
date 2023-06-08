@@ -42,6 +42,7 @@ void Core::OnDisable()
         _systemsArray[i].Ptr->OnDeinitialize();
         _systemsArray.RemoveAtKeepOrder(i);
     }
+    _instance = nullptr;
 }
 
 void Core::ReplicateSystems()

@@ -8,6 +8,7 @@
 #include <Game/System/Core/LevelManager.h>
 #include <Game/System/Core/Networking.h>
 #include <Game/System/Core/UI.h>
+#include <Game/Level/SceneRoot.h>
 
 API_CLASS() class GAME_API CoreInitializer : public ISystem
 {

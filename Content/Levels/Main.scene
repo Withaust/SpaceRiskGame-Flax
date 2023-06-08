@@ -6,7 +6,7 @@
 		{
 			"ID": "a7383811434ac0476b9e57893b2d189d",
 			"TypeName": "FlaxEngine.Scene",
-			"Name": "Game",
+			"Name": "Main",
 			"Lightmaps": [
 				{
 					"Lightmap0": "6fb64a584d74ab6721424ba4823240e4",
@@ -28,11 +28,6 @@
 		{
 			"ID": "6946130441f49553b8f2939f030d639a",
 			"TypeName": "Game.SceneRoot",
-			"ParentID": "a7383811434ac0476b9e57893b2d189d"
-		},
-		{
-			"ID": "d628d36f4ad2d145c902ebbdcb0dc495",
-			"TypeName": "Game.PlayerSpawnGroup",
 			"ParentID": "a7383811434ac0476b9e57893b2d189d"
 		},
 		{
@@ -393,6 +388,19 @@
 						"ReceiveDecals": true
 					}
 				]
+			}
+		},
+		{
+			"ID": "6fcb44ff4af910f5bae68da5e9c87bfc",
+			"TypeName": "FlaxEngine.BoxCollider",
+			"ParentID": "55d6530d42e049d51c19e3a859b78c65",
+			"Name": "BoxCollider",
+			"Transform": {
+				"Translation": {
+					"X": 0.0,
+					"Y": 54.29115295410156,
+					"Z": 0.0
+				}
 			}
 		},
 		{
