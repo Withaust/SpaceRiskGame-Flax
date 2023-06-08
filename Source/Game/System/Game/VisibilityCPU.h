@@ -13,9 +13,9 @@ API_CLASS() class GAME_API VisibilityCPU : public ISystem
 
 public:
 
-    API_FIELD() static LayersMask RaycastMask;
+    API_FIELD() LayersMask RaycastMask;
 
     void OnInitialize() override;
     void OnDeinitialize() override;
-    API_FUNCTION() static bool Queue(Vector3 origin, Vector3 direction);
+    API_FUNCTION() bool Queue(Vector3 origin, Vector3 direction);
 };

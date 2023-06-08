@@ -28,7 +28,7 @@ private:
     bool _initialized = false;
     StringAnsi _gameKey = "d5d99280fc61340c92a04b7520ddcdda";
     StringAnsi _gameSecret = "215fe92fa38665c64ebb197279e549c6b0c88ec3";
-    static void Filter(StringAnsi& design);
+    void Filter(StringAnsi& design);
 
 public:
 #if BUILD_DEBUG == 0
@@ -86,15 +86,15 @@ public:
 
 public:
 
-    API_FUNCTION() static void AddResourceEvent(FlowType flowType, StringAnsi currency, float amount, StringAnsi itemType, StringAnsi itemId);
+    API_FUNCTION() void AddResourceEvent(FlowType flowType, StringAnsi currency, float amount, StringAnsi itemType, StringAnsi itemId);
 
-    API_FUNCTION() static void AddProgressionEvent(ProgressionStatus progressionStatus, StringAnsi progression01, StringAnsi progression02, StringAnsi progression03);
-    API_FUNCTION() static void AddProgressionEvent(ProgressionStatus progressionStatus, StringAnsi progression01, StringAnsi progression02, StringAnsi progression03, int score);
+    API_FUNCTION() void AddProgressionEvent(ProgressionStatus progressionStatus, StringAnsi progression01, StringAnsi progression02, StringAnsi progression03);
+    API_FUNCTION() void AddProgressionEvent(ProgressionStatus progressionStatus, StringAnsi progression01, StringAnsi progression02, StringAnsi progression03, int score);
 
-    API_FUNCTION() static void AddDesignEvent(StringAnsi eventName);
-    API_FUNCTION() static void AddDesignEvent(StringAnsi eventName, double value);
+    API_FUNCTION() void AddDesignEvent(StringAnsi eventName);
+    API_FUNCTION() void AddDesignEvent(StringAnsi eventName, double value);
 
-    static void AddErrorEvent(ErrorSeverity severity, const char* message);
-    static void AddErrorEvent(ErrorSeverity severity, const StringAnsi& message);
-    API_FUNCTION() static void AddErrorEvent(ErrorSeverity severity, const String& message);
+    void AddErrorEvent(ErrorSeverity severity, const char* message);
+    void AddErrorEvent(ErrorSeverity severity, const StringAnsi& message);
+    API_FUNCTION() void AddErrorEvent(ErrorSeverity severity, const String& message);
 };

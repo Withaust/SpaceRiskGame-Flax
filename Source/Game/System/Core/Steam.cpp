@@ -1,10 +1,5 @@
 #include "Steam.h"
 
-bool Steam::_initialized = false;
-const int Steam::_appID = 1436420;
-String Steam::_name;
-CSteamID Steam::_steamID;
-
 Steam::Steam(const SpawnParams& params)
     : ISystem(params)
 {

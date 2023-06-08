@@ -26,6 +26,7 @@ public class Game : GameModule
             case TargetPlatform.Windows:
                 {
                     options.LinkEnv.CustomArgs.Add("/IGNORE:4099");
+                    options.LinkEnv.CustomArgs.Add("/IGNORE:4098");
                     break;
                 }
             case TargetPlatform.Linux:

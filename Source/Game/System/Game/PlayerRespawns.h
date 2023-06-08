@@ -22,12 +22,12 @@ API_CLASS() class GAME_API PlayerRespawns : public ISystem
 
 private:
 
-    static Array<ScriptingObjectReference<PlayerSpawn>> _spawns;
+    Array<ScriptingObjectReference<PlayerSpawn>> _spawns;
 
 public:
 
-    API_FUNCTION() static ScriptingObjectReference<PlayerSpawn> GetRandomSpawn();
+    API_FUNCTION() ScriptingObjectReference<PlayerSpawn> GetRandomSpawn();
 
-    API_FUNCTION() static void Register(ScriptingObjectReference<PlayerSpawn> spawn);
-    API_FUNCTION() static void Unregister(ScriptingObjectReference<PlayerSpawn> spawn);
+    API_FUNCTION() void Register(ScriptingObjectReference<PlayerSpawn> spawn);
+    API_FUNCTION() void Unregister(ScriptingObjectReference<PlayerSpawn> spawn);
 };

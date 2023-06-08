@@ -1,8 +1,5 @@
 #include "UI.h"
 
-IUIState* UI::_currentState = nullptr;
-Dictionary<String, IUIState*> UI::_states;
-
 UI::UI(const SpawnParams& params)
     : ISystem(params)
 {
@@ -79,7 +76,7 @@ void UI::GoForward(String state)
     {
         return;
     }
-    if (_currentState != nullptr && _currentState->HasParent())
+    if (_currentState != nullptr)
     {
         _currentState->GetActor()->SetIsActive(false);
         Array<Script*> scripts;

@@ -378,40 +378,16 @@
 			"Name": "Default",
 			"Transform": {
 				"Translation": {
-					"X": -211.30523681640626,
-					"Y": -226.47079467773438,
+					"X": -207.50057983398438,
+					"Y": -291.2306823730469,
 					"Z": -129.91868591308595
 				}
 			},
-			"Model": "b43f0f8f4aaba3f3156896a5a22ba493",
+			"Model": "d6453d844d7b74fb7758d0a98d43c2c5",
 			"Buffer": {
 				"Entries": [
 					{
-						"Material": "d1678f1e47a11d96c28bb38823844dd4",
-						"ShadowsMode": 3,
-						"Visible": true,
-						"ReceiveDecals": true
-					}
-				]
-			}
-		},
-		{
-			"ID": "e63a235e45744b9c191df495bc46fb05",
-			"TypeName": "FlaxEngine.StaticModel",
-			"ParentID": "a7383811434ac0476b9e57893b2d189d",
-			"Name": "Crunched",
-			"Transform": {
-				"Translation": {
-					"X": -330.1308898925781,
-					"Y": -226.781982421875,
-					"Z": -128.83181762695313
-				}
-			},
-			"Model": "b43f0f8f4aaba3f3156896a5a22ba493",
-			"Buffer": {
-				"Entries": [
-					{
-						"Material": "b4da29b14c362c46e8e807b627b82517",
+						"Material": "9ef09e894758303a0805719a3901ec31",
 						"ShadowsMode": 3,
 						"Visible": true,
 						"ReceiveDecals": true

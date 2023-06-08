@@ -3,6 +3,7 @@
 #include <Engine/Scripting/Script.h>
 #include <Engine/Content/Content.h>
 #include <Engine/Content/AssetInfo.h>
+#include <Engine/Core/Config/GameSettings.h>
 
 #include <Game/Shared/Defines.h>
 

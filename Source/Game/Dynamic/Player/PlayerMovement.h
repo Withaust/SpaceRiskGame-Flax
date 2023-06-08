@@ -22,8 +22,8 @@ API_CLASS() class GAME_API PlayerMovement : public Script
 
 public:
 
-    static const int Height = 50;
-    static const int Radius = 25;
+    API_FIELD() static float Height;
+    API_FIELD() static float Radius;
 
     API_FIELD() ScriptingObjectReference<CharacterController> Controller;
     API_FIELD() ScriptingObjectReference<Actor> Head;

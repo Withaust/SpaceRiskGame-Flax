@@ -22,7 +22,7 @@ namespace Game
                 control.Dispose();
             }
             Label NewEntry = PrefabManager.SpawnPrefab(Entry, Root).As<UIControl>().Get<Label>();
-            NewEntry.Text = PlayerManager.GetPlayerInfo(Sender).Name + ": " + Message;
+            NewEntry.Text = Core.Get<PlayerManager>().GetPlayerInfo(Sender).Name + ": " + Message;
             Messages.Enqueue(NewEntry);
         }
 
@@ -30,7 +30,7 @@ namespace Game
         {
             IsFocused = true;
             TextBox.Control.Focus();
-            PlayerManager.GetOurPlayer().GetScript<PlayerMovement>().CanMove = false;
+            Core.Get<PlayerManager>().GetOurPlayer().GetScript<PlayerMovement>().CanMove = false;
         }
 
         public void OnSendMessage(KeyboardKeys keys)
@@ -39,17 +39,17 @@ namespace Game
             {
                 return;
             }
-            Chat.SendMessage(new NetworkRpcParams(), TextBox.Get<TextBox>().Text);
+            Core.Get<Chat>().SendMessage(new NetworkRpcParams(), TextBox.Get<TextBox>().Text);
             TextBox.Control.Defocus();
             TextBox.Get<TextBox>().Text = "";
-            PlayerManager.GetOurPlayer().GetScript<PlayerMovement>().CanMove = true;
+            Core.Get<PlayerManager>().GetOurPlayer().GetScript<PlayerMovement>().CanMove = true;
             IsFocused = false;
         }
 
         public override void OnStart()
         {
             Messages = new Queue<Label>();
-            Chat.OnChatMessage += OnChatMessage;
+            Core.Get<Chat>().OnChatMessage += OnChatMessage;
             TextBox.Get<TextBox>().KeyDown += OnSendMessage;
         }
     }

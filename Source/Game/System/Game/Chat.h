@@ -15,9 +15,9 @@ API_CLASS(Namespace = "Game") class GAME_API Chat : public ISystem
 
     void OnUpdate() override;
 
-    API_EVENT() static Delegate<uint32, String> OnChatMessage;
+    API_EVENT() Delegate<uint32, String> OnChatMessage;
 
-    API_FUNCTION(NetworkRpc = "Server, Reliable") static void SendMessage(NetworkRpcParams info, const String& text);
-    API_FUNCTION(NetworkRpc = "Client, Reliable") static void RecieveMessage(uint32 sender, const String& text);
+    API_FUNCTION(NetworkRpc = "Server, Reliable") void SendMessage(NetworkRpcParams info, const String& text);
+    API_FUNCTION(NetworkRpc = "Client, Reliable") void RecieveMessage(uint32 sender, const String& text);
 
 };

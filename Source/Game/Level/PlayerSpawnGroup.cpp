@@ -9,7 +9,7 @@ void PlayerSpawnGroup::OnEnable()
 {
     for (int i = 0; i < Spawns.Count(); ++i)
     {
-        PlayerRespawns::Register(Spawns[i]);
+        Core::Get<PlayerRespawns>()->Register(Spawns[i]);
     }
 }
 
@@ -17,7 +17,7 @@ void PlayerSpawnGroup::OnDisable()
 {
     for (int i = 0; i < Spawns.Count(); ++i)
     {
-        PlayerRespawns::Unregister(Spawns[i]);
+        Core::Get<PlayerRespawns>()->Unregister(Spawns[i]);
     }
 }
 

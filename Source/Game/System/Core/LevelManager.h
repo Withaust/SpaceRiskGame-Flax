@@ -13,7 +13,7 @@ API_CLASS() class GAME_API LevelManager : public ISystem
 
 private:
 
-    static String _mainScene;
+    String _mainScene;
 
 public:
 
@@ -25,6 +25,6 @@ public:
     void OnSceneLoaded(Scene* scene, const Guid& id);
     void OnSceneUnloaded(Scene* scene, const Guid& id);
 
-    API_FUNCTION(NetworkRpc = "Client, Reliable") static void RequestLoadLevel(NetworkRpcParams info, String scene);
-    API_FUNCTION() static void LoadLevel(String scene);
+    API_FUNCTION(NetworkRpc = "Client, Reliable") void RequestLoadLevel(NetworkRpcParams info, String scene);
+    API_FUNCTION() void LoadLevel(String scene);
 };

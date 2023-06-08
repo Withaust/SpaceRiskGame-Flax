@@ -14,20 +14,20 @@ API_CLASS() class GAME_API PlayerManager : public ISystem
 
 private:
     
-    static ScriptingObjectReference<Actor> _ourPlayer;
-    static Dictionary<uint32, ScriptingObjectReference<Actor>> _players;
+    ScriptingObjectReference<Actor> _ourPlayer;
+    Dictionary<uint32, ScriptingObjectReference<Actor>> _players;
 
 public:
 
     API_FIELD() SoftAssetReference<Prefab> PlayerPrefab;
 
-    API_FUNCTION() static ScriptingObjectReference<PlayerInfo> GetPlayerInfo(uint32 id);
+    API_FUNCTION() ScriptingObjectReference<PlayerInfo> GetPlayerInfo(uint32 id);
 
-    API_FUNCTION() static void SetOurPlayer(ScriptingObjectReference<Actor> actor);
-    API_FUNCTION() static ScriptingObjectReference<Actor> GetOurPlayer();
+    API_FUNCTION() void SetOurPlayer(ScriptingObjectReference<Actor> actor);
+    API_FUNCTION() ScriptingObjectReference<Actor> GetOurPlayer();
 
-    API_FUNCTION() static void Register(uint32 id, ScriptingObjectReference<Actor> actor);
-    API_FUNCTION() static void Unregister(uint32 id);
+    API_FUNCTION() void Register(uint32 id, ScriptingObjectReference<Actor> actor);
+    API_FUNCTION() void Unregister(uint32 id);
 
     void OnPlayerConnected(NetworkClient* client) override;
     void OnPlayerDisconnected(NetworkClient* client) override;

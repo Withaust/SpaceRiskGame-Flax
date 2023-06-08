@@ -14,7 +14,7 @@ void CoreInitializer::OnInitialize()
     else
     {
         Core::Instance()->Get<Networking>()->StartGame();
-        Core::ReplicateSystems();
+        Core::Instance()->ReplicateSystems();
         Core::Instance()->Get<UI>()->GoForward(TEXT("Game.UIGame"));
     }
 }

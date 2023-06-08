@@ -56,7 +56,7 @@ public:
 
 #undef DISPATCH_SYSTEM
 
-    API_FUNCTION() static void ReplicateSystems();
+    API_FUNCTION() void ReplicateSystems();
 
     API_FUNCTION() static ISystem* Get(API_PARAM(Attributes = "TypeReference(typeof(ISystem))") const MClass* type);
     static ISystem* Get(const ScriptingTypeHandle& type);

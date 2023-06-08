@@ -1,7 +1,5 @@
 #include "LevelManager.h"
 
-String LevelManager::_mainScene;
-
 LevelManager::LevelManager(const SpawnParams& params)
     : ISystem(params)
 {
@@ -53,7 +51,7 @@ void LevelManager::OnSceneUnloaded(Scene* scene, const Guid& id)
 
 void LevelManager::RequestLoadLevel(NetworkRpcParams info, String scene)
 {
-    NETWORK_RPC_SYSTEM_IMPL(LevelManager, RequestLoadLevel, info, scene);
+    NETWORK_RPC_IMPL(LevelManager, RequestLoadLevel, info, scene);
     LoadLevel(scene);
 }
 

@@ -1,7 +1,5 @@
 #include "Chat.h"
 
-Delegate<uint32, String> Chat::OnChatMessage;
-
 Chat::Chat(const SpawnParams& params)
     : ISystem(params),
     Event(0.25f)
@@ -22,12 +20,12 @@ void Chat::OnUpdate()
 
 void Chat::SendMessage(NetworkRpcParams info, const String& text)
 {
-    NETWORK_RPC_SYSTEM_IMPL(Chat, SendMessage, info, text);
+    NETWORK_RPC_IMPL(Chat, SendMessage, info, text);
     RecieveMessage(info.SenderId, text);
 }
 
 void Chat::RecieveMessage(uint32 sender, const String& text)
 {
-    NETWORK_RPC_SYSTEM_IMPL(Chat, RecieveMessage, sender, text);
+    NETWORK_RPC_IMPL(Chat, RecieveMessage, sender, text);
     OnChatMessage(sender, text);
 }

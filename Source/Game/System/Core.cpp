@@ -8,6 +8,8 @@ Core::Core(const SpawnParams& params)
     : Actor(params)
 {
     _instance = this;
+    _systemsArray.Clear();
+    _systemsDict.Clear();
 }
 
 Core* Core::Instance()
@@ -44,8 +46,8 @@ void Core::OnDisable()
 
 void Core::ReplicateSystems()
 {
-    NetworkReplicator::AddObject(Instance()->GetParent());
-    NetworkReplicator::AddObject(Instance());
+    NetworkReplicator::AddObject(GetParent());
+    NetworkReplicator::AddObject(this);
 
     for (int i = 0; i < _systemsArray.Count(); ++i)
     {

@@ -1,7 +1,5 @@
 #include "LaunchArgs.h"
 
-ScriptingObjectReference<Args> LaunchArgs::_args;
-
 Args::Args(const SpawnParams& params)
     : ScriptingObject(params)
 {
