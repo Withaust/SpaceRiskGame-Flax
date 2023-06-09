@@ -1,6 +1,6 @@
 #include "SceneRoot.h"
 
-String SceneRoot::EditorScene;
+AssetReference<JsonAsset> SceneRoot::EditorLaunch = nullptr;
 
 SceneRoot::SceneRoot(const SpawnParams& params)
     : Script(params)
@@ -17,7 +17,18 @@ void SceneRoot::OnAwake()
         return;
     }
 
-    EditorScene = GetParent()->GetName();
+    const auto gameSettings = GameSettings::Get();
+    if (gameSettings)
+    {
+        Guid assetId = Guid::Empty;
+        gameSettings->CustomSettings.TryGet(TEXT("EditorLaunchArgs"), assetId);
+        const auto asset = Content::Load<JsonAsset>(assetId);
+        if (asset)
+        {
+            EditorLaunch = asset;
+        }
+    }
+    EditorLaunch->GetInstance<EditorLaunchArgs>()->LaunchScene = GetParent()->GetName();
 
     Level::UnloadAllScenes();
     Level::LoadScene(GameSettings::Get()->FirstScene);
