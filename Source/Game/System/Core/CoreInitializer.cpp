@@ -12,7 +12,12 @@ void CoreInitializer::OnInitialize()
         String Level = TEXT("Main");
         if (SceneRoot::EditorLaunch)
         {
-            Level = SceneRoot::EditorLaunch->GetInstance<EditorLaunchArgs>()->LaunchScene;
+            EditorLaunchArgs* args = SceneRoot::EditorLaunch->GetInstance<EditorLaunchArgs>();
+            if (args->LaunchScene != String::Empty)
+            {
+                Level = args->LaunchScene;
+                args->LaunchScene = String::Empty;
+            }
         }
         Core::Instance()->Get<LevelManager>()->LoadLevel(Level);
     }
