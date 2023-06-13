@@ -373,9 +373,9 @@
 			"Name": "Default",
 			"Transform": {
 				"Translation": {
-					"X": -207.50057983398438,
+					"X": -204.9644317626953,
 					"Y": -291.2306823730469,
-					"Z": -129.91868591308595
+					"Z": -123.84187316894531
 				}
 			},
 			"Model": "d6453d844d7b74fb7758d0a98d43c2c5",
@@ -391,15 +391,27 @@
 			}
 		},
 		{
-			"ID": "6fcb44ff4af910f5bae68da5e9c87bfc",
+			"ID": "bdb5d36545d2074bc041588f90a57aa7",
 			"TypeName": "FlaxEngine.BoxCollider",
 			"ParentID": "55d6530d42e049d51c19e3a859b78c65",
 			"Name": "BoxCollider",
 			"Transform": {
 				"Translation": {
 					"X": 0.0,
-					"Y": 54.29115295410156,
+					"Y": 64.77182006835938,
 					"Z": 0.0
+				}
+			},
+			"IsTrigger": true
+		},
+		{
+			"ID": "2ffe2c6648cb617ef2d712aea96a0092",
+			"TypeName": "6fc73eac47b8e95ade26bfbd96afd6e7",
+			"ParentID": "bdb5d36545d2074bc041588f90a57aa7",
+			"D": {
+				"42b999af4233a9c19e9aa9bef2af2c8a": {
+					"Type": 11,
+					"Value": "bdb5d36545d2074bc041588f90a57aa7"
 				}
 			}
 		},
