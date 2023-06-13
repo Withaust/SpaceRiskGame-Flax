@@ -9,20 +9,20 @@ void PlayerInfo::OnNetworkSpawn()
 {
     UNOT_OWNED_RETURN();
     Id = NetworkManager::LocalClientId;
-    Name = Core::Get<Steam>()->GetPersonaName();
+    Name = Steam::Instance->GetPersonaName();
     Level = 1;
     Skill1 = 2;
     Skill2 = 3;
     TemplateId = 4;
-    Core::Get<PlayerManager>()->Register(Id, GetActor());
+    PlayerManager::Instance->Register(Id, GetActor());
 }
 
 void PlayerInfo::OnNetworkDespawn()
 {
-    Core::Get<PlayerManager>()->Unregister(Id);
+    PlayerManager::Instance->Unregister(Id);
 }
 
 void PlayerInfo::OnNetworkSync()
 {
-    Core::Get<PlayerManager>()->Register(Id, GetActor());
+    PlayerManager::Instance->Register(Id, GetActor());
 }

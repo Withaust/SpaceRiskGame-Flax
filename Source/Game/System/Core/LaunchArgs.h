@@ -33,12 +33,15 @@ API_CLASS() class GAME_API LaunchArgs : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(LaunchArgs);
+
 private:
 
     ScriptingObjectReference<Args> _args;
     String GetNextArgument(int currentIndex, const Array<String>& args);
 
 public:
+    API_FIELD() static LaunchArgs* Instance;
+
     void OnInitialize() override;
     API_FUNCTION() const ScriptingObjectReference<Args> GetArgs();
 };

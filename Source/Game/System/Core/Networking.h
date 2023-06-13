@@ -28,6 +28,7 @@ private:
     bool _isHosting = false;
 
 public:
+    API_FIELD() static Networking* Instance;
 
     void OnNetworkStateChanged();
     void OnNetworkClientConnected(NetworkClient* client);

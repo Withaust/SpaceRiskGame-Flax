@@ -24,6 +24,8 @@ private:
 
 public:
 
+    API_FIELD() static Steam* Instance;
+
     // Callbacks
     STEAM_CALLBACK(Steam, SteamNetConnectionStatusChangedCallback, SteamNetConnectionStatusChangedCallback_t);
 

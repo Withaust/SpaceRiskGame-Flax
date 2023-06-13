@@ -1,5 +1,7 @@
 #include "Networking.h"
 
+UIMPL_SINGLETON(Networking)
+
 Networking::Networking(const SpawnParams& params)
     : ISystem(params)
 {
@@ -17,13 +19,13 @@ void Networking::OnNetworkStateChanged()
             Engine::MainWindow->SetTitle(String::Format(TEXT("{} - {}"), NetworkManager::IsClient() ? TEXT("Client") : TEXT("Host"), NetworkManager::LocalClientId));
         }
 #endif
-        Core::Instance()->OnConnected();
+        Core::Instance->OnConnected();
         break;
     }
     case NetworkConnectionState::Offline:
     case NetworkConnectionState::Disconnected:
     {
-        Core::Instance()->OnDisconnected();
+        Core::Instance->OnDisconnected();
         break;
     }
     }
@@ -31,12 +33,12 @@ void Networking::OnNetworkStateChanged()
 
 void Networking::OnNetworkClientConnected(NetworkClient* client)
 {
-    Core::Instance()->OnPlayerConnected(client);
+    Core::Instance->OnPlayerConnected(client);
 }
 
 void Networking::OnNetworkClientDisconnected(NetworkClient* client)
 {
-    Core::Instance()->OnPlayerDisconnected(client);
+    Core::Instance->OnPlayerDisconnected(client);
 }
 
 void Networking::OnInitialize()
@@ -58,7 +60,7 @@ void Networking::OnDeinitialize()
 
 void Networking::StartGame()
 {
-    const Args* args = Core::Get<LaunchArgs>()->GetArgs();
+    const Args* args = LaunchArgs::Instance->GetArgs();
     NetworkSettings* settings = NetworkSettings::Get();
     settings->NetworkFPS = 20.0f;
     settings->Address = args->Hostname;

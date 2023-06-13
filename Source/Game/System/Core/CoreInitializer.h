@@ -15,6 +15,7 @@ API_CLASS() class GAME_API CoreInitializer : public ISystem
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(CoreInitializer);
 public:
+    API_FIELD() static CoreInitializer* Instance;
 
     void OnInitialize() override;
     void OnDeinitialize() override;

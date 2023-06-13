@@ -1,5 +1,7 @@
 #include "LevelManager.h"
 
+UIMPL_SINGLETON(LevelManager)
+
 LevelManager::LevelManager(const SpawnParams& params)
     : ISystem(params)
 {
@@ -37,7 +39,7 @@ void LevelManager::OnSceneLoaded(Scene* scene, const Guid& id)
     {
         return;
     }
-    Core::Instance()->OnSceneLoaded(scene);
+    Core::Instance->OnSceneLoaded(scene);
 }
 
 void LevelManager::OnSceneUnloaded(Scene* scene, const Guid& id)
@@ -46,7 +48,7 @@ void LevelManager::OnSceneUnloaded(Scene* scene, const Guid& id)
     {
         return;
     }
-    Core::Instance()->OnSceneUnloaded(scene);
+    Core::Instance->OnSceneUnloaded(scene);
 }
 
 void LevelManager::RequestLoadLevel(NetworkRpcParams info, String scene)
@@ -78,7 +80,7 @@ void LevelManager::LoadLevel(String scene)
     }
     Level::ScenesLock.Unlock();
     Level::LoadSceneAsync(info.ID);
-    if (Core::Get<LaunchArgs>()->GetArgs()->IsHost)
+    if (LaunchArgs::Instance->GetArgs()->IsHost)
     {
         _mainScene = scene;
     }

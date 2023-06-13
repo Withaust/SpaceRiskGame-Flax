@@ -11,9 +11,8 @@ API_CLASS(Namespace = "Game") class GAME_API Chat : public ISystem
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Chat);
 
-    SleepBlock Event;
-
-    void OnUpdate() override;
+public:
+    API_FIELD() static Chat* Instance;
 
     API_EVENT() Delegate<uint32, String> OnChatMessage;
 

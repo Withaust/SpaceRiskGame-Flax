@@ -25,5 +25,7 @@ private:
     void SendGPUInfo();
 
 public:
+    API_FIELD() static InfoWare* Instance;
+
     void OnInitialize() override;
 };

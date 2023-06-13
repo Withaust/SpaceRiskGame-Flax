@@ -16,7 +16,22 @@
 
 #include <Game/System/ISystem.h>
 
-API_CLASS(Attributes = "ActorContextMenu(\"New/Other/Core\"), ActorToolbox(\"Core\")") 
+// Singleton macro for Core
+#define UIMPL_SINGLETON(T) T* T::Instance = nullptr;
+
+// This allows us to static_assert upon T::Instance mising while in Add<T>
+template <typename T>
+class HasInstance
+{
+    typedef char YesType;
+    typedef long NoType;
+    template <typename U> static YesType Test(decltype(&U::Instance));
+    template <typename U> static NoType  Test(...);
+public:
+    static constexpr bool value = sizeof(Test<T>(0)) == sizeof(YesType);
+};
+
+API_CLASS(Attributes = "ActorContextMenu(\"New/Other/Core\"), ActorToolbox(\"Core\")")
 class GAME_API Core : public Actor
 {
     DECLARE_SCENE_OBJECT(Core);
@@ -29,14 +44,12 @@ public:
 
 private:
 
-    static Core* _instance;
-
     static Array<SystemEntry> _systemsArray;
     static Dictionary<StringAnsiView, SystemEntry> _systemsDict;
 
 public:
 
-    API_PROPERTY() static Core* Instance();
+    API_FIELD() static Core* Instance;
 
     void OnEnable() override;
     void OnDisable() override;
@@ -71,8 +84,9 @@ public:
     template<typename T>
     static void Add(bool replicate = false)
     {
+        static_assert(HasInstance<T>::value, "T must return Instance pointer for singleton implementation");
         static_assert(std::is_base_of<ISystem, T>::value, "T must inherit ISystem to be used with Add()");
-        T* newGameSystem = _instance->FindScript<T>();
+        T* newGameSystem = Instance->FindScript<T>();
         if (newGameSystem == nullptr)
         {
             Platform::Error(String("Failed add system ") + String(T::TypeInitializer.GetType().Fullname));
@@ -80,36 +94,11 @@ public:
             return;
         }
         SystemEntry newEntry;
+        T::Instance = newGameSystem;
         newEntry.Ptr = newGameSystem;
         newEntry.Replicated = replicate;
         _systemsArray.Add(newEntry);
         _systemsDict[T::TypeInitializer.GetType().Fullname] = newEntry;
-        newEntry.Ptr->OnInitialize();
-    }
-
-    static void Add(const StringAnsiView& scriptName, bool replicate = false)
-    {
-        const MString scriptNameStd = scriptName.ToStringAnsi();
-        const ScriptingTypeHandle scriptingType = Scripting::FindScriptingType(scriptNameStd);
-        if (!scriptingType)
-        {
-            Platform::Error(String("Failed add system ") + String(scriptName));
-            Engine::RequestExit(1);
-            return;
-        }
-        MClass* mclass = scriptingType.GetType().ManagedClass;
-        ISystem* newGameSystem = static_cast<ISystem*>(_instance->FindScript(mclass));
-        if (newGameSystem == nullptr)
-        {
-            Platform::Error(String("Failed add system ") + String(scriptName));
-            Engine::RequestExit(1);
-            return;
-        }
-        SystemEntry newEntry;
-        newEntry.Ptr = newGameSystem;
-        newEntry.Replicated = replicate;
-        _systemsArray.Add(newEntry);
-        _systemsDict[scriptName] = newEntry;
         newEntry.Ptr->OnInitialize();
     }
 

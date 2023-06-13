@@ -18,6 +18,7 @@ private:
     Dictionary<uint32, ScriptingObjectReference<Actor>> _players;
 
 public:
+    API_FIELD() static PlayerManager* Instance;
 
     API_FIELD() SoftAssetReference<Prefab> PlayerPrefab;
 

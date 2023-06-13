@@ -1,5 +1,7 @@
 #include "Steam.h"
 
+UIMPL_SINGLETON(Steam)
+
 Steam::Steam(const SpawnParams& params)
     : ISystem(params)
 {
@@ -220,18 +222,16 @@ uint64 Steam::GetSteamID64(CSteamID SteamID)
 
 void Steam::OnInitialize()
 {
-    const Args* args = Core::Get<LaunchArgs>()->GetArgs();
+    const Args* args = LaunchArgs::Instance->GetArgs();
 
     if (!args->IsSteam)
     {
         _name = args->Name;
         // Derive fake steamId from given name
-        RandomStream random(static_cast<int32>(StringUtils::GetHashCode(_name.GetText(), _name.Length())));
+        uint32 nameHash = StringUtils::GetHashCode(_name.GetText(), _name.Length());
         uint64 steamId;
+        Platform::MemoryCopy(&steamId, &nameHash, sizeof(uint32));
         byte* steamIdPtr = reinterpret_cast<byte*>(&steamId);
-        uint32 randomInt;
-        randomInt = random.GetUnsignedInt();
-        Platform::MemoryCopy(steamIdPtr, &randomInt, sizeof(uint32));
         // This gives steamId a consistent look with a real id like 7656119XXXXXXXXXX
         steamIdPtr[4] = 1;
         steamIdPtr[5] = 0;

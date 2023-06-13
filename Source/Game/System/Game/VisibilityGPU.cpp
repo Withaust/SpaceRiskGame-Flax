@@ -22,6 +22,8 @@ VisibilityTask::VisibilityTask(Vector3 origin, Actor* target, Function<void(floa
 {
 }
 
+UIMPL_SINGLETON(VisibilityGPU)
+
 VisibilityGPU::VisibilityGPU(const SpawnParams& params)
     : ISystem(params)
 {

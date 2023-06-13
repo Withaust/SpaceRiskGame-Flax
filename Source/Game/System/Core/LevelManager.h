@@ -16,6 +16,7 @@ private:
     String _mainScene;
 
 public:
+    API_FIELD() static LevelManager* Instance;
 
     void OnInitialize() override;
     void OnDeinitialize() override;

@@ -1,5 +1,7 @@
 #include "UI.h"
 
+UIMPL_SINGLETON(UI)
+
 UI::UI(const SpawnParams& params)
     : ISystem(params)
 {
@@ -80,7 +82,7 @@ void UI::GoForward(String state)
     {
         _currentState->GetActor()->SetIsActive(false);
         Array<Script*> scripts;
-        Core::Get<UI>()->FindScripts(_currentState->GetActor(), scripts);
+        UI::Instance->FindScripts(_currentState->GetActor(), scripts);
         for (const auto& script : scripts)
         {
             script->SetEnabled(false);
@@ -90,7 +92,7 @@ void UI::GoForward(String state)
     IUIState* target = _states[state];
     target->GetActor()->SetIsActive(true);
     Array<Script*> scripts;
-    Core::Get<UI>()->FindScripts(target->GetActor(), scripts);
+    UI::Instance->FindScripts(target->GetActor(), scripts);
     for (const auto& script : scripts)
     {
         script->SetEnabled(true);

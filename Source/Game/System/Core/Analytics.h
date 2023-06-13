@@ -31,6 +31,7 @@ private:
     void Filter(StringAnsi& design);
 
 public:
+    API_FIELD() static Analytics* Instance;
 #if BUILD_DEBUG == 0
     String MessageTypeToString(gameanalytics::EGALoggerMessageType type);
     void OnLog(const char* message, gameanalytics::EGALoggerMessageType messageType);

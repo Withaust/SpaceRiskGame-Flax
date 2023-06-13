@@ -1,20 +1,15 @@
 #include "Core.h"
 
-Core* Core::_instance = nullptr;
+Core* Core::Instance = nullptr;
 Array<Core::SystemEntry> Core::_systemsArray;
 Dictionary<StringAnsiView, Core::SystemEntry> Core::_systemsDict;
 
 Core::Core(const SpawnParams& params)
     : Actor(params)
 {
-    _instance = this;
+    Instance = this;
     _systemsArray.Clear();
     _systemsDict.Clear();
-}
-
-Core* Core::Instance()
-{
-    return _instance;
 }
 
 void Core::OnEnable()
@@ -42,7 +37,7 @@ void Core::OnDisable()
         _systemsArray[i].Ptr->OnDeinitialize();
         _systemsArray.RemoveAtKeepOrder(i);
     }
-    _instance = nullptr;
+    Instance = nullptr;
 }
 
 void Core::ReplicateSystems()

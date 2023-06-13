@@ -1,21 +1,10 @@
 #include "Chat.h"
 
-Chat::Chat(const SpawnParams& params)
-    : ISystem(params),
-    Event(0.25f)
-{
-    _tickUpdate = true;
-}
+UIMPL_SINGLETON(Chat)
 
-void Chat::OnUpdate()
+Chat::Chat(const SpawnParams& params)
+    : ISystem(params)
 {
-    USLEEP(Event)
-    {
-        if (NetworkManager::IsConnected() && !NetworkManager::IsHost())
-        {
-            //SendMessage({}, TEXT("MESSAGE FROM CLIENT!"));
-        }
-    }
 }
 
 void Chat::SendMessage(NetworkRpcParams info, const String& text)

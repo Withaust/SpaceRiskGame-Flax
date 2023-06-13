@@ -18,6 +18,7 @@ private:
     void FindScripts(Actor* target, Array<Script*>& result);
 
 public:
+    API_FIELD() static UI* Instance;
 
     void OnInitialize() override;
     void OnDeinitialize() override;

@@ -1,5 +1,7 @@
 #include "PlayerRespawns.h"
 
+UIMPL_SINGLETON(PlayerRespawns)
+
 PlayerRespawns::PlayerRespawns(const SpawnParams& params)
     : ISystem(params)
 {

@@ -1,5 +1,7 @@
 #include "Analytics.h"
 
+UIMPL_SINGLETON(Analytics)
+
 Analytics::Analytics(const SpawnParams& params)
     : ISystem(params)
 {
@@ -89,12 +91,12 @@ void Analytics::OnInitialize()
     StringAnsi engineVersion = StringAnsi::Format("Flax {0}", Globals::EngineBuildNumber);
     gameanalytics::GameAnalytics::configureSdkGameEngineVersion(engineVersion.GetText());
 
-    StringAnsi id = StringAnsi::Format("{0}", Core::Get<Steam>()->GetSteamID64());
+    StringAnsi id = StringAnsi::Format("{0}", Steam::Instance->GetSteamID64());
     gameanalytics::GameAnalytics::configureUserId(id.GetText());
 
     gameanalytics::GameAnalytics::setEnabledErrorReporting(true);
 
-    const Args* args = Core::Get<LaunchArgs>()->GetArgs();
+    const Args* args = LaunchArgs::Instance->GetArgs();
 #if BUILD_DEVELOPMENT == 1
     gameanalytics::GameAnalytics::setCustomDimension01("Debug");
 #elif BUILD_RELEASE == 1

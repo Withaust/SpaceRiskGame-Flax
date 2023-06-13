@@ -37,6 +37,7 @@ private:
     RingBuffer<VisibilityTask> _tasks;
 
 public:
+    API_FIELD() static VisibilityGPU* Instance;
 
     API_FIELD() int WorkerCount = 4;
     API_FIELD() SoftAssetReference<Prefab> WorkerPrefab;

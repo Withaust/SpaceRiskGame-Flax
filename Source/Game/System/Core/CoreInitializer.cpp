@@ -1,5 +1,7 @@
 #include "CoreInitializer.h"
 
+UIMPL_SINGLETON(CoreInitializer)
+
 CoreInitializer::CoreInitializer(const SpawnParams& params)
     : ISystem(params)
 {
@@ -7,7 +9,7 @@ CoreInitializer::CoreInitializer(const SpawnParams& params)
 
 void CoreInitializer::OnInitialize()
 {
-    if (Core::Instance()->Get<LaunchArgs>()->GetArgs()->IsHost)
+    if (LaunchArgs::Instance->GetArgs()->IsHost)
     {
         String Level = TEXT("Main");
         if (SceneRoot::EditorLaunch)
@@ -19,13 +21,13 @@ void CoreInitializer::OnInitialize()
                 args->LaunchScene = String::Empty;
             }
         }
-        Core::Instance()->Get<LevelManager>()->LoadLevel(Level);
+        LevelManager::Instance->LoadLevel(Level);
     }
     else
     {
-        Core::Instance()->Get<Networking>()->StartGame();
-        Core::Instance()->ReplicateSystems();
-        Core::Instance()->Get<UI>()->GoForward(TEXT("Game.UIGame"));
+        Networking::Instance->StartGame();
+        Core::Instance->ReplicateSystems();
+        UI::Instance->GoForward(TEXT("Game.UIGame"));
     }
 }
 
@@ -35,10 +37,10 @@ void CoreInitializer::OnDeinitialize()
 
 void CoreInitializer::OnSceneLoaded(Scene* scene)
 {
-    if (Core::Get<LaunchArgs>()->GetArgs()->IsHost)
+    if (LaunchArgs::Instance->GetArgs()->IsHost)
     {
-        Core::Get<Networking>()->StartGame();
-        Core::Instance()->ReplicateSystems();
-        Core::Get<UI>()->GoForward(TEXT("Game.UIGame"));
+        Networking::Instance->StartGame();
+        Core::Instance->ReplicateSystems();
+        UI::Instance->GoForward(TEXT("Game.UIGame"));
     }
 }

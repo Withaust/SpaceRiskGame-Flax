@@ -13,6 +13,7 @@ API_CLASS() class GAME_API Logger : public ISystem
     DECLARE_SCRIPTING_TYPE(Logger);
 
 public:
+    API_FIELD() static Logger* Instance;
 
     void OnInitialize() override;
     void OnDeinitialize() override;

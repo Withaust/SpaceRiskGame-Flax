@@ -1,5 +1,7 @@
 #include "Logger.h"
 
+UIMPL_SINGLETON(Logger)
+
 Logger::Logger(const SpawnParams& params)
     : ISystem(params)
 {
@@ -32,7 +34,7 @@ void Logger::Warning(const StringView& message)
 #ifdef BUILD_DEBUG
     DebugLog::LogWarning(message);
 #endif
-    Core::Get<Analytics>()->AddErrorEvent(Analytics::ErrorSeverity::Warning, message);
+    Analytics::Instance->AddErrorEvent(Analytics::ErrorSeverity::Warning, message);
 }
 
 void Logger::Warning(const StringView& message, const char* file, int line)
@@ -45,7 +47,7 @@ void Logger::Error(const StringView& message)
 #ifdef BUILD_DEBUG
     DebugLog::LogError(message);
 #endif
-    Core::Get<Analytics>()->AddErrorEvent(Analytics::ErrorSeverity::Error, message);
+    Analytics::Instance->AddErrorEvent(Analytics::ErrorSeverity::Error, message);
 }
 
 void Logger::Error(const StringView& message, const char* file, int line)
@@ -58,7 +60,7 @@ void Logger::Critical(bool shutdown, const StringView& message)
 #ifdef BUILD_DEBUG
     DebugLog::LogError(message);
 #endif
-    Core::Get<Analytics>()->AddErrorEvent(Analytics::ErrorSeverity::Critical, message);
+    Analytics::Instance->AddErrorEvent(Analytics::ErrorSeverity::Critical, message);
     if (shutdown)
     {
         Platform::Error(message);

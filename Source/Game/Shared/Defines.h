@@ -19,10 +19,10 @@
 #define UNOT_OWNED_RETURN(returnValue) if(!NetworkReplicator::IsObjectOwned(this)) { return returnValue; }
 
 #ifdef BUILD_DEBUG
-#define UPRINT_STR(text) Core::Get<Logger>()->Print(TEXT(text))
-#define UPRINT(text, ...) Core::Get<Logger>()->Print(String::Format(TEXT(text), ##__VA_ARGS__))
-#define UINFO_STR(text) Core::Get<Logger>()->Info(TEXT(text))
-#define UINFO(text, ...) Core::Get<Logger>()->Info(String::Format(TEXT(text), ##__VA_ARGS__))
+#define UPRINT_STR(text) Logger::Instance->Print(TEXT(text))
+#define UPRINT(text, ...) Logger::Instance->Print(String::Format(TEXT(text), ##__VA_ARGS__))
+#define UINFO_STR(text) Logger::Instance->Info(TEXT(text))
+#define UINFO(text, ...) Logger::Instance->Info(String::Format(TEXT(text), ##__VA_ARGS__))
 #else
 #define UPRINT_STR(text)
 #define UPRINT(text, ...)
@@ -30,14 +30,14 @@
 #define UINFO(text, ...)
 #endif
 
-#define UWARN_STR(text) Core::Get<Logger>()->Warning(TEXT(text), __FILE__, __LINE__)
-#define UWARN(text, ...) Core::Get<Logger>()->Warning(String::Format(TEXT(text), ##__VA_ARGS__), __FILE__, __LINE__)
+#define UWARN_STR(text) Logger::Instance->Warning(TEXT(text), __FILE__, __LINE__)
+#define UWARN(text, ...) CLogger::Instance->Warning(String::Format(TEXT(text), ##__VA_ARGS__), __FILE__, __LINE__)
 
-#define UERR_STR(text) Core::Get<Logger>()->Error(TEXT(text), __FILE__, __LINE__)
-#define UERR(text, ...) Core::Get<Logger>()->Error(String::Format(TEXT(text), ##__VA_ARGS__), __FILE__, __LINE__)
+#define UERR_STR(text) Logger::Instance->Error(TEXT(text), __FILE__, __LINE__)
+#define UERR(text, ...) Logger::Instance->Error(String::Format(TEXT(text), ##__VA_ARGS__), __FILE__, __LINE__)
 
-#define UCRIT_STR(shutdown, text) Core::Get<Logger>()->Critical(shutdown, TEXT(text), __FILE__, __LINE__)
-#define UCRIT(shutdown, text, ...) Core::Get<Logger>()->Critical(shutdown, Stringi::Format(TEXT(text), ##__VA_ARGS__), __FILE__, __LINE__)
+#define UCRIT_STR(shutdown, text) Logger::Instance->Critical(shutdown, TEXT(text), __FILE__, __LINE__)
+#define UCRIT(shutdown, text, ...) Logger::Instance->Critical(shutdown, Stringi::Format(TEXT(text), ##__VA_ARGS__), __FILE__, __LINE__)
 
 // Polls target SleepGroup, and runs code block below as necessary
 #define USLEEP(sleepBlock) if(sleepBlock.Poll(Time::GetDeltaTime()))

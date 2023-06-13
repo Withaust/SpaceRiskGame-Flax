@@ -12,6 +12,7 @@ API_CLASS() class GAME_API VisibilityCPU : public ISystem
     DECLARE_SCRIPTING_TYPE(VisibilityCPU);
 
 public:
+    API_FIELD() static VisibilityCPU* Instance;
 
     API_FIELD() LayersMask RaycastMask;
 

@@ -25,6 +25,7 @@ private:
     Array<ScriptingObjectReference<PlayerSpawn>> _spawns;
 
 public:
+    API_FIELD() static PlayerRespawns* Instance;
 
     API_FUNCTION() ScriptingObjectReference<PlayerSpawn> GetRandomSpawn();
 

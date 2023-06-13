@@ -1,6 +1,6 @@
 #include "PlayerManager.h"
 
-#include <Engine/Serialization/JsonWriters.h>
+UIMPL_SINGLETON(PlayerManager)
 
 PlayerManager::PlayerManager(const SpawnParams& params)
     : ISystem(params)
@@ -38,8 +38,8 @@ void PlayerManager::Unregister(uint32 id)
 
 void PlayerManager::OnPlayerConnected(NetworkClient* client)
 {
-    auto spawn = Core::Get<PlayerRespawns>()->GetRandomSpawn();
-    Actor* newPlayer = Core::Get<Networking>()->SpawnPrefab(PlayerPrefab, GetActor(), client->ClientId, spawn->GetActor()->GetPosition(), spawn->GetActor()->GetOrientation());
+    auto spawn = PlayerRespawns::Instance->GetRandomSpawn();
+    Actor* newPlayer = Networking::Instance->SpawnPrefab(PlayerPrefab, GetActor(), client->ClientId, spawn->GetActor()->GetPosition(), spawn->GetActor()->GetOrientation());
 }
 
 void PlayerManager::OnPlayerDisconnected(NetworkClient* client)
@@ -48,5 +48,5 @@ void PlayerManager::OnPlayerDisconnected(NetworkClient* client)
     {
         return;
     }
-    Core::Get<Networking>()->DespawnPrefab(_players[client->ClientId]);
+    Networking::Instance->DespawnPrefab(_players[client->ClientId]);
 }

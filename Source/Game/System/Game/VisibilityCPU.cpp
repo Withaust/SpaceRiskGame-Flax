@@ -1,5 +1,7 @@
 #include "VisibilityCPU.h"
 
+UIMPL_SINGLETON(VisibilityCPU)
+
 VisibilityCPU::VisibilityCPU(const SpawnParams& params)
     : ISystem(params)
 {

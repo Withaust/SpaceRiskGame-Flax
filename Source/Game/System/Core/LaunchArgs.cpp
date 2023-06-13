@@ -1,5 +1,7 @@
 #include "LaunchArgs.h"
 
+UIMPL_SINGLETON(LaunchArgs)
+
 Args::Args(const SpawnParams& params)
     : ScriptingObject(params)
 {
