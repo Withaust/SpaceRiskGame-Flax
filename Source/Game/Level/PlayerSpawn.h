@@ -7,9 +7,10 @@
 #include <Engine/Content/Content.h>
 
 #include <Game/Shared/Defines.h>
+#include <Game/Shared/IComponent.h>
 #include <Game/Dynamic/Player/PlayerMovement.h>
 
-API_CLASS() class GAME_API PlayerSpawn : public Script
+API_CLASS() class GAME_API PlayerSpawn : public IComponent
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(PlayerSpawn);

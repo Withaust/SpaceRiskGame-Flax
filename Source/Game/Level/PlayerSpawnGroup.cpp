@@ -1,7 +1,7 @@
 #include "PlayerSpawnGroup.h"
 
 PlayerSpawnGroup::PlayerSpawnGroup(const SpawnParams& params)
-    : Script(params)
+    : IComponent(params)
 {
 }
 

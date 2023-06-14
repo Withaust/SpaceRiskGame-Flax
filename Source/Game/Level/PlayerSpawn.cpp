@@ -1,9 +1,10 @@
 #include "PlayerSpawn.h"
 
 PlayerSpawn::PlayerSpawn(const SpawnParams& params)
-    : Script(params)
+    : IComponent(params)
 {
 }
+
 #if USE_EDITOR
 void PlayerSpawn::OnDebugDraw()
 {
