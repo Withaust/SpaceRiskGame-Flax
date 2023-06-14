@@ -35,6 +35,12 @@ public class AssetIconsProxy
         if (Atlases.ContainsKey(Type))
         {
             Entry.Thumbnail = Atlases[Type].FindSprite("Default");
+            return;
+        }
+
+        if(Type.StartsWith("Game."))
+        {
+            Entry.Thumbnail = Atlases["Game.Default"].FindSprite("Default");
         }
     }
 
@@ -47,11 +53,12 @@ public class AssetIconsProxy
     {
         Editor.Instance.ContentDatabase.ItemAdded += OnContentItem;
         Editor.Instance.ContentDatabase.ItemRemoved += OnContentItem;
+        LoadIcon("Document", "Game.Default");
         LoadIcons();
         ParseEntry(Editor.Instance.ContentDatabase.Game.Content.Folder);
     }
 
-    private static void Register<T>(string Path = "Document") where T : ISerializable, new()
+    private static void AddCustomIcon<T>(string Path) where T : ISerializable, new()
     {
         Type type = typeof(T);
         string typeName = type.FullName;
@@ -59,18 +66,22 @@ public class AssetIconsProxy
         {
             return;
         }
-        
-        var iconsAtlas = Content.Load<SpriteAtlas>(System.IO.Path.Combine(Globals.ProjectContentFolder, "Editor/Textures/Content/" + Path + ".flax"));
+        LoadIcon(Path, typeName);
+    }
+
+    private static void LoadIcon(string IconPath, string Key)
+    {
+        var iconsAtlas = Content.Load<SpriteAtlas>(System.IO.Path.Combine(Globals.ProjectContentFolder, "Editor/Textures/Content/" + IconPath + ".flax"));
         if (iconsAtlas is null || iconsAtlas.WaitForLoaded())
         {
             return;
         }
 
-        Atlases[typeName] = iconsAtlas;
+        Atlases[Key] = iconsAtlas;
     }
 
     private static void LoadIcons()
     {
-        Register<EditorLaunchArgs>();
+        //AddCustomIcon<EditorLaunchArgs>("Document");
     }
 }
