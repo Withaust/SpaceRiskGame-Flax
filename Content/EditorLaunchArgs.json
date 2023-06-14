@@ -3,6 +3,6 @@
 	"TypeName": "Game.EditorLaunchArgs",
 	"EngineBuild": 6339,
 	"Data": {
-	"LaunchScene": null
+	"LaunchScene": "Main"
 }
 }

@@ -1,5 +1,6 @@
 #if FLAX_EDITOR
 using FlaxEditor;
+using FlaxEditor.Content;
 using FlaxEditor.GUI;
 using FlaxEngine;
 
@@ -10,13 +11,12 @@ namespace Game
         public override void InitializeEditor()
         {
             base.InitializeEditor();
-            Editor.Instance.ContentDatabase.Proxy.Add(new MySettingsProxy());
+            AssetIconsProxy.ApplyIcons();
         }
 
         /// <inheritdoc />
         public override void Deinitialize()
         {
-            Editor.Instance.ContentDatabase.Proxy.RemoveAll(proxy => proxy is MySettingsProxy);
             base.Deinitialize();
         }
     }
