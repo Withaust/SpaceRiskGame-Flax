@@ -68,7 +68,7 @@
 				"Translation": {
 					"X": -287.4748840332031,
 					"Y": -181.7435760498047,
-					"Z": -33.77154541015625
+					"Z": -25.417091369628908
 				},
 				"Orientation": {
 					"X": 0.9650431275367737,
@@ -78,100 +78,6 @@
 				}
 			},
 			"Layer": 31
-		},
-		{
-			"ID": "ba5ec12e44c504ae635b08a8e4aff733",
-			"TypeName": "Game.ActorBase",
-			"ParentID": "00f4c40743e0c84327420a8d65cd2db2",
-			"V": {
-	"Icon": "a6bcff8543754c32e10f4aafc828888f"
-},
-			"Name": "PlayerSpawnGroup",
-			"Transform": {
-				"Translation": {
-					"X": -88.69129180908203,
-					"Y": -180.791259765625,
-					"Z": 92.67720794677735
-				}
-			}
-		},
-		{
-			"ID": "24fc91874a4ae8a0246e6e9a2d703b07",
-			"TypeName": "Game.PlayerSpawnGroup",
-			"ParentID": "ba5ec12e44c504ae635b08a8e4aff733",
-			"Spawns": [
-				"e22683b54ba83f105ec6f69fc8e871c4",
-				"c5a1ab26410edea13b32b383bb827f46",
-				"c103e1ed49516ba1cf0c62b7529c46a8"
-			]
-		},
-		{
-			"ID": "2b621872470988c8dd2f928738f96deb",
-			"TypeName": "Game.ActorBase",
-			"ParentID": "ba5ec12e44c504ae635b08a8e4aff733",
-			"V": {
-	"Icon": "470b67c04b01a3b18aac359aaabbfbee"
-},
-			"Name": "PlayerSpawn",
-			"Transform": {
-				"Translation": {
-					"X": 59.4564323425293,
-					"Y": -32.96827697753906,
-					"Z": -49.4287109375
-				}
-			}
-		},
-		{
-			"ID": "5dd6e1d1459ef81d0c78ff86aca46132",
-			"TypeName": "Game.PlayerSpawn",
-			"ParentID": "2b621872470988c8dd2f928738f96deb"
-		},
-		{
-			"ID": "e22683b54ba83f105ec6f69fc8e871c4",
-			"TypeName": "Game.PlayerSpawn",
-			"ParentID": "2b621872470988c8dd2f928738f96deb"
-		},
-		{
-			"ID": "579306a6427d6a85f9dbd69d163d3cb4",
-			"TypeName": "Game.ActorBase",
-			"ParentID": "ba5ec12e44c504ae635b08a8e4aff733",
-			"V": {
-	"Icon": "470b67c04b01a3b18aac359aaabbfbee"
-},
-			"Name": "PlayerSpawn 0",
-			"Transform": {
-				"Translation": {
-					"X": -76.39192962646485,
-					"Y": -32.96827697753906,
-					"Z": -58.624271392822269
-				}
-			}
-		},
-		{
-			"ID": "c5a1ab26410edea13b32b383bb827f46",
-			"TypeName": "Game.PlayerSpawn",
-			"ParentID": "579306a6427d6a85f9dbd69d163d3cb4"
-		},
-		{
-			"ID": "cafdcb1344e0726ce3b29fb3c3629f4b",
-			"TypeName": "Game.ActorBase",
-			"ParentID": "ba5ec12e44c504ae635b08a8e4aff733",
-			"V": {
-	"Icon": "470b67c04b01a3b18aac359aaabbfbee"
-},
-			"Name": "PlayerSpawn 1",
-			"Transform": {
-				"Translation": {
-					"X": -11.572402954101563,
-					"Y": -32.96827697753906,
-					"Z": 90.0590591430664
-				}
-			}
-		},
-		{
-			"ID": "c103e1ed49516ba1cf0c62b7529c46a8",
-			"TypeName": "Game.PlayerSpawn",
-			"ParentID": "cafdcb1344e0726ce3b29fb3c3629f4b"
 		},
 		{
 			"ID": "f0baa52540d7387703be14b00818cda8",
@@ -281,6 +187,107 @@
 					]
 				}
 			]
+		},
+		{
+			"ID": "b44cc61e4dbb5f5008e8faa13b6c9fff",
+			"TypeName": "Game.Entity",
+			"ParentID": "00f4c40743e0c84327420a8d65cd2db2",
+			"Name": "PlayerSpawnGroup",
+			"Transform": {
+				"Translation": {
+					"X": -11.9825439453125,
+					"Y": -66.22720336914063,
+					"Z": -44.892127990722659
+				}
+			},
+			"Icon": "a6bcff8543754c32e10f4aafc828888f"
+		},
+		{
+			"ID": "21c19aaf4d164f0d2da1559ee81c53fe",
+			"TypeName": "Game.PlayerSpawnGroup",
+			"ParentID": "b44cc61e4dbb5f5008e8faa13b6c9fff",
+			"Spawns": [
+				"4c6b884b478ff6235e4747a6b1264148",
+				"b2e82bc34677edeaed4927b84b49db61",
+				"da41446d4dc37d0a74ab53a07f1a8cf6",
+				"2504fdb541f36c16b041908a441ec2dc"
+			]
+		},
+		{
+			"ID": "86ee65c64c5ccaf3223d848bcbd89fd5",
+			"TypeName": "Game.Entity",
+			"ParentID": "b44cc61e4dbb5f5008e8faa13b6c9fff",
+			"Name": "PlayerSpawn",
+			"Transform": {
+				"Translation": {
+					"X": 112.27769470214844,
+					"Y": -147.8476104736328,
+					"Z": -160.90530395507813
+				}
+			},
+			"Icon": "470b67c04b01a3b18aac359aaabbfbee"
+		},
+		{
+			"ID": "4c6b884b478ff6235e4747a6b1264148",
+			"TypeName": "Game.PlayerSpawn",
+			"ParentID": "86ee65c64c5ccaf3223d848bcbd89fd5"
+		},
+		{
+			"ID": "d423cf084d8eb58cb21b00ae3dfe9c45",
+			"TypeName": "Game.Entity",
+			"ParentID": "b44cc61e4dbb5f5008e8faa13b6c9fff",
+			"Name": "PlayerSpawn 0",
+			"Transform": {
+				"Translation": {
+					"X": 118.6497802734375,
+					"Y": -147.8476104736328,
+					"Z": 92.6053695678711
+				}
+			},
+			"Icon": "470b67c04b01a3b18aac359aaabbfbee"
+		},
+		{
+			"ID": "b2e82bc34677edeaed4927b84b49db61",
+			"TypeName": "Game.PlayerSpawn",
+			"ParentID": "d423cf084d8eb58cb21b00ae3dfe9c45"
+		},
+		{
+			"ID": "941e21b14f314945fadf51901e3d89a0",
+			"TypeName": "Game.Entity",
+			"ParentID": "b44cc61e4dbb5f5008e8faa13b6c9fff",
+			"Name": "PlayerSpawn 1",
+			"Transform": {
+				"Translation": {
+					"X": -164.83543395996095,
+					"Y": -147.8476104736328,
+					"Z": 47.916587829589847
+				}
+			},
+			"Icon": "470b67c04b01a3b18aac359aaabbfbee"
+		},
+		{
+			"ID": "da41446d4dc37d0a74ab53a07f1a8cf6",
+			"TypeName": "Game.PlayerSpawn",
+			"ParentID": "941e21b14f314945fadf51901e3d89a0"
+		},
+		{
+			"ID": "737d2f77497ff65374aff18c0e4008ad",
+			"TypeName": "Game.Entity",
+			"ParentID": "b44cc61e4dbb5f5008e8faa13b6c9fff",
+			"Name": "PlayerSpawn 2",
+			"Transform": {
+				"Translation": {
+					"X": -123.57659912109375,
+					"Y": -147.8476104736328,
+					"Z": 286.6568908691406
+				}
+			},
+			"Icon": "470b67c04b01a3b18aac359aaabbfbee"
+		},
+		{
+			"ID": "2504fdb541f36c16b041908a441ec2dc",
+			"TypeName": "Game.PlayerSpawn",
+			"ParentID": "737d2f77497ff65374aff18c0e4008ad"
 		}
 	]
 }
