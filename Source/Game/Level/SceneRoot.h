@@ -7,11 +7,11 @@
 
 #include <Game/Shared/Defines.h>
 
-API_CLASS(Attributes = "ContentContextMenu(\"New/Assets/EditorLaunchArgs\")")
-class GAME_API EditorLaunchArgs : public ISerializable
+API_CLASS(Attributes = "ContentContextMenu(\"New/Assets/DebugArgs\")")
+class GAME_API DebugArgs : public ISerializable
 {
     API_AUTO_SERIALIZATION();
-    DECLARE_SCRIPTING_TYPE_NO_SPAWN(EditorLaunchArgs);
+    DECLARE_SCRIPTING_TYPE_NO_SPAWN(DebugArgs);
 
     API_FIELD() String LaunchScene = TEXT("Main");
 };

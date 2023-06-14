@@ -21,14 +21,14 @@ void SceneRoot::OnAwake()
     if (gameSettings)
     {
         Guid assetId = Guid::Empty;
-        gameSettings->CustomSettings.TryGet(TEXT("EditorLaunchArgs"), assetId);
+        gameSettings->CustomSettings.TryGet(TEXT("DebugArgs"), assetId);
         const auto asset = Content::Load<JsonAsset>(assetId);
         if (asset)
         {
             EditorLaunch = asset;
         }
     }
-    EditorLaunch->GetInstance<EditorLaunchArgs>()->LaunchScene = GetParent()->GetName();
+    EditorLaunch->GetInstance<DebugArgs>()->LaunchScene = GetParent()->GetName();
 
     Level::UnloadAllScenes();
     Level::LoadScene(GameSettings::Get()->FirstScene);

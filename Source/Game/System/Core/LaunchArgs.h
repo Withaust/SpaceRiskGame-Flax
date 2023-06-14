@@ -42,6 +42,8 @@ private:
 public:
     API_FIELD() static LaunchArgs* Instance;
 
+    API_FIELD() static bool ForceClient;
+
     void OnInitialize() override;
     API_FUNCTION() const ScriptingObjectReference<Args> GetArgs();
 };

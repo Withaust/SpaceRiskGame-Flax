@@ -12,11 +12,14 @@ namespace Game
         {
             base.InitializeEditor();
             AssetIconsProxy.ApplyIcons();
+            CustomPlayButtons.Editor = Editor;
+            CustomPlayButtons.AddCustomPlayButtons();
         }
 
         /// <inheritdoc />
         public override void Deinitialize()
         {
+            CustomPlayButtons.RemoveCustomPlayButtons();
             base.Deinitialize();
         }
     }

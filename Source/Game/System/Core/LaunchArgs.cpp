@@ -1,6 +1,7 @@
 #include "LaunchArgs.h"
 
 UIMPL_SINGLETON(LaunchArgs)
+bool LaunchArgs::ForceClient = false;
 
 Args::Args(const SpawnParams& params)
     : ScriptingObject(params)
@@ -25,7 +26,17 @@ String LaunchArgs::GetNextArgument(int currentIndex, const Array<String>& args)
 
 void LaunchArgs::OnInitialize()
 {
-    String launchPath = TEXT("Default.launch");
+    String launchPath;
+    if (ForceClient)
+    {
+        launchPath = TEXT("Client.launch");
+        ForceClient = false;
+    }
+    else
+    {
+        launchPath = TEXT("Host.launch");
+    }
+
     String commandLine = Engine::GetCommandLine();
 
     if (commandLine.Contains(TEXT(".launch"), StringSearchCase::CaseSensitive))

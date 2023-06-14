@@ -14,7 +14,7 @@ void CoreInitializer::OnInitialize()
         String Level = TEXT("Main");
         if (SceneRoot::EditorLaunch)
         {
-            EditorLaunchArgs* args = SceneRoot::EditorLaunch->GetInstance<EditorLaunchArgs>();
+            DebugArgs* args = SceneRoot::EditorLaunch->GetInstance<DebugArgs>();
             if (args->LaunchScene != String::Empty)
             {
                 Level = args->LaunchScene;
