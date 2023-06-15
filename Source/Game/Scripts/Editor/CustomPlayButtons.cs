@@ -10,6 +10,7 @@ namespace Game
     {
         private static SpriteAtlas PlayHost;
         private static SpriteAtlas PlayClient;
+        private static ToolStripButton OriginalPlayButton;
         private static ToolStripButton PlayHostButton;
         private static ToolStripButton PlayClientButton;
 
@@ -25,12 +26,14 @@ namespace Game
         {
             PlayHostButton.Enabled = false;
             PlayClientButton.Enabled = false;
+            OriginalPlayButton.Visible = true;
         }
 
         public static void OnStoppedPlaying()
         {
             PlayHostButton.Enabled = true;
             PlayClientButton.Enabled = true;
+            OriginalPlayButton.Visible = false;
         }
 
         public static void AddCustomPlayButtons()
@@ -39,7 +42,7 @@ namespace Game
             PlayClient = Content.Load<SpriteAtlas>(System.IO.Path.Combine(Globals.ProjectContentFolder, "Editor/Textures/UI/PlayClient.flax"));
             Editor.StateMachine.PlayingState.GameSettingsApplied += OnStartedPlaying;
             Editor.StateMachine.PlayingState.SceneRestored += OnStoppedPlaying;
-            ToolStripButton play = null;
+            OriginalPlayButton = null;
             int PlayIndex = 0;
             for (int i = 0; i < Editor.UI.ToolStrip.ChildrenCount; ++i)
             {
@@ -48,8 +51,8 @@ namespace Game
                 {
                     continue;
                 }
-                play = (ToolStripButton)target;
-                if (play == null || play.Clicked != Editor.Simulation.RequestPlayOrStopPlay)
+                OriginalPlayButton = (ToolStripButton)target;
+                if (OriginalPlayButton == null || OriginalPlayButton.Clicked != Editor.Simulation.RequestPlayOrStopPlay)
                 {
                     continue;
                 }
@@ -57,7 +60,7 @@ namespace Game
                 break;
             }
 
-            play.Visible = false;
+            OriginalPlayButton.Visible = false;
             PlayHostButton = (ToolStripButton)Editor.UI.ToolStrip.AddButton(PlayHost.FindSprite("Default"), Editor.Simulation.RequestPlayOrStopPlay).LinkTooltip("Play as a Host");
             PlayClientButton = (ToolStripButton)Editor.UI.ToolStrip.AddButton(PlayClient.FindSprite("Default"), OnClickedClient).LinkTooltip("Play as a Client");
             Editor.UI.ToolStrip.PerformLayout(true);

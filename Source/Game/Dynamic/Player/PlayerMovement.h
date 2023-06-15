@@ -14,8 +14,9 @@
 #include <Engine/Scripting/Enums.h>
 
 #include <Game/Shared/Defines.h>
+#include <Game/Shared/IComponent.h>
 
-API_CLASS() class GAME_API PlayerMovement : public Script
+API_CLASS() class GAME_API PlayerMovement : public IComponent
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(PlayerMovement);

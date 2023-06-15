@@ -8,9 +8,10 @@
 #include <Engine/Level/Actors/Camera.h>
 
 #include <Game/Shared/Defines.h>
+#include <Game/Shared/IComponent.h>
 #include <Game/System/Game/PlayerManager.h>
 
-API_CLASS() class GAME_API PlayerNetworking : public Script, public INetworkObject
+API_CLASS() class GAME_API PlayerNetworking : public IComponent, public INetworkObject
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(PlayerNetworking);

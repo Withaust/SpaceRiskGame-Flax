@@ -1,7 +1,7 @@
 #include "PlayerNetworking.h"
 
 PlayerNetworking::PlayerNetworking(const SpawnParams& params)
-    : Script(params)
+    : IComponent(params)
 {
 }
 

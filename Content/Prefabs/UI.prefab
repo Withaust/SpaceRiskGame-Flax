@@ -1,7 +1,7 @@
 {
 	"ID": "747e062e424bed9302ec1fa0f050b19e",
 	"TypeName": "FlaxEngine.Prefab",
-	"EngineBuild": 6339,
+	"EngineBuild": 6341,
 	"Data": [
 	{
 		"ID": "9a212b7040ad9c33decb40aa1ee7c0d6",
@@ -103,9 +103,9 @@
 		"TypeName": "Game.UIChat",
 		"ParentID": "229e4c2e4b350bde0eb778b019d8a0fd",
 		"V": {
-	"Root": "282c58154d7857d03b2ed09bad9d2178",
-	"TextBox": "df9c973c4e6783db2d2b0b8ea1f689ea",
-	"Entry": "238488c949e1044da0a01fbbbfdb4830"
+	"Root": "229e4c2e4b350bde0eb778b019d8a0fd",
+	"TextBox": "6ef5d6184c19585f23292397160f4662",
+	"Entry": "dbcf857543230d4339e487a898f5957c"
 }
 	},
 	{

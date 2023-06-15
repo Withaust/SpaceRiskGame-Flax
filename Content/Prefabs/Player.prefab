@@ -1,49 +1,57 @@
 {
-	"ID": "fed0ee4d4ea972374ca1c4958d03a29a",
+	"ID": "4cab2b9f4ec52072b975c2b5967524b4",
 	"TypeName": "FlaxEngine.Prefab",
-	"EngineBuild": 6338,
+	"EngineBuild": 6341,
 	"Data": [
 	{
-		"ID": "8fb122174e8779f615a39990afc398a8",
-		"TypeName": "FlaxEngine.CharacterController",
-		"Name": "Player",
+		"ID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"TypeName": "Game.Entity",
+		"Name": "Entity",
 		"StaticFlags": 0,
 		"Layer": 4,
 		"Tag": "Player",
+		"Icon": "470b67c04b01a3b18aac359aaabbfbee"
+	},
+	{
+		"ID": "3961a3a5494cab9e549cf99d3a2595bf",
+		"TypeName": "Game.PlayerMovement",
+		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"Controller": "f9ad2b0043489327592e42844d1de041",
+		"Head": "7636a45345c3bbb03cbe3a8b99032469"
+	},
+	{
+		"ID": "78c31c624a7f0b546a975fb09ba61b34",
+		"TypeName": "Game.PlayerNetworking",
+		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"Camera": "6a86f65f4ecebf990d70708c92d13661",
+		"Direction": "3e53508e4eb57720bff5608f3260ce6a"
+	},
+	{
+		"ID": "8fc8b3794626b9e8b34701a9b61b7295",
+		"TypeName": "Game.NetworkedTransform",
+		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"Position": "f9ad2b0043489327592e42844d1de041",
+		"Rotation": "7636a45345c3bbb03cbe3a8b99032469"
+	},
+	{
+		"ID": "e9b94f554bba6e11ed9db68612e2ed38",
+		"TypeName": "Game.PlayerInfo",
+		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7"
+	},
+	{
+		"ID": "f9ad2b0043489327592e42844d1de041",
+		"TypeName": "FlaxEngine.CharacterController",
+		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"Name": "Body",
+		"StaticFlags": 0,
+		"Layer": 4,
 		"Radius": 25.0,
 		"Height": 50.0
 	},
 	{
-		"ID": "fcff3c3e48e834275a90aa995c38fed5",
-		"TypeName": "Game.PlayerMovement",
-		"ParentID": "8fb122174e8779f615a39990afc398a8",
-		"Controller": "8fb122174e8779f615a39990afc398a8",
-		"Head": "a6cc01e14556e4fa4c0efaafcb4f5dc7"
-	},
-	{
-		"ID": "cd56a00948f186179468bdb08ed764a1",
-		"TypeName": "Game.PlayerNetworking",
-		"ParentID": "8fb122174e8779f615a39990afc398a8",
-		"Camera": "e99dfcd142f04e6a8eab95b9287a6a14",
-		"Direction": "f901c75e4f836955503021ae462076b1"
-	},
-	{
-		"ID": "465793b54c9cb0921cc2e3bfc06faa7c",
-		"TypeName": "Game.NetworkedTransform",
-		"ParentID": "8fb122174e8779f615a39990afc398a8",
-		"Mode": 1,
-		"Position": "8fb122174e8779f615a39990afc398a8",
-		"Rotation": "a6cc01e14556e4fa4c0efaafcb4f5dc7"
-	},
-	{
-		"ID": "ef2abd3a40775ce73913578b7cf5bfd0",
-		"TypeName": "Game.PlayerInfo",
-		"ParentID": "8fb122174e8779f615a39990afc398a8"
-	},
-	{
-		"ID": "c4bbad864356bd3f092186905be44d07",
+		"ID": "067db1414502fcf6488027b8a39a2793",
 		"TypeName": "FlaxEngine.StaticModel",
-		"ParentID": "8fb122174e8779f615a39990afc398a8",
+		"ParentID": "f9ad2b0043489327592e42844d1de041",
 		"Name": "Model",
 		"Transform": {
 			"Translation": {
@@ -52,6 +60,7 @@
 				"Z": 0.0
 			}
 		},
+		"StaticFlags": 0,
 		"Layer": 4,
 		"Model": "3f82e57744f57c28285150b646ad2198",
 		"Buffer": {
@@ -66,9 +75,9 @@
 		}
 	},
 	{
-		"ID": "a6cc01e14556e4fa4c0efaafcb4f5dc7",
+		"ID": "7636a45345c3bbb03cbe3a8b99032469",
 		"TypeName": "FlaxEngine.EmptyActor",
-		"ParentID": "8fb122174e8779f615a39990afc398a8",
+		"ParentID": "f9ad2b0043489327592e42844d1de041",
 		"Name": "Head",
 		"Transform": {
 			"Translation": {
@@ -81,9 +90,9 @@
 		"Layer": 4
 	},
 	{
-		"ID": "e99dfcd142f04e6a8eab95b9287a6a14",
+		"ID": "6a86f65f4ecebf990d70708c92d13661",
 		"TypeName": "FlaxEngine.Camera",
-		"ParentID": "a6cc01e14556e4fa4c0efaafcb4f5dc7",
+		"ParentID": "7636a45345c3bbb03cbe3a8b99032469",
 		"IsActive": false,
 		"Name": "Camera",
 		"StaticFlags": 0,
@@ -92,9 +101,9 @@
 		"FOV": 100.0
 	},
 	{
-		"ID": "f901c75e4f836955503021ae462076b1",
+		"ID": "3e53508e4eb57720bff5608f3260ce6a",
 		"TypeName": "FlaxEngine.StaticModel",
-		"ParentID": "a6cc01e14556e4fa4c0efaafcb4f5dc7",
+		"ParentID": "7636a45345c3bbb03cbe3a8b99032469",
 		"Name": "Direction",
 		"Transform": {
 			"Orientation": {

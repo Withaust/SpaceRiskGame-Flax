@@ -4,7 +4,7 @@ float PlayerMovement::Height = 50.0f;
 float PlayerMovement::Radius = 25.0f;
 
 PlayerMovement::PlayerMovement(const SpawnParams& params)
-    : Script(params)
+    : IComponent(params)
 {
     _tickUpdate = true;
 }

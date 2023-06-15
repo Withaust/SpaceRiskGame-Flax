@@ -1,7 +1,7 @@
 {
 	"ID": "362b418c43b31919b71055b252931fb3",
 	"TypeName": "FlaxEngine.SceneAsset",
-	"EngineBuild": 6339,
+	"EngineBuild": 6341,
 	"Data": [
 		{
 			"ID": "362b418c43b31919b71055b252931fb3",
@@ -158,7 +158,7 @@
 			"ID": "9e3d69e64a6fcf4c616bbb99011bda4f",
 			"TypeName": "Game.PlayerManager",
 			"ParentID": "437d37f442a98673e3610a83685fb873",
-			"PlayerPrefab": "fed0ee4d4ea972374ca1c4958d03a29a"
+			"PlayerPrefab": "4cab2b9f4ec52072b975c2b5967524b4"
 		},
 		{
 			"ID": "694b0e6046f7dcd2e9a5e8b2718062e5",

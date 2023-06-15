@@ -76,7 +76,7 @@ void Entity::CheckProxy()
 void Entity::OnDebugDrawSelected()
 {
     Actor::OnDebugDrawSelected();
-    if (Icon.GetID() != iconId)
+    if (Icon.GetID() != iconId && GetScene())
     {
         CheckProxy();
         ViewportIconsRenderer::RemoveActor(this);
@@ -87,7 +87,7 @@ void Entity::OnDebugDrawSelected()
 
 void Entity::OnDisable()
 {
-    if (iconId != Guid::Empty)
+    if (iconId != Guid::Empty && GetScene())
     {
         CheckProxy();
         ViewportIconsRenderer::RemoveActor(this);
@@ -100,7 +100,7 @@ void Entity::OnEnable()
 {
     Actor::OnEnable();
 #if USE_EDITOR
-    if (Icon)
+    if (Icon && GetScene())
     {
         CheckProxy();
         ViewportIconsRenderer::AddActorWithTexture(this, Icon);

@@ -1,7 +1,7 @@
 #include "PlayerInfo.h"
 
 PlayerInfo::PlayerInfo(const SpawnParams& params)
-    : Script(params)
+    : IComponent(params)
 {
 }
 
