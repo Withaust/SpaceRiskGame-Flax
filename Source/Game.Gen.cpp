@@ -7,6 +7,6 @@ StaticallyLinkedBinaryModuleInitializer StaticallyLinkedBinaryModuleGame(GetBina
 
 extern "C" BinaryModule* GetBinaryModuleGame()
 {
-    static NativeBinaryModule module("Game", MAssemblyOptions());
+    static NativeBinaryModule module("Game");
     return &module;
 }
