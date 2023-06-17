@@ -6,60 +6,30 @@ using FlaxEditor;
 using FlaxEditor.Content;
 using FlaxEngine;
 using Game;
-using System.Threading.Tasks;
-using System.Threading;
+
+public class CustomJsonAssetItem : JsonAssetItem
+{
+    public CustomJsonAssetItem(string path, Guid id, string typeName)
+    : base(path, id, typeName)
+    {
+        _thumbnail = AssetIconsProxy.Atlases[typeName].FindSprite("Default");
+    }
+}
+
+public class JsonAssetProxy<T> : SpawnableJsonAssetProxy<T> where T : new()
+{
+    public override AssetItem ConstructItem(string path, string typeName, ref Guid id)
+    {
+        return new CustomJsonAssetItem(path, id, typeName);
+    }
+}
 
 public class AssetIconsProxy
 {
     public static Dictionary<string, SpriteAtlas> Atlases { get; private set; } = new Dictionary<string, SpriteAtlas>();
+    private static List<JsonAssetProxy> Proxies = new List<JsonAssetProxy>();
 
-    private static void ParseEntry(ContentItem Entry)
-    {
-        if (Entry.ItemType == ContentItemType.Folder && Entry is ContentFolder Folder)
-        {
-            foreach (var Child in Folder.Children)
-            {
-                ParseEntry(Child);
-            }
-            return;
-        }
-
-        if (Entry.SearchFilter != ContentItemSearchFilter.Json)
-        {
-            return;
-        }
-
-        AssetInfo Info;
-        Content.GetAssetInfo(Entry.Path, out Info);
-        string Type = Info.TypeName;
-
-        if (Atlases.ContainsKey(Type))
-        {
-            Entry.Thumbnail = Atlases[Type].FindSprite("Default");
-            return;
-        }
-
-        if(Type.StartsWith("Game."))
-        {
-            Entry.Thumbnail = Atlases["Game.Default"].FindSprite("Default");
-        }
-    }
-
-    public static void OnContentItem(ContentItem Item)
-    {
-        Task.Factory.StartNew(() => Thread.Sleep(1000)).ContinueWith((t) => ParseEntry(Editor.Instance.ContentDatabase.Game.Content.Folder));
-    }
-
-    public static void ApplyIcons()
-    {
-        Editor.Instance.ContentDatabase.ItemAdded += OnContentItem;
-        Editor.Instance.ContentDatabase.ItemRemoved += OnContentItem;
-        LoadIcon("Document", "Game.Default");
-        LoadIcons();
-        ParseEntry(Editor.Instance.ContentDatabase.Game.Content.Folder);
-    }
-
-    private static void AddCustomIcon<T>(string Path) where T : ISerializable, new()
+    private static void RegAssetIcon<T>(string Path = "Document") where T : ISerializable, new()
     {
         Type type = typeof(T);
         string typeName = type.FullName;
@@ -68,11 +38,12 @@ public class AssetIconsProxy
             return;
         }
         LoadIcon(Path, typeName);
+        Proxies.Add(new JsonAssetProxy<T>());
     }
 
     private static void LoadIcon(string IconPath, string Key)
     {
-        var iconsAtlas = Content.Load<SpriteAtlas>(System.IO.Path.Combine(Globals.ProjectContentFolder, "Editor/Textures/Content/" + IconPath + ".flax"));
+        var iconsAtlas = Content.Load<SpriteAtlas>(Path.Combine(Globals.ProjectContentFolder, "Editor/Textures/Content/" + IconPath + ".flax"));
         if (iconsAtlas is null || iconsAtlas.WaitForLoaded())
         {
             return;
@@ -81,9 +52,27 @@ public class AssetIconsProxy
         Atlases[Key] = iconsAtlas;
     }
 
-    private static void LoadIcons()
+    public static void ApplyProxies()
     {
-        //AddCustomIcon<EditorLaunchArgs>("Document");
+        foreach(var Proxy in Proxies)
+        {
+            Editor.Instance.ContentDatabase.AddProxy(Proxy);
+        }
     }
+
+    public static void RemoveProxies()
+    {
+        foreach (var Proxy in Proxies)
+        {
+            Editor.Instance.ContentDatabase.RemoveProxy(Proxy);
+        }
+        Proxies.Clear();
+    }
+
+    public static void LoadIcons()
+    {
+        RegAssetIcon<DebugArgs>();
+    }
+
 }
 #endif

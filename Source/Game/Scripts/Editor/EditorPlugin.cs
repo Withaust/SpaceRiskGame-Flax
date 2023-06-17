@@ -11,16 +11,17 @@ namespace Game
         public override void InitializeEditor()
         {
             base.InitializeEditor();
-            AssetIconsProxy.ApplyIcons();
+            AssetIconsProxy.LoadIcons();
+            AssetIconsProxy.ApplyProxies();
             CustomPlayButtons.Editor = Editor;
             CustomPlayButtons.AddCustomPlayButtons();
         }
 
-        /// <inheritdoc />
-        public override void Deinitialize()
+        public override void DeinitializeEditor()
         {
+            AssetIconsProxy.RemoveProxies();
             CustomPlayButtons.RemoveCustomPlayButtons();
-            base.Deinitialize();
+            base.DeinitializeEditor();
         }
     }
 }

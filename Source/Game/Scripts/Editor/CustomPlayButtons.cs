@@ -68,21 +68,9 @@ namespace Game
 
         public static void RemoveCustomPlayButtons()
         {
-            for (int i = 0; i < Editor.UI.ToolStrip.ChildrenCount; ++i)
-            {
-                var target = Editor.UI.ToolStrip.GetChild(i);
-                if (!(target is ToolStripButton))
-                {
-                    continue;
-                }
-                ToolStripButton targetButton = (ToolStripButton)target;
-                if (targetButton == null || !targetButton.TooltipText.StartsWith("Play as a"))
-                {
-                    continue;
-                }
-                Editor.UI.ToolStrip.RemoveChild(targetButton);
-                break;
-            }
+            OriginalPlayButton = null;
+            PlayHostButton = null;
+            PlayClientButton = null;
         }
     };
 }
