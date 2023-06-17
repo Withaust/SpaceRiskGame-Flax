@@ -16,7 +16,7 @@ public:
 
     API_EVENT() Delegate<uint32, String> OnChatMessage;
 
-    API_FUNCTION(NetworkRpc = "Server, Reliable") void SendMessage(NetworkRpcParams info, const String& text);
+    API_FUNCTION(NetworkRpc = "Server, Reliable", Attributes = "Cmd") void SendMessage(NetworkRpcParams info, const String& text);
     API_FUNCTION(NetworkRpc = "Client, Reliable") void RecieveMessage(uint32 sender, const String& text);
 
 };
