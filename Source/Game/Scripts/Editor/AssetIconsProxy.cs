@@ -58,6 +58,7 @@ public class AssetIconsProxy
         {
             Editor.Instance.ContentDatabase.AddProxy(Proxy);
         }
+        Editor.Instance.ContentDatabase.Rebuild();
     }
 
     public static void RemoveProxies()
@@ -67,12 +68,12 @@ public class AssetIconsProxy
             Editor.Instance.ContentDatabase.RemoveProxy(Proxy);
         }
         Proxies.Clear();
+        Editor.Instance.ContentDatabase.Rebuild();
     }
 
     public static void LoadIcons()
     {
         RegAssetIcon<DebugArgs>();
     }
-
 }
 #endif
