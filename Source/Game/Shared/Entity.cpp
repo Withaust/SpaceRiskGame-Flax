@@ -1,6 +1,8 @@
 #include "Entity.h"
 
+#if USE_EDITOR
 bool Entity::proxyAdded = false;
+#endif
 
 Entity::Entity(const SpawnParams& params)
     : Actor(params)

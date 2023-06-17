@@ -1,3 +1,4 @@
+#if FLAX_EDITOR
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -85,3 +86,4 @@ public class AssetIconsProxy
         //AddCustomIcon<EditorLaunchArgs>("Document");
     }
 }
+#endif
