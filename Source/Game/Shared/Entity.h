@@ -48,7 +48,7 @@ public:
             CacheComponents();
             GotComponents = true;
         }
-        return Components[T::GetStaticType().GetHandle()];
+        return Cast<T>(Components[T::GetStaticType().GetHandle()]);
     }
 
     static Entity* FindEntity(Actor* Child)

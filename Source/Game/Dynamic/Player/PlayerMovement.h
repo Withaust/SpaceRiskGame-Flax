@@ -22,7 +22,6 @@ API_CLASS() class GAME_API PlayerMovement : public IComponent
     DECLARE_SCRIPTING_TYPE(PlayerMovement);
 
 public:
-
     API_FIELD() static float Height;
     API_FIELD() static float Radius;
 
@@ -49,7 +48,6 @@ private:
     float _yaw = 0.0f;
     float _horizontal = 0.0f;
     float _vertical = 0.0f;
-
 
     // AccelDir: normalized direction that the player has requested to move (taking into account the movement keys and look direction)
     // PrevVelocity: The current velocity of the player, before any additional calculations

@@ -69,7 +69,9 @@ namespace Game
         public static void RemoveCustomPlayButtons()
         {
             OriginalPlayButton = null;
+            PlayHostButton.Dispose();
             PlayHostButton = null;
+            PlayClientButton.Dispose();
             PlayClientButton = null;
         }
     };
