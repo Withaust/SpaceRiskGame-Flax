@@ -1,7 +1,7 @@
 {
 	"ID": "a7383811434ac0476b9e57893b2d189d",
 	"TypeName": "FlaxEngine.SceneAsset",
-	"EngineBuild": 6341,
+	"EngineBuild": 6342,
 	"Data": [
 		{
 			"ID": "a7383811434ac0476b9e57893b2d189d",
@@ -57,6 +57,7 @@
 				}
 			},
 			"Layer": 31,
+			"Brightness": 3.140000104904175,
 			"CustomTexture": "c54410104ff39427bc11e5bc761d66b0"
 		},
 		{
@@ -515,6 +516,43 @@
 			"ID": "1bf997fc40561c9fa23ac7b2b963d036",
 			"TypeName": "Game.PlayerSpawn",
 			"ParentID": "a5512b5d4daa9e801044d5b5c7e9f3ac"
+		},
+		{
+			"ID": "fea99e404023fffb9acd59b0f7a51304",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "Magazulnik",
+			"Transform": {
+				"Translation": {
+					"X": -430.4411315917969,
+					"Y": -221.02880859375,
+					"Z": -575.6019287109375
+				},
+				"Orientation": {
+					"X": -0.57175612449646,
+					"Y": 0.0,
+					"Z": 0.0,
+					"W": 0.8204236626625061
+				}
+			},
+			"Model": "fd987978414a71e9fd415a971124821a",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "4e8b4fec4567eff83ce80584a20cf0d8",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
+		},
+		{
+			"ID": "f39c28ce491d87761268bf8d0af08f8a",
+			"TypeName": "FlaxEngine.MeshCollider",
+			"ParentID": "fea99e404023fffb9acd59b0f7a51304",
+			"Name": "MeshCollider",
+			"CollisionData": "3466365149f4138c75b3b59e8c17625f"
 		}
 	]
 }
