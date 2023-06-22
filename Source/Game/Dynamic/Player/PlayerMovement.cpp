@@ -79,11 +79,6 @@ void PlayerMovement::OnUpdate()
     headTrans.Orientation = Quaternion::Euler(_pitch, _yaw, 0.0f);
     Head->SetLocalTransform(headTrans);
 
-    if (!_respawned && Controller->IsGrounded())
-    {
-        _respawned = true;
-    }
-
     // Calculate player movement vector
     Vector3 velocity(_horizontal, 0.0f, _vertical);
     _horizontal = 0.0f;
@@ -94,6 +89,7 @@ void PlayerMovement::OnUpdate()
     rotation.Z = 0.0f;
     velocity = Vector3::Transform(velocity, Quaternion::Euler(rotation));
     velocity.Normalize();
+
     if (Controller->IsGrounded())
     {
         velocity = MoveGround(velocity, ClampHorizontal(_velocity));
@@ -130,29 +126,11 @@ void PlayerMovement::OnUpdate()
         }
     }
 
-    if (_freezeCounter < FreezeFrames)
-    {
-        velocity.X = Math::Clamp(velocity.X, -1.0f, 1.0f);
-        velocity.Y = Math::Clamp(velocity.Y, -1.0f, 1.0f);
-        velocity.Z = Math::Clamp(velocity.Z, -1.0f, 1.0f);
-    }
-    else
-    {
-        velocity.X = Math::Clamp(velocity.X, -MaxVelocityClamp, MaxVelocityClamp);
-        velocity.Y = Math::Clamp(velocity.Y, -MaxVelocityClamp, MaxVelocityClamp);
-        velocity.Z = Math::Clamp(velocity.Z, -MaxVelocityClamp, MaxVelocityClamp);
-    }
-
-    _freezeCounter++;
+    velocity.X = Math::Clamp(velocity.X, -MaxVelocityClamp, MaxVelocityClamp);
+    velocity.Y = Math::Clamp(velocity.Y, -MaxVelocityClamp, MaxVelocityClamp);
+    velocity.Z = Math::Clamp(velocity.Z, -MaxVelocityClamp, MaxVelocityClamp);
 
     // Move
-    if (_respawned)
-    {
-        Controller->AddMovement(velocity * Time::GetDeltaTime(), Quaternion::Identity);
-    }
-    else
-    {
-        Controller->AddMovement(ClampNonHorizontal(velocity) * Time::GetDeltaTime(), Quaternion::Identity);
-    }
+    Controller->AddMovement(velocity * Time::GetDeltaTime(), Quaternion::Identity);
     _velocity = velocity;
 }

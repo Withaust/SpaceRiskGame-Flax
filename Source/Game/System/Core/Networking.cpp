@@ -99,8 +99,7 @@ Actor* Networking::SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId, co
 
     Level::SpawnActor(newActor, parent);
 
-    newActor->SetPosition(position);
-    newActor->SetOrientation(rotation);
+    newActor->SetTransform(Transform(position, rotation));
 
     // Force executing on a spawned prefab even not on networked event
     for (int i = 0; i < newActor->Scripts.Count(); ++i)

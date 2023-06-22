@@ -37,13 +37,10 @@ public:
     API_FIELD() bool CanJump = true;
     API_FIELD() bool CanMove = true;
     API_FIELD() float JumpForce = 800.0f;
-    API_FIELD() int FreezeFrames = 3;
 
 private:
 
-    int _freezeCounter = 0;
-    bool _respawned = false;
-    Vector3 _velocity;
+    Vector3 _velocity = Vector3::Zero;
     float _pitch = 0.0f;
     float _yaw = 0.0f;
     float _horizontal = 0.0f;
