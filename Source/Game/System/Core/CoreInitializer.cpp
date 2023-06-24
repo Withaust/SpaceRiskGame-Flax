@@ -21,10 +21,13 @@ void CoreInitializer::OnInitialize()
                 args->LaunchScene = String::Empty;
             }
         }
+        Networking::Instance->StartGame();
         LevelManager::Instance->LoadLevel(Level);
+        Networking::Instance->BindEvents();
     }
     else
     {
+        Networking::Instance->BindEvents();
         Networking::Instance->StartGame();
         Core::Instance->ReplicateSystems();
         UI::Instance->GoForward(TEXT("Game.UIGame"));
@@ -39,7 +42,7 @@ void CoreInitializer::OnSceneLoaded(Scene* scene)
 {
     if (LaunchArgs::Instance->GetArgs()->IsHost)
     {
-        Networking::Instance->StartGame();
+        Core::Instance->OnPlayerConnected(NetworkManager::LocalClient);
         Core::Instance->ReplicateSystems();
         UI::Instance->GoForward(TEXT("Game.UIGame"));
     }

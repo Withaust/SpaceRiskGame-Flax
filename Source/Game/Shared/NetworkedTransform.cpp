@@ -30,7 +30,7 @@ NetworkedTransform::NetworkedTransform(const SpawnParams& params)
     : IComponent(params)
 {
     // TODO: don't tick when using Default mode or with OwnedAuthoritative role to optimize cpu perf OR introduce TaskGraphSystem to batch NetworkedTransform updates over Job System
-    _tickUpdate = 1;
+    _tickUpdate = true;
 }
 
 void NetworkedTransform::SetSequenceIndex(uint16 value)

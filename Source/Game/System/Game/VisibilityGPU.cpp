@@ -35,7 +35,7 @@ void VisibilityGPU::OnEnable()
     for (int i = 0; i < WorkerCount; ++i)
     {
         Actor* newWorker = PrefabManager::SpawnPrefab(WorkerPrefab, GetActor());
-        _workers.Push(newWorker->GetScript<VisibilityWorker>());
+        _workers.Push(newWorker->GetScript<VisibilityGPUWorker>());
     }
 }
 

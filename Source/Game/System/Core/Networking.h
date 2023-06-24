@@ -17,11 +17,13 @@
 
 #include <Game/System/Core/LaunchArgs.h>
 #include <Game/System/Core/Logger.h>
+#include <Game/Shared/Entity.h>
 
 API_CLASS() class GAME_API Networking : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Networking);
+    friend class Entity;
 
 private:
     bool _gameStarted = false;
@@ -34,15 +36,18 @@ public:
     void OnNetworkClientConnected(NetworkClient* client);
     void OnNetworkClientDisconnected(NetworkClient* client);
 
+    void BindEvents();
+    void UnbindEvents();
+
     void OnInitialize() override;
     void OnDeinitialize() override;
 
     API_FUNCTION() void StartGame();
 
-    API_FUNCTION() Actor* SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId = NetworkManager::ServerClientId, const Vector3& position = Vector3(), const Quaternion& rotation = Quaternion());
-    API_FUNCTION() void DespawnPrefab(Actor* target);
+    API_FUNCTION() Entity* SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId = NetworkManager::ServerClientId, const Vector3& position = Vector3(), const Quaternion& rotation = Quaternion());
+    API_FUNCTION() void DespawnPrefab(Entity* target);
 
-    API_FUNCTION() void StartReplicating(ScriptingObject* target);
-    API_FUNCTION() void StopReplicating(ScriptingObject* target);
-    API_FUNCTION() void DespawnReplicating(ScriptingObject* target);
+    API_FUNCTION() void StartReplicating(Entity* target);
+    API_FUNCTION() void StopReplicating(Entity* target);
+    API_FUNCTION() void DespawnReplicating(Entity* target);
 };

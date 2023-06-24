@@ -553,6 +553,207 @@
 			"ParentID": "fea99e404023fffb9acd59b0f7a51304",
 			"Name": "MeshCollider",
 			"CollisionData": "3466365149f4138c75b3b59e8c17625f"
+		},
+		{
+			"ID": "0e17ba79495a2afb9669e38e2d317b53",
+			"TypeName": "Game.Entity",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "Drill",
+			"Transform": {
+				"Translation": {
+					"X": 464.39654541015627,
+					"Y": -263.35980224609377,
+					"Z": -334.6440734863281
+				}
+			},
+			"Layer": 1,
+			"Networked": true
+		},
+		{
+			"ID": "bc4c60b74b2298673b9b08a8a3fa25c4",
+			"TypeName": "Game.Drill",
+			"ParentID": "0e17ba79495a2afb9669e38e2d317b53",
+			"Start": "89463d004cbe7f53f08b839d495c99d9",
+			"End": "a2b5e64144d712d4588f33b1e115892e",
+			"Text": "b08143a24b2b7e6af1bc7a87a3bde632",
+			"Head": "01e7dddf448cd875892fa0887eab103c"
+		},
+		{
+			"ID": "b73c14624e8a4eedc4e3d29d72e78bbe",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "0e17ba79495a2afb9669e38e2d317b53",
+			"Name": "Base",
+			"Transform": {
+				"Scale": {
+					"X": 160.0,
+					"Y": 20.0,
+					"Z": 160.0
+				}
+			},
+			"Model": "50310067422bada39f9553b41c4869a4",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "00000000000000000000000000000000",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
+		},
+		{
+			"ID": "1333c60d48f5e5e6a647babfe66d0f40",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "0e17ba79495a2afb9669e38e2d317b53",
+			"Name": "HeadLine",
+			"Transform": {
+				"Translation": {
+					"X": 40.0,
+					"Y": 110.0,
+					"Z": 0.0
+				},
+				"Scale": {
+					"X": 80.0,
+					"Y": 200.0,
+					"Z": 80.0
+				}
+			},
+			"Model": "50310067422bada39f9553b41c4869a4",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "00000000000000000000000000000000",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
+		},
+		{
+			"ID": "01e7dddf448cd875892fa0887eab103c",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "0e17ba79495a2afb9669e38e2d317b53",
+			"Name": "Head",
+			"Transform": {
+				"Translation": {
+					"X": -40.0,
+					"Y": 170.0,
+					"Z": 0.0
+				},
+				"Orientation": {
+					"X": 0.0,
+					"Y": 0.0,
+					"Z": 1.0,
+					"W": -4.371138828673793e-8
+				},
+				"Scale": {
+					"X": 0.800000011920929,
+					"Y": 0.800000011920929,
+					"Z": 0.800000011920929
+				}
+			},
+			"Model": "1b4a643d44706750b2e35ea4e11e3663",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "00000000000000000000000000000000",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
+		},
+		{
+			"ID": "89463d004cbe7f53f08b839d495c99d9",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "0e17ba79495a2afb9669e38e2d317b53",
+			"Name": "Start",
+			"Transform": {
+				"Translation": {
+					"X": -40.0,
+					"Y": 170.0,
+					"Z": 0.0
+				},
+				"Orientation": {
+					"X": 0.0,
+					"Y": 0.0,
+					"Z": 1.0,
+					"W": -4.371138828673793e-8
+				},
+				"Scale": {
+					"X": 0.800000011920929,
+					"Y": 0.800000011920929,
+					"Z": 0.800000011920929
+				}
+			}
+		},
+		{
+			"ID": "a2b5e64144d712d4588f33b1e115892e",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "0e17ba79495a2afb9669e38e2d317b53",
+			"Name": "End",
+			"Transform": {
+				"Translation": {
+					"X": -40.0,
+					"Y": 46.53253173828125,
+					"Z": 0.0
+				},
+				"Orientation": {
+					"X": 0.0,
+					"Y": 0.0,
+					"Z": 1.0,
+					"W": -4.371138828673793e-8
+				},
+				"Scale": {
+					"X": 0.800000011920929,
+					"Y": 0.800000011920929,
+					"Z": 0.800000011920929
+				}
+			}
+		},
+		{
+			"ID": "efd44b764a3fc4801cc9c5af3230c34f",
+			"TypeName": "FlaxEngine.BoxCollider",
+			"ParentID": "0e17ba79495a2afb9669e38e2d317b53",
+			"Name": "Collider",
+			"Transform": {
+				"Translation": {
+					"X": 0.0,
+					"Y": 100.0,
+					"Z": 0.0
+				}
+			},
+			"Size": {
+				"X": 160.0,
+				"Y": 220.0,
+				"Z": 160.0
+			}
+		},
+		{
+			"ID": "b08143a24b2b7e6af1bc7a87a3bde632",
+			"TypeName": "FlaxEngine.TextRender",
+			"ParentID": "0e17ba79495a2afb9669e38e2d317b53",
+			"Name": "Text",
+			"Transform": {
+				"Translation": {
+					"X": 41.58184814453125,
+					"Y": 182.40066528320313,
+					"Z": 40.39581298828125
+				}
+			},
+			"Text": "%fuel%",
+			"Color": {
+				"R": 0.0,
+				"G": 0.0,
+				"B": 0.0,
+				"A": 1.0
+			},
+			"Size": 16.0,
+			"Material": "e72782bd4d898e2f236ca3be780438af",
+			"Font": "4508d98f4aa1f0bd59362b81d47e38f4"
 		}
 	]
 }

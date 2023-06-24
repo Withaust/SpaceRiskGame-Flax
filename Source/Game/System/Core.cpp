@@ -14,6 +14,7 @@ Core::Core(const SpawnParams& params)
 
 void Core::OnEnable()
 {
+    Actor::OnEnable();
 #if USE_EDITOR
     if (!Editor::IsPlayMode)
     {
@@ -28,6 +29,7 @@ void Core::OnDisable()
 #if USE_EDITOR
     if (!Editor::IsPlayMode)
     {
+        Actor::OnDisable();
         return;
     }
 #endif
@@ -38,6 +40,7 @@ void Core::OnDisable()
         _systemsArray.RemoveAtKeepOrder(i);
     }
     Instance = nullptr;
+    Actor::OnDisable();
 }
 
 void Core::ReplicateSystems()
@@ -91,8 +94,8 @@ ISystem* Core::Get(const ScriptingTypeHandle& type)
 // Game systems
 #include <Game/System/Game/VisibilityCPU.h>
 #include <Game/System/Game/VisibilityGPU.h>
-#include <Game/System/Game/PlayerRespawns.h>
-#include <Game/System/Game/PlayerManager.h>
+#include <Game/System/Game/Player/PlayerRespawns.h>
+#include <Game/System/Game/Player/PlayerManager.h>
 #include <Game/System/Game/Chat.h>
 // UI
 #include <Game/System/Core/UI.h>

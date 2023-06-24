@@ -8,8 +8,8 @@
 
 #include <Game/Shared/Defines.h>
 #include <Game/Shared/IComponent.h>
-#include <Game/Level/PlayerSpawn.h>
-#include <Game/System/Game/PlayerRespawns.h>
+#include <Game/Level/Player/PlayerSpawn.h>
+#include <Game/System/Game/Player/PlayerRespawns.h>
 
 API_CLASS() class GAME_API PlayerSpawnGroup : public IComponent
 {

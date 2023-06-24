@@ -1,22 +1,22 @@
-#include "VisibilityWorker.h"
+#include "VisibilityGPUWorker.h"
 
-VisibilityWorker::VisibilityWorker(const SpawnParams& params)
+VisibilityGPUWorker::VisibilityGPUWorker(const SpawnParams& params)
     : Script(params)
 {
     _tickUpdate = true;
 }
 
-bool VisibilityWorker::IsFinished()
+bool VisibilityGPUWorker::IsFinished()
 {
     return _finished;
 }
 
-void VisibilityWorker::Stop()
+void VisibilityGPUWorker::Stop()
 {
     _stop = true;
 }
 
-void VisibilityWorker::CalculateVisibility()
+void VisibilityGPUWorker::CalculateVisibility()
 {
     if (_stop)
     {
@@ -39,14 +39,14 @@ void VisibilityWorker::CalculateVisibility()
     _finished = true;
 }
 
-void VisibilityWorker::OnRenderTask(RenderTask* renderTask, GPUContext* gpuContext)
+void VisibilityGPUWorker::OnRenderTask(RenderTask* renderTask, GPUContext* gpuContext)
 {
     if (_stop)
     {
         return;
     }
 
-    _task->End.Unbind<VisibilityWorker, &VisibilityWorker::OnRenderTask>(this);
+    _task->End.Unbind<VisibilityGPUWorker, &VisibilityGPUWorker::OnRenderTask>(this);
     _task->Enabled = false;
     Camera->SetIsActive(false);
     VisibilityBox->SetIsActive(false);
@@ -62,13 +62,13 @@ void VisibilityWorker::OnRenderTask(RenderTask* renderTask, GPUContext* gpuConte
     downloadTask->Start();
 }
 
-void VisibilityWorker::OnEnable()
+void VisibilityGPUWorker::OnEnable()
 {
     _resolution2 = _resolution * _resolution;
     VisibilityBox->SetIsActive(false);
     Camera->SetIsActive(false);
 
-    _downloadFunc.Bind<VisibilityWorker, &VisibilityWorker::CalculateVisibility>(this);
+    _downloadFunc.Bind<VisibilityGPUWorker, &VisibilityGPUWorker::CalculateVisibility>(this);
 
     _output = GPUTexture::New();
 
@@ -88,7 +88,7 @@ void VisibilityWorker::OnEnable()
     _task->Output = _output;
 }
 
-void VisibilityWorker::OnDisable()
+void VisibilityGPUWorker::OnDisable()
 {
     if (_task != nullptr)
     {
@@ -103,7 +103,7 @@ void VisibilityWorker::OnDisable()
     }
 }
 
-void VisibilityWorker::Queue(Vector3 origin, Actor* target, Function<void(float, Actor*)> callback)
+void VisibilityGPUWorker::Queue(Vector3 origin, Actor* target, Function<void(float, Actor*)> callback)
 {
     _finished = false;
     _callback = callback;
@@ -144,6 +144,6 @@ void VisibilityWorker::Queue(Vector3 origin, Actor* target, Function<void(float,
     VisibilityBox->SetPosition(Box.GetCenter());
     Camera->SetIsActive(true);
 
-    _task->End.Bind<VisibilityWorker, &VisibilityWorker::OnRenderTask>(this);
+    _task->End.Bind<VisibilityGPUWorker, &VisibilityGPUWorker::OnRenderTask>(this);
     _task->Enabled = true;
 }

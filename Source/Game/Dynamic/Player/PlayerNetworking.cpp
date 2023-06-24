@@ -11,5 +11,5 @@ void PlayerNetworking::OnNetworkSpawn()
     GetActor()->SetName(TEXT("Local Player"));
     Camera->SetIsActive(true);
     Direction->SetIsActive(false);
-    PlayerManager::Instance->SetOurPlayer(GetActor());
+    PlayerManager::Instance->SetOurPlayer(GetEntity());
 }

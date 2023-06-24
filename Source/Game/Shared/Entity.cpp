@@ -78,7 +78,7 @@ void Entity::CheckProxy()
 void Entity::OnDebugDrawSelected()
 {
     Actor::OnDebugDrawSelected();
-    if (Icon.GetID() != iconId && GetScene())
+    if (Icon && Icon.GetID() != iconId && GetScene())
     {
         CheckProxy();
         ViewportIconsRenderer::RemoveActor(this);
@@ -86,17 +86,28 @@ void Entity::OnDebugDrawSelected()
         iconId = Icon.GetID();
     }
 }
+#endif
 
 void Entity::OnDisable()
 {
+#if USE_EDITOR
     if (iconId != Guid::Empty && GetScene())
     {
         CheckProxy();
         ViewportIconsRenderer::RemoveActor(this);
     }
+    if (!Editor::IsPlayMode)
+    {
+        Actor::OnDisable();
+        return;
+    }
+#endif
+    if (Networked && !Despawning)
+    {
+        Networking::Instance->StopReplicating(this);
+    }
     Actor::OnDisable();
 }
-#endif
 
 void Entity::OnEnable()
 {
@@ -114,4 +125,8 @@ void Entity::OnEnable()
         return;
     }
 #endif
+    if (Networked)
+    {
+        Networking::Instance->StartReplicating(this);
+    }
 }

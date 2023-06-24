@@ -11,7 +11,7 @@
 #include <Game/Shared/Defines.h>
 #include <Game/System/Core/Networking.h>
 #include <Game/Dynamic/Player/PlayerNetworking.h>
-#include <Game/Level/PlayerSpawn.h>
+#include <Game/Level/Player/PlayerSpawn.h>
 
 API_CLASS() class GAME_API PlayerRespawns : public ISystem
 {

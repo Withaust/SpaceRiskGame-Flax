@@ -9,7 +9,7 @@
 #include <Engine/Content/SoftAssetReference.h>
 
 #include <Game/Shared/Defines.h>
-#include <Game/Level/VisibilityWorker.h>
+#include <Game/System/Game/VisibilityGPUWorker.h>
 
 class VisibilityTask
 {
@@ -33,7 +33,7 @@ API_CLASS() class GAME_API VisibilityGPU : public ISystem
     DECLARE_SCRIPTING_TYPE(VisibilityGPU);
 
 private:
-    Array<ScriptingObjectReference<VisibilityWorker>> _workers;
+    Array<ScriptingObjectReference<VisibilityGPUWorker>> _workers;
     RingBuffer<VisibilityTask> _tasks;
 
 public:

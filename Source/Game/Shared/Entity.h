@@ -14,6 +14,7 @@
 
 #include <Game/Shared/IComponent.h>
 #include <Game/System/Core/Logger.h>
+#include <Game/System/Core/Networking.h>
 
 API_CLASS(Attributes = "ActorContextMenu(\"New/Entity\"), ActorToolbox(\"Other\")")
 class GAME_API Entity : public Actor
@@ -21,6 +22,7 @@ class GAME_API Entity : public Actor
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Entity);
     friend class IComponent;
+    friend class Networking;
 
 #if USE_EDITOR
 private:
@@ -28,15 +30,17 @@ private:
     static bool proxyAdded;
     void CheckProxy();
 #endif
+    bool Despawning = false;
     bool GotComponents = false;
     Dictionary<ScriptingTypeHandle, IComponent*> Components;
     void CacheComponents();
 public:
 #if USE_EDITOR
     API_FIELD() AssetReference<Texture> Icon;
+    API_FIELD() bool Networked = false;
     void OnDebugDrawSelected() override;
-    void OnDisable() override;
 #endif
+    void OnDisable() override;
     void OnEnable() override;
 
     template<class T>

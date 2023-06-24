@@ -16,17 +16,17 @@ ScriptingObjectReference<PlayerInfo> PlayerManager::GetPlayerInfo(uint32 id)
     return _players[id]->GetScript<PlayerInfo>();
 }
 
-void PlayerManager::SetOurPlayer(ScriptingObjectReference<Actor> actor)
+void PlayerManager::SetOurPlayer(ScriptingObjectReference<Entity> actor)
 {
     _ourPlayer = actor;
 }
 
-ScriptingObjectReference<Actor> PlayerManager::GetOurPlayer()
+ScriptingObjectReference<Entity> PlayerManager::GetOurPlayer()
 {
     return _ourPlayer;
 }
 
-void PlayerManager::Register(uint32 id, ScriptingObjectReference<Actor> actor)
+void PlayerManager::Register(uint32 id, ScriptingObjectReference<Entity> actor)
 {
     _players[id] = actor;
 }

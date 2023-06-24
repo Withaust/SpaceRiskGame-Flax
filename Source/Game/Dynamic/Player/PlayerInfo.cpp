@@ -14,7 +14,7 @@ void PlayerInfo::OnNetworkSpawn()
     Skill1 = 2;
     Skill2 = 3;
     TemplateId = 4;
-    PlayerManager::Instance->Register(Id, GetActor());
+    PlayerManager::Instance->Register(Id, GetEntity());
 }
 
 void PlayerInfo::OnNetworkDespawn()
@@ -24,5 +24,5 @@ void PlayerInfo::OnNetworkDespawn()
 
 void PlayerInfo::OnNetworkSync()
 {
-    PlayerManager::Instance->Register(Id, GetActor());
+    PlayerManager::Instance->Register(Id, GetEntity());
 }

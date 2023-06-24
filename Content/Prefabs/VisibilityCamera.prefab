@@ -11,7 +11,7 @@
 	},
 	{
 		"ID": "071263ea46a153042c6298880f888056",
-		"TypeName": "Game.VisibilityWorker",
+		"TypeName": "Game.VisibilityGPUWorker",
 		"ParentID": "87f110fd47699626054c72a7fc1fff95",
 		"Camera": "b27cdf7b42f73571411f139e2a615f88",
 		"VisibilityBox": "970dcd534259b30d526e8ebebeb12a9b"

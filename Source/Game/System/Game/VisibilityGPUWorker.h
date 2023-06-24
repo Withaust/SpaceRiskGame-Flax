@@ -16,10 +16,10 @@
 
 #include <Game/Shared/Defines.h>
 
-API_CLASS() class GAME_API VisibilityWorker : public Script
+API_CLASS() class GAME_API VisibilityGPUWorker : public Script
 {
     API_AUTO_SERIALIZATION();
-    DECLARE_SCRIPTING_TYPE(VisibilityWorker);
+    DECLARE_SCRIPTING_TYPE(VisibilityGPUWorker);
 private:
 
     Function<void()> _downloadFunc;

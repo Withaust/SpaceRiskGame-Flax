@@ -41,21 +41,30 @@ void Networking::OnNetworkClientDisconnected(NetworkClient* client)
     Core::Instance->OnPlayerDisconnected(client);
 }
 
-void Networking::OnInitialize()
+void Networking::BindEvents()
 {
-#if !BUILD_RELEASE
-    NetworkReplicator::EnableLog = true;
-#endif
     NetworkManager::StateChanged.Bind<Networking, &Networking::OnNetworkStateChanged>(this);
     NetworkManager::ClientConnected.Bind<Networking, &Networking::OnNetworkClientConnected>(this);
     NetworkManager::ClientDisconnected.Bind<Networking, &Networking::OnNetworkClientDisconnected>(this);
 }
 
-void Networking::OnDeinitialize()
+void Networking::UnbindEvents()
 {
     NetworkManager::StateChanged.Unbind<Networking, &Networking::OnNetworkStateChanged>(this);
     NetworkManager::ClientConnected.Unbind<Networking, &Networking::OnNetworkClientConnected>(this);
     NetworkManager::ClientDisconnected.Unbind<Networking, &Networking::OnNetworkClientDisconnected>(this);
+}
+
+void Networking::OnInitialize()
+{
+#if !BUILD_RELEASE
+    NetworkReplicator::EnableLog = true;
+#endif
+}
+
+void Networking::OnDeinitialize()
+{
+    UnbindEvents();
 }
 
 void Networking::StartGame()
@@ -78,43 +87,49 @@ void Networking::StartGame()
     }
 }
 
-Actor* Networking::SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId, const Vector3& position, const Quaternion& rotation)
+Entity* Networking::SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId, const Vector3& position, const Quaternion& rotation)
 {
-    Actor* newActor = PrefabManager::SpawnPrefab(prefab, parent);
-
-    NetworkReplicator::SpawnObject(newActor);
-    for (int i = 0; i < newActor->Scripts.Count(); ++i)
+    Actor* actor = PrefabManager::SpawnPrefab(prefab, parent);
+    Entity* entity = Cast<Entity>(actor);
+    if (!entity)
     {
-        NetworkReplicator::SpawnObject(newActor->Scripts[i]);
+        Logger::Instance->Error(TEXT("Tried to spawn prefab ") + actor->GetName() + TEXT(" but it was not an entity!"));
+        return nullptr;
+    }
+
+    NetworkReplicator::SpawnObject(entity);
+    for (int i = 0; i < entity->Scripts.Count(); ++i)
+    {
+        NetworkReplicator::SpawnObject(entity->Scripts[i]);
     }
 
     if (NetworkManager::LocalClientId == ownerId)
     {
-        NetworkReplicator::SetObjectOwnership(newActor, ownerId, NetworkObjectRole::OwnedAuthoritative, true);
+        NetworkReplicator::SetObjectOwnership(entity, ownerId, NetworkObjectRole::OwnedAuthoritative, true);
     }
     else
     {
-        NetworkReplicator::SetObjectOwnership(newActor, ownerId, NetworkObjectRole::ReplicatedSimulated, true);
+        NetworkReplicator::SetObjectOwnership(entity, ownerId, NetworkObjectRole::ReplicatedSimulated, true);
     }
 
-    Level::SpawnActor(newActor, parent);
+    Level::SpawnActor(entity, parent);
 
-    newActor->SetTransform(Transform(position, rotation));
+    entity->SetTransform(Transform(position, rotation));
 
     // Force executing on a spawned prefab even not on networked event
-    for (int i = 0; i < newActor->Scripts.Count(); ++i)
+    for (int i = 0; i < entity->Scripts.Count(); ++i)
     {
-        INetworkObject* netObj = ScriptingObject::ToInterface<INetworkObject>(newActor->Scripts[i]);
+        INetworkObject* netObj = ScriptingObject::ToInterface<INetworkObject>(entity->Scripts[i]);
         if (netObj)
         {
             netObj->OnNetworkSpawn();
         }
     }
 
-    return newActor;
+    return entity;
 }
 
-void Networking::DespawnPrefab(Actor* target)
+void Networking::DespawnPrefab(Entity* target)
 {
     // Force executing on a spawned prefab even not on networked event
     for (int i = 0; i < target->Scripts.Count(); ++i)
@@ -129,32 +144,77 @@ void Networking::DespawnPrefab(Actor* target)
     NetworkReplicator::DespawnObject(target);
 }
 
-void Networking::StartReplicating(ScriptingObject* target)
+void Networking::StartReplicating(Entity* target)
 {
     NetworkReplicator::AddObject(target);
+    for (int i = 0; i < target->Scripts.Count(); ++i)
+    {
+        NetworkReplicator::AddObject(target->Scripts[i]);
+    }
+    if (NetworkManager::LocalClientId == NetworkManager::ServerClientId)
+    {
+        NetworkReplicator::SetObjectOwnership(target, NetworkManager::ServerClientId, NetworkObjectRole::OwnedAuthoritative, true);
+    }
+    else
+    {
+        NetworkReplicator::SetObjectOwnership(target, NetworkManager::ServerClientId, NetworkObjectRole::ReplicatedSimulated, true);
+    }
     INetworkObject* netObj = ScriptingObject::ToInterface<INetworkObject>(target);
     if (netObj)
     {
         netObj->OnNetworkSpawn();
     }
+    for (int i = 0; i < target->Scripts.Count(); ++i)
+    {
+        netObj = ScriptingObject::ToInterface<INetworkObject>(target->Scripts[i]);
+        if (netObj)
+        {
+            netObj->OnNetworkSpawn();
+        }
+    }
 }
 
-void Networking::StopReplicating(ScriptingObject* target)
+void Networking::StopReplicating(Entity* target)
 {
     INetworkObject* netObj = ScriptingObject::ToInterface<INetworkObject>(target);
     if (netObj)
     {
         netObj->OnNetworkDespawn();
     }
+    for (int i = 0; i < target->Scripts.Count(); ++i)
+    {
+        netObj = ScriptingObject::ToInterface<INetworkObject>(target->Scripts[i]);
+        if (netObj)
+        {
+            netObj->OnNetworkDespawn();
+        }
+    }
+    for (int i = 0; i < target->Scripts.Count(); ++i)
+    {
+        NetworkReplicator::RemoveObject(target->Scripts[i]);
+    }
     NetworkReplicator::RemoveObject(target);
 }
 
-void Networking::DespawnReplicating(ScriptingObject* target)
+void Networking::DespawnReplicating(Entity* target)
 {
+    target->Despawning = true;
     INetworkObject* netObj = ScriptingObject::ToInterface<INetworkObject>(target);
     if (netObj)
     {
         netObj->OnNetworkDespawn();
+    }
+    for (int i = 0; i < target->Scripts.Count(); ++i)
+    {
+        netObj = ScriptingObject::ToInterface<INetworkObject>(target->Scripts[i]);
+        if (netObj)
+        {
+            netObj->OnNetworkDespawn();
+        }
+    }
+    for (int i = 0; i < target->Scripts.Count(); ++i)
+    {
+        NetworkReplicator::DespawnObject(target->Scripts[i]);
     }
     NetworkReplicator::DespawnObject(target);
 }

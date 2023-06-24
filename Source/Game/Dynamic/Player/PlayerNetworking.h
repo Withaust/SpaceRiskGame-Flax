@@ -9,7 +9,7 @@
 
 #include <Game/Shared/Defines.h>
 #include <Game/Shared/IComponent.h>
-#include <Game/System/Game/PlayerManager.h>
+#include <Game/System/Game/Player/PlayerManager.h>
 
 API_CLASS() class GAME_API PlayerNetworking : public IComponent, public INetworkObject
 {
