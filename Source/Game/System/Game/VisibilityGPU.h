@@ -6,7 +6,7 @@
 #include <Engine/Core/Collections/RingBuffer.h>
 #include <Engine/Level/Prefabs/PrefabManager.h>
 #include <Engine/Level/Prefabs/Prefab.h>
-#include <Engine/Content/SoftAssetReference.h>
+#include <Engine/Content/AssetReference.h>
 
 #include <Game/Shared/Defines.h>
 #include <Game/System/Game/VisibilityGPUWorker.h>
@@ -40,7 +40,7 @@ public:
     API_FIELD() static VisibilityGPU* Instance;
 
     API_FIELD(Attributes = "Cmd") int WorkerCount = 4;
-    API_FIELD() SoftAssetReference<Prefab> WorkerPrefab;
+    API_FIELD() AssetReference<Prefab> WorkerPrefab;
 
     void OnEnable() override;
     void OnDisable() override;

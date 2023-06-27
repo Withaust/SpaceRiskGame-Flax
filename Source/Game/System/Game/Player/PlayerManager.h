@@ -1,10 +1,12 @@
 #pragma once
 
 #include <Engine/Scripting/Script.h>
+#include <Engine/Content/AssetReference.h>
 
 #include <Game/Shared/Defines.h>
 #include <Game/System/Game/Player/PlayerRespawns.h>
 #include <Game/Dynamic/Player/PlayerInfo.h>
+#include <Game/Shared/Entity.h>
 
 API_CLASS() class GAME_API PlayerManager : public ISystem
 {
@@ -20,8 +22,9 @@ private:
 public:
     API_FIELD() static PlayerManager* Instance;
 
-    API_FIELD() SoftAssetReference<Prefab> PlayerPrefab;
+    API_FIELD() AssetReference<Prefab> PlayerPrefab;
 
+    API_FUNCTION() ScriptingObjectReference<Entity> GetPlayer(uint32 id);
     API_FUNCTION() ScriptingObjectReference<PlayerInfo> GetPlayerInfo(uint32 id);
 
     API_FUNCTION() void SetOurPlayer(ScriptingObjectReference<Entity> actor);

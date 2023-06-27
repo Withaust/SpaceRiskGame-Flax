@@ -14,7 +14,7 @@
 
 #include <Game/Shared/IComponent.h>
 #include <Game/System/Core/Logger.h>
-#include <Game/System/Core/Networking.h>
+#include <Game/System/Core/Networking/Networking.h>
 
 API_CLASS(Attributes = "ActorContextMenu(\"New/Entity\"), ActorToolbox(\"Other\")")
 class GAME_API Entity : public Actor

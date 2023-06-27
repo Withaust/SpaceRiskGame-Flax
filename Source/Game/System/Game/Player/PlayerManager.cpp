@@ -7,13 +7,22 @@ PlayerManager::PlayerManager(const SpawnParams& params)
 {
 }
 
+ScriptingObjectReference<Entity> PlayerManager::GetPlayer(uint32 id)
+{
+    if (!_players.ContainsKey(id))
+    {
+        return nullptr;
+    }
+    return _players[id];
+}
+
 ScriptingObjectReference<PlayerInfo> PlayerManager::GetPlayerInfo(uint32 id)
 {
     if (!_players.ContainsKey(id))
     {
         return nullptr;
     }
-    return _players[id]->GetScript<PlayerInfo>();
+    return _players[id]->GetComponent<PlayerInfo>();
 }
 
 void PlayerManager::SetOurPlayer(ScriptingObjectReference<Entity> actor)

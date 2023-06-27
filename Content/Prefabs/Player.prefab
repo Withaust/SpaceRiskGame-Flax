@@ -1,12 +1,12 @@
 {
 	"ID": "4cab2b9f4ec52072b975c2b5967524b4",
 	"TypeName": "FlaxEngine.Prefab",
-	"EngineBuild": 6341,
+	"EngineBuild": 6342,
 	"Data": [
 	{
 		"ID": "140348bb4794ddf592b1b0b82dc7c9a7",
 		"TypeName": "Game.Entity",
-		"Name": "Entity",
+		"Name": "Player",
 		"StaticFlags": 0,
 		"Layer": 4,
 		"Tag": "Player",

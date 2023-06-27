@@ -24,5 +24,4 @@ public:
 
     void OnNetworkSpawn() override;
     void OnNetworkDespawn() override;
-    void OnNetworkSync() override;
 };

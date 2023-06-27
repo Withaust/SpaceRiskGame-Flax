@@ -25,6 +25,7 @@ void Drill::OnEnable()
 
 void Drill::OnUpdate()
 {
+    /*
     if (_startToEnd)
     {
         Head->SetPosition(Vector3::Lerp(Head->GetPosition(), End->GetPosition(), 5.0f * Time::GetDeltaTime()));
@@ -43,8 +44,7 @@ void Drill::OnUpdate()
             _startToEnd = true;
         }
     }
-
-    UNOT_OWNED_RETURN();
+    */
 
     USLEEP(Generate)
     {

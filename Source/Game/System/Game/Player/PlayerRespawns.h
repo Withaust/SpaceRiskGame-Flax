@@ -3,13 +3,12 @@
 #include <Engine/Scripting/Script.h>
 #include <Engine/Level/Prefabs/PrefabManager.h>
 #include <Engine/Level/Prefabs/Prefab.h>
-#include <Engine/Content/SoftAssetReference.h>
 #include <Engine/Networking/NetworkManager.h>
 #include <Engine/Core/Collections/HashSet.h>
 #include <Engine/Core/RandomStream.h>
 
 #include <Game/Shared/Defines.h>
-#include <Game/System/Core/Networking.h>
+#include <Game/System/Core/Networking/Networking.h>
 #include <Game/Dynamic/Player/PlayerNetworking.h>
 #include <Game/Level/Player/PlayerSpawn.h>
 

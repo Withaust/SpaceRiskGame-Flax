@@ -41,6 +41,26 @@ void Networking::OnNetworkClientDisconnected(NetworkClient* client)
     Core::Instance->OnPlayerDisconnected(client);
 }
 
+void Networking::AskForSync(NetworkRpcParams info)
+{
+    NETWORK_RPC_IMPL(Networking, AskForSync, info);
+    if (_hierarchy)
+    {
+        _hierarchy->OnClientConnected(NetworkManager::GetClient(info.SenderId));
+    }
+}
+
+void Networking::RequestSpawnSync()
+{
+    // TODO: https://github.com/FlaxEngine/FlaxEngine/issues/1211
+    _syncFrame++;
+
+    if (_syncFrame == 15)
+    {
+        AskForSync();   
+    }
+}
+
 void Networking::BindEvents()
 {
     NetworkManager::StateChanged.Bind<Networking, &Networking::OnNetworkStateChanged>(this);
@@ -60,15 +80,19 @@ void Networking::OnInitialize()
 #if !BUILD_RELEASE
     NetworkReplicator::EnableLog = true;
 #endif
+    _stream = New<NetworkStream>();
 }
 
 void Networking::OnDeinitialize()
 {
     UnbindEvents();
+    Delete(_stream);
 }
 
 void Networking::StartGame()
 {
+    _hierarchy = New<CustomHierarchy>();
+    NetworkReplicator::SetHierarchy(_hierarchy);
     const Args* args = LaunchArgs::Instance->GetArgs();
     NetworkSettings* settings = NetworkSettings::Get();
     settings->NetworkFPS = 20.0f;

@@ -3,7 +3,7 @@
 
 #include <Game/System/Core.h>
 #include <Game/System/Core/Logger.h>
-#include <Game/System/Core/Networking.h>
+//#include <Game/System/Core/Networking/Networking.h>
 #include <Game/Shared/SleepBlock.h>
 #if USE_EDITOR
 #include <Editor/Editor.h>

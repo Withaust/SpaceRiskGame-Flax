@@ -5,6 +5,7 @@ UIMPL_SINGLETON(Chat)
 Chat::Chat(const SpawnParams& params)
     : ISystem(params)
 {
+    _tickUpdate = true;
 }
 
 void Chat::SendMessage(NetworkRpcParams info, const String& text)

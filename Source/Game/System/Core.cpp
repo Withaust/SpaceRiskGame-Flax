@@ -89,7 +89,7 @@ ISystem* Core::Get(const ScriptingTypeHandle& type)
 #include <Game/System/Core/Analytics.h>
 #include <Game/System/Core/Logger.h>
 #include <Game/System/Core/InfoWare.h>
-#include <Game/System/Core/Networking.h>
+#include <Game/System/Core/Networking/Networking.h>
 #include <Game/System/Core/LevelManager.h>
 // Game systems
 #include <Game/System/Game/VisibilityCPU.h>
@@ -111,7 +111,7 @@ void Core::LoadSystems()
     Add<Analytics>();
     Add<Logger>();
     Add<InfoWare>();
-    Add<Networking>();
+    Add<Networking>(true);
     Add<LevelManager>(true);
     // Game systems
     Add<VisibilityCPU>();

@@ -6,7 +6,7 @@
 #include <Game/Shared/Defines.h>
 #include <Game/System/Core/LaunchArgs.h>
 #include <Game/System/Core/LevelManager.h>
-#include <Game/System/Core/Networking.h>
+#include <Game/System/Core/Networking/Networking.h>
 #include <Game/System/Core/UI.h>
 #include <Game/Level/SceneRoot.h>
 

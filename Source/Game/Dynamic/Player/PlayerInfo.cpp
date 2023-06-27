@@ -7,22 +7,17 @@ PlayerInfo::PlayerInfo(const SpawnParams& params)
 
 void PlayerInfo::OnNetworkSpawn()
 {
+    PlayerManager::Instance->Register(NetworkReplicator::GetObjectOwnerClientId(this), GetEntity());
     UNOT_OWNED_RETURN();
-    Id = NetworkManager::LocalClientId;
+    Id = NetworkReplicator::GetObjectOwnerClientId(this);
     Name = Steam::Instance->GetPersonaName();
     Level = 1;
     Skill1 = 2;
     Skill2 = 3;
     TemplateId = 4;
-    PlayerManager::Instance->Register(Id, GetEntity());
 }
 
 void PlayerInfo::OnNetworkDespawn()
 {
-    PlayerManager::Instance->Unregister(Id);
-}
-
-void PlayerInfo::OnNetworkSync()
-{
-    PlayerManager::Instance->Register(Id, GetEntity());
+    PlayerManager::Instance->Unregister(NetworkReplicator::GetObjectOwnerClientId(this));
 }
