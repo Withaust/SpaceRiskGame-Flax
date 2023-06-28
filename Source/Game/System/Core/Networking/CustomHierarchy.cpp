@@ -22,12 +22,6 @@ void CustomHierarchy::AddObject(NetworkReplicationHierarchyObject obj)
             obj.ReplicationFPS = -1.0f;
             _spawnList.Add(component);
         }
-
-        // TODO: https://github.com/FlaxEngine/FlaxEngine/issues/1205
-        if (component->GetEntity()->HasTag(TEXT("Player")))
-        {
-            obj.ReplicationFPS = 0.0f;
-        }
     }
 
     Actor* actor = obj.GetActor();
@@ -77,23 +71,19 @@ bool CustomHierarchy::GetObject(ScriptingObject* obj, NetworkReplicationHierarch
 // Called every network update to gather objects for replication
 void CustomHierarchy::Update(NetworkReplicationHierarchyUpdateResult* result)
 {
-    // TODO: https://github.com/FlaxEngine/FlaxEngine/issues/1205
-    if (NetworkManager::IsHost())
-    {
-        // Setup players locations for distance culling
-        const auto& clients = NetworkManager::Clients;
+    // Setup players locations for distance culling
+    const auto& clients = NetworkManager::Clients;
 
-        for (int32 i = 0; i < clients.Count(); i++)
+    for (int32 i = 0; i < clients.Count(); i++)
+    {
+        auto entity = PlayerManager::Instance->GetPlayer(clients[i]->ClientId);
+        if (entity)
         {
-            auto entity = PlayerManager::Instance->GetPlayer(clients[i]->ClientId);
-            if (entity)
-            {
-                result->SetClientLocation(i, entity->GetComponent<PlayerMovement>()->Controller->GetPosition());
-            }
-            else
-            {
-                result->SetClientLocation(i, Vector3::Zero);
-            }
+            result->SetClientLocation(i, entity->GetComponent<PlayerMovement>()->Controller->GetPosition());
+        }
+        else
+        {
+            result->SetClientLocation(i, Vector3::Zero);
         }
     }
 
@@ -123,8 +113,7 @@ void CustomHierarchy::Update(NetworkReplicationHierarchyUpdateResult* result)
 
     NetworkReplicator::InvokeSerializer(sync.object->GetTypeHandle(), sync.object, stream, true);
 
-    Span<byte> span(stream->GetBuffer(), stream->GetLength());
-    Variant data(span);
+    Array<byte> data(stream->GetBuffer(), stream->GetLength());
 
     NetworkRpcParams params;
     uint32 ids[1] = { sync.client->ClientId };

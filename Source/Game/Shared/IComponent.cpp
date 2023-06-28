@@ -14,14 +14,13 @@ Entity* IComponent::GetEntity()
     return _entity;
 }
 
-// TODO: https://github.com/FlaxEngine/FlaxEngine/issues/1209
-void IComponent::SendData(NetworkRpcParams info, Variant data)
+void IComponent::SendData(NetworkRpcParams info, Array<byte> data)
 {
     NETWORK_RPC_IMPL(IComponent, SendData, info, data);
     
     NetworkStream* stream = Networking::Instance->_stream;
 
-    stream->Initialize(static_cast<byte*>(data.AsBlob.Data), data.AsBlob.Length);
+    stream->Initialize(data.begin(), data.Count());
 
     NetworkReplicator::InvokeSerializer(GetTypeHandle(), this, stream, false);
 }

@@ -35,9 +35,9 @@ private:
     Dictionary<ScriptingTypeHandle, IComponent*> Components;
     void CacheComponents();
 public:
+    API_FIELD() bool Networked = false;
 #if USE_EDITOR
     API_FIELD() AssetReference<Texture> Icon;
-    API_FIELD() bool Networked = false;
     void OnDebugDrawSelected() override;
 #endif
     void OnDisable() override;

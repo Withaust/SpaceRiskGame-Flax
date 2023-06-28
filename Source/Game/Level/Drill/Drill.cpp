@@ -2,7 +2,7 @@
 
 Drill::Drill(const SpawnParams& params)
     : IComponent(params),
-    Generate(1.0f)
+    Generate(4.0f)
 {
     _tickUpdate = true;
 }
@@ -15,7 +15,7 @@ float Drill::GetFuel() const
 void Drill::SetFuel(float value)
 {
     Text->SetText(String::Format(TEXT("{0}"), static_cast<int>(value)));
-    _fuel = value;
+    _fuel = Math::Clamp(value, 0.0f, MaxFuel);
 }
 
 void Drill::OnEnable()
@@ -25,7 +25,6 @@ void Drill::OnEnable()
 
 void Drill::OnUpdate()
 {
-    /*
     if (_startToEnd)
     {
         Head->SetPosition(Vector3::Lerp(Head->GetPosition(), End->GetPosition(), 5.0f * Time::GetDeltaTime()));
@@ -44,7 +43,6 @@ void Drill::OnUpdate()
             _startToEnd = true;
         }
     }
-    */
 
     USLEEP(Generate)
     {

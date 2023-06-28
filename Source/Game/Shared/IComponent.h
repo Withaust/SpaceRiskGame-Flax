@@ -21,6 +21,5 @@ private:
 public:
     API_FIELD() bool SyncOnlySpawn = false;
     Entity* GetEntity();
-    // TODO: https://github.com/FlaxEngine/FlaxEngine/issues/1209
-    API_FUNCTION(NetworkRpc = "Client, Reliable") void SendData(NetworkRpcParams info, Variant data);
+    API_FUNCTION(NetworkRpc = "Client, Reliable") void SendData(NetworkRpcParams info, Array<byte> data);
 };
