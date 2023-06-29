@@ -11,7 +11,7 @@ void UI::FindStates(Actor* target, Array<IUIState*>& result)
 {
     IUIState* state = target->GetScript<IUIState>();
 
-    if (state != nullptr)
+    if (state)
     {
         result.Push(state);
     }
@@ -78,7 +78,7 @@ void UI::GoForward(String state)
     {
         return;
     }
-    if (_currentState != nullptr)
+    if (_currentState)
     {
         _currentState->GetActor()->SetIsActive(false);
         Array<Script*> scripts;
@@ -102,7 +102,7 @@ void UI::GoForward(String state)
 
 void UI::GoBack()
 {
-    if (_currentState == nullptr)
+    if (!_currentState)
     {
         return;
     }

@@ -111,14 +111,14 @@ void Networking::StartGame()
     }
 }
 
-Entity* Networking::SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId, const Vector3& position, const Quaternion& rotation)
+ScriptingObjectReference<Entity> Networking::SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId, const Vector3& position, const Quaternion& rotation)
 {
     Actor* actor = PrefabManager::SpawnPrefab(prefab, parent);
-    Entity* entity = Cast<Entity>(actor);
+    ScriptingObjectReference<Entity> entity = Cast<Entity>(actor);
     if (!entity)
     {
         Logger::Instance->Error(TEXT("Tried to spawn prefab ") + actor->GetName() + TEXT(" but it was not an entity!"));
-        return nullptr;
+        return {};
     }
 
     NetworkReplicator::SpawnObject(entity);
@@ -153,7 +153,7 @@ Entity* Networking::SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId, c
     return entity;
 }
 
-void Networking::DespawnPrefab(Entity* target)
+void Networking::DespawnPrefab(ScriptingObjectReference<Entity> target)
 {
     // Force executing on a spawned prefab even not on networked event
     for (int i = 0; i < target->Scripts.Count(); ++i)

@@ -3,13 +3,21 @@
 #include <Engine/Scripting/Script.h>
 #include <Engine/Networking/NetworkClient.h>
 
+#include <Game/Shared/ISpawnSync.h>
+
 /// <summary>
 /// Base interface class for all systems.
 /// </summary>
-API_CLASS() class GAME_API ISystem : public Script
+API_CLASS() class GAME_API ISystem : public ISpawnSync
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(ISystem);
+    friend class Core;
+    friend class Networking;
+
+private:
+
+    bool _replicate = false;
 
 public:
 

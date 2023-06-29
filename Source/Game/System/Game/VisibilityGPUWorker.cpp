@@ -52,7 +52,7 @@ void VisibilityGPUWorker::OnRenderTask(RenderTask* renderTask, GPUContext* gpuCo
     VisibilityBox->SetIsActive(false);
 
     Task* downloadTask = _output->DownloadDataAsync(_downloadResult);
-    if (downloadTask == nullptr)
+    if (!downloadTask)
     {
         UERR_STR("Cannot create download async task.");
         return;
@@ -90,13 +90,13 @@ void VisibilityGPUWorker::OnEnable()
 
 void VisibilityGPUWorker::OnDisable()
 {
-    if (_task != nullptr)
+    if (_task)
     {
         _task->Enabled = false;
         Delete(_task);
     }
 
-    if (_output != nullptr)
+    if (_output)
     {
         _output->ReleaseGPU();
         Delete(_output);

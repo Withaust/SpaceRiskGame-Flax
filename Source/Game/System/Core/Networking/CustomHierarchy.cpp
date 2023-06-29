@@ -1,6 +1,8 @@
 #include "CustomHierarchy.h"
 #include <Game/System/Game/Player/PlayerManager.h>
 
+#include <Game/System/Core/Networking/Networking.h>
+
 void CustomHierarchy::OnClientConnected(NetworkClient* client)
 {
     for (const auto& spawn : _spawnList)
@@ -14,14 +16,11 @@ void CustomHierarchy::OnClientConnected(NetworkClient* client)
 
 void CustomHierarchy::AddObject(NetworkReplicationHierarchyObject obj)
 {
-    ScriptingObjectReference<IComponent> component = Cast<IComponent>(obj.Object);
-    if (component)
+    ScriptingObjectReference<ISpawnSync> spawnSync = Cast<ISpawnSync>(obj.Object);
+    if (spawnSync && spawnSync->SyncOnlySpawn)
     {
-        if (component->SyncOnlySpawn)
-        {
-            obj.ReplicationFPS = -1.0f;
-            _spawnList.Add(component);
-        }
+        obj.ReplicationFPS = -1.0f;
+        _spawnList.Add(spawnSync);
     }
 
     Actor* actor = obj.GetActor();
@@ -41,10 +40,10 @@ void CustomHierarchy::AddObject(NetworkReplicationHierarchyObject obj)
 // Called by NetworkReplicator to remove object from hierarchy
 bool CustomHierarchy::RemoveObject(ScriptingObject* obj)
 {
-    ScriptingObjectReference<IComponent> component = Cast<IComponent>(obj);
-    if (component && component->SyncOnlySpawn)
+    ScriptingObjectReference<ISpawnSync> sync = Cast<ISpawnSync>(obj);
+    if (sync && sync->SyncOnlySpawn)
     {
-        _spawnList.Remove(component);
+        _spawnList.Remove(sync);
     }
 
     if (_grid.RemoveObject(obj))

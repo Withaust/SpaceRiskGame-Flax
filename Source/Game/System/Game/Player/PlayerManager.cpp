@@ -11,7 +11,7 @@ ScriptingObjectReference<Entity> PlayerManager::GetPlayer(uint32 id)
 {
     if (!_players.ContainsKey(id))
     {
-        return nullptr;
+        return {};
     }
     return _players[id];
 }
@@ -20,7 +20,7 @@ ScriptingObjectReference<PlayerInfo> PlayerManager::GetPlayerInfo(uint32 id)
 {
     if (!_players.ContainsKey(id))
     {
-        return nullptr;
+        return {};
     }
     return _players[id]->GetComponent<PlayerInfo>();
 }

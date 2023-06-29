@@ -8,23 +8,22 @@
 
 #include <Game/Shared/Defines.h>
 #include <Game/Shared/IComponent.h>
-#include <Game/System/Core/Networking/Networking.h>
 
 API_CLASS() class GAME_API CustomHierarchy : public NetworkReplicationHierarchy
 {
     DECLARE_SCRIPTING_TYPE_WITH_CONSTRUCTOR_IMPL(CustomHierarchy, NetworkReplicationHierarchy);
     friend class Networking;
-    friend class IComponent;
+    friend class Component;
 
 private:
     struct SyncEvent
     {
         NetworkClient* client;
-        ScriptingObjectReference<IComponent> object;
+        ScriptingObjectReference<ISpawnSync> object;
     };
 
     NetworkReplicationGridNode _grid;
-    HashSet<ScriptingObjectReference<IComponent>> _spawnList;
+    HashSet<ScriptingObjectReference<ISpawnSync>> _spawnList;
     Array<SyncEvent> _syncEvents;
 
     void OnClientConnected(NetworkClient* client);

@@ -35,17 +35,11 @@ API_CLASS(Attributes = "ActorContextMenu(\"New/Other/Core\"), ActorToolbox(\"Cor
 class GAME_API Core : public Actor
 {
     DECLARE_SCENE_OBJECT(Core);
-public:
-    struct SystemEntry
-    {
-        ISystem* Ptr;
-        bool Replicated;
-    };
 
 private:
 
-    static Array<SystemEntry> _systemsArray;
-    static Dictionary<StringAnsiView, SystemEntry> _systemsDict;
+    static Array<ScriptingObjectReference<ISystem>> _systemsArray;
+    static Dictionary<StringAnsiView, ScriptingObjectReference<ISystem>> _systemsDict;
 
 public:
 
@@ -57,7 +51,7 @@ public:
 #define DISPATCH_SYSTEM(name, ...) \
     for (int i = 0; i < _systemsArray.Count(); ++i) \
     { \
-        _systemsArray[i].Ptr->name(__VA_ARGS__); \
+        _systemsArray[i]->name(__VA_ARGS__); \
     }
 
     void OnSceneLoaded(Scene* scene) { DISPATCH_SYSTEM(OnSceneLoaded, scene) }
@@ -71,35 +65,35 @@ public:
 
     API_FUNCTION() void ReplicateSystems();
 
-    API_FUNCTION() static ISystem* Get(API_PARAM(Attributes = "TypeReference(typeof(ISystem))") const MClass* type);
-    static ISystem* Get(const ScriptingTypeHandle& type);
+    API_FUNCTION() static ScriptingObjectReference<ISystem> Get(API_PARAM(Attributes = "TypeReference(typeof(ISystem))") const MClass* type);
+    static ScriptingObjectReference<ISystem> Get(const ScriptingTypeHandle& type);
 
     template<typename T>
-    FORCE_INLINE static T* Get()
+    FORCE_INLINE static ScriptingObjectReference<T> Get()
     {
-        static_assert(std::is_base_of<ISystem, T>::value, "T must inherit ISystem to be used with Get()");
-        return static_cast<T*>(Get(T::TypeInitializer));
+        static_assert(std::is_base_of<ISystem, T>::value, "T must inherit System to be used with Get()");
+        return Cast<T>(Get(T::TypeInitializer));
     }
 
     template<typename T>
-    static void Add(bool replicate = false)
+    static void Add(bool replicate = false, bool spawnOnly = false)
     {
         static_assert(HasInstance<T>::value, "T must return Instance pointer for singleton implementation");
-        static_assert(std::is_base_of<ISystem, T>::value, "T must inherit ISystem to be used with Add()");
-        T* newGameSystem = Instance->FindScript<T>();
-        if (newGameSystem == nullptr)
+        static_assert(std::is_base_of<ISystem, T>::value, "T must inherit System to be used with Add()");
+        ScriptingObjectReference<T> targetScript = Instance->FindScript<T>();
+        ScriptingObjectReference<ISystem> targetSystem = Cast<T>(targetScript);
+        if (!targetScript || !targetSystem)
         {
             Platform::Error(String("Failed add system ") + String(T::TypeInitializer.GetType().Fullname));
             Engine::RequestExit(1);
             return;
         }
-        SystemEntry newEntry;
-        T::Instance = newGameSystem;
-        newEntry.Ptr = newGameSystem;
-        newEntry.Replicated = replicate;
-        _systemsArray.Add(newEntry);
-        _systemsDict[T::TypeInitializer.GetType().Fullname] = newEntry;
-        newEntry.Ptr->OnInitialize();
+        T::Instance = targetScript.Get();
+        targetSystem->_replicate = replicate;
+        targetSystem->SyncOnlySpawn = spawnOnly;
+        _systemsArray.Add(targetSystem);
+        _systemsDict[T::TypeInitializer.GetType().Fullname] = targetSystem;
+        targetSystem->OnInitialize();
     }
 
     static void LoadSystems();

@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include <Game/System/Core/Networking/Networking.h>
 
 #if USE_EDITOR
 bool Entity::proxyAdded = false;

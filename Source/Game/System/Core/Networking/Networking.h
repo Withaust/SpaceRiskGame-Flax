@@ -27,7 +27,7 @@ API_CLASS() class GAME_API Networking : public ISystem
     DECLARE_SCRIPTING_TYPE(Networking);
     friend class Entity;
     friend class CustomHierarchy;
-    friend class IComponent;
+    friend class ISpawnSync;
 
 private:
     bool _gameStarted = false;
@@ -53,8 +53,8 @@ public:
 
     API_FUNCTION() void StartGame();
 
-    API_FUNCTION() Entity* SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId = NetworkManager::ServerClientId, const Vector3& position = Vector3(), const Quaternion& rotation = Quaternion());
-    API_FUNCTION() void DespawnPrefab(Entity* target);
+    API_FUNCTION() ScriptingObjectReference<Entity> SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId = NetworkManager::ServerClientId, const Vector3& position = Vector3(), const Quaternion& rotation = Quaternion());
+    API_FUNCTION() void DespawnPrefab(ScriptingObjectReference<Entity> target);
 
     API_FUNCTION() void StartReplicating(Entity* target);
     API_FUNCTION() void StopReplicating(Entity* target);

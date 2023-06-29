@@ -1,8 +1,8 @@
 #include "Core.h"
 
 Core* Core::Instance = nullptr;
-Array<Core::SystemEntry> Core::_systemsArray;
-Dictionary<StringAnsiView, Core::SystemEntry> Core::_systemsDict;
+Array<ScriptingObjectReference<ISystem>> Core::_systemsArray;
+Dictionary<StringAnsiView, ScriptingObjectReference<ISystem>> Core::_systemsDict;
 
 Core::Core(const SpawnParams& params)
     : Actor(params)
@@ -35,8 +35,8 @@ void Core::OnDisable()
 #endif
     for (int i = _systemsArray.Count() - 1; i >= 0; i--)
     {
-        _systemsDict.Remove(_systemsArray[i].Ptr->GetStaticType().Fullname);
-        _systemsArray[i].Ptr->OnDeinitialize();
+        _systemsDict.Remove(_systemsArray[i]->GetStaticType().Fullname);
+        _systemsArray[i]->OnDeinitialize();
         _systemsArray.RemoveAtKeepOrder(i);
     }
     Instance = nullptr;
@@ -50,37 +50,37 @@ void Core::ReplicateSystems()
 
     for (int i = 0; i < _systemsArray.Count(); ++i)
     {
-        const auto& Target = _systemsArray[i];
-        if (Target.Replicated)
+        const auto& target = _systemsArray[i];
+        if (target->_replicate)
         {
-            NetworkReplicator::AddObject(Target.Ptr->GetParent());
-            NetworkReplicator::AddObject(Target.Ptr);
+            NetworkReplicator::AddObject(target->GetParent());
+            NetworkReplicator::AddObject(target);
         }
     }
 }
 
-ISystem* Core::Get(const MClass* type)
+ScriptingObjectReference<ISystem> Core::Get(const MClass* type)
 {
-    SystemEntry* Entry = _systemsDict.TryGet(type->GetFullName());
-    if (Entry == nullptr)
+    ScriptingObjectReference<ISystem> result;
+    if (!_systemsDict.TryGet(type->GetFullName(), result))
     {
         Platform::Error(String("Failed to get system ") + String(type->GetFullName()));
         Engine::RequestExit(1);
-        return nullptr;
+        return {};
     }
-    return Entry->Ptr;
+    return result;
 }
 
-ISystem* Core::Get(const ScriptingTypeHandle& type)
+ScriptingObjectReference<ISystem> Core::Get(const ScriptingTypeHandle& type)
 {
-    SystemEntry* Entry = _systemsDict.TryGet(type.GetType().Fullname);
-    if (Entry == nullptr)
+    ScriptingObjectReference<ISystem> result;
+    if (!_systemsDict.TryGet(type.GetType().Fullname, result))
     {
         Platform::Error(String("Failed to get system ") + String(type.GetType().Fullname));
         Engine::RequestExit(1);
-        return nullptr;
+        return {};
     }
-    return Entry->Ptr;
+    return result;
 }
 
 // Core systems
