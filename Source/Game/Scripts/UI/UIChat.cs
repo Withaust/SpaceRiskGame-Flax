@@ -39,7 +39,7 @@ namespace Game
             {
                 return;
             }
-            Chat.Instance.SendMessage(new NetworkRpcParams(), TextBox.Get<TextBox>().Text);
+            Chat.Instance.SendMessage(TextBox.Get<TextBox>().Text);
             TextBox.Control.Defocus();
             TextBox.Get<TextBox>().Text = "";
             PlayerManager.Instance.GetOurPlayer().GetScript<PlayerMovement>().CanMove = true;

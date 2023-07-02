@@ -1,7 +1,7 @@
 {
 	"ID": "a7383811434ac0476b9e57893b2d189d",
 	"TypeName": "FlaxEngine.SceneAsset",
-	"EngineBuild": 6342,
+	"EngineBuild": 6343,
 	"Data": [
 		{
 			"ID": "a7383811434ac0476b9e57893b2d189d",
@@ -392,6 +392,14 @@
 			}
 		},
 		{
+			"ID": "f3e136294adce9586b7f00b2f8cd5dd0",
+			"TypeName": "Game.TestBush",
+			"ParentID": "55d6530d42e049d51c19e3a859b78c65",
+			"V": {
+	"Collider": "bdb5d36545d2074bc041588f90a57aa7"
+}
+		},
+		{
 			"ID": "bdb5d36545d2074bc041588f90a57aa7",
 			"TypeName": "FlaxEngine.BoxCollider",
 			"ParentID": "55d6530d42e049d51c19e3a859b78c65",
@@ -404,17 +412,6 @@
 				}
 			},
 			"IsTrigger": true
-		},
-		{
-			"ID": "2ffe2c6648cb617ef2d712aea96a0092",
-			"TypeName": "6fc73eac47b8e95ade26bfbd96afd6e7",
-			"ParentID": "bdb5d36545d2074bc041588f90a57aa7",
-			"D": {
-				"42b999af4233a9c19e9aa9bef2af2c8a": {
-					"Type": 11,
-					"Value": "bdb5d36545d2074bc041588f90a57aa7"
-				}
-			}
 		},
 		{
 			"ID": "6799f42d4d2413577d18cc8fc9647530",
@@ -574,6 +571,7 @@
 			"TypeName": "Game.Drill",
 			"ParentID": "0e17ba79495a2afb9669e38e2d317b53",
 			"SyncOnlySpawn": true,
+			"Data": "e176f6bf4ce58a1e97576d8773e9a812",
 			"Start": "89463d004cbe7f53f08b839d495c99d9",
 			"End": "a2b5e64144d712d4588f33b1e115892e",
 			"Text": "b08143a24b2b7e6af1bc7a87a3bde632",
@@ -755,6 +753,35 @@
 			"Size": 16.0,
 			"Material": "e72782bd4d898e2f236ca3be780438af",
 			"Font": "4508d98f4aa1f0bd59362b81d47e38f4"
+		},
+		{
+			"ID": "371e01ae4697d882b1a2f4abe7ea606f",
+			"TypeName": "FlaxEngine.BoxCollider",
+			"ParentID": "0e17ba79495a2afb9669e38e2d317b53",
+			"Name": "BoxCollider",
+			"Transform": {
+				"Translation": {
+					"X": 0.0,
+					"Y": 70.0,
+					"Z": 160.0
+				}
+			},
+			"IsTrigger": true,
+			"Size": {
+				"X": 160.0,
+				"Y": 160.0,
+				"Z": 160.0
+			}
+		},
+		{
+			"ID": "2cd4a68c463d27dfd87f7c9cec714cac",
+			"TypeName": "Game.TestDrill",
+			"ParentID": "371e01ae4697d882b1a2f4abe7ea606f",
+			"V": {
+	"Collider": "371e01ae4697d882b1a2f4abe7ea606f",
+	"Drill": "bc4c60b74b2298673b9b08a8a3fa25c4",
+	"Asset": "d39922824c525b512be02f88b3e0c650"
+}
 		}
 	]
 }

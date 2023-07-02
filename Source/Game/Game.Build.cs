@@ -20,6 +20,15 @@ public class Game : GameModule
 
         Tags["Network"] = string.Empty;
         options.PublicDependencies.Add("Networking");
+        if(options.Configuration != TargetConfiguration.Release)
+        {
+            options.ScriptingAPI.FileReferences.Add(System.IO.Path.Combine(FolderPath, "..", "..", "..", "ClosedXML", "System.IO.Packaging.dll"));
+            options.ScriptingAPI.FileReferences.Add(System.IO.Path.Combine(FolderPath, "..", "..", "..", "ClosedXML", "DocumentFormat.OpenXml.dll"));
+            options.ScriptingAPI.FileReferences.Add(System.IO.Path.Combine(FolderPath, "..", "..", "..", "ClosedXML", "SixLabors.Fonts.dll"));
+            options.ScriptingAPI.FileReferences.Add(System.IO.Path.Combine(FolderPath, "..", "..", "..", "ClosedXML", "ExcelNumberFormat.dll"));
+            options.ScriptingAPI.FileReferences.Add(System.IO.Path.Combine(FolderPath, "..", "..", "..", "ClosedXML", "ClosedXML.dll"));
+            options.ScriptingAPI.SystemReferences.Add("System.Data.Common");
+        }
 
         switch (options.Platform.Target)
         {

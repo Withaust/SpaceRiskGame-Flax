@@ -14,13 +14,13 @@ float Drill::GetFuel() const
 
 void Drill::SetFuel(float value)
 {
-    Text->SetText(String::Format(TEXT("{0}"), static_cast<int>(value)));
-    _fuel = Math::Clamp(value, 0.0f, MaxFuel);
+    _fuel = Math::Clamp(value, 0.0f, GetData()->MaxFuel);
+    Text->SetText(String::Format(TEXT("{0}\n{1}"), static_cast<int>(_fuel), GetData()->Name));
 }
 
 void Drill::OnEnable()
 {
-
+    UBIND_DATA(Drill, Data);
 }
 
 void Drill::OnUpdate()
@@ -46,6 +46,6 @@ void Drill::OnUpdate()
 
     USLEEP(Generate)
     {
-        SetFuel(_fuel + GenerateSpeed);
+        SetFuel(_fuel + GetData()->GenerateSpeed);
     }
 }

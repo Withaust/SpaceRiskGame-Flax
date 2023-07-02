@@ -1,0 +1,10 @@
+{
+	"ID": "d39922824c525b512be02f88b3e0c650",
+	"TypeName": "Game.DrillData",
+	"EngineBuild": 6343,
+	"Data": {
+	"MaxFuel": 120000.0,
+	"GenerateSpeed": 600.0,
+	"Name": "Ultra"
+}
+}

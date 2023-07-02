@@ -62,7 +62,7 @@ void LevelManager::LoadLevel(String scene)
     AssetInfo info;
     Content::GetAssetInfo(String::Format(TEXT("Content/Levels/{0}.scene"), scene), info);
 
-    if (!Level::FindScene(info.ID))
+    if (Level::FindScene(info.ID))
     {
         return;
     }
