@@ -35,9 +35,7 @@ public:
     API_PROPERTY(NetworkReplicated) float GetFuel() const;
     API_PROPERTY() void SetFuel(float value);
 
-    // TODO: https://github.com/FlaxEngine/FlaxEngine/issues/1226
-    API_FIELD(Attributes = "AssetReference(typeof(DrillData))") AssetReference<JsonAsset> Data;
-    API_FIELD(NetworkReplicated, Attributes = "HideInEditor, NoSerialize") Guid _Data = Guid::Empty;
+    API_FIELD(NetworkReplicated, Attributes = "AssetReference(typeof(DrillData))") AssetReference<JsonAsset> Data;
     UDECLARE_DATA(DrillData, Data);
 
     API_FIELD() ScriptingObjectReference<Actor> Start;

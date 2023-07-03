@@ -53,18 +53,9 @@
 #define UDECLARE_DATA(DataType, Name) \
 private: DataType* Name##Ptr = nullptr; public: \
 void On##Name##Changed() { \
-    _##Name = Name.GetID(); \
     DataType* result = Name->GetInstance<DataType>(); \
     if (!result) { \
     UERR("Data field {0} failed to filter datatype assignment for {1}", TEXT(#Name), TEXT(#DataType)); \
     } Name##Ptr = result; } \
-DataType* Get##Name() { \
-    Guid id = Name.GetID(); \
-    if (_##Name == Guid::Empty) { \
-        _##Name = id; } \
-    if (_##Name != id) { \
-        Name = _##Name; } \
-    return Name##Ptr; \
-}; \
 
 #define UBIND_DATA(Class, Name) Name.Changed.Bind<Class, &Class::On##Name##Changed>(this); On##Name##Changed();
