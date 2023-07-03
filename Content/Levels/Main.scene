@@ -570,7 +570,7 @@
 			"ID": "bc4c60b74b2298673b9b08a8a3fa25c4",
 			"TypeName": "Game.Drill",
 			"ParentID": "0e17ba79495a2afb9669e38e2d317b53",
-			"SyncOnlySpawn": true,
+			"Networked": 2,
 			"Data": "e176f6bf4ce58a1e97576d8773e9a812",
 			"Start": "89463d004cbe7f53f08b839d495c99d9",
 			"End": "a2b5e64144d712d4588f33b1e115892e",

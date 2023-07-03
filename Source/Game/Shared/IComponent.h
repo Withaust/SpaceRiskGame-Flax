@@ -4,10 +4,10 @@
 #include <Engine/Level/Actor.h>
 #include <Engine/Networking/NetworkRpc.h>
 
-#include <Game/Shared/ISpawnSync.h>
+#include <Game/Shared/INetworkedObject.h>
 #include <Game/Shared/Entity.h>
 
-API_CLASS() class GAME_API IComponent : public ISpawnSync
+API_CLASS() class GAME_API IComponent : public INetworkedObject
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(IComponent);

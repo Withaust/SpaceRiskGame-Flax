@@ -89,8 +89,14 @@ public:
             return;
         }
         T::Instance = targetScript.Get();
-        targetSystem->_replicate = replicate;
-        targetSystem->SyncOnlySpawn = spawnOnly;
+        if (replicate)
+        {
+            targetSystem->Networked = INetworkedObject::NetworkedType::Continuous;
+        }
+        if (spawnOnly)
+        {
+            targetSystem->Networked = INetworkedObject::NetworkedType::SpawnOnly;
+        }
         _systemsArray.Add(targetSystem);
         _systemsDict[T::TypeInitializer.GetType().Fullname] = targetSystem;
         targetSystem->OnInitialize();

@@ -16,20 +16,17 @@ void CustomHierarchy::OnClientConnected(NetworkClient* client)
 
 void CustomHierarchy::AddObject(NetworkReplicationHierarchyObject obj)
 {
-    ScriptingObjectReference<ISpawnSync> spawnSync = Cast<ISpawnSync>(obj.Object);
-    if (spawnSync && spawnSync->SyncOnlySpawn)
+    ScriptingObjectReference<INetworkedObject> spawnSync = Cast<INetworkedObject>(obj.Object);
+    if (spawnSync && spawnSync->Networked == INetworkedObject::NetworkedType::SpawnOnly)
     {
         obj.ReplicationFPS = -1.0f;
         _spawnList.Add(spawnSync);
     }
 
     Actor* actor = obj.GetActor();
-    bool addedToGrid = false;
     if (actor && actor->HasStaticFlag(StaticFlags::Transform))
     {
-        // Insert static objects into a grid for faster replication
         _grid.AddObject(obj);
-        addedToGrid = true;
     }
     else
     {
@@ -40,8 +37,8 @@ void CustomHierarchy::AddObject(NetworkReplicationHierarchyObject obj)
 // Called by NetworkReplicator to remove object from hierarchy
 bool CustomHierarchy::RemoveObject(ScriptingObject* obj)
 {
-    ScriptingObjectReference<ISpawnSync> sync = Cast<ISpawnSync>(obj);
-    if (sync && sync->SyncOnlySpawn)
+    ScriptingObjectReference<INetworkedObject> sync = Cast<INetworkedObject>(obj);
+    if (sync && sync->Networked == INetworkedObject::NetworkedType::SpawnOnly)
     {
         _spawnList.Remove(sync);
     }
@@ -117,5 +114,5 @@ void CustomHierarchy::Update(NetworkReplicationHierarchyUpdateResult* result)
     NetworkRpcParams params;
     uint32 ids[1] = { sync.client->ClientId };
     params.TargetIds = ToSpan(ids, ARRAY_COUNT(ids));
-    sync.object->SendData(params, data);
+    sync.object->SendData(data, params);
 }

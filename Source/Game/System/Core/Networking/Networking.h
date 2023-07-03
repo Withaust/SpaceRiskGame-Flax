@@ -27,7 +27,7 @@ API_CLASS() class GAME_API Networking : public ISystem
     DECLARE_SCRIPTING_TYPE(Networking);
     friend class Entity;
     friend class CustomHierarchy;
-    friend class ISpawnSync;
+    friend class INetworkedObject;
 
 private:
     bool _gameStarted = false;

@@ -1,7 +1,7 @@
 {
 	"ID": "4cab2b9f4ec52072b975c2b5967524b4",
 	"TypeName": "FlaxEngine.Prefab",
-	"EngineBuild": 6342,
+	"EngineBuild": 6343,
 	"Data": [
 	{
 		"ID": "140348bb4794ddf592b1b0b82dc7c9a7",
@@ -16,6 +16,7 @@
 		"ID": "3961a3a5494cab9e549cf99d3a2595bf",
 		"TypeName": "Game.PlayerMovement",
 		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"Networked": 2,
 		"Controller": "f9ad2b0043489327592e42844d1de041",
 		"Head": "7636a45345c3bbb03cbe3a8b99032469"
 	},
@@ -23,6 +24,7 @@
 		"ID": "78c31c624a7f0b546a975fb09ba61b34",
 		"TypeName": "Game.PlayerNetworking",
 		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"Networked": 2,
 		"Camera": "6a86f65f4ecebf990d70708c92d13661",
 		"Direction": "3e53508e4eb57720bff5608f3260ce6a"
 	},
@@ -30,13 +32,15 @@
 		"ID": "8fc8b3794626b9e8b34701a9b61b7295",
 		"TypeName": "Game.NetworkedTransform",
 		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"Networked": 1,
 		"Position": "f9ad2b0043489327592e42844d1de041",
 		"Rotation": "7636a45345c3bbb03cbe3a8b99032469"
 	},
 	{
 		"ID": "e9b94f554bba6e11ed9db68612e2ed38",
 		"TypeName": "Game.PlayerInfo",
-		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7"
+		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"Networked": 2
 	},
 	{
 		"ID": "f9ad2b0043489327592e42844d1de041",

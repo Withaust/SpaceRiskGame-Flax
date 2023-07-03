@@ -27,7 +27,7 @@ void Drill::OnUpdate()
 {
     if (_startToEnd)
     {
-        Head->SetPosition(Vector3::Lerp(Head->GetPosition(), End->GetPosition(), 5.0f * Time::GetDeltaTime()));
+        Head->SetPosition(Vector3::Lerp(Head->GetPosition(), End->GetPosition(), (DataPtr->GenerateSpeed / 100.0f) * Time::GetDeltaTime()));
 
         if (Vector3::Distance(Head->GetPosition(), End->GetPosition()) < 1.0f)
         {
@@ -36,7 +36,7 @@ void Drill::OnUpdate()
     }
     else
     {
-        Head->SetPosition(Vector3::Lerp(Head->GetPosition(), Start->GetPosition(), 5.0f * Time::GetDeltaTime()));
+        Head->SetPosition(Vector3::Lerp(Head->GetPosition(), Start->GetPosition(), (DataPtr->GenerateSpeed / 100.0f) * Time::GetDeltaTime()));
 
         if (Vector3::Distance(Head->GetPosition(), Start->GetPosition()) < 1.0f)
         {

@@ -19,11 +19,11 @@ private:
     struct SyncEvent
     {
         NetworkClient* client;
-        ScriptingObjectReference<ISpawnSync> object;
+        ScriptingObjectReference<INetworkedObject> object;
     };
 
     NetworkReplicationGridNode _grid;
-    HashSet<ScriptingObjectReference<ISpawnSync>> _spawnList;
+    HashSet<ScriptingObjectReference<INetworkedObject>> _spawnList;
     Array<SyncEvent> _syncEvents;
 
     void OnClientConnected(NetworkClient* client);

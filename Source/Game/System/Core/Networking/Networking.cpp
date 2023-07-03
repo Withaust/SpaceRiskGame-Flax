@@ -124,7 +124,11 @@ ScriptingObjectReference<Entity> Networking::SpawnPrefab(Prefab* prefab, Actor* 
     NetworkReplicator::SpawnObject(entity);
     for (int i = 0; i < entity->Scripts.Count(); ++i)
     {
-        NetworkReplicator::SpawnObject(entity->Scripts[i]);
+        IComponent* comp = Cast<IComponent>(entity->Scripts[i]);
+        if (comp && comp->Networked != INetworkedObject::NetworkedType::None)
+        {
+            NetworkReplicator::SpawnObject(entity->Scripts[i]);
+        }
     }
 
     if (NetworkManager::LocalClientId == ownerId)
@@ -137,7 +141,12 @@ ScriptingObjectReference<Entity> Networking::SpawnPrefab(Prefab* prefab, Actor* 
     }
 
     Level::SpawnActor(entity, parent);
-
+#if !BUILD_RELEASE
+    if (entity->Networked)
+    {
+        Logger::Instance->Error(TEXT("Tried to spawn prefab ") + prefab->GetPath() + TEXT(" but its root entity was marked as Networked!"));
+    }
+#endif
     entity->SetTransform(Transform(position, rotation));
 
     // Force executing on a spawned prefab even not on networked event
@@ -164,6 +173,14 @@ void Networking::DespawnPrefab(ScriptingObjectReference<Entity> target)
             netObj->OnNetworkDespawn();
         }
     }
+    for (int i = 0; i < target->Scripts.Count(); ++i)
+    {
+        IComponent* comp = Cast<IComponent>(target->Scripts[i]);
+        if (comp && comp->Networked != INetworkedObject::NetworkedType::None)
+        {
+            NetworkReplicator::DespawnObject(target->Scripts[i]);
+        }
+    }
 
     NetworkReplicator::DespawnObject(target);
 }
@@ -173,7 +190,11 @@ void Networking::StartReplicating(Entity* target)
     NetworkReplicator::AddObject(target);
     for (int i = 0; i < target->Scripts.Count(); ++i)
     {
-        NetworkReplicator::AddObject(target->Scripts[i]);
+        IComponent* comp = Cast<IComponent>(target->Scripts[i]);
+        if (comp && comp->Networked != INetworkedObject::NetworkedType::None)
+        {
+            NetworkReplicator::AddObject(target->Scripts[i]);
+        }
     }
     if (NetworkManager::LocalClientId == NetworkManager::ServerClientId)
     {
@@ -183,11 +204,7 @@ void Networking::StartReplicating(Entity* target)
     {
         NetworkReplicator::SetObjectOwnership(target, NetworkManager::ServerClientId, NetworkObjectRole::ReplicatedSimulated, true);
     }
-    INetworkObject* netObj = ScriptingObject::ToInterface<INetworkObject>(target);
-    if (netObj)
-    {
-        netObj->OnNetworkSpawn();
-    }
+    INetworkObject* netObj;
     for (int i = 0; i < target->Scripts.Count(); ++i)
     {
         netObj = ScriptingObject::ToInterface<INetworkObject>(target->Scripts[i]);
@@ -200,11 +217,7 @@ void Networking::StartReplicating(Entity* target)
 
 void Networking::StopReplicating(Entity* target)
 {
-    INetworkObject* netObj = ScriptingObject::ToInterface<INetworkObject>(target);
-    if (netObj)
-    {
-        netObj->OnNetworkDespawn();
-    }
+    INetworkObject* netObj;
     for (int i = 0; i < target->Scripts.Count(); ++i)
     {
         netObj = ScriptingObject::ToInterface<INetworkObject>(target->Scripts[i]);
@@ -215,7 +228,11 @@ void Networking::StopReplicating(Entity* target)
     }
     for (int i = 0; i < target->Scripts.Count(); ++i)
     {
-        NetworkReplicator::RemoveObject(target->Scripts[i]);
+        IComponent* comp = Cast<IComponent>(target->Scripts[i]);
+        if (comp && comp->Networked != INetworkedObject::NetworkedType::None)
+        {
+            NetworkReplicator::RemoveObject(target->Scripts[i]);
+        }
     }
     NetworkReplicator::RemoveObject(target);
 }
@@ -223,11 +240,7 @@ void Networking::StopReplicating(Entity* target)
 void Networking::DespawnReplicating(Entity* target)
 {
     target->Despawning = true;
-    INetworkObject* netObj = ScriptingObject::ToInterface<INetworkObject>(target);
-    if (netObj)
-    {
-        netObj->OnNetworkDespawn();
-    }
+    INetworkObject* netObj;
     for (int i = 0; i < target->Scripts.Count(); ++i)
     {
         netObj = ScriptingObject::ToInterface<INetworkObject>(target->Scripts[i]);
@@ -238,7 +251,11 @@ void Networking::DespawnReplicating(Entity* target)
     }
     for (int i = 0; i < target->Scripts.Count(); ++i)
     {
-        NetworkReplicator::DespawnObject(target->Scripts[i]);
+        IComponent* comp = Cast<IComponent>(target->Scripts[i]);
+        if (comp && comp->Networked != INetworkedObject::NetworkedType::None)
+        {
+            NetworkReplicator::DespawnObject(target->Scripts[i]);
+        }
     }
     NetworkReplicator::DespawnObject(target);
 }

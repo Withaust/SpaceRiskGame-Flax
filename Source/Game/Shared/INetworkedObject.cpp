@@ -1,14 +1,14 @@
-﻿#include "ISpawnSync.h"
+﻿#include "INetworkedObject.h"
 #include <Game/System/Core/Networking/Networking.h>
 
-ISpawnSync::ISpawnSync(const SpawnParams& params)
+INetworkedObject::INetworkedObject(const SpawnParams& params)
     : Script(params)
 {
 }
 
-void ISpawnSync::SendData(NetworkRpcParams info, Array<byte> data)
+void INetworkedObject::SendData(Array<byte> data, NetworkRpcParams info)
 {
-    NETWORK_RPC_IMPL(ISpawnSync, SendData, info, data);
+    NETWORK_RPC_IMPL(INetworkedObject, SendData, data, info);
 
     NetworkStream* stream = Networking::Instance->_stream;
 

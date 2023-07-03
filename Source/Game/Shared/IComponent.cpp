@@ -1,7 +1,7 @@
 #include "IComponent.h"
 
 IComponent::IComponent(const SpawnParams& params)
-    : ISpawnSync(params)
+    : INetworkedObject(params)
 {
 }
 

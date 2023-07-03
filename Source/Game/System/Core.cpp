@@ -51,7 +51,7 @@ void Core::ReplicateSystems()
     for (int i = 0; i < _systemsArray.Count(); ++i)
     {
         const auto& target = _systemsArray[i];
-        if (target->_replicate)
+        if (target->Networked != INetworkedObject::NetworkedType::None)
         {
             NetworkReplicator::AddObject(target->GetParent());
             NetworkReplicator::AddObject(target);
