@@ -52,5 +52,6 @@ public class Game : GameModule
             options.PublicDependencies.Add("GameAnalytics");
         }
         options.PublicDependencies.Add("InfoWare");
+		options.PublicDependencies.Add("RmlUi");
     }
 }

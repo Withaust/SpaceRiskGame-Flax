@@ -1,7 +1,7 @@
 {
 	"ID": "a7383811434ac0476b9e57893b2d189d",
 	"TypeName": "FlaxEngine.SceneAsset",
-	"EngineBuild": 6343,
+	"EngineBuild": 6344,
 	"Data": [
 		{
 			"ID": "a7383811434ac0476b9e57893b2d189d",
@@ -23,6 +23,11 @@
 				"CompressLightmaps": true,
 				"UseGeometryWithNoMaterials": true,
 				"Quality": 10
+			},
+			"CSG": {
+				"Model": "0e1519224ae970b31ddc2a83a662dc34",
+				"Data": "e8fadc2f4c96302d73a2439416301df7",
+				"CollisionData": "c04e29584bd577981db560bd2b1bd328"
 			}
 		},
 		{
@@ -782,6 +787,75 @@
 	"Drill": "bc4c60b74b2298673b9b08a8a3fa25c4",
 	"Asset": "d39922824c525b512be02f88b3e0c650"
 }
+		},
+		{
+			"ID": "243873304877da495a7f469a59027114",
+			"TypeName": "FlaxEngine.BoxBrush",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "BoxBrush",
+			"Transform": {
+				"Translation": {
+					"X": -15.193527221679688,
+					"Y": -222.04147338867188,
+					"Z": 165.72715759277345
+				}
+			},
+			"Surfaces": [
+				{},
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"ID": "884dc4104298b9882d42debcc0ab4771",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "CSG.Model",
+			"HideFlags": 4,
+			"Model": "0e1519224ae970b31ddc2a83a662dc34",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "00000000000000000000000000000000",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
+		},
+		{
+			"ID": "2825299349e7b646bc41978f4b415497",
+			"TypeName": "FlaxEngine.MeshCollider",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "CSG.Collider",
+			"HideFlags": 4,
+			"CollisionData": "c04e29584bd577981db560bd2b1bd328"
+		},
+		{
+			"ID": "86dde7bc4650576f4c8cba9a628db33c",
+			"TypeName": "FlaxEngine.BoxBrush",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "BoxBrush 0",
+			"Transform": {
+				"Translation": {
+					"X": -37.01496124267578,
+					"Y": -208.6664276123047,
+					"Z": 199.44630432128907
+				}
+			},
+			"Mode": 1,
+			"Surfaces": [
+				{},
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
 		}
 	]
 }
