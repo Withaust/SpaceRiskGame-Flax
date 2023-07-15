@@ -1,4 +1,8 @@
 #include "UI.h"
+#undef RadiansToDegrees
+#undef DegreesToRadians
+#undef NormaliseAngle
+#include <ThirdParty/RmlUi/Core.h>
 
 UIMPL_SINGLETON(UI)
 
@@ -108,4 +112,10 @@ void UI::GoBack()
     }
 
     GoForward(_currentState->GetBackState());
+}
+
+void UI::RefreshCache()
+{
+    Rml::Factory::ClearStyleSheetCache();
+    Rml::Factory::ClearTemplateCache();
 }

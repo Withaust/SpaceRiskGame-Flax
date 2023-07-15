@@ -25,4 +25,6 @@ public:
 
     API_FUNCTION() void GoForward(String state);
     API_FUNCTION() void GoBack();
+
+    API_FUNCTION() static void RefreshCache();
 };

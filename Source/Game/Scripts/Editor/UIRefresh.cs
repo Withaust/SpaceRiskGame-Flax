@@ -25,6 +25,7 @@ namespace Game
             var rmlFiles = Directory.GetFiles(_inputDir, "*.rml", SearchOption.AllDirectories);
             var files = rmlFiles.Concat(Directory.GetFiles(_inputDir, "*.rcss", SearchOption.AllDirectories));
             Editor.Instance.ContentImporting.Import(files, (ContentFolder)Editor.Instance.ContentDatabase.Find(_outputDir), true);
+            UI.RefreshCache();
         }
 
         public static void AddButton(Editor Editor)
