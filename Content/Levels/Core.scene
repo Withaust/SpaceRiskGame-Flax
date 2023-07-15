@@ -1,7 +1,7 @@
 {
 	"ID": "362b418c43b31919b71055b252931fb3",
 	"TypeName": "FlaxEngine.SceneAsset",
-	"EngineBuild": 6343,
+	"EngineBuild": 6344,
 	"Data": [
 		{
 			"ID": "362b418c43b31919b71055b252931fb3",
@@ -290,8 +290,8 @@
 			"Name": "Crosshair",
 			"Transform": {
 				"Translation": {
-					"X": 550.0,
-					"Y": 281.0,
+					"X": 549.5,
+					"Y": 280.5,
 					"Z": 0.0
 				}
 			},
@@ -364,7 +364,7 @@
 		"A": 0.0
 	},
 	"Enabled": true,
-	"Visible": true,
+	"Visible": false,
 	"AutoFocus": false
 }
 		},
@@ -572,6 +572,49 @@
 	"Visible": true,
 	"AutoFocus": true
 }
+		},
+		{
+			"ID": "f8d5b2294e3dd4d1582fd2aefa0a3759",
+			"TypeName": "RmlUi.RmlUiCanvas",
+			"ParentID": "d160097b45efbbc385e6849bcbcad5d0",
+			"Name": "RmlUiCanvas",
+			"Fonts": [
+				{
+					"Font": "585aae534c7205289bccc9a4f5bc3716",
+					"UseAsFallbackFont": false
+				},
+				{
+					"Font": "4815d3714f8020e08c1deda03dc2e54d",
+					"UseAsFallbackFont": false
+				},
+				{
+					"Font": "73fcfcf247c968dfef0485b7123062b1",
+					"UseAsFallbackFont": false
+				},
+				{
+					"Font": "50f3a5524fcf4dd5a76c0ab24169ed59",
+					"UseAsFallbackFont": false
+				},
+				{
+					"Font": "4171e3a84ef7ef450e2181bbcd3bf393",
+					"UseAsFallbackFont": true
+				}
+			],
+			"EnableDebugger": true
+		},
+		{
+			"ID": "733fa36a459998a8e18aa2b631fbabda",
+			"TypeName": "RmlUi.RmlUiDocument",
+			"ParentID": "f8d5b2294e3dd4d1582fd2aefa0a3759",
+			"Name": "RmlUiDocument",
+			"Document": "eed7e26c43261b835239de854a78ed39",
+			"AutoFocusDocument": true,
+			"Fonts": [
+				{
+					"Font": "585aae534c7205289bccc9a4f5bc3716",
+					"UseAsFallbackFont": false
+				}
+			]
 		},
 		{
 			"ID": "7d14904b426d1b0ee9c3d3afb09eb0f4",

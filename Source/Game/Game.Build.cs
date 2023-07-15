@@ -47,11 +47,8 @@ public class Game : GameModule
         }
 
         options.PublicDependencies.Add("SteamWorks");
-        if (options.Configuration != TargetConfiguration.Debug)
-        {
-            options.PublicDependencies.Add("GameAnalytics");
-        }
+        options.PublicDependencies.Add("GameAnalytics");
         options.PublicDependencies.Add("InfoWare");
-		options.PublicDependencies.Add("RmlUi");
+        options.PublicDependencies.Add("RmlUi");
     }
 }

@@ -16,11 +16,13 @@ namespace Game
             CustomPlayButtons.Editor = Editor;
             CustomPlayButtons.AddCustomPlayButtons();
             XLSXExport.AddButton(Editor);
+            UIRefresh.AddButton(Editor);
         }
 
         public override void DeinitializeEditor()
         {
             AssetIconsProxy.RemoveProxies();
+            UIRefresh.RemoveButton();
             XLSXExport.RemoveButton();
             CustomPlayButtons.RemoveCustomPlayButtons();
             base.DeinitializeEditor();
