@@ -39,7 +39,7 @@ void Analytics::Filter(StringAnsi& design)
         design.Replace("  ", " ");
     }
 }
-#if BUILD_DEBUG == 0
+
 String Analytics::MessageTypeToString(gameanalytics::EGALoggerMessageType type)
 {
     switch (type)
@@ -76,119 +76,109 @@ void Analytics::OnLog(const char* message, gameanalytics::EGALoggerMessageType m
     String result = String::Format(TEXT("[Analytics] {0}: {1}"), MessageTypeToString(messageType), String(message));
     LOG_STR(Info, result);
 }
-#endif // BUILD_DEBUG
+
 void Analytics::OnInitialize()
 {
-#if BUILD_DEBUG == 0
-    gameanalytics::StringVector dimensions;
-    dimensions.add("Debug");
-    dimensions.add("Modded");
-    dimensions.add("Vanilla");
-    gameanalytics::GameAnalytics::configureAvailableCustomDimensions01(dimensions);
+    if (LaunchArgs::Instance->GetArgs()->IsModded)
+    {
+        return;
+    }
 
     gameanalytics::GameAnalytics::configureCustomLogHandler(std::bind(&Analytics::OnLog, this, std::placeholders::_1, std::placeholders::_2));
-
-    StringAnsi engineVersion = StringAnsi::Format("Flax {0}", Globals::EngineBuildNumber);
-    gameanalytics::GameAnalytics::configureSdkGameEngineVersion(engineVersion.GetText());
-
-    StringAnsi id = StringAnsi::Format("{0}", Steam::Instance->GetSteamID64());
-    gameanalytics::GameAnalytics::configureUserId(id.GetText());
-
+    gameanalytics::GameAnalytics::configureSdkGameEngineVersion(StringAnsi::Format("{}", Globals::EngineBuildNumber).GetText());
+    gameanalytics::GameAnalytics::configureUserId(StringAnsi::Format("{0}", Steam::Instance->GetSteamID64()).GetText());
     gameanalytics::GameAnalytics::setEnabledErrorReporting(true);
-
-    const Args* args = LaunchArgs::Instance->GetArgs();
-#if BUILD_DEVELOPMENT == 1
-    gameanalytics::GameAnalytics::setCustomDimension01("Debug");
-#elif BUILD_RELEASE == 1
-    if (args->IsModded)
-    {
-        gameanalytics::GameAnalytics::setCustomDimension01("Modded");
-    }
-    else
-    {
-        gameanalytics::GameAnalytics::setCustomDimension01("Vanilla");
-    }
-#endif
-    gameanalytics::StringVector coreMods;
-    coreMods.add(args->Core.ToStringAnsi().GetText());
-    gameanalytics::GameAnalytics::configureAvailableCustomDimensions02(coreMods);
-    gameanalytics::GameAnalytics::setCustomDimension02(args->Core.ToStringAnsi().GetText());
-
     gameanalytics::GameAnalytics::initialize(_gameKey.GetText(), _gameSecret.GetText());
     gameanalytics::GameAnalytics::startSession();
-
     _initialized = true;
-#endif // BUILD_DEBUG
 }
 
 void Analytics::OnDeinitialize()
 {
-#if BUILD_DEBUG == 0
+    if(!_initialized)
+    {
+        return;
+    }
     gameanalytics::GameAnalytics::endSession();
     gameanalytics::GameAnalytics::onQuit();
-#endif // BUILD_DEBUG
 }
 
 void Analytics::AddResourceEvent(FlowType flowType, StringAnsi currency, float amount, StringAnsi itemType, StringAnsi itemId)
 {
-#if BUILD_DEBUG == 0
+    if (!_initialized)
+    {
+        return;
+    }
     gameanalytics::GameAnalytics::addResourceEvent(static_cast<gameanalytics::EGAResourceFlowType>(flowType), currency.GetText(), amount, itemType.GetText(), itemId.GetText());
-#endif // BUILD_DEBUG
 }
 
 void Analytics::AddProgressionEvent(ProgressionStatus progressionStatus, StringAnsi progression01, StringAnsi progression02, StringAnsi progression03)
 {
-#if BUILD_DEBUG == 0
+    if (!_initialized)
+    {
+        return;
+    }
     gameanalytics::GameAnalytics::addProgressionEvent(static_cast<gameanalytics::EGAProgressionStatus>(progressionStatus), progression01.GetText(), progression02.GetText(), progression03.GetText());
-#endif // BUILD_DEBUG
 }
 
 void Analytics::AddProgressionEvent(ProgressionStatus progressionStatus, StringAnsi progression01, StringAnsi progression02, StringAnsi progression03, int score)
 {
-#if BUILD_DEBUG == 0
+    if (!_initialized)
+    {
+        return;
+    }
     gameanalytics::GameAnalytics::addProgressionEvent(static_cast<gameanalytics::EGAProgressionStatus>(progressionStatus), progression01.GetText(), progression02.GetText(), progression03.GetText(), score);
-#endif // BUILD_DEBUG
 }
 
 void Analytics::AddDesignEvent(StringAnsi eventName)
 {
-#if BUILD_DEBUG == 0
+    if (!_initialized)
+    {
+        return;
+    }
     Filter(eventName);
     if (eventName.Contains(":"))
     {
         gameanalytics::GameAnalytics::addDesignEvent(eventName.GetText());
     }
-#endif // BUILD_DEBUG
 }
 
 void Analytics::AddDesignEvent(StringAnsi eventName, double value)
 {
-#if BUILD_DEBUG == 0
+    if (!_initialized)
+    {
+        return;
+    }
     Filter(eventName);
     if (eventName.Contains(":"))
     {
         gameanalytics::GameAnalytics::addDesignEvent(eventName.GetText(), value);
     }
-#endif // BUILD_DEBUG
 }
 
 void Analytics::AddErrorEvent(ErrorSeverity severity, const char* message)
 {
-#if BUILD_DEBUG == 0
+    if (!_initialized)
+    {
+        return;
+    }
     gameanalytics::GameAnalytics::addErrorEvent(static_cast<gameanalytics::EGAErrorSeverity>(severity), message);
-#endif // BUILD_DEBUG
 }
 
 void Analytics::AddErrorEvent(ErrorSeverity severity, const StringAnsi& message)
 {
-#if BUILD_DEBUG == 0
+    if (!_initialized)
+    {
+        return;
+    }
     AddErrorEvent(severity, message.GetText());
-#endif // BUILD_DEBUG
 }
 
 void Analytics::AddErrorEvent(ErrorSeverity severity, const String& message)
 {
-#if BUILD_DEBUG == 0
+    if (!_initialized)
+    {
+        return;
+    }
     AddErrorEvent(severity, message.ToStringAnsi());
-#endif // BUILD_DEBUG
 }

@@ -9,7 +9,6 @@
 #include <Game/System/Core/LaunchArgs.h>
 #include <Game/System/Core/Steam.h>
 
-#if BUILD_DEBUG == 0
 __pragma(warning(push))
 #pragma warning(push)
 __pragma(warning(disable : 4099))
@@ -17,7 +16,6 @@ __pragma(warning(disable : 4099))
 #include <GameAnalytics/GameAnalytics.h>
 __pragma (warning(pop))
 #pragma warning(pop)
-#endif // BUILD_DEBUG
 
 API_CLASS() class GAME_API Analytics : public ISystem
 {
@@ -31,11 +29,10 @@ private:
     void Filter(StringAnsi& design);
 
 public:
+
     API_FIELD() static Analytics* Instance;
-#if BUILD_DEBUG == 0
     String MessageTypeToString(gameanalytics::EGALoggerMessageType type);
     void OnLog(const char* message, gameanalytics::EGALoggerMessageType messageType);
-#endif // BUILD_DEBUG
     void OnInitialize() override;
     void OnDeinitialize() override;
 

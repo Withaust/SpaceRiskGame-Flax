@@ -3,7 +3,7 @@
 #include <Engine/Scripting/Script.h>
 
 #include <Game/Shared/Defines.h>
-#include <Game/System/Core/IUIState.h>
+#include <Game/UI/IUIState.h>
 
 API_CLASS() class GAME_API UI : public ISystem
 {

@@ -16,9 +16,6 @@
 			"Name": "$(EnginePath)/../GameAnalytics/GameAnalytics.flaxproj"
 		},
 		{
-			"Name": "$(EnginePath)/../InfoWare/InfoWare.flaxproj"
-		},
-		{
 			"Name": "$(EnginePath)/../RmlUi/RmlUi.flaxproj"
 		}
 	],

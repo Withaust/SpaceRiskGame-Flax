@@ -91,6 +91,9 @@ void UI::GoForward(String state)
         {
             script->SetEnabled(false);
         }
+        auto document = _currentState->GetDocument();
+        document->Defocus();
+        document->Hide();
     }
 
     IUIState* target = _states[state];
@@ -102,6 +105,9 @@ void UI::GoForward(String state)
         script->SetEnabled(true);
     }
     _currentState = target;
+    auto document = _currentState->GetDocument();
+    document->Show();
+    document->Focus();
 }
 
 void UI::GoBack()

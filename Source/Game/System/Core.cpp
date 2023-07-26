@@ -88,7 +88,6 @@ ScriptingObjectReference<ISystem> Core::Get(const ScriptingTypeHandle& type)
 #include <Game/System/Core/Steam.h>
 #include <Game/System/Core/Analytics.h>
 #include <Game/System/Core/Logger.h>
-#include <Game/System/Core/InfoWare.h>
 #include <Game/System/Core/Networking/Networking.h>
 #include <Game/System/Core/LevelManager.h>
 // Game systems
@@ -98,7 +97,7 @@ ScriptingObjectReference<ISystem> Core::Get(const ScriptingTypeHandle& type)
 #include <Game/System/Game/Player/PlayerManager.h>
 #include <Game/System/Game/Chat.h>
 // UI
-#include <Game/System/Core/UI.h>
+#include <Game/UI/UI.h>
 
 // CoreInitializer should always be used last
 #include <Game/System/Core/CoreInitializer.h>
@@ -110,7 +109,6 @@ void Core::LoadSystems()
     Add<Steam>();
     Add<Analytics>();
     Add<Logger>();
-    Add<InfoWare>();
     Add<Networking>(true);
     Add<LevelManager>(true);
     // Game systems

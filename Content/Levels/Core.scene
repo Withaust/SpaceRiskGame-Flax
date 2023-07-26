@@ -89,11 +89,6 @@
 			"StaticFlags": 0
 		},
 		{
-			"ID": "40e6c34a44812adadb796ca451db1f5f",
-			"TypeName": "Game.InfoWare",
-			"ParentID": "58968fd742924337fb387cb1377ab7dd"
-		},
-		{
 			"ID": "3a1c00d64d2daac3cf16d0ae89e76235",
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "23a9f8294afeeb178dcdeb9054b2e326",
@@ -201,390 +196,17 @@
 			"ParentID": "d160097b45efbbc385e6849bcbcad5d0"
 		},
 		{
-			"ID": "c93a53dd49f5c3f72130af8e41f1d2f0",
-			"TypeName": "FlaxEngine.UICanvas",
-			"ParentID": "d160097b45efbbc385e6849bcbcad5d0",
-			"Name": "UICanvas",
-			"Transform": {
-				"Orientation": {
-					"X": 1.0,
-					"Y": 4.371138828673793e-8,
-					"Z": 4.371138828673793e-8,
-					"W": 1.910685465164705e-15
-				}
-			},
-			"StaticFlags": 0,
-			"Layer": 31,
-			"V": {}
-		},
-		{
-			"ID": "bebb11164df071bae66347bc51df1cd6",
-			"TypeName": "FlaxEngine.UIControl",
-			"ParentID": "c93a53dd49f5c3f72130af8e41f1d2f0",
-			"Name": "Game",
-			"StaticFlags": 0,
-			"Control": "FlaxEngine.GUI.Panel",
-			"Data": {
-	"ScrollBars": 0,
-	"ScrollBarsSize": 14.0,
-	"AlwaysShowScrollbars": false,
-	"ScrollMargin": {
-		"Left": 0.0,
-		"Right": 0.0,
-		"Top": 0.0,
-		"Bottom": 0.0
-	},
-	"ClipChildren": true,
-	"CullChildren": true,
-	"AnchorMin": {
-		"X": 0.0,
-		"Y": 0.0
-	},
-	"AnchorMax": {
-		"X": 1.0,
-		"Y": 1.0
-	},
-	"Offsets": {
-		"Left": 0.0,
-		"Right": 0.0,
-		"Top": 0.0,
-		"Bottom": 0.0
-	},
-	"Scale": {
-		"X": 1.0,
-		"Y": 1.0
-	},
-	"Pivot": {
-		"X": 0.5,
-		"Y": 0.5
-	},
-	"Shear": {
-		"X": 0.0,
-		"Y": 0.0
-	},
-	"Rotation": 0.0,
-	"BackgroundColor": {
-		"R": 0.0,
-		"G": 0.0,
-		"B": 0.0,
-		"A": 0.0
-	},
-	"Enabled": true,
-	"Visible": true,
-	"AutoFocus": false
-}
-		},
-		{
-			"ID": "c2794706424b205eaf8a799131c44a86",
-			"TypeName": "Game.UIGame",
-			"ParentID": "bebb11164df071bae66347bc51df1cd6",
-			"V": {
-	"Chat": "fa90e20b47d729095f8789a1bcbf6c24"
-},
-			"Enabled": false
-		},
-		{
-			"ID": "fefc7b8d45ef658bdd8732bb47172217",
-			"TypeName": "FlaxEngine.UIControl",
-			"ParentID": "bebb11164df071bae66347bc51df1cd6",
-			"Name": "Crosshair",
-			"Transform": {
-				"Translation": {
-					"X": 549.5,
-					"Y": 280.5,
-					"Z": 0.0
-				}
-			},
-			"StaticFlags": 0,
-			"Control": "FlaxEngine.GUI.Image",
-			"Data": {
-	"Brush": {
-		"$type": "FlaxEngine.GUI.TextureBrush, FlaxEngine.CSharp",
-		"Texture": "4828217c4c451742f8e923bdfa34b26e",
-		"Filter": 1
-	},
-	"Margin": {
-		"Left": 0.0,
-		"Right": 0.0,
-		"Top": 0.0,
-		"Bottom": 0.0
-	},
-	"Color": {
-		"R": 1.0,
-		"G": 1.0,
-		"B": 1.0,
-		"A": 1.0
-	},
-	"MouseOverColor": {
-		"R": 1.0,
-		"G": 1.0,
-		"B": 1.0,
-		"A": 1.0
-	},
-	"DisabledTint": {
-		"R": 0.5019608,
-		"G": 0.5019608,
-		"B": 0.5019608,
-		"A": 1.0
-	},
-	"KeepAspectRatio": true,
-	"ClipChildren": true,
-	"CullChildren": true,
-	"AnchorMin": {
-		"X": 0.5,
-		"Y": 0.5
-	},
-	"AnchorMax": {
-		"X": 0.5,
-		"Y": 0.5
-	},
-	"Offsets": {
-		"Left": -32.0,
-		"Right": 64.0,
-		"Top": -32.0,
-		"Bottom": 64.0
-	},
-	"Scale": {
-		"X": 1.0,
-		"Y": 1.0
-	},
-	"Pivot": {
-		"X": 0.5,
-		"Y": 0.5
-	},
-	"Shear": {
-		"X": 0.0,
-		"Y": 0.0
-	},
-	"Rotation": 0.0,
-	"BackgroundColor": {
-		"R": 0.0,
-		"G": 0.0,
-		"B": 0.0,
-		"A": 0.0
-	},
-	"Enabled": true,
-	"Visible": false,
-	"AutoFocus": false
-}
-		},
-		{
-			"ID": "ffa0a38d462dedd0256932b1ffbda8c5",
-			"TypeName": "FlaxEngine.UIControl",
-			"ParentID": "bebb11164df071bae66347bc51df1cd6",
-			"Name": "Chat",
-			"Transform": {
-				"Orientation": {
-					"X": 1.0,
-					"Y": 4.371138828673793e-8,
-					"Z": 4.371138828673793e-8,
-					"W": 1.910685465164705e-15
-				}
-			},
-			"StaticFlags": 0,
-			"Layer": 31,
-			"Control": "FlaxEngine.GUI.VerticalPanel",
-			"Data": {
-	"Spacing": 2.0,
-	"Offset": {
-		"X": 0.0,
-		"Y": 0.0
-	},
-	"AutoSize": true,
-	"Margin": {
-		"Left": 2.0,
-		"Right": 2.0,
-		"Top": 2.0,
-		"Bottom": 2.0
-	},
-	"ClipChildren": true,
-	"CullChildren": true,
-	"AnchorMin": {
-		"X": 0.0,
-		"Y": 0.0
-	},
-	"AnchorMax": {
-		"X": 0.0,
-		"Y": 0.0
-	},
-	"Offsets": {
-		"Left": 0.0,
-		"Right": 382.0,
-		"Top": 0.0,
-		"Bottom": 22.0
-	},
-	"Scale": {
-		"X": 1.0,
-		"Y": 1.0
-	},
-	"Pivot": {
-		"X": 0.0,
-		"Y": 0.0
-	},
-	"Shear": {
-		"X": 0.0,
-		"Y": 0.0
-	},
-	"Rotation": 0.0,
-	"BackgroundColor": {
-		"R": 0.0,
-		"G": 0.0,
-		"B": 0.0,
-		"A": 0.0
-	},
-	"Enabled": true,
-	"Visible": true,
-	"AutoFocus": false
-}
-		},
-		{
-			"ID": "fa90e20b47d729095f8789a1bcbf6c24",
-			"TypeName": "Game.UIChat",
-			"ParentID": "ffa0a38d462dedd0256932b1ffbda8c5",
-			"V": {
-	"Root": "ffa0a38d462dedd0256932b1ffbda8c5",
-	"TextBox": "b14618f644c8dc13a92ceeaf2112a29b",
-	"Entry": "dbcf857543230d4339e487a898f5957c"
-},
-			"Enabled": false
-		},
-		{
-			"ID": "b14618f644c8dc13a92ceeaf2112a29b",
-			"TypeName": "FlaxEngine.UIControl",
-			"ParentID": "ffa0a38d462dedd0256932b1ffbda8c5",
-			"Name": "Input",
-			"Transform": {
-				"Translation": {
-					"X": 2.0,
-					"Y": 2.0,
-					"Z": 0.0
-				},
-				"Orientation": {
-					"X": 3.82137093032941e-15,
-					"Y": 1.6703743441755729e-22,
-					"Z": 1.6703743441755729e-22,
-					"W": -1.0
-				}
-			},
-			"StaticFlags": 0,
-			"Layer": 31,
-			"Control": "FlaxEngine.GUI.TextBox",
-			"Data": {
-	"WatermarkText": null,
-	"Wrapping": 0,
-	"Font": {
-		"Font": "4508d98f4aa1f0bd59362b81d47e38f4",
-		"Size": 9.0
-	},
-	"TextMaterial": null,
-	"TextColor": {
-		"R": 1.0,
-		"G": 1.0,
-		"B": 1.0,
-		"A": 1.0
-	},
-	"WatermarkTextColor": {
-		"R": 0.47058824,
-		"G": 0.47058824,
-		"B": 0.5137255,
-		"A": 1.0
-	},
-	"SelectionColor": {
-		"R": 0.0,
-		"G": 0.47843137,
-		"B": 0.8,
-		"A": 1.0
-	},
-	"EndEditOnClick": true,
-	"IsMultiline": false,
-	"MaxLength": 128,
-	"IsReadOnly": false,
-	"IsSelectable": true,
-	"ClipText": true,
-	"IsMultilineScrollable": true,
-	"BackgroundSelectedColor": {
-		"R": 0.24705882,
-		"G": 0.24705882,
-		"B": 0.27450982,
-		"A": 1.0
-	},
-	"CaretColor": {
-		"R": 1.0,
-		"G": 1.0,
-		"B": 1.0,
-		"A": 1.0
-	},
-	"CaretFlashSpeed": 6.0,
-	"BackgroundSelectedFlashSpeed": 6.0,
-	"BorderColor": {
-		"R": 0.0,
-		"G": 0.0,
-		"B": 0.0,
-		"A": 0.0
-	},
-	"BorderSelectedColor": {
-		"R": 0.0,
-		"G": 0.47843137,
-		"B": 0.8,
-		"A": 1.0
-	},
-	"Text": "",
-	"SelectionRange": {
-		"StartIndex": -1,
-		"EndIndex": -1
-	},
-	"ClipChildren": true,
-	"CullChildren": true,
-	"AnchorMin": {
-		"X": 0.0,
-		"Y": 0.0
-	},
-	"AnchorMax": {
-		"X": 0.0,
-		"Y": 0.0
-	},
-	"Offsets": {
-		"Left": 2.0,
-		"Right": 378.0,
-		"Top": 2.0,
-		"Bottom": 18.0
-	},
-	"Scale": {
-		"X": 1.0,
-		"Y": 1.0
-	},
-	"Pivot": {
-		"X": 0.0,
-		"Y": 0.0
-	},
-	"Shear": {
-		"X": 0.0,
-		"Y": 0.0
-	},
-	"Rotation": 0.0,
-	"BackgroundColor": {
-		"R": 0.2,
-		"G": 0.2,
-		"B": 0.21568628,
-		"A": 1.0
-	},
-	"Enabled": true,
-	"Visible": true,
-	"AutoFocus": true
-}
-		},
-		{
-			"ID": "f8d5b2294e3dd4d1582fd2aefa0a3759",
+			"ID": "f0374dfc45ab7a42190e9ca95463ee81",
 			"TypeName": "RmlUi.RmlUiCanvas",
 			"ParentID": "d160097b45efbbc385e6849bcbcad5d0",
-			"Name": "RmlUiCanvas",
+			"Name": "Canvas",
 			"Fonts": [
 				{
 					"Font": "585aae534c7205289bccc9a4f5bc3716",
 					"UseAsFallbackFont": false
 				},
 				{
-					"Font": "4815d3714f8020e08c1deda03dc2e54d",
+					"Font": "50f3a5524fcf4dd5a76c0ab24169ed59",
 					"UseAsFallbackFont": false
 				},
 				{
@@ -592,7 +214,7 @@
 					"UseAsFallbackFont": false
 				},
 				{
-					"Font": "50f3a5524fcf4dd5a76c0ab24169ed59",
+					"Font": "4815d3714f8020e08c1deda03dc2e54d",
 					"UseAsFallbackFont": false
 				},
 				{
@@ -603,18 +225,22 @@
 			"EnableDebugger": true
 		},
 		{
-			"ID": "733fa36a459998a8e18aa2b631fbabda",
+			"ID": "449ea996489ad88c1428f58a28a187b5",
 			"TypeName": "RmlUi.RmlUiDocument",
-			"ParentID": "f8d5b2294e3dd4d1582fd2aefa0a3759",
-			"Name": "RmlUiDocument",
-			"Document": "eed7e26c43261b835239de854a78ed39",
-			"AutoFocusDocument": true,
-			"Fonts": [
-				{
-					"Font": "585aae534c7205289bccc9a4f5bc3716",
-					"UseAsFallbackFont": false
-				}
-			]
+			"ParentID": "f0374dfc45ab7a42190e9ca95463ee81",
+			"Name": "Game",
+			"Document": "eed7e26c43261b835239de854a78ed39"
+		},
+		{
+			"ID": "998a592949aff350a6be0ead17ba15e5",
+			"TypeName": "Game.UIGame",
+			"ParentID": "449ea996489ad88c1428f58a28a187b5",
+			"Chat": "7f545993453a4accac431d84cb4b9119"
+		},
+		{
+			"ID": "7f545993453a4accac431d84cb4b9119",
+			"TypeName": "Game.UIChat",
+			"ParentID": "449ea996489ad88c1428f58a28a187b5"
 		},
 		{
 			"ID": "7d14904b426d1b0ee9c3d3afb09eb0f4",

@@ -29,7 +29,6 @@ namespace
 NetworkedTransform::NetworkedTransform(const SpawnParams& params)
     : IComponent(params)
 {
-    // TODO: don't tick when using Default mode or with OwnedAuthoritative role to optimize cpu perf OR introduce TaskGraphSystem to batch NetworkedTransform updates over Job System
     _tickUpdate = true;
 }
 
@@ -55,7 +54,6 @@ void NetworkedTransform::OnDisable()
 
 void NetworkedTransform::OnUpdate()
 {
-    // TODO: cache role in Deserialize to improve cpu perf
     const NetworkObjectRole role = NetworkReplicator::GetObjectRole(this);
     if (role == NetworkObjectRole::OwnedAuthoritative)
     {
@@ -93,7 +91,6 @@ void NetworkedTransform::OnUpdate()
     else
     {
         float lag = 0.0f;
-        // TODO: use lag from last used NetworkStream context
         if (NetworkManager::Peer && NetworkManager::Peer->NetworkDriver)
         {
             // Use lag from the RTT between server and the client
@@ -220,7 +217,6 @@ void NetworkedTransform::Deserialize(NetworkStream* stream)
             _buffer.Clear();
             _bufferHasDeltas = true;
         }
-        // TODO: items are added in order to do batch removal
         for (int32 i = 0; i < _buffer.Count() && _buffer[i].SequenceIndex < sequenceIndex; i++)
         {
             _buffer.RemoveAtKeepOrder(i);
@@ -231,7 +227,6 @@ void NetworkedTransform::Deserialize(NetworkStream* stream)
         {
             transform.Translation = transform.Translation + e.Value.Translation;
         }
-        // TODO: use euler angles or similar to cache/reapply rotation deltas (Quaternion jitters)
         transform.Orientation = transformLocal.Orientation;
 
         // If local simulation is very close to the authoritative server value then ignore slight error (based relative delta threshold)

@@ -16,6 +16,7 @@
 #include <Engine/Networking/INetworkObject.h>
 #include <Engine/Core/Collections/HashSet.h>
 
+#include <Game/Shared/SleepBlock.h>
 #include <Game/System/Core/LaunchArgs.h>
 #include <Game/System/Core/Logger.h>
 #include <Game/Shared/Entity.h>
@@ -34,7 +35,9 @@ private:
     bool _isHosting = false;
     CustomHierarchy* _hierarchy = nullptr;
     NetworkStream* _stream = nullptr;
-    int _syncFrame = 0;
+    bool _askingForSync = false;
+    SleepBlock _syncBlock;
+    HashSet<uint32> _syncList;
 public:
     API_FIELD() static Networking* Instance;
 
@@ -43,6 +46,7 @@ public:
     void OnNetworkClientDisconnected(NetworkClient* client);
 
     API_FUNCTION(NetworkRpc = "Server, Reliable") void AskForSync(NetworkRpcParams info = NetworkRpcParams());
+    API_FUNCTION(NetworkRpc = "Client, Reliable") void StopAskingForSync(NetworkRpcParams info = NetworkRpcParams());
     void RequestSpawnSync();
 
     void BindEvents();
@@ -50,6 +54,7 @@ public:
 
     void OnInitialize() override;
     void OnDeinitialize() override;
+    void OnUpdate() override;
 
     API_FUNCTION() void StartGame();
 

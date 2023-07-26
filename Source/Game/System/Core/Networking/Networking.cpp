@@ -3,8 +3,10 @@
 UIMPL_SINGLETON(Networking)
 
 Networking::Networking(const SpawnParams& params)
-    : ISystem(params)
+    : ISystem(params),
+    _syncBlock(3.0f)
 {
+    _tickUpdate = true;
 }
 
 void Networking::OnNetworkStateChanged()
@@ -34,31 +36,44 @@ void Networking::OnNetworkStateChanged()
 void Networking::OnNetworkClientConnected(NetworkClient* client)
 {
     Core::Instance->OnPlayerConnected(client);
+    _syncList.Add(client->ClientId);
 }
 
 void Networking::OnNetworkClientDisconnected(NetworkClient* client)
 {
     Core::Instance->OnPlayerDisconnected(client);
+    _syncList.Remove(client->ClientId);
 }
 
 void Networking::AskForSync(NetworkRpcParams info)
 {
     NETWORK_RPC_IMPL(Networking, AskForSync, info);
+    if (!_syncList.Contains(info.SenderId))
+    {
+        return;
+    }
+    
+    NetworkRpcParams params;
+    uint32 ids[1] = { info.SenderId };
+    params.TargetIds = ToSpan(ids, ARRAY_COUNT(ids));
+    StopAskingForSync(params);
+
     if (_hierarchy)
     {
         _hierarchy->OnClientConnected(NetworkManager::GetClient(info.SenderId));
     }
+    _syncList.Remove(info.SenderId);
+}
+
+void Networking::StopAskingForSync(NetworkRpcParams info)
+{
+    NETWORK_RPC_IMPL(Networking, StopAskingForSync, info);
+    _askingForSync = false;
 }
 
 void Networking::RequestSpawnSync()
 {
-    // TODO: https://github.com/FlaxEngine/FlaxEngine/issues/1211
-    _syncFrame++;
-
-    if (_syncFrame == 15)
-    {
-        AskForSync();   
-    }
+    _askingForSync = true;
 }
 
 void Networking::BindEvents()
@@ -87,6 +102,18 @@ void Networking::OnDeinitialize()
 {
     UnbindEvents();
     Delete(_stream);
+}
+
+void Networking::OnUpdate()
+{
+    // TODO: https://github.com/FlaxEngine/FlaxEngine/issues/1211
+    USLEEP(_syncBlock)
+    {
+        if (_askingForSync)
+        {
+            AskForSync();
+        }
+    }
 }
 
 void Networking::StartGame()
