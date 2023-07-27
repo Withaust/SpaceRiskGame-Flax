@@ -569,7 +569,7 @@
 				}
 			},
 			"Layer": 1,
-			"Networked": true
+			"LevelReplication": 2
 		},
 		{
 			"ID": "bc4c60b74b2298673b9b08a8a3fa25c4",
@@ -856,6 +856,49 @@
 				{},
 				{}
 			]
+		},
+		{
+			"ID": "d0407b42463cd5f7d244688ce027a6b4",
+			"TypeName": "Game.Entity",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "FilterTrigger",
+			"Transform": {
+				"Translation": {
+					"X": -28.738914489746095,
+					"Y": -189.62808227539063,
+					"Z": 169.91165161132813
+				},
+				"Scale": {
+					"X": 2.3767354488372804,
+					"Y": 1.0,
+					"Z": 2.4080283641815187
+				}
+			},
+			"LevelReplication": 1
+		},
+		{
+			"ID": "17dc04224860e2965429d48693536f3b",
+			"TypeName": "Game.FilterTrigger",
+			"ParentID": "d0407b42463cd5f7d244688ce027a6b4",
+			"Collider": "f0f23b484cbb995d208b51a3c70578e7",
+			"FilterTags": [
+				"Player"
+			]
+		},
+		{
+			"ID": "4cf227684adc42ded90916aff988625e",
+			"TypeName": "Game.TestTrigger",
+			"ParentID": "d0407b42463cd5f7d244688ce027a6b4",
+			"V": {
+	"FilterTrigger": "17dc04224860e2965429d48693536f3b"
+}
+		},
+		{
+			"ID": "f0f23b484cbb995d208b51a3c70578e7",
+			"TypeName": "Game.BoxColliderVisual",
+			"ParentID": "d0407b42463cd5f7d244688ce027a6b4",
+			"Name": "BoxColliderVisual",
+			"IsTrigger": true
 		}
 	]
 }

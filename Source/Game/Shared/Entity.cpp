@@ -103,7 +103,7 @@ void Entity::OnDisable()
         return;
     }
 #endif
-    if (Networked && !Despawning)
+    if (LevelReplication == EntityType::Networked && !Despawning)
     {
         Networking::Instance->StopReplicating(this);
     }
@@ -126,8 +126,14 @@ void Entity::OnEnable()
         return;
     }
 #endif
-    if (Networked)
+
+    if (LevelReplication == EntityType::Networked)
     {
         Networking::Instance->StartReplicating(this);
+    }
+    else if (NetworkManager::IsClient() && LevelReplication == EntityType::HostOnly)
+    {
+        DeleteObject();
+        return;
     }
 }

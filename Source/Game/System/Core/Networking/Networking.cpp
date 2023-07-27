@@ -169,9 +169,9 @@ ScriptingObjectReference<Entity> Networking::SpawnPrefab(Prefab* prefab, Actor* 
 
     Level::SpawnActor(entity, parent);
 #if !BUILD_RELEASE
-    if (entity->Networked)
+    if (entity->LevelReplication != Entity::EntityType::None)
     {
-        Logger::Instance->Error(TEXT("Tried to spawn prefab ") + prefab->GetPath() + TEXT(" but its root entity was marked as Networked!"));
+        Logger::Instance->Error(TEXT("Tried to spawn prefab ") + prefab->GetPath() + TEXT(" but its root entity was not marked as LevelReplication = None!"));
     }
 #endif
     entity->SetTransform(Transform(position, rotation));

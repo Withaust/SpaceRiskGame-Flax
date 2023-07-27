@@ -34,7 +34,15 @@ private:
     Dictionary<ScriptingTypeHandle, IComponent*> Components;
     void CacheComponents();
 public:
-    API_FIELD() bool Networked = false;
+
+    API_ENUM() enum class EntityType
+    {
+        None,
+        HostOnly,
+        Networked,
+    };
+
+    API_FIELD() EntityType LevelReplication = EntityType::None;
 #if USE_EDITOR
     API_FIELD() AssetReference<Texture> Icon;
     void OnDebugDrawSelected() override;
