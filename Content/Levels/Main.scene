@@ -874,13 +874,13 @@
 					"Z": 2.4080283641815187
 				}
 			},
-			"LevelReplication": 1
+			"LevelReplication": 1,
+			"Icon": "b30633b94fc3c1760433798c6b1e84f1"
 		},
 		{
 			"ID": "17dc04224860e2965429d48693536f3b",
 			"TypeName": "Game.FilterTrigger",
 			"ParentID": "d0407b42463cd5f7d244688ce027a6b4",
-			"Collider": "f0f23b484cbb995d208b51a3c70578e7",
 			"FilterTags": [
 				"Player"
 			]
@@ -898,6 +898,37 @@
 			"TypeName": "Game.BoxColliderVisual",
 			"ParentID": "d0407b42463cd5f7d244688ce027a6b4",
 			"Name": "BoxColliderVisual",
+			"Transform": {
+				"Translation": {
+					"X": 5.0264177322387699,
+					"Y": -28.64154052734375,
+					"Z": 0.0
+				},
+				"Scale": {
+					"X": 0.4975433945655823,
+					"Y": 1.0,
+					"Z": 0.49974381923675539
+				}
+			},
+			"IsTrigger": true
+		},
+		{
+			"ID": "a330922f4ee74f31d1ea039aeeeeaffe",
+			"TypeName": "Game.BoxColliderVisual",
+			"ParentID": "d0407b42463cd5f7d244688ce027a6b4",
+			"Name": "BoxColliderVisual 0",
+			"Transform": {
+				"Translation": {
+					"X": -17.345043182373048,
+					"Y": -72.86203002929688,
+					"Z": 15.870196342468262
+				},
+				"Scale": {
+					"X": 0.4975433945655823,
+					"Y": 1.0,
+					"Z": 0.49974381923675539
+				}
+			},
 			"IsTrigger": true
 		}
 	]

@@ -11,12 +11,13 @@ API_CLASS() class GAME_API FilterTrigger : public IComponent
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(FilterTrigger);
+private:
 
     void OnTriggerEntry(PhysicsColliderActor* actor);
     void OnTriggerExit(PhysicsColliderActor* actor);
+    Dictionary<Entity*, uint32> Containing;
 
 public:
-    API_FIELD() ScriptingObjectReference<Collider> Collider;
     API_FIELD() Array<Tag> FilterTags;
 
     API_EVENT() Delegate<Entity*> OnTriggerEnter;
@@ -24,5 +25,8 @@ public:
 
     void OnEnable() override;
     void OnDisable() override;
+#if USE_EDITOR
+    void OnDebugDrawSelected() override;
+#endif
 };
 
