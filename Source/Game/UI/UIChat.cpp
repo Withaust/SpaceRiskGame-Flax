@@ -15,6 +15,8 @@ void UIChat::OnInitialize()
 {
     Chat::Instance->OnChatMessage.Bind<UIChat, &UIChat::OnChatMessage>(this);
     auto RmlDocument = GetDocument()->GetDocument();
+    _window = RmlDocument->GetElementById("window");
+    _window->SetProperty("opacity", "0");
     _textBox = RmlDocument->GetElementById("text");
     _textBox->SetProperty("display", "none");
     _root = RmlDocument->GetElementById("content");
@@ -68,6 +70,8 @@ void UIChat::OnChatMessage(uint32 Sender, String Message)
     newEntry->SetInnerRML(Rml::String(textAnsi.GetText(), textAnsi.Length()));
     _root->AppendChild(MoveTemp(newEntry));
     _counter++;
+    _window->SetProperty("opacity", "1");
+    _window->Animate("opacity", Rml::Property(0.0f, Rml::Unit::NUMBER), 2.0f, {}, false, false, 1.0f);
 }
 
 void UIChat::Focus()
@@ -75,18 +79,20 @@ void UIChat::Focus()
     Screen::SetCursorLock(CursorLockMode::None);
     Screen::SetCursorVisible(true);
     _isFocused = true;
+    _window->Animate("opacity", Rml::Property(1.0f, Rml::Unit::NUMBER), 0.01f, {}, false, false);
     _textBox->SetProperty("display", "block");
     _textBox->Focus();
     PlayerManager::Instance->GetOurPlayer()->GetComponent<PlayerMovement>()->CanMove = false;
 }
 
-void UIChat::Unfocus()
+void UIChat::Unfocus(bool AnimateWindow)
 {
     _textBox->Blur();
     _textBox->SetAttribute("value", "");
     _textBox->SetProperty("display", "none");
     PlayerManager::Instance->GetOurPlayer()->GetComponent<PlayerMovement>()->CanMove = true;
     _isFocused = false;
+    _window->Animate("opacity", Rml::Property(0.0f, Rml::Unit::NUMBER), 2.0f, {}, false, false, 1.0f);
     Screen::SetCursorLock(CursorLockMode::Locked);
     Screen::SetCursorVisible(false);
 }

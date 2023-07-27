@@ -14,6 +14,7 @@ API_CLASS() class GAME_API UIChat : public IUIUnit
 private:
 
     bool _isFocused = false;
+    Rml::Element* _window = nullptr;
     Rml::Element* _textBox = nullptr;
     Rml::Element* _root = nullptr;
     Rml::ElementPtr _entry;
@@ -29,5 +30,5 @@ public:
 
     void OnChatMessage(uint32 Sender, String Message);
     void Focus();
-    void Unfocus();
+    void Unfocus(bool AnimateWindow = false);
 };
