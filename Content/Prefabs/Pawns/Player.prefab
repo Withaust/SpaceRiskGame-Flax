@@ -13,6 +13,12 @@
 		"Icon": "470b67c04b01a3b18aac359aaabbfbee"
 	},
 	{
+		"ID": "76b15425416b66867fc44e86df5a3ff5",
+		"TypeName": "Game.PawnInfo",
+		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"FieldReplication": 2
+	},
+	{
 		"ID": "3961a3a5494cab9e549cf99d3a2595bf",
 		"TypeName": "Game.PlayerMovement",
 		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
@@ -26,8 +32,7 @@
 		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
 		"FieldReplication": 2,
 		"Camera": "6a86f65f4ecebf990d70708c92d13661",
-		"Direction": "3e53508e4eb57720bff5608f3260ce6a",
-		"LocalPlayerLayer": 32
+		"Direction": "3e53508e4eb57720bff5608f3260ce6a"
 	},
 	{
 		"ID": "8fc8b3794626b9e8b34701a9b61b7295",
@@ -36,13 +41,6 @@
 		"FieldReplication": 1,
 		"Position": "f9ad2b0043489327592e42844d1de041",
 		"Rotation": "7636a45345c3bbb03cbe3a8b99032469"
-	},
-	{
-		"ID": "76b15425416b66867fc44e86df5a3ff5",
-		"TypeName": "Game.PawnInfo",
-		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
-		"FieldReplication": 2,
-		"Name": "Player"
 	},
 	{
 		"ID": "f9ad2b0043489327592e42844d1de041",

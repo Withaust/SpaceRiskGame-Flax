@@ -7,7 +7,6 @@ Cache/
 Binaries/
 Output/
 Logs/
-XLSX/
 PersistentData/
 Source/*.csproj
 /Package_*/

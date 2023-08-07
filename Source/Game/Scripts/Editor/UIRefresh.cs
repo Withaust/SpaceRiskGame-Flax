@@ -6,7 +6,6 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ClosedXML.Excel;
 using System;
 using FlaxEngine.Utilities;
 using FlaxEditor.Content;

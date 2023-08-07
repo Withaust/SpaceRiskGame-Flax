@@ -7,6 +7,11 @@ PlayerManager::PlayerManager(const SpawnParams& params)
 {
 }
 
+const Dictionary<uint32, ScriptingObjectReference<Entity>> PlayerManager::GetPlayers() const
+{
+    return _players;
+}
+
 ScriptingObjectReference<Entity> PlayerManager::GetPlayer(uint32 id)
 {
     if (!_players.ContainsKey(id))

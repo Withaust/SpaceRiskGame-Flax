@@ -9,6 +9,7 @@
 #include <Engine/Scripting/BinaryModule.h>
 #include <Engine/Scripting/ManagedCLR/MClass.h>
 #include <Engine/Scripting/ManagedCLR/MMethod.h>
+#include <Engine/Scripting/Types.h>
 #include <Editor/Utilities/ViewportIconsRenderer.h>
 #endif
 
@@ -31,7 +32,7 @@ private:
 #endif
     bool Despawning = false;
     bool GotComponents = false;
-    Dictionary<ScriptingTypeHandle, IComponent*> Components;
+    Dictionary<StringAnsiView, IComponent*> Components;
     void CacheComponents();
 public:
 
@@ -50,19 +51,19 @@ public:
     void OnDisable() override;
     void OnEnable() override;
 
-    template<class T>
-    T* GetComponent()
+    API_FUNCTION() const Dictionary<String, IComponent*> GetComponents() const;
+
+    API_FUNCTION() ScriptingObjectReference<IComponent> GetComponent(API_PARAM(Attributes = "TypeReference(typeof(IComponent))") const MClass* type);
+    ScriptingObjectReference<IComponent> GetComponent(const ScriptingTypeHandle& type);
+
+    template<typename T>
+    FORCE_INLINE T* GetComponent()
     {
         static_assert(std::is_base_of<IComponent, T>::value, "T must inherit IComponent to be used with GetComponent()");
-        if (!GotComponents)
-        {
-            CacheComponents();
-            GotComponents = true;
-        }
-        return Cast<T>(Components[T::GetStaticType().GetHandle()]);
+        return Cast<T>(GetComponent(T::TypeInitializer));
     }
 
-    static Entity* FindEntity(Actor* Child)
+    API_FUNCTION() static Entity* FindEntity(Actor* Child)
     {
         while (true)
         {

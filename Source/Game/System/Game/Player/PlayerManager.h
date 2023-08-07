@@ -24,6 +24,7 @@ public:
 
     API_FIELD() AssetReference<Prefab> PlayerPrefab;
 
+    API_FUNCTION() const Dictionary<uint32, ScriptingObjectReference<Entity>> GetPlayers() const;
     API_FUNCTION() ScriptingObjectReference<Entity> GetPlayer(uint32 id);
     API_FUNCTION() ScriptingObjectReference<PawnInfo> GetPlayerPawnInfo(uint32 id);
 

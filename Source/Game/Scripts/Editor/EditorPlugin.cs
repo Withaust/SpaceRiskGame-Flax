@@ -16,7 +16,6 @@ namespace Game
             CustomPlayButtons.Editor = Editor;
             CustomPlayButtons.AddCustomPlayButtons();
             SaveSelector.AddButton(Editor);
-            XLSXExport.AddButton(Editor);
             UIRefresh.AddButton(Editor);
             Editor.UI.ToolStrip.PerformLayout(true);
         }
@@ -26,7 +25,6 @@ namespace Game
             AssetIconsProxy.RemoveProxies();
             SaveSelector.RemoveButton();
             UIRefresh.RemoveButton();
-            XLSXExport.RemoveButton();
             CustomPlayButtons.RemoveCustomPlayButtons();
             base.DeinitializeEditor();
         }

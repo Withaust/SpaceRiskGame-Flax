@@ -24,8 +24,8 @@
 // Implements generic networked property for a component
 #define UIMPL_NETPROP_GETLOCAL(PrivateValue) return PrivateValue;
 #define UIMPL_NETPROP_SETLOCAL(PrivateValue) PrivateValue = value;
-#define UIMPL_NETPROP_SETREMOTE(Class, ValueName) NETWORK_RPC_IMPL(Class, Set##ValueName##Remote, value); Set##Name##Sync(value);
-#define UIMPL_NETPROP_SETSYNC(Class, ValueName) NETWORK_RPC_IMPL(Class, Set##ValueName##Sync, value); Set##ValueName##Local(value);
+#define UIMPL_NETPROP_SETREMOTE(Class, ValueName) if(NetworkReplicator::HasObject(this)) { NETWORK_RPC_IMPL(Class, Set##ValueName##Remote, value); } Set##Name##Sync(value);
+#define UIMPL_NETPROP_SETSYNC(Class, ValueName) if(NetworkReplicator::HasObject(this)) { NETWORK_RPC_IMPL(Class, Set##ValueName##Sync, value); } Set##ValueName##Local(value);
 
 #ifdef BUILD_DEBUG
 #define UPRINT_STR(text) Logger::Instance->Print(TEXT(text))

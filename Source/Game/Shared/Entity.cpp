@@ -41,14 +41,14 @@ void Entity::CacheComponents()
                 break;
             }
 
-            if (Components.ContainsKey(itteratorHandle))
+            if (Components.ContainsKey(itteratorHandle.GetType().Fullname))
             {
                 Logger::Instance->Error(String::Format(TEXT("{0} contains a script {1} which reimplements interface {2}"),
-                    GetName(), targetHandle.GetType().Fullname.ToString(), itteratorHandle.GetType().Fullname.ToString()));
+                    GetName().GetText(), targetHandle.GetType().Fullname.ToString().GetText(), itteratorHandle.GetType().Fullname.ToString().GetText()));
                 break;
             }
 
-            Components[itteratorHandle] = component;
+            Components[itteratorHandle.GetType().Fullname] = component;
 
             itteratorHandle = itteratorHandle.GetType().GetBaseType();
         }
@@ -136,4 +136,34 @@ void Entity::OnEnable()
         DeleteObject();
         return;
     }
+}
+
+const Dictionary<String, IComponent*> Entity::GetComponents() const
+{
+    Dictionary<String, IComponent*> result;
+    for (const auto& entry : Components)
+    {
+        result[entry.Key.ToString()] = entry.Value;
+    }
+    return result;
+}
+
+ScriptingObjectReference<IComponent> Entity::GetComponent(const MClass* type)
+{
+    if (!GotComponents)
+    {
+        CacheComponents();
+        GotComponents = true;
+    }
+    return Components[type->GetFullName()];
+}
+
+ScriptingObjectReference<IComponent> Entity::GetComponent(const ScriptingTypeHandle& type)
+{
+    if (!GotComponents)
+    {
+        CacheComponents();
+        GotComponents = true;
+    }
+    return Components[type.GetType().Fullname];
 }
