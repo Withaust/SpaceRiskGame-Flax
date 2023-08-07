@@ -15,13 +15,16 @@ namespace Game
             AssetIconsProxy.ApplyProxies();
             CustomPlayButtons.Editor = Editor;
             CustomPlayButtons.AddCustomPlayButtons();
+            SaveSelector.AddButton(Editor);
             XLSXExport.AddButton(Editor);
             UIRefresh.AddButton(Editor);
+            Editor.UI.ToolStrip.PerformLayout(true);
         }
 
         public override void DeinitializeEditor()
         {
             AssetIconsProxy.RemoveProxies();
+            SaveSelector.RemoveButton();
             UIRefresh.RemoveButton();
             XLSXExport.RemoveButton();
             CustomPlayButtons.RemoveCustomPlayButtons();

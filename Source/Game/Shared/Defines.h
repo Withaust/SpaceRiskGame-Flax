@@ -10,13 +10,22 @@
 #include <Editor/Managed/ManagedEditor.h>
 #endif
 
+// Singleton macro implementation
+#define UIMPL_SINGLETON(T) T* T::Instance = nullptr;
+
 // Checks if current object is owned, if it is, then run code in the block
-#define UOWNED if(NetworkReplicator::IsObjectOwned(this))
+#define UOWNED NetworkReplicator::IsObjectOwned(this)
 #define UOWNED_RETURN(returnValue) if(NetworkReplicator::IsObjectOwned(this)) { return returnValue; }
 
 // Checks if current object is not owned, if it is, then run code in the block
-#define UNOT_OWNED if(!NetworkReplicator::IsObjectOwned(this))
+#define UNOT_OWNED !NetworkReplicator::IsObjectOwned(this)
 #define UNOT_OWNED_RETURN(returnValue) if(!NetworkReplicator::IsObjectOwned(this)) { return returnValue; }
+
+// Implements generic networked property for a component
+#define UIMPL_NETPROP_GETLOCAL(PrivateValue) return PrivateValue;
+#define UIMPL_NETPROP_SETLOCAL(PrivateValue) PrivateValue = value;
+#define UIMPL_NETPROP_SETREMOTE(Class, ValueName) NETWORK_RPC_IMPL(Class, Set##ValueName##Remote, value); Set##Name##Sync(value);
+#define UIMPL_NETPROP_SETSYNC(Class, ValueName) NETWORK_RPC_IMPL(Class, Set##ValueName##Sync, value); Set##ValueName##Local(value);
 
 #ifdef BUILD_DEBUG
 #define UPRINT_STR(text) Logger::Instance->Print(TEXT(text))
@@ -51,7 +60,7 @@
 
 // Declares generic Data member for a component
 #define UDECLARE_DATA(DataType, Name) \
-private: DataType* Name##Ptr = nullptr; public: \
+DataType* Name##Ptr = nullptr; \
 void On##Name##Changed() { \
     DataType* result = Name->GetInstance<DataType>(); \
     if (!result) { \
@@ -59,3 +68,19 @@ void On##Name##Changed() { \
     } Name##Ptr = result; } \
 
 #define UBIND_DATA(Class, Name) Name.Changed.Bind<Class, &Class::On##Name##Changed>(this); On##Name##Changed();
+
+// Useful methods
+
+template <class T>
+void FindActors(Actor* target, Array<T*>& result)
+{
+    for (const auto& child : target->GetChildren<T>())
+    {
+        result.Add(child);
+    }
+
+    for (int32 i = 0; i < target->Children.Count(); i++)
+    {
+        FindActors(target->Children[i], result);
+    }
+}

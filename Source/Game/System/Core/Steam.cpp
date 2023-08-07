@@ -1,6 +1,6 @@
 #include "Steam.h"
 
-UIMPL_SINGLETON(Steam)
+Steam* Steam::Instance = nullptr;
 
 Steam::Steam(const SpawnParams& params)
     : ISystem(params)

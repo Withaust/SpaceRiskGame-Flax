@@ -17,7 +17,7 @@ void CustomHierarchy::OnClientConnected(NetworkClient* client)
 void CustomHierarchy::AddObject(NetworkReplicationHierarchyObject obj)
 {
     ScriptingObjectReference<INetworkedObject> spawnSync = Cast<INetworkedObject>(obj.Object);
-    if (spawnSync && spawnSync->Networked == INetworkedObject::NetworkedType::SpawnOnly)
+    if (spawnSync && spawnSync->FieldReplication == INetworkedObject::NetworkedType::SpawnOnly)
     {
         obj.ReplicationFPS = -1.0f;
         _spawnList.Add(spawnSync);
@@ -38,7 +38,7 @@ void CustomHierarchy::AddObject(NetworkReplicationHierarchyObject obj)
 bool CustomHierarchy::RemoveObject(ScriptingObject* obj)
 {
     ScriptingObjectReference<INetworkedObject> sync = Cast<INetworkedObject>(obj);
-    if (sync && sync->Networked == INetworkedObject::NetworkedType::SpawnOnly)
+    if (sync && sync->FieldReplication == INetworkedObject::NetworkedType::SpawnOnly)
     {
         _spawnList.Remove(sync);
     }
@@ -89,7 +89,7 @@ void CustomHierarchy::Update(NetworkReplicationHierarchyUpdateResult* result)
 
     if (NetworkManager::IsClient())
     {
-        Networking::Instance->RequestSpawnSync();
+        SyncInfo::Instance->RequestSpawnSync();
         return;
     }
     else if (_syncEvents.Count() == 0)

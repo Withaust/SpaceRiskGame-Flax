@@ -1,7 +1,10 @@
 #include "LaunchArgs.h"
 
-UIMPL_SINGLETON(LaunchArgs)
+LaunchArgs* LaunchArgs::Instance = nullptr;
+
 bool LaunchArgs::ForceClient = false;
+String LaunchArgs::ForceWorld = String::Empty;
+String LaunchArgs::ForceCharacter = String::Empty;
 
 Args::Args(const SpawnParams& params)
     : ScriptingObject(params)
@@ -70,6 +73,18 @@ void LaunchArgs::OnInitialize()
 
     _args = New<Args>();
     JsonSerializer::LoadFromBytes(_args, bytes, Globals::EngineBuildNumber);
+
+    if (ForceWorld != String::Empty)
+    {
+        _args->World = ForceWorld;
+        ForceWorld = String::Empty;
+    }
+
+    if (ForceCharacter != String::Empty)
+    {
+        _args->Character = ForceCharacter;
+        ForceCharacter = String::Empty;
+    }
 }
 
 const ScriptingObjectReference<Args> LaunchArgs::GetArgs()

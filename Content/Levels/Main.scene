@@ -9,9 +9,14 @@
 			"Name": "Main",
 			"Lightmaps": [
 				{
-					"Lightmap0": "6fb64a584d74ab6721424ba4823240e4",
-					"Lightmap1": "635c96f54f36e884620147ad91a2946d",
-					"Lightmap2": "4c9aecb143e597189ccdbc99ec6339a3"
+					"Lightmap0": "f11cb5fe4f5a022444b2938076a061ac",
+					"Lightmap1": "2c6b3875473b62dcc692a9b12e9306f3",
+					"Lightmap2": "cab5352d4a10ec0f2bced0a277f7c490"
+				},
+				{
+					"Lightmap0": "c6f9e28640507be256a73fbc597f19c6",
+					"Lightmap1": "17133e3646e4e7fd677c0a8b74a7c7ba",
+					"Lightmap2": "65aedec341e02af0d9e0fab74f5c281b"
 				}
 			],
 			"LightmapSettings": {
@@ -23,11 +28,6 @@
 				"CompressLightmaps": true,
 				"UseGeometryWithNoMaterials": true,
 				"Quality": 10
-			},
-			"CSG": {
-				"Model": "0e1519224ae970b31ddc2a83a662dc34",
-				"Data": "e8fadc2f4c96302d73a2439416301df7",
-				"CollisionData": "c04e29584bd577981db560bd2b1bd328"
 			}
 		},
 		{
@@ -84,293 +84,6 @@
 				}
 			},
 			"Layer": 31
-		},
-		{
-			"ID": "161b527f4247ad7bf2aa63bd57048d97",
-			"TypeName": "FlaxEngine.Terrain",
-			"ParentID": "a7383811434ac0476b9e57893b2d189d",
-			"Name": "Terrain",
-			"Transform": {
-				"Translation": {
-					"X": -6000.0,
-					"Y": -272.0,
-					"Z": -6000.0
-				}
-			},
-			"Layer": 1,
-			"Material": "6738716e49a3f2936b26bf81961e003c",
-			"LODCount": 1,
-			"ChunkSize": 31,
-			"Patches": [
-				{
-					"X": 0,
-					"Z": 0,
-					"Offset": -32.674556732177737,
-					"Height": 965.06103515625,
-					"Heightmap": "881559bd4f9fd1f3299af29c5f53499b",
-					"Splatmap0": "00000000000000000000000000000000",
-					"Splatmap1": "00000000000000000000000000000000",
-					"Heightfield": "7de6d246412cbfc362fb228efaf5a133",
-					"Chunks": [
-						{
-							"Offset": -0.002346038818359375,
-							"Height": 874.3265991210938,
-							"Material": "00000000000000000000000000000000",
-							"LightmapIndex": 0,
-							"LightmapArea": {
-								"Location": {
-									"X": 0.0029296875,
-									"Y": 0.431640625
-								},
-								"Size": {
-									"X": 0.0576171875,
-									"Y": 0.0576171875
-								}
-							}
-						},
-						{
-							"Offset": -0.002346038818359375,
-							"Height": 783.1717529296875,
-							"Material": "00000000000000000000000000000000",
-							"LightmapIndex": 0,
-							"LightmapArea": {
-								"Location": {
-									"X": 0.0029296875,
-									"Y": 0.552734375
-								},
-								"Size": {
-									"X": 0.0576171875,
-									"Y": 0.0576171875
-								}
-							}
-						},
-						{
-							"Offset": -0.002346038818359375,
-							"Height": 911.2630004882813,
-							"Material": "00000000000000000000000000000000",
-							"LightmapIndex": 0,
-							"LightmapArea": {
-								"Location": {
-									"X": 0.0029296875,
-									"Y": 0.064453125
-								},
-								"Size": {
-									"X": 0.05859375,
-									"Y": 0.05859375
-								}
-							}
-						},
-						{
-							"Offset": -0.002346038818359375,
-							"Height": 726.5209350585938,
-							"Material": "00000000000000000000000000000000",
-							"LightmapIndex": 0,
-							"LightmapArea": {
-								"Location": {
-									"X": 0.0029296875,
-									"Y": 0.7939453125
-								},
-								"Size": {
-									"X": 0.056640625,
-									"Y": 0.056640625
-								}
-							}
-						},
-						{
-							"Offset": -0.002346038818359375,
-							"Height": 932.3887939453125,
-							"Material": "00000000000000000000000000000000",
-							"LightmapIndex": 0,
-							"LightmapArea": {
-								"Location": {
-									"X": 0.0029296875,
-									"Y": 0.1259765625
-								},
-								"Size": {
-									"X": 0.05859375,
-									"Y": 0.05859375
-								}
-							}
-						},
-						{
-							"Offset": -0.002346038818359375,
-							"Height": 719.9744873046875,
-							"Material": "00000000000000000000000000000000",
-							"LightmapIndex": 0,
-							"LightmapArea": {
-								"Location": {
-									"X": 0.0029296875,
-									"Y": 0.734375
-								},
-								"Size": {
-									"X": 0.056640625,
-									"Y": 0.056640625
-								}
-							}
-						},
-						{
-							"Offset": -0.002346038818359375,
-							"Height": 928.6050415039063,
-							"Material": "00000000000000000000000000000000",
-							"LightmapIndex": 0,
-							"LightmapArea": {
-								"Location": {
-									"X": 0.0029296875,
-									"Y": 0.1875
-								},
-								"Size": {
-									"X": 0.05859375,
-									"Y": 0.05859375
-								}
-							}
-						},
-						{
-							"Offset": -0.002346038818359375,
-							"Height": 876.4136352539063,
-							"Material": "00000000000000000000000000000000",
-							"LightmapIndex": 0,
-							"LightmapArea": {
-								"Location": {
-									"X": 0.0029296875,
-									"Y": 0.4921875
-								},
-								"Size": {
-									"X": 0.0576171875,
-									"Y": 0.0576171875
-								}
-							}
-						},
-						{
-							"Offset": -0.002346038818359375,
-							"Height": 894.191162109375,
-							"Material": "00000000000000000000000000000000",
-							"LightmapIndex": 0,
-							"LightmapArea": {
-								"Location": {
-									"X": 0.0029296875,
-									"Y": 0.2490234375
-								},
-								"Size": {
-									"X": 0.05859375,
-									"Y": 0.05859375
-								}
-							}
-						},
-						{
-							"Offset": -32.67454147338867,
-							"Height": 926.8634033203125,
-							"Material": "00000000000000000000000000000000",
-							"LightmapIndex": 0,
-							"LightmapArea": {
-								"Location": {
-									"X": 0.0029296875,
-									"Y": 0.0029296875
-								},
-								"Size": {
-									"X": 0.05859375,
-									"Y": 0.05859375
-								}
-							}
-						},
-						{
-							"Offset": -0.002346038818359375,
-							"Height": 875.9888305664063,
-							"Material": "00000000000000000000000000000000",
-							"LightmapIndex": 0,
-							"LightmapArea": {
-								"Location": {
-									"X": 0.0029296875,
-									"Y": 0.61328125
-								},
-								"Size": {
-									"X": 0.0576171875,
-									"Y": 0.0576171875
-								}
-							}
-						},
-						{
-							"Offset": -0.002346038818359375,
-							"Height": 839.3721313476563,
-							"Material": "00000000000000000000000000000000",
-							"LightmapIndex": 0,
-							"LightmapArea": {
-								"Location": {
-									"X": 0.0029296875,
-									"Y": 0.673828125
-								},
-								"Size": {
-									"X": 0.0576171875,
-									"Y": 0.0576171875
-								}
-							}
-						},
-						{
-							"Offset": -0.002346038818359375,
-							"Height": 530.0523071289063,
-							"Material": "00000000000000000000000000000000",
-							"LightmapIndex": 0,
-							"LightmapArea": {
-								"Location": {
-									"X": 0.0029296875,
-									"Y": 0.853515625
-								},
-								"Size": {
-									"X": 0.0556640625,
-									"Y": 0.0556640625
-								}
-							}
-						},
-						{
-							"Offset": -0.002346038818359375,
-							"Height": 841.0687866210938,
-							"Material": "00000000000000000000000000000000",
-							"LightmapIndex": 0,
-							"LightmapArea": {
-								"Location": {
-									"X": 0.0029296875,
-									"Y": 0.37109375
-								},
-								"Size": {
-									"X": 0.0576171875,
-									"Y": 0.0576171875
-								}
-							}
-						},
-						{
-							"Offset": -0.002346038818359375,
-							"Height": 871.043212890625,
-							"Material": "00000000000000000000000000000000",
-							"LightmapIndex": 0,
-							"LightmapArea": {
-								"Location": {
-									"X": 0.0029296875,
-									"Y": 0.310546875
-								},
-								"Size": {
-									"X": 0.0576171875,
-									"Y": 0.0576171875
-								}
-							}
-						},
-						{
-							"Offset": -0.002346038818359375,
-							"Height": 208.94590759277345,
-							"Material": "00000000000000000000000000000000",
-							"LightmapIndex": 0,
-							"LightmapArea": {
-								"Location": {
-									"X": 0.0029296875,
-									"Y": 0.912109375
-								},
-								"Size": {
-									"X": 0.052734375,
-									"Y": 0.052734375
-								}
-							}
-						}
-					]
-				}
-			]
 		},
 		{
 			"ID": "55d6530d42e049d51c19e3a859b78c65",
@@ -527,14 +240,14 @@
 			"Transform": {
 				"Translation": {
 					"X": -430.4411315917969,
-					"Y": -221.02880859375,
+					"Y": -69.71347045898438,
 					"Z": -575.6019287109375
 				},
 				"Orientation": {
-					"X": -0.57175612449646,
+					"X": -0.07878085225820542,
 					"Y": 0.0,
 					"Z": 0.0,
-					"W": 0.8204236626625061
+					"W": 0.996891975402832
 				}
 			},
 			"Model": "fd987978414a71e9fd415a971124821a",
@@ -544,7 +257,7 @@
 						"Material": "4e8b4fec4567eff83ce80584a20cf0d8",
 						"ShadowsMode": 3,
 						"Visible": true,
-						"ReceiveDecals": true
+						"ReceiveDecals": false
 					}
 				]
 			}
@@ -575,7 +288,7 @@
 			"ID": "bc4c60b74b2298673b9b08a8a3fa25c4",
 			"TypeName": "Game.Drill",
 			"ParentID": "0e17ba79495a2afb9669e38e2d317b53",
-			"Networked": 2,
+			"FieldReplication": 2,
 			"Data": "e176f6bf4ce58a1e97576d8773e9a812",
 			"Start": "89463d004cbe7f53f08b839d495c99d9",
 			"End": "a2b5e64144d712d4588f33b1e115892e",
@@ -595,6 +308,17 @@
 				}
 			},
 			"Model": "50310067422bada39f9553b41c4869a4",
+			"LightmapIndex": 0,
+			"LightmapArea": {
+				"Location": {
+					"X": 0.03515625,
+					"Y": 0.943359375
+				},
+				"Size": {
+					"X": 0.0283203125,
+					"Y": 0.0283203125
+				}
+			},
 			"Buffer": {
 				"Entries": [
 					{
@@ -624,6 +348,17 @@
 				}
 			},
 			"Model": "50310067422bada39f9553b41c4869a4",
+			"LightmapIndex": 0,
+			"LightmapArea": {
+				"Location": {
+					"X": 0.0029296875,
+					"Y": 0.943359375
+				},
+				"Size": {
+					"X": 0.029296875,
+					"Y": 0.029296875
+				}
+			},
 			"Buffer": {
 				"Entries": [
 					{
@@ -659,6 +394,17 @@
 				}
 			},
 			"Model": "1b4a643d44706750b2e35ea4e11e3663",
+			"LightmapIndex": 0,
+			"LightmapArea": {
+				"Location": {
+					"X": 0.0029296875,
+					"Y": 0.9755859375
+				},
+				"Size": {
+					"X": 0.01953125,
+					"Y": 0.01953125
+				}
+			},
 			"Buffer": {
 				"Entries": [
 					{
@@ -789,75 +535,6 @@
 }
 		},
 		{
-			"ID": "243873304877da495a7f469a59027114",
-			"TypeName": "FlaxEngine.BoxBrush",
-			"ParentID": "a7383811434ac0476b9e57893b2d189d",
-			"Name": "BoxBrush",
-			"Transform": {
-				"Translation": {
-					"X": -15.193527221679688,
-					"Y": -222.04147338867188,
-					"Z": 165.72715759277345
-				}
-			},
-			"Surfaces": [
-				{},
-				{},
-				{},
-				{},
-				{},
-				{}
-			]
-		},
-		{
-			"ID": "884dc4104298b9882d42debcc0ab4771",
-			"TypeName": "FlaxEngine.StaticModel",
-			"ParentID": "a7383811434ac0476b9e57893b2d189d",
-			"Name": "CSG.Model",
-			"HideFlags": 4,
-			"Model": "0e1519224ae970b31ddc2a83a662dc34",
-			"Buffer": {
-				"Entries": [
-					{
-						"Material": "00000000000000000000000000000000",
-						"ShadowsMode": 3,
-						"Visible": true,
-						"ReceiveDecals": true
-					}
-				]
-			}
-		},
-		{
-			"ID": "2825299349e7b646bc41978f4b415497",
-			"TypeName": "FlaxEngine.MeshCollider",
-			"ParentID": "a7383811434ac0476b9e57893b2d189d",
-			"Name": "CSG.Collider",
-			"HideFlags": 4,
-			"CollisionData": "c04e29584bd577981db560bd2b1bd328"
-		},
-		{
-			"ID": "86dde7bc4650576f4c8cba9a628db33c",
-			"TypeName": "FlaxEngine.BoxBrush",
-			"ParentID": "a7383811434ac0476b9e57893b2d189d",
-			"Name": "BoxBrush 0",
-			"Transform": {
-				"Translation": {
-					"X": -44.77655792236328,
-					"Y": -208.6664276123047,
-					"Z": 199.7037353515625
-				}
-			},
-			"Mode": 1,
-			"Surfaces": [
-				{},
-				{},
-				{},
-				{},
-				{},
-				{}
-			]
-		},
-		{
 			"ID": "d0407b42463cd5f7d244688ce027a6b4",
 			"TypeName": "Game.Entity",
 			"ParentID": "a7383811434ac0476b9e57893b2d189d",
@@ -930,6 +607,373 @@
 				}
 			},
 			"IsTrigger": true
+		},
+		{
+			"ID": "a4ddcc41416f8648bbd0e590df4967b4",
+			"TypeName": "FlaxEngine.ParticleEffect",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "ParticleEffect",
+			"Overrides": []
+		},
+		{
+			"ID": "6f6158804ff76d05591f8991f9129266",
+			"TypeName": "FlaxEngine.ParticleEffect",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "BulletSystem",
+			"Overrides": [
+				{
+					"Track": "Particle Emitter",
+					"Id": "fcfeef40476cd2fcc45227810e5bb8cb",
+					"Value": {
+						"Type": 7,
+						"Value": 1.0
+					}
+				}
+			],
+			"ParticleSystem": "e61ecb8747f0421a56d3db8a50f115fc"
+		},
+		{
+			"ID": "2dd1a5094b62ff94d5e4f8a9512aef5c",
+			"TypeName": "FlaxEngine.Terrain",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "Terrain",
+			"Transform": {
+				"Translation": {
+					"X": -16914.048828125,
+					"Y": -277.25341796875,
+					"Z": -15046.9697265625
+				}
+			},
+			"Material": "6738716e49a3f2936b26bf81961e003c",
+			"LODCount": 6,
+			"ChunkSize": 127,
+			"Patches": [
+				{
+					"X": 0,
+					"Z": 0,
+					"Offset": -0.000015259021893143655,
+					"Height": 1.0,
+					"Heightmap": "9ab2b1884680119bd745b9808490c5ce",
+					"Splatmap0": "00000000000000000000000000000000",
+					"Splatmap1": "00000000000000000000000000000000",
+					"Heightfield": "02cc1dc0444125dc08cceea33520627f",
+					"Chunks": [
+						{
+							"Offset": 0.0,
+							"Height": 1.0,
+							"Material": "00000000000000000000000000000000",
+							"LightmapIndex": 0,
+							"LightmapArea": {
+								"Location": {
+									"X": 0.31640625,
+									"Y": 0.0029296875
+								},
+								"Size": {
+									"X": 0.310546875,
+									"Y": 0.310546875
+								}
+							}
+						},
+						{
+							"Offset": 0.0,
+							"Height": 1.0,
+							"Material": "00000000000000000000000000000000",
+							"LightmapIndex": 0,
+							"LightmapArea": {
+								"Location": {
+									"X": 0.6298828125,
+									"Y": 0.0029296875
+								},
+								"Size": {
+									"X": 0.310546875,
+									"Y": 0.310546875
+								}
+							}
+						},
+						{
+							"Offset": 0.0,
+							"Height": 1.0,
+							"Material": "00000000000000000000000000000000",
+							"LightmapIndex": 0,
+							"LightmapArea": {
+								"Location": {
+									"X": 0.31640625,
+									"Y": 0.31640625
+								},
+								"Size": {
+									"X": 0.310546875,
+									"Y": 0.310546875
+								}
+							}
+						},
+						{
+							"Offset": 0.0,
+							"Height": 1.0,
+							"Material": "00000000000000000000000000000000",
+							"LightmapIndex": 0,
+							"LightmapArea": {
+								"Location": {
+									"X": 0.31640625,
+									"Y": 0.6298828125
+								},
+								"Size": {
+									"X": 0.310546875,
+									"Y": 0.310546875
+								}
+							}
+						},
+						{
+							"Offset": 0.0,
+							"Height": 1.0,
+							"Material": "00000000000000000000000000000000",
+							"LightmapIndex": 0,
+							"LightmapArea": {
+								"Location": {
+									"X": 0.6298828125,
+									"Y": 0.31640625
+								},
+								"Size": {
+									"X": 0.310546875,
+									"Y": 0.310546875
+								}
+							}
+						},
+						{
+							"Offset": 0.0,
+							"Height": 1.0,
+							"Material": "00000000000000000000000000000000",
+							"LightmapIndex": 0,
+							"LightmapArea": {
+								"Location": {
+									"X": 0.6298828125,
+									"Y": 0.6298828125
+								},
+								"Size": {
+									"X": 0.310546875,
+									"Y": 0.310546875
+								}
+							}
+						},
+						{
+							"Offset": 0.0,
+							"Height": 1.0,
+							"Material": "00000000000000000000000000000000",
+							"LightmapIndex": 1,
+							"LightmapArea": {
+								"Location": {
+									"X": 0.0029296875,
+									"Y": 0.0029296875
+								},
+								"Size": {
+									"X": 0.310546875,
+									"Y": 0.310546875
+								}
+							}
+						},
+						{
+							"Offset": 0.0,
+							"Height": 1.0,
+							"Material": "00000000000000000000000000000000",
+							"LightmapIndex": 1,
+							"LightmapArea": {
+								"Location": {
+									"X": 0.0029296875,
+									"Y": 0.31640625
+								},
+								"Size": {
+									"X": 0.310546875,
+									"Y": 0.310546875
+								}
+							}
+						},
+						{
+							"Offset": 0.0,
+							"Height": 1.0,
+							"Material": "00000000000000000000000000000000",
+							"LightmapIndex": 1,
+							"LightmapArea": {
+								"Location": {
+									"X": 0.0029296875,
+									"Y": 0.6298828125
+								},
+								"Size": {
+									"X": 0.310546875,
+									"Y": 0.310546875
+								}
+							}
+						},
+						{
+							"Offset": 0.0,
+							"Height": 1.0,
+							"Material": "00000000000000000000000000000000",
+							"LightmapIndex": 1,
+							"LightmapArea": {
+								"Location": {
+									"X": 0.31640625,
+									"Y": 0.0029296875
+								},
+								"Size": {
+									"X": 0.310546875,
+									"Y": 0.310546875
+								}
+							}
+						},
+						{
+							"Offset": 0.0,
+							"Height": 1.0,
+							"Material": "00000000000000000000000000000000",
+							"LightmapIndex": 1,
+							"LightmapArea": {
+								"Location": {
+									"X": 0.6298828125,
+									"Y": 0.0029296875
+								},
+								"Size": {
+									"X": 0.310546875,
+									"Y": 0.310546875
+								}
+							}
+						},
+						{
+							"Offset": 0.0,
+							"Height": 1.0,
+							"Material": "00000000000000000000000000000000",
+							"LightmapIndex": 1,
+							"LightmapArea": {
+								"Location": {
+									"X": 0.31640625,
+									"Y": 0.31640625
+								},
+								"Size": {
+									"X": 0.310546875,
+									"Y": 0.310546875
+								}
+							}
+						},
+						{
+							"Offset": 0.0,
+							"Height": 1.0,
+							"Material": "00000000000000000000000000000000",
+							"LightmapIndex": 1,
+							"LightmapArea": {
+								"Location": {
+									"X": 0.31640625,
+									"Y": 0.6298828125
+								},
+								"Size": {
+									"X": 0.310546875,
+									"Y": 0.310546875
+								}
+							}
+						},
+						{
+							"Offset": 0.0,
+							"Height": 1.0,
+							"Material": "00000000000000000000000000000000",
+							"LightmapIndex": 0,
+							"LightmapArea": {
+								"Location": {
+									"X": 0.0029296875,
+									"Y": 0.6298828125
+								},
+								"Size": {
+									"X": 0.310546875,
+									"Y": 0.310546875
+								}
+							}
+						},
+						{
+							"Offset": 0.0,
+							"Height": 1.0,
+							"Material": "00000000000000000000000000000000",
+							"LightmapIndex": 0,
+							"LightmapArea": {
+								"Location": {
+									"X": 0.0029296875,
+									"Y": 0.31640625
+								},
+								"Size": {
+									"X": 0.310546875,
+									"Y": 0.310546875
+								}
+							}
+						},
+						{
+							"Offset": 0.0,
+							"Height": 1.0,
+							"Material": "00000000000000000000000000000000",
+							"LightmapIndex": 0,
+							"LightmapArea": {
+								"Location": {
+									"X": 0.0029296875,
+									"Y": 0.0029296875
+								},
+								"Size": {
+									"X": 0.310546875,
+									"Y": 0.310546875
+								}
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"ID": "d4a78ab1427a19d5ca8b3fb89a182295",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "StaticModel",
+			"Transform": {
+				"Translation": {
+					"X": 1000.0,
+					"Y": 0.0,
+					"Z": 0.0
+				},
+				"Scale": {
+					"X": 0.009999999776482582,
+					"Y": 1.0,
+					"Z": 1.0
+				}
+			},
+			"Model": "b43f0f8f4aaba3f3156896a5a22ba493",
+			"LightmapIndex": 0,
+			"LightmapArea": {
+				"Location": {
+					"X": 0.06640625,
+					"Y": 0.943359375
+				},
+				"Size": {
+					"X": 0.0244140625,
+					"Y": 0.0244140625
+				}
+			},
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "00000000000000000000000000000000",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
+		},
+		{
+			"ID": "e98097214b4de8f356bf1c9626a5f4e9",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "TestCube",
+			"Model": "df9b484446a6ca44ffd4c3b8197f2838",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "00000000000000000000000000000000",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
 		}
 	]
 }

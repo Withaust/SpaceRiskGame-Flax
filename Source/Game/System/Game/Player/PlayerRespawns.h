@@ -9,14 +9,13 @@
 
 #include <Game/Shared/Defines.h>
 #include <Game/System/Core/Networking/Networking.h>
-#include <Game/Dynamic/Player/PlayerNetworking.h>
+#include <Game/Dynamic/Pawns/Humanlike/Player/PlayerNetworking.h>
 #include <Game/Level/Player/PlayerSpawn.h>
 
 API_CLASS() class GAME_API PlayerRespawns : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(PlayerRespawns);
-
     friend class PlayerSpawn;
 
 private:

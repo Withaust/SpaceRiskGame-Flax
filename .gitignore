@@ -8,6 +8,7 @@ Binaries/
 Output/
 Logs/
 XLSX/
+PersistentData/
 Source/*.csproj
 /Package_*/
 !Source/Engine/Debug

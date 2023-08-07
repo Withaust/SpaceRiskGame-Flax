@@ -5,5 +5,8 @@
 	"Hostname": "localhost",
 	"Port": 40808,
 	"IsModded": false,
-	"Core": "SpaceRiskGame"
+	"Core": "SpaceRiskGame",
+	"Character": "Default",
+	"World": "Default",
+	"Autosave": false
 }

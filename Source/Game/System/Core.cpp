@@ -51,7 +51,7 @@ void Core::ReplicateSystems()
     for (int i = 0; i < _systemsArray.Count(); ++i)
     {
         const auto& target = _systemsArray[i];
-        if (target->Networked != INetworkedObject::NetworkedType::None)
+        if (target->FieldReplication != INetworkedObject::NetworkedType::None)
         {
             NetworkReplicator::AddObject(target->GetParent());
             NetworkReplicator::AddObject(target);
@@ -89,13 +89,17 @@ ScriptingObjectReference<ISystem> Core::Get(const ScriptingTypeHandle& type)
 #include <Game/System/Core/Analytics.h>
 #include <Game/System/Core/Logger.h>
 #include <Game/System/Core/Networking/Networking.h>
+#include <Game/System/Core/Networking/SyncInfo.h>
 #include <Game/System/Core/LevelManager.h>
 // Game systems
+#include <Game/Save/Saver.h>
 #include <Game/System/Game/VisibilityCPU.h>
 #include <Game/System/Game/VisibilityGPU.h>
+#include <Game/System/Game/PostFx.h>
 #include <Game/System/Game/Player/PlayerRespawns.h>
 #include <Game/System/Game/Player/PlayerManager.h>
 #include <Game/System/Game/Chat.h>
+#include <Game/System/Game/KillFeed.h>
 // UI
 #include <Game/UI/UI.h>
 
@@ -109,14 +113,18 @@ void Core::LoadSystems()
     Add<Steam>();
     Add<Analytics>();
     Add<Logger>();
-    Add<Networking>(true);
+    Add<Networking>();
+    Add<SyncInfo>(true);
     Add<LevelManager>(true);
     // Game systems
+    Add<Saver>();
     Add<VisibilityCPU>();
     Add<VisibilityGPU>();
+    Add<PostFx>();
     Add<PlayerRespawns>(true);
     Add<PlayerManager>(true);
     Add<Chat>(true);
+    Add<KillFeed>(true);
     // UI
     Add<UI>();
 

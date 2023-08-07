@@ -1,6 +1,6 @@
 #include "Logger.h"
 
-UIMPL_SINGLETON(Logger)
+Logger* Logger::Instance = nullptr;
 
 Logger::Logger(const SpawnParams& params)
     : ISystem(params)

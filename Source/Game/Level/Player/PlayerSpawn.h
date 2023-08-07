@@ -7,8 +7,8 @@
 #include <Engine/Content/Content.h>
 
 #include <Game/Shared/Defines.h>
-#include <Game/Shared/IComponent.h>
-#include <Game/Dynamic/Player/PlayerMovement.h>
+#include <Game/Shared/Components/IComponent.h>
+#include <Game/Dynamic/Pawns/Humanlike/Player/PlayerMovement.h>
 
 API_CLASS() class GAME_API PlayerSpawn : public IComponent
 {

@@ -5,7 +5,7 @@
 #include <Engine/Physics/Colliders/Collider.h>
 
 #include <Game/Shared/Defines.h>
-#include <Game/Shared/IComponent.h>
+#include <Game/Shared/Components/IComponent.h>
 
 API_CLASS() class GAME_API FilterTrigger : public IComponent
 {

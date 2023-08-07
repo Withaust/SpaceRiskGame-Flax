@@ -16,13 +16,13 @@ ScriptingObjectReference<Entity> PlayerManager::GetPlayer(uint32 id)
     return _players[id];
 }
 
-ScriptingObjectReference<PlayerInfo> PlayerManager::GetPlayerInfo(uint32 id)
+ScriptingObjectReference<PawnInfo> PlayerManager::GetPlayerPawnInfo(uint32 id)
 {
     if (!_players.ContainsKey(id))
     {
         return {};
     }
-    return _players[id]->GetComponent<PlayerInfo>();
+    return _players[id]->GetComponent<PawnInfo>();
 }
 
 void PlayerManager::SetOurPlayer(ScriptingObjectReference<Entity> actor)

@@ -11,6 +11,8 @@ namespace Game
         private static SpriteAtlas PlayHost;
         private static SpriteAtlas PlayClient;
         private static ToolStripButton OriginalPlayButton;
+        private static ToolStripButton OriginalPauseButton;
+        private static ToolStripButton OriginalFrameButton;
         private static ToolStripButton PlayHostButton;
         private static ToolStripButton PlayClientButton;
 
@@ -27,6 +29,8 @@ namespace Game
             PlayHostButton.Enabled = false;
             PlayClientButton.Enabled = false;
             OriginalPlayButton.Visible = true;
+            OriginalPauseButton.Visible = true;
+            OriginalFrameButton.Visible = true;
         }
 
         public static void OnStoppedPlaying()
@@ -34,6 +38,8 @@ namespace Game
             PlayHostButton.Enabled = true;
             PlayClientButton.Enabled = true;
             OriginalPlayButton.Visible = false;
+            OriginalPauseButton.Visible = false;
+            OriginalFrameButton.Visible = false;
         }
 
         public static void AddCustomPlayButtons()
@@ -42,25 +48,36 @@ namespace Game
             PlayClient = Content.Load<SpriteAtlas>(System.IO.Path.Combine(Globals.ProjectContentFolder, "Editor/Textures/UI/PlayClient.flax"));
             Editor.StateMachine.PlayingState.GameSettingsApplied += OnStartedPlaying;
             Editor.StateMachine.PlayingState.SceneRestored += OnStoppedPlaying;
-            OriginalPlayButton = null;
-            int PlayIndex = 0;
             for (int i = 0; i < Editor.UI.ToolStrip.ChildrenCount; ++i)
             {
                 var target = Editor.UI.ToolStrip.GetChild(i);
-                if (!(target is ToolStripButton))
+                if (target is not ToolStripButton)
                 {
                     continue;
                 }
-                OriginalPlayButton = (ToolStripButton)target;
-                if (OriginalPlayButton == null || OriginalPlayButton.Clicked != Editor.Simulation.RequestPlayOrStopPlay)
+                var Button = (ToolStripButton)target;
+                if (Button == null)
                 {
                     continue;
                 }
-                PlayIndex = i;
-                break;
+
+                if(Button.TooltipText == "Play Game")
+                {
+                    OriginalPlayButton = Button;
+                }
+                else if(Button.Clicked == Editor.Simulation.RequestResumeOrPause)
+                {
+                    OriginalPauseButton = Button;
+                }
+                else if (Button.Clicked == Editor.Simulation.RequestPlayOneFrame)
+                {
+                    OriginalFrameButton = Button;
+                }
             }
 
             OriginalPlayButton.Visible = false;
+            OriginalPauseButton.Visible = false;
+            OriginalFrameButton.Visible = false;
             PlayHostButton = (ToolStripButton)Editor.UI.ToolStrip.AddButton(PlayHost.FindSprite("Default"), Editor.Simulation.RequestPlayOrStopPlay).LinkTooltip("Play as a Host");
             PlayClientButton = (ToolStripButton)Editor.UI.ToolStrip.AddButton(PlayClient.FindSprite("Default"), OnClickedClient).LinkTooltip("Play as a Client");
             Editor.UI.ToolStrip.PerformLayout(true);

@@ -3,10 +3,8 @@
 UIMPL_SINGLETON(Networking)
 
 Networking::Networking(const SpawnParams& params)
-    : ISystem(params),
-    _syncBlock(3.0f)
+    : ISystem(params)
 {
-    _tickUpdate = true;
 }
 
 void Networking::OnNetworkStateChanged()
@@ -36,44 +34,11 @@ void Networking::OnNetworkStateChanged()
 void Networking::OnNetworkClientConnected(NetworkClient* client)
 {
     Core::Instance->OnPlayerConnected(client);
-    _syncList.Add(client->ClientId);
 }
 
 void Networking::OnNetworkClientDisconnected(NetworkClient* client)
 {
     Core::Instance->OnPlayerDisconnected(client);
-    _syncList.Remove(client->ClientId);
-}
-
-void Networking::AskForSync(NetworkRpcParams info)
-{
-    NETWORK_RPC_IMPL(Networking, AskForSync, info);
-    if (!_syncList.Contains(info.SenderId))
-    {
-        return;
-    }
-    
-    NetworkRpcParams params;
-    uint32 ids[1] = { info.SenderId };
-    params.TargetIds = ToSpan(ids, ARRAY_COUNT(ids));
-    StopAskingForSync(params);
-
-    if (_hierarchy)
-    {
-        _hierarchy->OnClientConnected(NetworkManager::GetClient(info.SenderId));
-    }
-    _syncList.Remove(info.SenderId);
-}
-
-void Networking::StopAskingForSync(NetworkRpcParams info)
-{
-    NETWORK_RPC_IMPL(Networking, StopAskingForSync, info);
-    _askingForSync = false;
-}
-
-void Networking::RequestSpawnSync()
-{
-    _askingForSync = true;
 }
 
 void Networking::BindEvents()
@@ -96,6 +61,7 @@ void Networking::OnInitialize()
     NetworkReplicator::EnableLog = true;
 #endif
     _stream = New<NetworkStream>();
+    _hierarchy = New<CustomHierarchy>();
 }
 
 void Networking::OnDeinitialize()
@@ -104,21 +70,8 @@ void Networking::OnDeinitialize()
     Delete(_stream);
 }
 
-void Networking::OnUpdate()
-{
-    // TODO: https://github.com/FlaxEngine/FlaxEngine/issues/1211
-    USLEEP(_syncBlock)
-    {
-        if (_askingForSync)
-        {
-            AskForSync();
-        }
-    }
-}
-
 void Networking::StartGame()
 {
-    _hierarchy = New<CustomHierarchy>();
     NetworkReplicator::SetHierarchy(_hierarchy);
     const Args* args = LaunchArgs::Instance->GetArgs();
     NetworkSettings* settings = NetworkSettings::Get();
@@ -152,7 +105,7 @@ ScriptingObjectReference<Entity> Networking::SpawnPrefab(Prefab* prefab, Actor* 
     for (int i = 0; i < entity->Scripts.Count(); ++i)
     {
         IComponent* comp = Cast<IComponent>(entity->Scripts[i]);
-        if (comp && comp->Networked != INetworkedObject::NetworkedType::None)
+        if (comp && comp->FieldReplication != INetworkedObject::NetworkedType::None)
         {
             NetworkReplicator::SpawnObject(entity->Scripts[i]);
         }
@@ -203,7 +156,7 @@ void Networking::DespawnPrefab(ScriptingObjectReference<Entity> target)
     for (int i = 0; i < target->Scripts.Count(); ++i)
     {
         IComponent* comp = Cast<IComponent>(target->Scripts[i]);
-        if (comp && comp->Networked != INetworkedObject::NetworkedType::None)
+        if (comp && comp->FieldReplication != INetworkedObject::NetworkedType::None)
         {
             NetworkReplicator::DespawnObject(target->Scripts[i]);
         }
@@ -218,7 +171,7 @@ void Networking::StartReplicating(Entity* target)
     for (int i = 0; i < target->Scripts.Count(); ++i)
     {
         IComponent* comp = Cast<IComponent>(target->Scripts[i]);
-        if (comp && comp->Networked != INetworkedObject::NetworkedType::None)
+        if (comp && comp->FieldReplication != INetworkedObject::NetworkedType::None)
         {
             NetworkReplicator::AddObject(target->Scripts[i]);
         }
@@ -256,7 +209,7 @@ void Networking::StopReplicating(Entity* target)
     for (int i = 0; i < target->Scripts.Count(); ++i)
     {
         IComponent* comp = Cast<IComponent>(target->Scripts[i]);
-        if (comp && comp->Networked != INetworkedObject::NetworkedType::None)
+        if (comp && comp->FieldReplication != INetworkedObject::NetworkedType::None)
         {
             NetworkReplicator::RemoveObject(target->Scripts[i]);
         }
@@ -279,7 +232,7 @@ void Networking::DespawnReplicating(Entity* target)
     for (int i = 0; i < target->Scripts.Count(); ++i)
     {
         IComponent* comp = Cast<IComponent>(target->Scripts[i]);
-        if (comp && comp->Networked != INetworkedObject::NetworkedType::None)
+        if (comp && comp->FieldReplication != INetworkedObject::NetworkedType::None)
         {
             NetworkReplicator::DespawnObject(target->Scripts[i]);
         }

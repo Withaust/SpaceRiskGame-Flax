@@ -28,6 +28,7 @@ API_CLASS() class GAME_API Networking : public ISystem
     DECLARE_SCRIPTING_TYPE(Networking);
     friend class Entity;
     friend class CustomHierarchy;
+    friend class SyncInfo;
     friend class INetworkedObject;
 
 private:
@@ -35,9 +36,7 @@ private:
     bool _isHosting = false;
     CustomHierarchy* _hierarchy = nullptr;
     NetworkStream* _stream = nullptr;
-    bool _askingForSync = false;
-    SleepBlock _syncBlock;
-    HashSet<uint32> _syncList;
+
 public:
     API_FIELD() static Networking* Instance;
 
@@ -45,16 +44,11 @@ public:
     void OnNetworkClientConnected(NetworkClient* client);
     void OnNetworkClientDisconnected(NetworkClient* client);
 
-    API_FUNCTION(NetworkRpc = "Server, Reliable") void AskForSync(NetworkRpcParams info = NetworkRpcParams());
-    API_FUNCTION(NetworkRpc = "Client, Reliable") void StopAskingForSync(NetworkRpcParams info = NetworkRpcParams());
-    void RequestSpawnSync();
-
     void BindEvents();
     void UnbindEvents();
 
     void OnInitialize() override;
     void OnDeinitialize() override;
-    void OnUpdate() override;
 
     API_FUNCTION() void StartGame();
 

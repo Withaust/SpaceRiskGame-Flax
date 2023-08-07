@@ -1,6 +1,6 @@
 #include "Analytics.h"
 
-UIMPL_SINGLETON(Analytics)
+Analytics* Analytics::Instance = nullptr;
 
 Analytics::Analytics(const SpawnParams& params)
     : ISystem(params)

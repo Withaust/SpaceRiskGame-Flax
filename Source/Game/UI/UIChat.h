@@ -2,10 +2,12 @@
 
 #include <Engine/Scripting/Script.h>
 #include <Engine/Input/Input.h>
+#include <Engine/Engine/Screen.h>
 
 #include <Game/UI/IUIUnit.h>
 #include <Game/System/Game/Chat.h>
 #include <Game/System/Game/Player/PlayerManager.h>
+#include <Game/Dynamic/Pawns/Humanlike/Player/PlayerMovement.h>
 
 API_CLASS() class GAME_API UIChat : public IUIUnit
 {

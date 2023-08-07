@@ -16,9 +16,6 @@
 
 #include <Game/System/ISystem.h>
 
-// Singleton macro for Core
-#define UIMPL_SINGLETON(T) T* T::Instance = nullptr;
-
 // This allows us to static_assert upon T::Instance mising while in Add<T>
 template <typename T>
 class HasInstance
@@ -91,11 +88,11 @@ public:
         T::Instance = targetScript.Get();
         if (replicate)
         {
-            targetSystem->Networked = INetworkedObject::NetworkedType::Continuous;
+            targetSystem->FieldReplication = INetworkedObject::NetworkedType::Continuous;
         }
         if (spawnOnly)
         {
-            targetSystem->Networked = INetworkedObject::NetworkedType::SpawnOnly;
+            targetSystem->FieldReplication = INetworkedObject::NetworkedType::SpawnOnly;
         }
         _systemsArray.Add(targetSystem);
         _systemsDict[T::TypeInitializer.GetType().Fullname] = targetSystem;

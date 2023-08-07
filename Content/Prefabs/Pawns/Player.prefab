@@ -1,0 +1,201 @@
+{
+	"ID": "4cab2b9f4ec52072b975c2b5967524b4",
+	"TypeName": "FlaxEngine.Prefab",
+	"EngineBuild": 6344,
+	"Data": [
+	{
+		"ID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"TypeName": "Game.Entity",
+		"Name": "Player",
+		"StaticFlags": 0,
+		"Layer": 4,
+		"Tag": "Player",
+		"Icon": "470b67c04b01a3b18aac359aaabbfbee"
+	},
+	{
+		"ID": "3961a3a5494cab9e549cf99d3a2595bf",
+		"TypeName": "Game.PlayerMovement",
+		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"FieldReplication": 2,
+		"Controller": "f9ad2b0043489327592e42844d1de041",
+		"Head": "7636a45345c3bbb03cbe3a8b99032469"
+	},
+	{
+		"ID": "78c31c624a7f0b546a975fb09ba61b34",
+		"TypeName": "Game.PlayerNetworking",
+		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"FieldReplication": 2,
+		"Camera": "6a86f65f4ecebf990d70708c92d13661",
+		"Direction": "3e53508e4eb57720bff5608f3260ce6a",
+		"LocalPlayerLayer": 32
+	},
+	{
+		"ID": "8fc8b3794626b9e8b34701a9b61b7295",
+		"TypeName": "Game.NetworkedTransform",
+		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"FieldReplication": 1,
+		"Position": "f9ad2b0043489327592e42844d1de041",
+		"Rotation": "7636a45345c3bbb03cbe3a8b99032469"
+	},
+	{
+		"ID": "76b15425416b66867fc44e86df5a3ff5",
+		"TypeName": "Game.PawnInfo",
+		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"FieldReplication": 2,
+		"Name": "Player"
+	},
+	{
+		"ID": "f9ad2b0043489327592e42844d1de041",
+		"TypeName": "FlaxEngine.CharacterController",
+		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"Name": "Body",
+		"StaticFlags": 0,
+		"Layer": 4,
+		"Radius": 25.0,
+		"Height": 50.0
+	},
+	{
+		"ID": "067db1414502fcf6488027b8a39a2793",
+		"TypeName": "FlaxEngine.StaticModel",
+		"ParentID": "f9ad2b0043489327592e42844d1de041",
+		"Name": "Model",
+		"Transform": {
+			"Translation": {
+				"X": 0.0,
+				"Y": -50.0,
+				"Z": 0.0
+			}
+		},
+		"StaticFlags": 0,
+		"Layer": 4,
+		"Model": "3f82e57744f57c28285150b646ad2198",
+		"Buffer": {
+			"Entries": [
+				{
+					"Material": "00000000000000000000000000000000",
+					"ShadowsMode": 3,
+					"Visible": true,
+					"ReceiveDecals": true
+				}
+			]
+		}
+	},
+	{
+		"ID": "7636a45345c3bbb03cbe3a8b99032469",
+		"TypeName": "FlaxEngine.EmptyActor",
+		"ParentID": "f9ad2b0043489327592e42844d1de041",
+		"Name": "Head",
+		"Transform": {
+			"Translation": {
+				"X": 0.0,
+				"Y": 25.0,
+				"Z": 0.0
+			}
+		},
+		"StaticFlags": 0,
+		"Layer": 4
+	},
+	{
+		"ID": "6a86f65f4ecebf990d70708c92d13661",
+		"TypeName": "FlaxEngine.Camera",
+		"ParentID": "7636a45345c3bbb03cbe3a8b99032469",
+		"IsActive": false,
+		"Name": "Camera",
+		"StaticFlags": 0,
+		"Layer": 4,
+		"Tag": "Player",
+		"FOV": 100.0
+	},
+	{
+		"ID": "3e53508e4eb57720bff5608f3260ce6a",
+		"TypeName": "FlaxEngine.StaticModel",
+		"ParentID": "7636a45345c3bbb03cbe3a8b99032469",
+		"Name": "Direction",
+		"Transform": {
+			"Orientation": {
+				"X": 1.0,
+				"Y": 0.0,
+				"Z": 0.0,
+				"W": 1.4901159417490817e-8
+			}
+		},
+		"StaticFlags": 0,
+		"Layer": 4,
+		"Model": "1b002a68437b4030ae49e4a08d95906e",
+		"Buffer": {
+			"Entries": [
+				{
+					"Material": "00000000000000000000000000000000",
+					"ShadowsMode": 3,
+					"Visible": true,
+					"ReceiveDecals": true
+				}
+			]
+		}
+	},
+	{
+		"ID": "f76d704843f1e49b668f099cdabad6b6",
+		"PrefabID": "a901e4314d6388192b8478af7e6f5534",
+		"PrefabObjectID": "0295761a4d31108dbf88939814365e50",
+		"ParentID": "7636a45345c3bbb03cbe3a8b99032469",
+		"Name": "AssaultGun",
+		"Transform": {
+			"Translation": {
+				"X": 20.0,
+				"Y": -5.0,
+				"Z": 20.0
+			},
+			"Orientation": {
+				"X": 0.0,
+				"Y": -0.7722727060317993,
+				"Z": 0.0,
+				"W": 0.6352911591529846
+			}
+		},
+		"StaticFlags": 0,
+		"Layer": 4
+	},
+	{
+		"ID": "ff165fba4ac505c5b0f263a9439543f5",
+		"PrefabID": "a901e4314d6388192b8478af7e6f5534",
+		"PrefabObjectID": "d0fdf6434d7838124597079e76cbe309",
+		"ParentID": "f76d704843f1e49b668f099cdabad6b6",
+		"Layer": 4,
+		"Buffer": {
+			"Entries": [
+				{
+					"Material": "3d9b3a894c3b286d13391c8c0f67733c"
+				}
+			]
+		}
+	},
+	{
+		"ID": "f87248cf46d1e16d2cb836a91d35b601",
+		"PrefabID": "a901e4314d6388192b8478af7e6f5534",
+		"PrefabObjectID": "429fec5b49b665cded72d19b7b5f3192",
+		"ParentID": "f76d704843f1e49b668f099cdabad6b6",
+		"Layer": 4,
+		"Buffer": {
+			"Entries": [
+				{
+					"Material": "3d9b3a894c3b286d13391c8c0f67733c"
+				}
+			]
+		}
+	},
+	{
+		"ID": "52ebb39246896c5bfb53018b1ab237e3",
+		"PrefabID": "a901e4314d6388192b8478af7e6f5534",
+		"PrefabObjectID": "4386466e4b1eda435d8f6f984ef98ffd",
+		"ParentID": "f76d704843f1e49b668f099cdabad6b6",
+		"Layer": 4,
+		"Buffer": {
+			"Entries": [
+				{
+					"Material": "3d9b3a894c3b286d13391c8c0f67733c"
+				}
+			]
+		}
+	}
+]
+}

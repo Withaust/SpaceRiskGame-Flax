@@ -1,0 +1,69 @@
+{
+	"ID": "5707dbc24f55928d8bdaf7befd229f66",
+	"TypeName": "FlaxEngine.Prefab",
+	"EngineBuild": 6344,
+	"Data": [
+		{
+			"ID": "0295761a4d31108dbf88939814365e50",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"Name": "Root"
+		},
+		{
+			"ID": "d0fdf6434d7838124597079e76cbe309",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "0295761a4d31108dbf88939814365e50",
+			"Name": "StaticModel",
+			"Transform": {
+				"Scale": {
+					"X": 0.11000001430511476,
+					"Y": 0.1900000125169754,
+					"Z": 0.11000001430511476
+				}
+			},
+			"StaticFlags": 0,
+			"Layer": 31,
+			"Model": "60093f7e4c7c642f74ffc1b9fc0f3311",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "cec791554bc4d6455a228caab334ae0c",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
+		},
+		{
+			"ID": "429fec5b49b665cded72d19b7b5f3192",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "0295761a4d31108dbf88939814365e50",
+			"Name": "StaticModel 1",
+			"Transform": {
+				"Translation": {
+					"X": 14.948482513427737,
+					"Y": 5.41847038269043,
+					"Z": 0.0
+				},
+				"Scale": {
+					"X": 0.21000000834465028,
+					"Y": 0.08000001311302185,
+					"Z": 0.11000001430511476
+				}
+			},
+			"StaticFlags": 0,
+			"Layer": 31,
+			"Model": "60093f7e4c7c642f74ffc1b9fc0f3311",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "cec791554bc4d6455a228caab334ae0c",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
+		}
+	]
+}

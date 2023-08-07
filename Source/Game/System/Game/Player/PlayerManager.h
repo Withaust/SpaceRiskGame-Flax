@@ -5,7 +5,7 @@
 
 #include <Game/Shared/Defines.h>
 #include <Game/System/Game/Player/PlayerRespawns.h>
-#include <Game/Dynamic/Player/PlayerInfo.h>
+#include <Game/Dynamic/Pawns/PawnInfo.h>
 #include <Game/Shared/Entity.h>
 
 API_CLASS() class GAME_API PlayerManager : public ISystem
@@ -25,7 +25,7 @@ public:
     API_FIELD() AssetReference<Prefab> PlayerPrefab;
 
     API_FUNCTION() ScriptingObjectReference<Entity> GetPlayer(uint32 id);
-    API_FUNCTION() ScriptingObjectReference<PlayerInfo> GetPlayerInfo(uint32 id);
+    API_FUNCTION() ScriptingObjectReference<PawnInfo> GetPlayerPawnInfo(uint32 id);
 
     API_FUNCTION() void SetOurPlayer(ScriptingObjectReference<Entity> actor);
     API_FUNCTION() ScriptingObjectReference<Entity> GetOurPlayer();

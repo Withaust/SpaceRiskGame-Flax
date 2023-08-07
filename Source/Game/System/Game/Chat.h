@@ -6,7 +6,7 @@
 
 #include <Game/Shared/Defines.h>
 
-API_CLASS(Namespace = "Game") class GAME_API Chat : public ISystem
+API_CLASS() class GAME_API Chat : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Chat);

@@ -7,12 +7,13 @@
 #include <Engine/Core/Collections/ArrayExtensions.h>
 
 #include <Game/Shared/Defines.h>
-#include <Game/Shared/IComponent.h>
+#include <Game/Shared/Components/IComponent.h>
+#include <Game/System/Core/Networking/SyncInfo.h>
 
 API_CLASS() class GAME_API CustomHierarchy : public NetworkReplicationHierarchy
 {
     DECLARE_SCRIPTING_TYPE_WITH_CONSTRUCTOR_IMPL(CustomHierarchy, NetworkReplicationHierarchy);
-    friend class Networking;
+    friend class SyncInfo;
     friend class Component;
 
 private:
@@ -29,6 +30,7 @@ private:
     void OnClientConnected(NetworkClient* client);
 
 public:
+
     void AddObject(NetworkReplicationHierarchyObject obj) override;
     bool RemoveObject(ScriptingObject* obj) override;
     bool GetObject(ScriptingObject* obj, NetworkReplicationHierarchyObject& result) override;

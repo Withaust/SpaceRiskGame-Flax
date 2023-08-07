@@ -27,6 +27,10 @@ public:
     // Mod support
     API_FIELD() bool IsModded = false;
     API_FIELD() String Core;
+    // Save loading
+    API_FIELD() String Character = TEXT("Default");
+    API_FIELD() String World = TEXT("Default");
+    API_FIELD() bool Autosave = false;
 };
 
 API_CLASS() class GAME_API LaunchArgs : public ISystem
@@ -43,6 +47,8 @@ public:
     API_FIELD() static LaunchArgs* Instance;
 
     API_FIELD() static bool ForceClient;
+    API_FIELD() static String ForceWorld;
+    API_FIELD() static String ForceCharacter;
 
     void OnInitialize() override;
     API_FUNCTION() const ScriptingObjectReference<Args> GetArgs();

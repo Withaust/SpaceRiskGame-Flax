@@ -101,6 +101,17 @@
 			"ParentID": "3a1c00d64d2daac3cf16d0ae89e76235"
 		},
 		{
+			"ID": "fc1ba5d34ff0fb0789ff46aa5c52bd18",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "23a9f8294afeeb178dcdeb9054b2e326",
+			"Name": "SyncInfo"
+		},
+		{
+			"ID": "200ea84e4128a8ae5d088c9e5b5dcf6c",
+			"TypeName": "Game.SyncInfo",
+			"ParentID": "fc1ba5d34ff0fb0789ff46aa5c52bd18"
+		},
+		{
 			"ID": "64378fbd46c330c90f2a308990241655",
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "23a9f8294afeeb178dcdeb9054b2e326",
@@ -118,6 +129,29 @@
 			"ParentID": "5324473c46f1496a46410a9188243083",
 			"Name": "Game",
 			"StaticFlags": 0
+		},
+		{
+			"ID": "77de5ce64412bc37c53e588771348a1f",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "df3598904da36af0d20c0798f9b4b690",
+			"Name": "Saver"
+		},
+		{
+			"ID": "c1049f8640ceecede13e69b47205e718",
+			"TypeName": "Game.CharacterSave",
+			"ParentID": "77de5ce64412bc37c53e588771348a1f"
+		},
+		{
+			"ID": "578be5dc43160bd0b41600a9977936f8",
+			"TypeName": "Game.WorldSave",
+			"ParentID": "77de5ce64412bc37c53e588771348a1f"
+		},
+		{
+			"ID": "942cc85a474eadd7eefe36a470bdcfd6",
+			"TypeName": "Game.Saver",
+			"ParentID": "77de5ce64412bc37c53e588771348a1f",
+			"Character": "c1049f8640ceecede13e69b47205e718",
+			"World": "578be5dc43160bd0b41600a9977936f8"
 		},
 		{
 			"ID": "b5eaff20410398feb923778c378382d5",
@@ -144,6 +178,34 @@
 			"TypeName": "Game.VisibilityGPU",
 			"ParentID": "08d118464a1977ec295d1088b345e84d",
 			"WorkerPrefab": "df210840436df3234662f6bc770c2802"
+		},
+		{
+			"ID": "5d1b68814350a78dd85517ab113ed501",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "df3598904da36af0d20c0798f9b4b690",
+			"Name": "PostFx"
+		},
+		{
+			"ID": "bc195d664a9a1f3ff086118de5f9adf3",
+			"TypeName": "Game.PostFx",
+			"ParentID": "5d1b68814350a78dd85517ab113ed501",
+			"PovFx": "b6d8692e4f465a7f74e783aa0f62529b",
+			"OutlineFx": "f0c56b1f44ce6ae7e79a21af47b96b96"
+		},
+		{
+			"ID": "b6d8692e4f465a7f74e783aa0f62529b",
+			"TypeName": "Game.PovFx",
+			"ParentID": "5d1b68814350a78dd85517ab113ed501",
+			"Enabled": false,
+			"ShadowBlocker": "e31a3aa7493e517a48f743adf71bc3d2",
+			"Layers": 2147483680
+		},
+		{
+			"ID": "f0c56b1f44ce6ae7e79a21af47b96b96",
+			"TypeName": "Game.OutlineFx",
+			"ParentID": "5d1b68814350a78dd85517ab113ed501",
+			"Enabled": false,
+			"Material": "ff33104c4779d85b9be81fa14bcaec40"
 		},
 		{
 			"ID": "d02716e244cbaef1249d8cb4961fe7fd",
@@ -181,6 +243,17 @@
 			"ID": "777f450c4cccf758b2203ab7709216c8",
 			"TypeName": "Game.Chat",
 			"ParentID": "694b0e6046f7dcd2e9a5e8b2718062e5"
+		},
+		{
+			"ID": "8915c3114265ca897a772996ce731461",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "df3598904da36af0d20c0798f9b4b690",
+			"Name": "KillFeed"
+		},
+		{
+			"ID": "0f10e41b439cb84b3871feb8654dd1ff",
+			"TypeName": "Game.KillFeed",
+			"ParentID": "8915c3114265ca897a772996ce731461"
 		},
 		{
 			"ID": "d160097b45efbbc385e6849bcbcad5d0",

@@ -7,7 +7,7 @@
 #include <Engine/Content/Content.h>
 
 #include <Game/Shared/Defines.h>
-#include <Game/Shared/IComponent.h>
+#include <Game/Shared/Components/IComponent.h>
 #include <Game/Level/Player/PlayerSpawn.h>
 #include <Game/System/Game/Player/PlayerRespawns.h>
 
@@ -15,7 +15,6 @@ API_CLASS() class GAME_API PlayerSpawnGroup : public IComponent
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(PlayerSpawnGroup);
-
     friend class PlayerRespawn;
 
 public:

@@ -5,7 +5,7 @@
 #include <Engine/UI/TextRender.h>
 
 #include <Game/Shared/Defines.h>
-#include <Game/Shared/IComponent.h>
+#include <Game/Shared/Components/IComponent.h>
 
 API_CLASS(Attributes = "ContentContextMenu(\"New/Data/DrillData\")")
 class GAME_API DrillData : public ISerializable

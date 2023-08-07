@@ -65,7 +65,7 @@ void UIChat::OnChatMessage(uint32 Sender, String Message)
         _root->RemoveChild(_root->GetFirstChild());
     }
     auto newEntry = _entry->Clone();
-    String text = PlayerManager::Instance->GetPlayerInfo(Sender)->Name + TEXT(": ") + Message;
+    String text = PlayerManager::Instance->GetPlayerPawnInfo(Sender)->GetNameLocal() + TEXT(": ") + Message;
     auto textAnsi = text.ToStringAnsi();
     newEntry->SetInnerRML(Rml::String(textAnsi.GetText(), textAnsi.Length()));
     _root->AppendChild(MoveTemp(newEntry));

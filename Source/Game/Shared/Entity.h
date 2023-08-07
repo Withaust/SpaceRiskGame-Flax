@@ -12,7 +12,7 @@
 #include <Editor/Utilities/ViewportIconsRenderer.h>
 #endif
 
-#include <Game/Shared/IComponent.h>
+#include <Game/Shared/Components/IComponent.h>
 #include <Game/System/Core/Logger.h>
 
 API_CLASS(Attributes = "ActorContextMenu(\"New/Entity\"), ActorToolbox(\"Other\")")

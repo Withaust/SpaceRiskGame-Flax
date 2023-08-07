@@ -18,6 +18,6 @@ public:
         SpawnOnly,
     };
 
-    API_FIELD() NetworkedType Networked = NetworkedType::None;
+    API_FIELD() NetworkedType FieldReplication = NetworkedType::None;
     API_FUNCTION(NetworkRpc = "Client, Reliable") void SendData(Array<byte> data, NetworkRpcParams info);
 };
