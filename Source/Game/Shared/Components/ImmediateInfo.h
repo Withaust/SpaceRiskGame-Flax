@@ -42,6 +42,7 @@ public:
 
     API_ENUM(Attributes = "Flags") enum class ButtonsMask : uint32
     {
+        None = 0,
         AttackLeft = 1 << 0,
         AttackRight = 1 << 1,
         AttackMiddle = 1 << 2,
@@ -52,7 +53,7 @@ public:
     API_FIELD(Attributes = "EditorOrder(10)") ScriptingObjectReference<Actor> Position;
     API_FIELD(Attributes = "EditorOrder(20)") ScriptingObjectReference<Actor> Rotation;
     API_FIELD(Attributes = "EditorOrder(30)") bool ReplicateButtons = false;
-    API_FIELD(Attributes = "EditorOrder(40), NoSerialize, FlaxEngine.ReadOnly") ButtonsMask Buttons;
+    API_FIELD(Attributes = "EditorOrder(40), NoSerialize, FlaxEngine.ReadOnly") ButtonsMask Buttons = ButtonsMask::None;
 
     // [Script]
     void OnEnable() override;

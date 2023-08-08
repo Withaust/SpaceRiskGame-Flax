@@ -19,7 +19,7 @@ namespace Game
             {
                 return;
             }
-            Drill.Data = Asset;
+            Drill.SetDataRemote(Asset);
         }
 
         public override void OnEnable()

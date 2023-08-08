@@ -37,6 +37,8 @@ public:
 
     API_FIELD(NetworkReplicated, Attributes = "AssetReference(typeof(DrillData))") AssetReference<JsonAsset> Data;
     UDECLARE_DATA(DrillData, Data);
+    API_FUNCTION(NetworkRpc = "Server, Reliable") void SetDataRemote(const AssetReference<JsonAsset>& value) { UIMPL_NETPROP_SETREMOTE(Drill, Data); }
+    API_FUNCTION(NetworkRpc = "Client, Reliable") void SetDataSync(const AssetReference<JsonAsset>& value) { NETWORK_RPC_IMPL(Drill, SetDataSync, value); Data = value; }
 
     API_FIELD() ScriptingObjectReference<Actor> Start;
     API_FIELD() ScriptingObjectReference<Actor> End;
