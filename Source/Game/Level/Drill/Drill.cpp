@@ -44,7 +44,7 @@ void Drill::OnUpdate()
         }
     }
 
-    USLEEP(Generate)
+    if(USLEEP(Generate))
     {
         SetFuel(_fuel + DataPtr->GenerateSpeed);
     }

@@ -36,11 +36,22 @@
 	},
 	{
 		"ID": "8fc8b3794626b9e8b34701a9b61b7295",
-		"TypeName": "Game.NetworkedTransform",
+		"TypeName": "Game.ImmediateInfo",
 		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
 		"FieldReplication": 1,
 		"Position": "f9ad2b0043489327592e42844d1de041",
-		"Rotation": "7636a45345c3bbb03cbe3a8b99032469"
+		"Rotation": "7636a45345c3bbb03cbe3a8b99032469",
+		"ReplicateButtons": true
+	},
+	{
+		"ID": "121ecdb44582db3cd78a1ba7e014cb95",
+		"TypeName": "Game.Weapon",
+		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"FieldReplication": 1,
+		"Direction": "6a86f65f4ecebf990d70708c92d13661",
+		"Muzzle": "9677d71947aa506847297bad6cfe84f0",
+		"BulletsEffect": "ba62327e45774ffa240b5cbd83d373f7",
+		"Data": "566d1cb045e34768a0eb91bf27a33668"
 	},
 	{
 		"ID": "f9ad2b0043489327592e42844d1de041",
@@ -194,6 +205,31 @@
 				}
 			]
 		}
+	},
+	{
+		"ID": "9677d71947aa506847297bad6cfe84f0",
+		"TypeName": "FlaxEngine.EmptyActor",
+		"ParentID": "f76d704843f1e49b668f099cdabad6b6",
+		"Name": "Muzzle",
+		"Transform": {
+			"Translation": {
+				"X": 54.67157745361328,
+				"Y": 5.673389434814453,
+				"Z": -0.09898185729980469
+			}
+		},
+		"StaticFlags": 0,
+		"Layer": 4
+	},
+	{
+		"ID": "ba62327e45774ffa240b5cbd83d373f7",
+		"TypeName": "FlaxEngine.ParticleEffect",
+		"ParentID": "9677d71947aa506847297bad6cfe84f0",
+		"Name": "ParticleEffect",
+		"StaticFlags": 0,
+		"Layer": 4,
+		"Overrides": [],
+		"ParticleSystem": "e61ecb8747f0421a56d3db8a50f115fc"
 	}
 ]
 }

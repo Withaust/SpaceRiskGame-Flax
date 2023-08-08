@@ -609,30 +609,6 @@
 			"IsTrigger": true
 		},
 		{
-			"ID": "a4ddcc41416f8648bbd0e590df4967b4",
-			"TypeName": "FlaxEngine.ParticleEffect",
-			"ParentID": "a7383811434ac0476b9e57893b2d189d",
-			"Name": "ParticleEffect",
-			"Overrides": []
-		},
-		{
-			"ID": "6f6158804ff76d05591f8991f9129266",
-			"TypeName": "FlaxEngine.ParticleEffect",
-			"ParentID": "a7383811434ac0476b9e57893b2d189d",
-			"Name": "BulletSystem",
-			"Overrides": [
-				{
-					"Track": "Particle Emitter",
-					"Id": "fcfeef40476cd2fcc45227810e5bb8cb",
-					"Value": {
-						"Type": 7,
-						"Value": 1.0
-					}
-				}
-			],
-			"ParticleSystem": "e61ecb8747f0421a56d3db8a50f115fc"
-		},
-		{
 			"ID": "2dd1a5094b62ff94d5e4f8a9512aef5c",
 			"TypeName": "FlaxEngine.Terrain",
 			"ParentID": "a7383811434ac0476b9e57893b2d189d",

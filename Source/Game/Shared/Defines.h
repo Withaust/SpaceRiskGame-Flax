@@ -24,8 +24,8 @@
 // Implements generic networked property for a component
 #define UIMPL_NETPROP_GETLOCAL(PrivateValue) return PrivateValue;
 #define UIMPL_NETPROP_SETLOCAL(PrivateValue) PrivateValue = value;
-#define UIMPL_NETPROP_SETREMOTE(Class, ValueName) if(NetworkReplicator::HasObject(this)) { NETWORK_RPC_IMPL(Class, Set##ValueName##Remote, value); } Set##Name##Sync(value);
-#define UIMPL_NETPROP_SETSYNC(Class, ValueName) if(NetworkReplicator::HasObject(this)) { NETWORK_RPC_IMPL(Class, Set##ValueName##Sync, value); } Set##ValueName##Local(value);
+#define UIMPL_NETPROP_SETREMOTE(Class, ValueName) NETWORK_RPC_IMPL(Class, Set##ValueName##Remote, value); Set##ValueName##Sync(value);
+#define UIMPL_NETPROP_SETSYNC(Class, ValueName) NETWORK_RPC_IMPL(Class, Set##ValueName##Sync, value); Set##ValueName##Local(value);
 
 #ifdef BUILD_DEBUG
 #define UPRINT_STR(text) Logger::Instance->Print(TEXT(text))
@@ -49,7 +49,7 @@
 #define UCRIT(shutdown, text, ...) Logger::Instance->Critical(shutdown, Stringi::Format(TEXT(text), ##__VA_ARGS__), __FILE__, __LINE__)
 
 // Polls target SleepGroup, and runs code block below as necessary
-#define USLEEP(sleepBlock) if(sleepBlock.Poll(Time::GetDeltaTime()))
+#define USLEEP(sleepBlock) sleepBlock.Poll(Time::GetDeltaTime())
 
 // Allows for the code to run in play mode only
 #if USE_EDITOR
@@ -67,7 +67,8 @@ void On##Name##Changed() { \
     UERR("Data field {0} failed to filter datatype assignment for {1}", TEXT(#Name), TEXT(#DataType)); \
     } Name##Ptr = result; } \
 
-#define UBIND_DATA(Class, Name) Name.Changed.Bind<Class, &Class::On##Name##Changed>(this); On##Name##Changed();
+#define UBIND_DATA(Class, Name) Name.Changed.Bind<Class, &Class::On##Name##Changed>(this); On##Name##Changed(); \
+if(!Name) { UERR("Data field {0} is empty for object {1}", TEXT(#Name), GetEntity()->GetName()); }
 
 // Useful methods
 

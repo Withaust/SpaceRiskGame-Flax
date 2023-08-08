@@ -32,7 +32,7 @@ void SyncInfo::OnPlayerDisconnected(NetworkClient* client)
 void SyncInfo::OnUpdate()
 {
     // TODO: https://github.com/FlaxEngine/FlaxEngine/issues/1211
-    USLEEP(_syncBlock)
+    if(USLEEP(_syncBlock))
     {
         if (_askingForSync)
         {
