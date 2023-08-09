@@ -86,52 +86,6 @@
 			"Layer": 31
 		},
 		{
-			"ID": "55d6530d42e049d51c19e3a859b78c65",
-			"TypeName": "FlaxEngine.StaticModel",
-			"ParentID": "a7383811434ac0476b9e57893b2d189d",
-			"Name": "Default",
-			"Transform": {
-				"Translation": {
-					"X": -204.9644317626953,
-					"Y": -291.2306823730469,
-					"Z": -123.84187316894531
-				}
-			},
-			"Model": "d6453d844d7b74fb7758d0a98d43c2c5",
-			"Buffer": {
-				"Entries": [
-					{
-						"Material": "9ef09e894758303a0805719a3901ec31",
-						"ShadowsMode": 3,
-						"Visible": true,
-						"ReceiveDecals": true
-					}
-				]
-			}
-		},
-		{
-			"ID": "f3e136294adce9586b7f00b2f8cd5dd0",
-			"TypeName": "Game.TestBush",
-			"ParentID": "55d6530d42e049d51c19e3a859b78c65",
-			"V": {
-	"Collider": "bdb5d36545d2074bc041588f90a57aa7"
-}
-		},
-		{
-			"ID": "bdb5d36545d2074bc041588f90a57aa7",
-			"TypeName": "FlaxEngine.BoxCollider",
-			"ParentID": "55d6530d42e049d51c19e3a859b78c65",
-			"Name": "BoxCollider",
-			"Transform": {
-				"Translation": {
-					"X": 0.0,
-					"Y": 64.77182006835938,
-					"Z": 1.4716949462890626
-				}
-			},
-			"IsTrigger": true
-		},
-		{
 			"ID": "6799f42d4d2413577d18cc8fc9647530",
 			"TypeName": "Game.Entity",
 			"ParentID": "a7383811434ac0476b9e57893b2d189d",
@@ -504,35 +458,6 @@
 			"Size": 16.0,
 			"Material": "e72782bd4d898e2f236ca3be780438af",
 			"Font": "4508d98f4aa1f0bd59362b81d47e38f4"
-		},
-		{
-			"ID": "371e01ae4697d882b1a2f4abe7ea606f",
-			"TypeName": "FlaxEngine.BoxCollider",
-			"ParentID": "0e17ba79495a2afb9669e38e2d317b53",
-			"Name": "BoxCollider",
-			"Transform": {
-				"Translation": {
-					"X": 0.0,
-					"Y": 70.0,
-					"Z": 160.0
-				}
-			},
-			"IsTrigger": true,
-			"Size": {
-				"X": 160.0,
-				"Y": 160.0,
-				"Z": 160.0
-			}
-		},
-		{
-			"ID": "2cd4a68c463d27dfd87f7c9cec714cac",
-			"TypeName": "Game.TestDrill",
-			"ParentID": "371e01ae4697d882b1a2f4abe7ea606f",
-			"V": {
-	"Collider": "371e01ae4697d882b1a2f4abe7ea606f",
-	"Drill": "bc4c60b74b2298673b9b08a8a3fa25c4",
-	"Asset": "d39922824c525b512be02f88b3e0c650"
-}
 		},
 		{
 			"ID": "d0407b42463cd5f7d244688ce027a6b4",
@@ -933,6 +858,95 @@
 					}
 				]
 			}
+		},
+		{
+			"ID": "8381731b4f7543df8b50e7a7e01e2d25",
+			"TypeName": "Game.Entity",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "TestDrill",
+			"LevelReplication": 1
+		},
+		{
+			"ID": "6bbe02fd445e7385d1ee23bc2c94ab00",
+			"TypeName": "Game.TestDrill",
+			"ParentID": "8381731b4f7543df8b50e7a7e01e2d25",
+			"V": {
+	"Collider": "371e01ae4697d882b1a2f4abe7ea606f",
+	"Drill": "bc4c60b74b2298673b9b08a8a3fa25c4",
+	"Asset": "d39922824c525b512be02f88b3e0c650"
+}
+		},
+		{
+			"ID": "371e01ae4697d882b1a2f4abe7ea606f",
+			"TypeName": "FlaxEngine.BoxCollider",
+			"ParentID": "8381731b4f7543df8b50e7a7e01e2d25",
+			"Name": "BoxCollider",
+			"Transform": {
+				"Translation": {
+					"X": 496.6884765625,
+					"Y": -193.35980224609376,
+					"Z": -136.6307373046875
+				}
+			},
+			"IsTrigger": true,
+			"Size": {
+				"X": 160.0,
+				"Y": 160.0,
+				"Z": 160.0
+			}
+		},
+		{
+			"ID": "55d6530d42e049d51c19e3a859b78c65",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "Bush",
+			"Transform": {
+				"Translation": {
+					"X": -204.9644317626953,
+					"Y": -291.2306823730469,
+					"Z": -123.84187316894531
+				}
+			},
+			"Model": "d6453d844d7b74fb7758d0a98d43c2c5",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "9ef09e894758303a0805719a3901ec31",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
+		},
+		{
+			"ID": "966286ab4b3479c2252dd7b1fa028826",
+			"TypeName": "Game.Entity",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "TestBush",
+			"LevelReplication": 1
+		},
+		{
+			"ID": "c9ef689148f97025ef5b1e8f776178d7",
+			"TypeName": "Game.TestBush",
+			"ParentID": "966286ab4b3479c2252dd7b1fa028826",
+			"V": {
+	"Collider": "bdb5d36545d2074bc041588f90a57aa7"
+}
+		},
+		{
+			"ID": "bdb5d36545d2074bc041588f90a57aa7",
+			"TypeName": "FlaxEngine.BoxCollider",
+			"ParentID": "966286ab4b3479c2252dd7b1fa028826",
+			"Name": "BoxCollider",
+			"Transform": {
+				"Translation": {
+					"X": -204.9644317626953,
+					"Y": -226.4588623046875,
+					"Z": -122.37017822265625
+				}
+			},
+			"IsTrigger": true
 		},
 		{
 			"ID": "e98097214b4de8f356bf1c9626a5f4e9",

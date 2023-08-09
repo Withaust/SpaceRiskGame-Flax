@@ -15,10 +15,6 @@ namespace Game
 
         private void Collider_TriggerEnter(PhysicsColliderActor obj)
         {
-            if (!NetworkReplicator.IsObjectOwned(Drill))
-            {
-                return;
-            }
             Drill.SetDataRemote(Asset);
         }
 
