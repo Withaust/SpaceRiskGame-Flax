@@ -1,14 +1,10 @@
 ﻿#if FLAX_EDITOR
 using FlaxEditor;
+using FlaxEditor.Content;
 using FlaxEditor.GUI;
 using FlaxEngine;
-using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System;
-using FlaxEngine.Utilities;
-using FlaxEditor.Content;
 
 namespace Game
 {

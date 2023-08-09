@@ -14,7 +14,7 @@ namespace Game
 
         private void OnWorldSave()
         {
-            if(Saver.Instance == null) 
+            if (Saver.Instance == null)
             {
                 return;
             }

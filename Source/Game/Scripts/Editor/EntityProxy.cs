@@ -1,8 +1,6 @@
 #if FLAX_EDITOR
-using System;
-using FlaxEngine;
-using FlaxEditor;
 using FlaxEditor.SceneGraph;
+using FlaxEngine;
 
 namespace Game
 {

@@ -1,11 +1,11 @@
 #if FLAX_EDITOR
-using System;
-using System.IO;
-using System.Collections.Generic;
 using FlaxEditor;
 using FlaxEditor.Content;
 using FlaxEngine;
 using Game;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 public class CustomJsonAssetItem : JsonAssetItem
 {
@@ -54,7 +54,7 @@ public class AssetIconsProxy
 
     public static void ApplyProxies()
     {
-        foreach(var Proxy in Proxies)
+        foreach (var Proxy in Proxies)
         {
             Editor.Instance.ContentDatabase.AddProxy(Proxy);
         }

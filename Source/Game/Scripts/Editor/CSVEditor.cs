@@ -1,14 +1,10 @@
 #if FLAX_EDITOR
-using FlaxEditor;
-using FlaxEditor.CustomEditors.Editors;
-using FlaxEditor.CustomEditors.Elements;
 using FlaxEditor.CustomEditors;
+using FlaxEditor.CustomEditors.Editors;
 using FlaxEngine;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using FlaxEngine.GUI;
-using static FlaxEditor.Options.InputActionsContainer;
 
 namespace Game
 {
@@ -38,7 +34,7 @@ namespace Game
             string NameString = Name.ToString();
             string ValueString = Value.ToString();
 
-            if(!_properties.ContainsKey(EntryString))
+            if (!_properties.ContainsKey(EntryString))
             {
                 _properties[EntryString] = new Dictionary<string, string>();
             }
@@ -48,7 +44,7 @@ namespace Game
 
         private void OnClickSave(string BindingName)
         {
-            if(!IsSingleObject)
+            if (!IsSingleObject)
             {
                 return;
             }
@@ -106,7 +102,7 @@ namespace Game
                 _button.Button.Clicked += () => OnClickSave(binding.Key);
                 _button.Button.Enabled = binding.Value.RuntimeOnly ? EditorPlugin.IsPlaying : true;
             }
-        }   
+        }
     }
 }
 #endif

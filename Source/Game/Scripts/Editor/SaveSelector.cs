@@ -50,7 +50,7 @@ namespace Game
                 _worldDropdown.AddItem(Path.GetFileNameWithoutExtension(worldFile));
             }
 
-            if(_selectedWorld != string.Empty && _worldDropdown.Items.Contains(_selectedWorld))
+            if (_selectedWorld != string.Empty && _worldDropdown.Items.Contains(_selectedWorld))
             {
                 _worldDropdown.SelectedItem = _selectedWorld;
             }

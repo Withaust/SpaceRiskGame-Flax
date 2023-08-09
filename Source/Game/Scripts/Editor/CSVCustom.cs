@@ -1,12 +1,6 @@
 ﻿#if FLAX_EDITOR
-using FlaxEditor;
-using FlaxEditor.CustomEditors.Editors;
-using FlaxEditor.CustomEditors.Elements;
 using FlaxEditor.CustomEditors;
 using FlaxEngine;
-using System.Collections.Generic;
-using System;
-using System.Linq;
 
 namespace Game
 {

@@ -1,7 +1,6 @@
 #if FLAX_EDITOR
 using FlaxEditor;
 using FlaxEditor.GUI;
-using FlaxEditor.States;
 using FlaxEngine;
 
 namespace Game
@@ -76,10 +75,10 @@ namespace Game
             OriginalPlayButton.Visible = false;
             OriginalPauseButton.Visible = false;
             OriginalFrameButton.Visible = false;
-            
+
             PlayHostButton = (ToolStripButton)Editor.Instance.UI.ToolStrip.AddButton(PlayHost.FindSprite("Default"),
                 Editor.Instance.Simulation.RequestPlayOrStopPlay).LinkTooltip("Play as a Host");
-            
+
             PlayClientButton = (ToolStripButton)Editor.Instance.UI.ToolStrip.AddButton(PlayClient.FindSprite("Default"),
                 OnClickedClient).LinkTooltip("Play as a Client");
 

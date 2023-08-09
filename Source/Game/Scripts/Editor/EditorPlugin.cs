@@ -1,8 +1,5 @@
 #if FLAX_EDITOR
 using FlaxEditor;
-using FlaxEditor.Content;
-using FlaxEditor.GUI;
-using FlaxEngine;
 
 namespace Game
 {
