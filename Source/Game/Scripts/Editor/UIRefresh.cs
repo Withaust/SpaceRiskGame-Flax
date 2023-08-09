@@ -27,10 +27,10 @@ namespace Game
             UI.RefreshCache();
         }
 
-        public static void AddButton(Editor Editor)
+        public static void AddButton()
         {
             _buttonAtlas = Content.Load<SpriteAtlas>(Path.Combine(Globals.ProjectContentFolder, "Editor/Textures/UI/UI.flax"));
-            _button = Editor.UI.ToolStrip.AddButton(_buttonAtlas.FindSprite("Default"));
+            _button = Editor.Instance.UI.ToolStrip.AddButton(_buttonAtlas.FindSprite("Default"));
             _button.Clicked += OnClicked;
         }
 

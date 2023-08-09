@@ -7,6 +7,8 @@ using FlaxEngine;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using FlaxEngine.GUI;
+using static FlaxEditor.Options.InputActionsContainer;
 
 namespace Game
 {
@@ -18,6 +20,7 @@ namespace Game
         {
             public string KeyName;
             public Action Action;
+            public bool RuntimeOnly;
         }
 
         private Dictionary<string, Binding> _bindings;
@@ -81,12 +84,13 @@ namespace Game
             Clipboard.Text = result;
         }
 
-        public void AddBinding(string BindingName, string KeyName, Action Action)
+        public void AddBinding(string BindingName, string KeyName, bool RuntimeOnly, Action Action)
         {
             _bindings[BindingName] = new Binding()
             {
                 KeyName = KeyName,
-                Action = Action
+                Action = Action,
+                RuntimeOnly = RuntimeOnly
             };
         }
 
@@ -100,24 +104,9 @@ namespace Game
             {
                 var _button = layout.Button("CSV: " + binding.Key, Color.DarkSlateGray);
                 _button.Button.Clicked += () => OnClickSave(binding.Key);
+                _button.Button.Enabled = binding.Value.RuntimeOnly ? EditorPlugin.IsPlaying : true;
             }
-        }
-    }
-
-    [CustomEditor(typeof(PlayerManager))]
-    public class PlayerManagerCSV : CSVEditor<PlayerManager>
-    {
-        public override void OnInit()
-        {
-            AddBinding("List", "PlayerId", () =>
-            {
-                foreach(var Player in Get.GetPlayers())
-                {
-                    Set(Player.Key, "Name", Player.Value.GetComponent<PawnInfo>().NameLocal);
-                    Set(Player.Key, "Position", Player.Value.GetComponent<PlayerMovement>().Controller.Position);
-                }
-            });
-        }
+        }   
     }
 }
 #endif

@@ -16,12 +16,10 @@ namespace Game
         private static ToolStripButton PlayHostButton;
         private static ToolStripButton PlayClientButton;
 
-        public static Editor Editor;
-
         public static void OnClickedClient()
         {
             LaunchArgs.ForceClient = true;
-            Editor.Simulation.RequestPlayOrStopPlay();
+            Editor.Instance.Simulation.RequestPlayOrStopPlay();
         }
 
         public static void OnStartedPlaying()
@@ -46,11 +44,11 @@ namespace Game
         {
             PlayHost = Content.Load<SpriteAtlas>(System.IO.Path.Combine(Globals.ProjectContentFolder, "Editor/Textures/UI/PlayHost.flax"));
             PlayClient = Content.Load<SpriteAtlas>(System.IO.Path.Combine(Globals.ProjectContentFolder, "Editor/Textures/UI/PlayClient.flax"));
-            Editor.StateMachine.PlayingState.GameSettingsApplied += OnStartedPlaying;
-            Editor.StateMachine.PlayingState.SceneRestored += OnStoppedPlaying;
-            for (int i = 0; i < Editor.UI.ToolStrip.ChildrenCount; ++i)
+            Editor.Instance.StateMachine.PlayingState.GameSettingsApplied += OnStartedPlaying;
+            Editor.Instance.StateMachine.PlayingState.SceneRestored += OnStoppedPlaying;
+            for (int i = 0; i < Editor.Instance.UI.ToolStrip.ChildrenCount; ++i)
             {
-                var target = Editor.UI.ToolStrip.GetChild(i);
+                var target = Editor.Instance.UI.ToolStrip.GetChild(i);
                 if (target is not ToolStripButton)
                 {
                     continue;
@@ -61,15 +59,15 @@ namespace Game
                     continue;
                 }
 
-                if(Button.TooltipText == "Play Game")
+                if (Button.TooltipText == "Play Game")
                 {
                     OriginalPlayButton = Button;
                 }
-                else if(Button.Clicked == Editor.Simulation.RequestResumeOrPause)
+                else if (Button.Clicked == Editor.Instance.Simulation.RequestResumeOrPause)
                 {
                     OriginalPauseButton = Button;
                 }
-                else if (Button.Clicked == Editor.Simulation.RequestPlayOneFrame)
+                else if (Button.Clicked == Editor.Instance.Simulation.RequestPlayOneFrame)
                 {
                     OriginalFrameButton = Button;
                 }
@@ -78,9 +76,14 @@ namespace Game
             OriginalPlayButton.Visible = false;
             OriginalPauseButton.Visible = false;
             OriginalFrameButton.Visible = false;
-            PlayHostButton = (ToolStripButton)Editor.UI.ToolStrip.AddButton(PlayHost.FindSprite("Default"), Editor.Simulation.RequestPlayOrStopPlay).LinkTooltip("Play as a Host");
-            PlayClientButton = (ToolStripButton)Editor.UI.ToolStrip.AddButton(PlayClient.FindSprite("Default"), OnClickedClient).LinkTooltip("Play as a Client");
-            Editor.UI.ToolStrip.PerformLayout(true);
+            
+            PlayHostButton = (ToolStripButton)Editor.Instance.UI.ToolStrip.AddButton(PlayHost.FindSprite("Default"),
+                Editor.Instance.Simulation.RequestPlayOrStopPlay).LinkTooltip("Play as a Host");
+            
+            PlayClientButton = (ToolStripButton)Editor.Instance.UI.ToolStrip.AddButton(PlayClient.FindSprite("Default"),
+                OnClickedClient).LinkTooltip("Play as a Client");
+
+            Editor.Instance.UI.ToolStrip.PerformLayout(true);
         }
 
         public static void RemoveCustomPlayButtons()

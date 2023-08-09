@@ -78,17 +78,17 @@ namespace Game
             }
         }
 
-        public static void AddButton(Editor Editor)
+        public static void AddButton()
         {
-            var label = Editor.UI.ToolStrip.AddChild<Label>();
+            var label = Editor.Instance.UI.ToolStrip.AddChild<Label>();
             label.Text = "World:";
             label.AutoWidth = true;
-            _worldDropdown = Editor.UI.ToolStrip.AddChild<Dropdown>();
+            _worldDropdown = Editor.Instance.UI.ToolStrip.AddChild<Dropdown>();
             _worldDropdown.SelectedIndexChanged += WorldChanged;
-            label = Editor.UI.ToolStrip.AddChild<Label>();
+            label = Editor.Instance.UI.ToolStrip.AddChild<Label>();
             label.Text = "Character:";
             label.AutoWidth = true;
-            _characterDropdown = Editor.UI.ToolStrip.AddChild<Dropdown>();
+            _characterDropdown = Editor.Instance.UI.ToolStrip.AddChild<Dropdown>();
             _characterDropdown.SelectedIndexChanged += CharacterChanged;
             Refresh();
         }

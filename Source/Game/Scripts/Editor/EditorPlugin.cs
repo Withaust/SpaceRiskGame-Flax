@@ -8,15 +8,26 @@ namespace Game
 {
     public class EditorPlugin : FlaxEditor.EditorPlugin
     {
+        public static bool IsPlaying { get; private set; } = false;
+        private static void OnStartedPlaying()
+        {
+            IsPlaying = true;
+        }
+        private void OnStoppedPlaying()
+        {
+            IsPlaying = false;
+        }
+
         public override void InitializeEditor()
         {
             base.InitializeEditor();
+            Editor.Instance.StateMachine.PlayingState.GameSettingsApplied += OnStartedPlaying;
+            Editor.Instance.StateMachine.PlayingState.SceneRestored += OnStoppedPlaying;
             AssetIconsProxy.LoadIcons();
             AssetIconsProxy.ApplyProxies();
-            CustomPlayButtons.Editor = Editor;
             CustomPlayButtons.AddCustomPlayButtons();
-            SaveSelector.AddButton(Editor);
-            UIRefresh.AddButton(Editor);
+            SaveSelector.AddButton();
+            UIRefresh.AddButton();
             Editor.UI.ToolStrip.PerformLayout(true);
         }
 
@@ -26,6 +37,8 @@ namespace Game
             SaveSelector.RemoveButton();
             UIRefresh.RemoveButton();
             CustomPlayButtons.RemoveCustomPlayButtons();
+            Editor.Instance.StateMachine.PlayingState.GameSettingsApplied -= OnStartedPlaying;
+            Editor.Instance.StateMachine.PlayingState.SceneRestored -= OnStoppedPlaying;
             base.DeinitializeEditor();
         }
     }
