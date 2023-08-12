@@ -7,19 +7,23 @@
 
 namespace
 {
-    // Percentage of local error that is acceptable (eg. 4 frames error)
-    constexpr float Precision = 8.0f;
+    // Percentage of local error that is acceptable
+    constexpr float Precision = 0.05f;
 
-    template<typename T>
-    FORCE_INLINE bool IsWithinPrecision(const Vector3Base<T>& currentDelta, const Vector3Base<T>& targetDelta)
+    FORCE_INLINE bool ShouldUpdate(const Vector3& currentPosition, const Quaternion& currentRotation, const Vector3& newPosition, const Quaternion& newRotation)
     {
-        const T targetDeltaMax = targetDelta.GetAbsolute().MaxValue();
-        return targetDeltaMax > (T)ZeroTolerance && currentDelta.GetAbsolute().MaxValue() < targetDeltaMax * (T)Precision;
+        const auto& curAbs = currentPosition.GetAbsolute();
+        const auto& newAbs = newPosition.GetAbsolute();
+        return newAbs.X - curAbs.X > Precision ||
+            newAbs.Y - curAbs.Y > Precision ||
+            newAbs.Z - curAbs.Z > Precision ||
+            Quaternion::AngleBetween(currentRotation, newRotation) > Precision;
     }
 }
 
 ImmediateInfo::ImmediateInfo(const SpawnParams& params)
-    : IComponent(params)
+    : IComponent(params),
+    _sendBlock(NetworkManager::NetworkFPS)
 {
     _tickUpdate = true;
 }
@@ -28,7 +32,9 @@ void ImmediateInfo::OnEnable()
 {
     // Initialize state
     _bufferHasDeltas = false;
-    _lastFrameTransform = GetEntity() ? Transform(Position->GetPosition(), Rotation->GetOrientation()) : Transform::Identity;
+    _lastPosition = GetEntity() ? Position->GetPosition() : Vector3::Zero;
+    _lastRotation = GetEntity() ? Rotation->GetOrientation() : Quaternion::Identity;
+    _lastButtonsMask = ButtonsMask::None;
     _buffer.Clear();
 }
 
@@ -42,7 +48,20 @@ void ImmediateInfo::OnUpdate()
     const NetworkObjectRole role = NetworkReplicator::GetObjectRole(this);
     if (role == NetworkObjectRole::OwnedAuthoritative)
     {
-        return; // Ignore itself
+        if (USLEEP(_sendBlock))
+        {
+            const auto& position = Position->GetPosition();
+            const auto& rotation = Rotation->GetOrientation();
+            ButtonsMask buttonsMask = ReplicateButtons ? Buttons : ButtonsMask::None;
+
+            if (ShouldUpdate(position, rotation, _lastPosition, _lastRotation) || _lastButtonsMask != buttonsMask)
+            {
+                _lastPosition = position;
+                _lastRotation = rotation;
+                _lastButtonsMask = buttonsMask;
+                SendInfo(Position->GetPosition(), Rotation->GetOrientation(), buttonsMask);
+            }
+        }
     }
     else
     {
@@ -78,6 +97,7 @@ void ImmediateInfo::OnUpdate()
             Transform transform;
             const float alpha = (gameTime - b0.Timestamp) / (b1.Timestamp - b0.Timestamp);
             Transform::Lerp(b0.Value, b1.Value, alpha, transform);
+            Transform::Lerp(b0.Value, b1.Value, alpha, transform);
             Set(transform);
         }
         else if (_buffer.Count() == 1 && _buffer[0].Timestamp <= gameTime)
@@ -87,24 +107,15 @@ void ImmediateInfo::OnUpdate()
     }
 }
 
-void ImmediateInfo::Serialize(NetworkStream* stream)
+void ImmediateInfo::SendInfo(const Vector3& position, const Quaternion& rotation, const ButtonsMask& buttons)
 {
-    // Get transform
-    Transform transform(Position->GetPosition(), Rotation->GetOrientation());
-
-    stream->Write(transform);
-    if(ReplicateButtons)
-        stream->Write(Buttons);
+    NETWORK_RPC_IMPL(ImmediateInfo, SendInfo, position, rotation, buttons);
+    RecieveInfo(position, rotation, buttons);
 }
 
-void ImmediateInfo::Deserialize(NetworkStream* stream)
+void ImmediateInfo::RecieveInfo(const Vector3& position, const Quaternion& rotation, const ButtonsMask& buttons)
 {
-    // Get transform
-    Transform transform(Position->GetPosition(), Rotation->GetOrientation());
-
-    stream->Read(transform);
-    if (ReplicateButtons)
-        stream->Read(Buttons);
+    NETWORK_RPC_IMPL(ImmediateInfo, RecieveInfo, position, rotation, buttons);
 
     const NetworkObjectRole role = NetworkReplicator::GetObjectRole(this);
     if (role == NetworkObjectRole::OwnedAuthoritative)
@@ -112,6 +123,10 @@ void ImmediateInfo::Deserialize(NetworkStream* stream)
         return; // Ignore itself
     }
 
+    if (ReplicateButtons)
+        Buttons = buttons;
+
+    Transform transform(position, rotation);
     // Add to the interpolation buffer
     const float now = Time::Update.UnscaledTime.GetTotalSeconds();
     _buffer.Add({ now, transform });

@@ -11,7 +11,7 @@ ScriptingObjectReference<PlayerSpawn> PlayerRespawns::GetRandomSpawn()
 {
     if (_spawns.Count() == 0)
     {
-        UCRIT_STR(true, "Missing respawns for players.");
+        UCRIT(true, "Missing respawns for players.");
         return {};
     }
     RandomStream random;

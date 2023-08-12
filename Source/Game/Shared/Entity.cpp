@@ -1,5 +1,5 @@
 #include "Entity.h"
-#include <Game/System/Core/Networking/Networking.h>
+#include <Game/System/Core/Networking.h>
 
 #if USE_EDITOR
 bool Entity::proxyAdded = false;
@@ -103,7 +103,7 @@ void Entity::OnDisable()
         return;
     }
 #endif
-    if (LevelReplication == EntityType::Networked && !Despawning)
+    if (Type == NetworkingType::Registered && !Despawning)
     {
         Networking::Instance->StopReplicating(this);
     }
@@ -127,11 +127,11 @@ void Entity::OnEnable()
     }
 #endif
 
-    if (LevelReplication == EntityType::Networked)
+    if (Type == NetworkingType::Registered)
     {
         Networking::Instance->StartReplicating(this);
     }
-    else if (NetworkManager::IsClient() && LevelReplication == EntityType::HostOnly)
+    else if (NetworkManager::IsClient() && Type == NetworkingType::HostOnly)
     {
         DeleteObject();
         return;

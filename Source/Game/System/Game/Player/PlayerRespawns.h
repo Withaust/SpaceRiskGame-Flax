@@ -8,7 +8,7 @@
 #include <Engine/Core/RandomStream.h>
 
 #include <Game/Shared/Defines.h>
-#include <Game/System/Core/Networking/Networking.h>
+#include <Game/System/Core/Networking.h>
 #include <Game/Dynamic/Pawns/Humanlike/Player/PlayerNetworking.h>
 #include <Game/Level/Player/PlayerSpawn.h>
 

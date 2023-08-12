@@ -3,8 +3,7 @@
 #include <Engine/Scripting/Script.h>
 
 #include <Game/Shared/Defines.h>
-#include <Game/System/Core/Networking/Networking.h>
-#include <Game/System/Core/Networking/CustomHierarchy.h>
+#include <Game/System/Core/Networking.h>
 
 API_CLASS() class GAME_API SyncInfo : public ISystem
 {

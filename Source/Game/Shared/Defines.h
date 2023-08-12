@@ -3,7 +3,8 @@
 
 #include <Game/System/Core.h>
 #include <Game/System/Core/Logger.h>
-#include <Game/System/Core/Networking/Networking.h>
+#include <Game/Shared/Entity.h>
+#include <Engine/Content/JsonAsset.h>
 #include <Game/Shared/SleepBlock.h>
 #if USE_EDITOR
 #include <Editor/Editor.h>
@@ -28,25 +29,16 @@
 #define UIMPL_NETPROP_SETSYNC(Class, ValueName) NETWORK_RPC_IMPL(Class, Set##ValueName##Sync, value); Set##ValueName##Local(value);
 
 #ifdef BUILD_DEBUG
-#define UPRINT_STR(text) Logger::Instance->Print(TEXT(text))
 #define UPRINT(text, ...) Logger::Instance->Print(String::Format(TEXT(text), ##__VA_ARGS__))
-#define UINFO_STR(text) Logger::Instance->Info(TEXT(text))
 #define UINFO(text, ...) Logger::Instance->Info(String::Format(TEXT(text), ##__VA_ARGS__))
 #else
-#define UPRINT_STR(text)
 #define UPRINT(text, ...)
-#define UINFO_STR(text)
 #define UINFO(text, ...)
 #endif
 
-#define UWARN_STR(text) Logger::Instance->Warning(TEXT(text), __FILE__, __LINE__)
-#define UWARN(text, ...) CLogger::Instance->Warning(String::Format(TEXT(text), ##__VA_ARGS__), __FILE__, __LINE__)
-
-#define UERR_STR(text) Logger::Instance->Error(TEXT(text), __FILE__, __LINE__)
+#define UWARN(text, ...) Logger::Instance->Warning(String::Format(TEXT(text), ##__VA_ARGS__), __FILE__, __LINE__)
 #define UERR(text, ...) Logger::Instance->Error(String::Format(TEXT(text), ##__VA_ARGS__), __FILE__, __LINE__)
-
-#define UCRIT_STR(shutdown, text) Logger::Instance->Critical(shutdown, TEXT(text), __FILE__, __LINE__)
-#define UCRIT(shutdown, text, ...) Logger::Instance->Critical(shutdown, Stringi::Format(TEXT(text), ##__VA_ARGS__), __FILE__, __LINE__)
+#define UCRIT(shutdown, text, ...) Logger::Instance->Critical(shutdown, String::Format(TEXT(text), ##__VA_ARGS__), __FILE__, __LINE__)
 
 // Polls target SleepGroup, and runs code block below as necessary
 #define USLEEP(sleepBlock) sleepBlock.Poll(Time::GetDeltaTime())
@@ -83,5 +75,19 @@ void FindActors(Actor* target, Array<T*>& result)
     for (int32 i = 0; i < target->Children.Count(); i++)
     {
         FindActors(target->Children[i], result);
+    }
+}
+
+template <class T>
+void FindScripts(Actor* target, Array<T*>& result)
+{
+    for (const auto& child : target->GetScripts<T>())
+    {
+        result.Add(child);
+    }
+
+    for (int32 i = 0; i < target->Children.Count(); i++)
+    {
+        FindScripts(target->Children[i], result);
     }
 }

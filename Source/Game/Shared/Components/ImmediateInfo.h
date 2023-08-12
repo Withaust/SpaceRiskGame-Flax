@@ -16,27 +16,16 @@
 #include <Engine/Networking/INetworkSerializable.h>
 
 #include <Game/Shared/Components/IComponent.h>
-
+#include <Game/System/Core/Networking.h>
 /// <summary>
 /// Actor script component that synchronizes the immediate info.
 /// </summary>
 /// <remarks>Interpolation and prediction logic based on https://www.gabrielgambetta.com/client-server-game-architecture.html.</remarks>
 /// <remarks>Overall archetecture revamped in favor of https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/game/shared/usercmd.h</remarks>
-API_CLASS() class GAME_API ImmediateInfo : public IComponent, public INetworkSerializable
+API_CLASS() class GAME_API ImmediateInfo : public IComponent
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(ImmediateInfo);
-
-private:
-    struct BufferedItem
-    {
-        float Timestamp = 0.0f;
-        Transform Value;
-    };
-
-    bool _bufferHasDeltas = false;
-    Transform _lastFrameTransform;
-    Array<BufferedItem> _buffer;
 
 public:
 
@@ -50,6 +39,23 @@ public:
         Crouch = 1 << 4
     };
 
+private:
+
+    struct BufferedItem
+    {
+        float Timestamp = 0.0f;
+        Transform Value;
+    };
+
+    bool _bufferHasDeltas = false;
+    Vector3 _lastPosition;
+    Quaternion _lastRotation;
+    ButtonsMask _lastButtonsMask;
+    Array<BufferedItem> _buffer;
+    SleepBlock _sendBlock;
+
+public:
+
     API_FIELD(Attributes = "EditorOrder(10)") ScriptingObjectReference<Actor> Position;
     API_FIELD(Attributes = "EditorOrder(20)") ScriptingObjectReference<Actor> Rotation;
     API_FIELD(Attributes = "EditorOrder(30)") bool ReplicateButtons = false;
@@ -60,9 +66,8 @@ public:
     void OnDisable() override;
     void OnUpdate() override;
 
-    // [INetworkSerializable]
-    void Serialize(NetworkStream* stream) override;
-    void Deserialize(NetworkStream* stream) override;
+    API_FUNCTION(NetworkRpc = "Server, Unreliable") void SendInfo(const Vector3& position, const Quaternion& rotation, const ButtonsMask& buttons);
+    API_FUNCTION(NetworkRpc = "Client, Unreliable") void RecieveInfo(const Vector3& position, const Quaternion& rotation, const ButtonsMask& buttons);
 
 private:
     void Set(const Transform& transform);

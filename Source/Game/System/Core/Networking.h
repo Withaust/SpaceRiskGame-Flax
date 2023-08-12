@@ -20,7 +20,8 @@
 #include <Game/System/Core/LaunchArgs.h>
 #include <Game/System/Core/Logger.h>
 #include <Game/Shared/Entity.h>
-#include <Game/System/Core/Networking/CustomHierarchy.h>
+#include <Game/System/Core/SyncInfo.h>
+#include <Game/System/Game/Player/PlayerManager.h>
 
 API_CLASS() class GAME_API Networking : public ISystem
 {
@@ -30,25 +31,38 @@ API_CLASS() class GAME_API Networking : public ISystem
     friend class CustomHierarchy;
     friend class SyncInfo;
     friend class INetworkedObject;
+    friend class PlayerManager;
 
 private:
     bool _gameStarted = false;
     bool _isHosting = false;
-    CustomHierarchy* _hierarchy = nullptr;
+    
     NetworkStream* _stream = nullptr;
 
+    struct SyncEvent
+    {
+        NetworkClient* client;
+        ScriptingObjectReference<INetworkedObject> object;
+    };
+
+    HashSet<ScriptingObjectReference<INetworkedObject>> _spawnList;
+    Array<SyncEvent> _syncEvents;
+
 public:
+
     API_FIELD() static Networking* Instance;
 
     void OnNetworkStateChanged();
     void OnNetworkClientConnected(NetworkClient* client);
     void OnNetworkClientDisconnected(NetworkClient* client);
+    void OnSynced(NetworkClient* client);
 
     void BindEvents();
     void UnbindEvents();
 
     void OnInitialize() override;
     void OnDeinitialize() override;
+    void OnUpdate() override;
 
     API_FUNCTION() void StartGame();
 
@@ -58,4 +72,8 @@ public:
     API_FUNCTION() void StartReplicating(Entity* target);
     API_FUNCTION() void StopReplicating(Entity* target);
     API_FUNCTION() void DespawnReplicating(Entity* target);
+
+    API_FUNCTION() Guid SerializeEntity(Entity* target);
+    API_FUNCTION() Entity* DeserializeEntity(Guid id, NetworkRpcParams rpcParams);
+    API_FUNCTION() Span<uint32> GetClientIdsExcept(uint32 exception);
 };

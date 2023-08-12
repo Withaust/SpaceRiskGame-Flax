@@ -6,8 +6,10 @@
 	"Name": "AssaultRifle",
 	"Automatic": true,
 	"Damage": 100.0,
+	"DamageSpread": 4.0,
 	"FireRate": 0.1,
-	"Distance": 1000.0,
-	"Spread": 100.0
+	"Distance": 8000.0,
+	"Spread": 1.0,
+	"Velocity": 30000.0
 }
 }

@@ -1,5 +1,5 @@
 ﻿#include "INetworkedObject.h"
-#include <Game/System/Core/Networking/Networking.h>
+#include <Game/System/Core/Networking.h>
 
 INetworkedObject::INetworkedObject(const SpawnParams& params)
     : Script(params)
@@ -15,4 +15,6 @@ void INetworkedObject::SendData(Array<byte> data, NetworkRpcParams info)
     stream->Initialize(data.begin(), data.Count());
 
     NetworkReplicator::InvokeSerializer(GetTypeHandle(), this, stream, false);
+
+    UPRINT("Recieved replication for {0}", GetType().Fullname.ToString());
 }

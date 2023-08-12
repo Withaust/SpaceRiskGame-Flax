@@ -18,15 +18,15 @@ public:
     void OnInitialize() override;
     void OnDeinitialize() override;
 
-    API_FUNCTION(Attributes = "Cmd") void Print(const StringView& message);
-    API_FUNCTION(Attributes = "Cmd") void Info(const StringView& message);
+    API_FUNCTION() void Print(const StringView& message);
+    API_FUNCTION() void Info(const StringView& message);
 
-    API_FUNCTION(Attributes = "Cmd") void Warning(const StringView& message);
+    API_FUNCTION() void Warning(const StringView& message);
     void Warning(const StringView& message, const char* file, int line);
 
-    API_FUNCTION(Attributes = "Cmd") void Error(const StringView& message);
+    API_FUNCTION() void Error(const StringView& message);
     void Error(const StringView& message, const char* file, int line);
     
-    API_FUNCTION(Attributes = "Cmd") void Critical(bool shutdown, const StringView& message);
+    API_FUNCTION() void Critical(bool shutdown, const StringView& message);
     void Critical(bool shutdown, const StringView& message, const char* file, int line);
 };

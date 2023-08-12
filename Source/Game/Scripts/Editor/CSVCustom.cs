@@ -5,7 +5,7 @@ using FlaxEngine;
 namespace Game
 {
     [CustomEditor(typeof(PlayerManager))]
-    public class PlayerManagerCSV : CSVEditor<PlayerManager>
+    public class PlayerManagerCSV : CSVScript<PlayerManager>
     {
         public override void OnInit()
         {
@@ -21,15 +21,15 @@ namespace Game
     }
 
     [CustomEditor(typeof(Entity))]
-    public class EntityCSV : CSVEditor<Entity>
+    public class EntityCSV : CSVActor<Entity>
     {
         public override void OnInit()
         {
-            AddBinding("Component Ids", "ComponentId", true, () =>
+            AddBinding("Components", "ComponentId", true, () =>
             {
                 foreach (var Component in Get.GetComponents())
                 {
-                    Set(Component.Key, "Id", Component.Value.ID);
+                    Set(Component.Key, "Guid", Component.Value.ID);
                 }
             });
         }

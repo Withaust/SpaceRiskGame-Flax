@@ -18,5 +18,5 @@ private:
     Entity* _entity = nullptr;
     
 public:
-    Entity* GetEntity();
+    API_FUNCTION() Entity* GetEntity();
 };

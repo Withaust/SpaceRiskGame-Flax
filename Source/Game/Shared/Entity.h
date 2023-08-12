@@ -36,14 +36,14 @@ private:
     void CacheComponents();
 public:
 
-    API_ENUM() enum class EntityType
+    API_ENUM() enum class NetworkingType
     {
         None,
         HostOnly,
-        Networked,
+        Registered,
     };
 
-    API_FIELD() EntityType LevelReplication = EntityType::None;
+    API_FIELD() NetworkingType Type = NetworkingType::None;
 #if USE_EDITOR
     API_FIELD() AssetReference<Texture> Icon;
     void OnDebugDrawSelected() override;
@@ -76,3 +76,5 @@ public:
         }
     }
 };
+
+typedef Entity::NetworkingType EntNetType;

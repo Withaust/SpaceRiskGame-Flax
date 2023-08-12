@@ -39,7 +39,7 @@ private:
 public:
     API_FIELD() static VisibilityGPU* Instance;
 
-    API_FIELD(Attributes = "Cmd") int WorkerCount = 4;
+    API_FIELD() int WorkerCount = 4;
     API_FIELD() AssetReference<Prefab> WorkerPrefab;
 
     void OnEnable() override;

@@ -1,5 +1,6 @@
 #if FLAX_EDITOR
 using FlaxEditor.CustomEditors;
+using FlaxEditor.CustomEditors.Dedicated;
 using FlaxEditor.CustomEditors.Editors;
 using FlaxEngine;
 using System;
@@ -8,10 +9,8 @@ using System.Linq;
 
 namespace Game
 {
-    public abstract class CSVEditor<T> : GenericEditor where T : class
+    public class CSVExporter<T> where T : class
     {
-        public abstract void OnInit();
-
         private struct Binding
         {
             public string KeyName;
@@ -24,7 +23,7 @@ namespace Game
 
         public T Get
         {
-            get => Values[0] as T;
+            get => editor.Values[0] as T;
             set => Get = value;
         }
 
@@ -44,7 +43,7 @@ namespace Game
 
         private void OnClickSave(string BindingName)
         {
-            if (!IsSingleObject)
+            if (!editor.IsSingleObject)
             {
                 return;
             }
@@ -90,18 +89,54 @@ namespace Game
             };
         }
 
-        public override void Initialize(LayoutElementsContainer layout)
+        private CustomEditor editor;
+
+        public void Initialize(CustomEditor customEditor, Action onInit, LayoutElementsContainer layout)
         {
+            editor = customEditor;
             _bindings = new Dictionary<string, Binding>();
             _properties = new Dictionary<string, Dictionary<string, string>>();
-            OnInit();
-            base.Initialize(layout);
+            onInit();
             foreach (var binding in _bindings)
             {
                 var _button = layout.Button("CSV: " + binding.Key, Color.DarkSlateGray);
                 _button.Button.Clicked += () => OnClickSave(binding.Key);
                 _button.Button.Enabled = binding.Value.RuntimeOnly ? EditorPlugin.IsPlaying : true;
             }
+        }
+    }
+
+    public abstract class CSVScript<T> : GenericEditor where T : class
+    {
+        static CSVExporter<T> exporter;
+
+        public abstract void OnInit();
+        public void AddBinding(string BindingName, string KeyName, bool RuntimeOnly, Action Action) { exporter.AddBinding(BindingName, KeyName, RuntimeOnly, Action); }
+        public void Set(object Entry, object Name, object Value) { exporter.Set(Entry, Name, Value); }
+        public T Get { get => exporter.Get; }
+
+        public override void Initialize(LayoutElementsContainer layout)
+        {
+            base.Initialize(layout);
+            exporter ??= new CSVExporter<T>();
+            exporter.Initialize(this, OnInit, layout);
+        }
+    }
+
+    public abstract class CSVActor<T> : ActorEditor where T : class
+    {
+        static CSVExporter<T> exporter;
+
+        public abstract void OnInit();
+        public void AddBinding(string BindingName, string KeyName, bool RuntimeOnly, Action Action) { exporter.AddBinding(BindingName, KeyName, RuntimeOnly, Action); }
+        public void Set(object Entry, object Name, object Value) { exporter.Set(Entry, Name, Value); }
+        public T Get { get => exporter.Get; }
+
+        public override void Initialize(LayoutElementsContainer layout)
+        {
+            base.Initialize(layout);
+            exporter ??= new CSVExporter<T>();
+            exporter.Initialize(this, OnInit, layout);
         }
     }
 }

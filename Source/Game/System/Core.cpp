@@ -51,10 +51,17 @@ void Core::ReplicateSystems()
     for (int i = 0; i < _systemsArray.Count(); ++i)
     {
         const auto& target = _systemsArray[i];
-        if (target->FieldReplication != INetworkedObject::NetworkedType::None)
+        if (target->Type != ObjNetType::None)
         {
             NetworkReplicator::AddObject(target->GetParent());
             NetworkReplicator::AddObject(target);
+        }
+        if (target->Type == ObjNetType::Replicated)
+        {
+            // TODO
+            Platform::Error(String("System ") + String(target->GetType().Fullname) + String(" is using replication! Not supported yet!"));
+            Engine::RequestExit(1);
+            break;
         }
     }
 }
@@ -88,8 +95,8 @@ ScriptingObjectReference<ISystem> Core::Get(const ScriptingTypeHandle& type)
 #include <Game/System/Core/Steam.h>
 #include <Game/System/Core/Analytics.h>
 #include <Game/System/Core/Logger.h>
-#include <Game/System/Core/Networking/Networking.h>
-#include <Game/System/Core/Networking/SyncInfo.h>
+#include <Game/System/Core/Networking.h>
+#include <Game/System/Core/SyncInfo.h>
 #include <Game/System/Core/LevelManager.h>
 // Game systems
 #include <Game/Save/Saver.h>
@@ -114,17 +121,17 @@ void Core::LoadSystems()
     Add<Analytics>();
     Add<Logger>();
     Add<Networking>();
-    Add<SyncInfo>(true);
-    Add<LevelManager>(true);
+    Add<SyncInfo>(ObjNetType::Registered);
+    Add<LevelManager>(ObjNetType::Registered);
     // Game systems
     Add<Saver>();
     Add<VisibilityCPU>();
     Add<VisibilityGPU>();
     Add<PostFx>();
-    Add<PlayerRespawns>(true);
-    Add<PlayerManager>(true);
-    Add<Chat>(true);
-    Add<KillFeed>(true);
+    Add<PlayerRespawns>(ObjNetType::Registered);
+    Add<PlayerManager>(ObjNetType::Registered);
+    Add<Chat>(ObjNetType::Registered);
+    Add<KillFeed>(ObjNetType::Registered);
     // UI
     Add<UI>();
 

@@ -16,13 +16,13 @@
 		"ID": "76b15425416b66867fc44e86df5a3ff5",
 		"TypeName": "Game.PawnInfo",
 		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
-		"FieldReplication": 2
+		"Type": 2
 	},
 	{
 		"ID": "3961a3a5494cab9e549cf99d3a2595bf",
 		"TypeName": "Game.PlayerMovement",
 		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
-		"FieldReplication": 2,
+		"Type": 1,
 		"Controller": "f9ad2b0043489327592e42844d1de041",
 		"Head": "7636a45345c3bbb03cbe3a8b99032469"
 	},
@@ -30,7 +30,7 @@
 		"ID": "78c31c624a7f0b546a975fb09ba61b34",
 		"TypeName": "Game.PlayerNetworking",
 		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
-		"FieldReplication": 2,
+		"Type": 1,
 		"Camera": "6a86f65f4ecebf990d70708c92d13661",
 		"Direction": "3e53508e4eb57720bff5608f3260ce6a"
 	},
@@ -38,7 +38,7 @@
 		"ID": "8fc8b3794626b9e8b34701a9b61b7295",
 		"TypeName": "Game.ImmediateInfo",
 		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
-		"FieldReplication": 1,
+		"Type": 1,
 		"Position": "f9ad2b0043489327592e42844d1de041",
 		"Rotation": "7636a45345c3bbb03cbe3a8b99032469",
 		"ReplicateButtons": true
@@ -47,11 +47,17 @@
 		"ID": "121ecdb44582db3cd78a1ba7e014cb95",
 		"TypeName": "Game.Weapon",
 		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
-		"FieldReplication": 1,
+		"Type": 1,
 		"Direction": "6a86f65f4ecebf990d70708c92d13661",
 		"Muzzle": "9677d71947aa506847297bad6cfe84f0",
 		"BulletsEffect": "ba62327e45774ffa240b5cbd83d373f7",
 		"Data": "566d1cb045e34768a0eb91bf27a33668"
+	},
+	{
+		"ID": "157e39a64dd02c8db8005f928a923fa1",
+		"TypeName": "Game.IDamage",
+		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"Type": 1
 	},
 	{
 		"ID": "f9ad2b0043489327592e42844d1de041",

@@ -13,6 +13,7 @@ API_CLASS() class GAME_API PlayerManager : public ISystem
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(PlayerManager);
     friend class PlayerInfo;
+    friend class Networking;
 
 private:
     

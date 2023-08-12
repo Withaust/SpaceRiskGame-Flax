@@ -54,7 +54,7 @@ void VisibilityGPUWorker::OnRenderTask(RenderTask* renderTask, GPUContext* gpuCo
     Task* downloadTask = _output->DownloadDataAsync(_downloadResult);
     if (!downloadTask)
     {
-        UERR_STR("Cannot create download async task.");
+        UERR("Cannot create download async task.");
         return;
     }
 

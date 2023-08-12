@@ -11,13 +11,16 @@ API_CLASS() class GAME_API INetworkedObject : public Script
 
 public:
 
-    API_ENUM() enum class NetworkedType
+    API_ENUM() enum class NetworkingType
     {
         None,
-        Continuous,
-        SpawnOnly,
+        Registered,
+        Replicated,
     };
+    
 
-    API_FIELD() NetworkedType FieldReplication = NetworkedType::None;
+    API_FIELD() NetworkingType Type = NetworkingType::None;
     API_FUNCTION(NetworkRpc = "Client, Reliable") void SendData(Array<byte> data, NetworkRpcParams info);
 };
+
+typedef INetworkedObject::NetworkingType ObjNetType;

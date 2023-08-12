@@ -55,10 +55,7 @@ void SyncInfo::SendInfo(NetworkRpcParams param)
     params.TargetIds = ToSpan(ids, ARRAY_COUNT(ids));
     RecievedInfo(params);
 
-    if (Networking::Instance->_hierarchy)
-    {
-        Networking::Instance->_hierarchy->OnClientConnected(NetworkManager::GetClient(param.SenderId));
-    }
+    Networking::Instance->OnSynced(NetworkManager::GetClient(param.SenderId));
 }
 
 void SyncInfo::RecievedInfo(NetworkRpcParams param)
