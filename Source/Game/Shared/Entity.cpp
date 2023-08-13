@@ -12,6 +12,12 @@ Entity::Entity(const SpawnParams& params)
 
 void Entity::CacheComponents()
 {
+    if (GotComponents)
+    {
+        return;
+    }
+    GotComponents = true;
+
     const auto& ScriptHandle = Script::GetStaticType().GetHandle();
     const auto& ComponentHandle = IComponent::GetStaticType().GetHandle();
 
@@ -138,8 +144,9 @@ void Entity::OnEnable()
     }
 }
 
-const Dictionary<String, IComponent*> Entity::GetComponents() const
+const Dictionary<String, IComponent*> Entity::GetComponents()
 {
+    CacheComponents();
     Dictionary<String, IComponent*> result;
     for (const auto& entry : Components)
     {
@@ -150,20 +157,12 @@ const Dictionary<String, IComponent*> Entity::GetComponents() const
 
 ScriptingObjectReference<IComponent> Entity::GetComponent(const MClass* type)
 {
-    if (!GotComponents)
-    {
-        CacheComponents();
-        GotComponents = true;
-    }
+    CacheComponents();
     return Components[type->GetFullName()];
 }
 
 ScriptingObjectReference<IComponent> Entity::GetComponent(const ScriptingTypeHandle& type)
 {
-    if (!GotComponents)
-    {
-        CacheComponents();
-        GotComponents = true;
-    }
+    CacheComponents();
     return Components[type.GetType().Fullname];
 }

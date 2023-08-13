@@ -17,10 +17,10 @@ public:
         Registered,
         Replicated,
     };
-    
+
 
     API_FIELD() NetworkingType Type = NetworkingType::None;
-    API_FUNCTION(NetworkRpc = "Client, Reliable") void SendData(Array<byte> data, NetworkRpcParams info);
+    API_FUNCTION(NetworkRpc = "Client, Reliable") void SendData(Array<char> data, int srcSize, NetworkRpcParams info);
 };
 
 typedef INetworkedObject::NetworkingType ObjNetType;

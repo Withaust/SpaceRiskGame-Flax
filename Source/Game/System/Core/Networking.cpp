@@ -1,4 +1,8 @@
 #include "Networking.h"
+#define LZ4_STATIC_LINKING_ONLY
+#define LZ4_HC_STATIC_LINKING_ONLY
+#include <Game/Thirdparty/lz4/lz4.h>
+#include <Game/Thirdparty/lz4/lz4hc.h>
 
 UIMPL_SINGLETON(Networking)
 
@@ -122,14 +126,24 @@ void Networking::OnUpdate()
 
     NetworkReplicator::InvokeSerializer(sync.object->GetTypeHandle(), sync.object, stream, true);
 
-    Array<byte> data(stream->GetBuffer(), stream->GetLength());
+    int bound = LZ4_compressBound(stream->GetLength());
+
+    _buffer.Resize(bound);
+
+    const int compressed_data_size = LZ4_compress_HC((const char*)(stream->GetBuffer()), &_buffer[0], stream->GetLength(), bound, LZ4HC_CLEVEL_MAX);
+
+    if (compressed_data_size <= 0)
+    {
+        UCRIT(true, "LZ4_compress_HC failed to compress replication data for {0}.", sync.object->GetType().Fullname.ToString());
+        return;
+    }
+
+    _buffer.Resize(compressed_data_size);
 
     NetworkRpcParams params;
     uint32 ids[1] = { sync.client->ClientId };
     params.TargetIds = ToSpan(ids, ARRAY_COUNT(ids));
-    sync.object->SendData(data, params);
-
-    UPRINT("Send {0} to {1}", sync.object->GetType().Fullname.ToString(), sync.client->ClientId);
+    sync.object->SendData(_buffer, stream->GetLength(), params);
 }
 
 void Networking::StartGame()

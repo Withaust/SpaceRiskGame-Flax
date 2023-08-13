@@ -1,5 +1,6 @@
 using Flax.Build;
 using Flax.Build.NativeCpp;
+using System.IO;
 
 public class Game : GameModule
 {
@@ -20,6 +21,7 @@ public class Game : GameModule
 
         Tags["Network"] = string.Empty;
         options.PublicDependencies.Add("Networking");
+		
 
         switch (options.Platform.Target)
         {

@@ -36,8 +36,9 @@ API_CLASS() class GAME_API Networking : public ISystem
 private:
     bool _gameStarted = false;
     bool _isHosting = false;
-    
+
     NetworkStream* _stream = nullptr;
+    Array<char> _buffer;
 
     struct SyncEvent
     {

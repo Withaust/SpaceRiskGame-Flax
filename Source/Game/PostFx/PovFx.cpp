@@ -115,8 +115,9 @@ void PovFx::Render(GPUContext* context, RenderContext& renderContext, GPUTexture
     {
         return;
     }
-
+#if USE_EDITOR
     auto p = ProfilerGPU::BeginEvent(TEXT("PlayerPOV"));
+#endif
     auto width = input->Width();
     auto height = input->Height();
 
@@ -154,6 +155,7 @@ void PovFx::Render(GPUContext* context, RenderContext& renderContext, GPUTexture
     context->DrawFullscreenTriangle();
 
     HideModels();
-
+#if USE_EDITOR
     ProfilerGPU::EndEvent(p);
+#endif
 }

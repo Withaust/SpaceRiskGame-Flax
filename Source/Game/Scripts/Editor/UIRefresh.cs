@@ -12,7 +12,7 @@ namespace Game
     {
         private static SpriteAtlas _buttonAtlas;
         private static ToolStripButton _button;
-        private static string _inputDir = Path.Combine(Globals.ProjectFolder, "..", "UI", "Data");
+        private static string _inputDir = Path.Combine(Globals.ProjectFolder, "UI", "Data");
         private static string _outputDir = Path.Combine(Globals.ProjectFolder, "Content", "UI");
 
         private static void OnClicked()

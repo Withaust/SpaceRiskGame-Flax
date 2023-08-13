@@ -51,7 +51,7 @@ public:
     void OnDisable() override;
     void OnEnable() override;
 
-    API_FUNCTION() const Dictionary<String, IComponent*> GetComponents() const;
+    API_FUNCTION() const Dictionary<String, IComponent*> GetComponents();
 
     API_FUNCTION() ScriptingObjectReference<IComponent> GetComponent(API_PARAM(Attributes = "TypeReference(typeof(IComponent))") const MClass* type);
     ScriptingObjectReference<IComponent> GetComponent(const ScriptingTypeHandle& type);

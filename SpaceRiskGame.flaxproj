@@ -6,18 +6,18 @@
 	"GameTarget": "GameTarget",
 	"EditorTarget": "GameEditorTarget",
 	"References": [
-		{
-			"Name": "$(EnginePath)/Flax.flaxproj"
-		},
-		{
-			"Name": "$(EnginePath)/../SteamWorks/SteamWorks.flaxproj"
-		},
-		{
-			"Name": "$(EnginePath)/../GameAnalytics/GameAnalytics.flaxproj"
-		},
-		{
-			"Name": "$(EnginePath)/../RmlUi/RmlUi.flaxproj"
-		}
+	{
+		"Name": "$(EnginePath)/Flax.flaxproj"
+	},
+	{
+		"Name": "$(ProjectPath)/../Thirdparty/SteamWorks/SteamWorks.flaxproj"
+	},
+	{
+		"Name": "$(ProjectPath)/../Thirdparty/GameAnalytics/GameAnalytics.flaxproj"
+	},
+	{
+		"Name": "$(ProjectPath)/../Thirdparty/RmlUi/RmlUi.flaxproj"
+	}
 	],
 	"DefaultScene": "362b418c43b31919b71055b252931fb3",
 	"DefaultSceneSpawn": {
