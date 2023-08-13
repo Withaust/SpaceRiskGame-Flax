@@ -1,0 +1,8 @@
+{
+	"ID": "578be5dc43160bd0b41600a9977936f8",
+	"TypeName": "Game.WorldSave",
+	"ParentID": "77de5ce64412bc37c53e588771348a1f",
+	"Enabled": true,
+	"Name": "Default",
+	"Aggression": 10.0
+}

@@ -7,7 +7,6 @@ Cache/
 Binaries/
 Output/
 Logs/
-PersistentData/
 Source/*.csproj
 /Package_*/
 !Source/Engine/Debug

@@ -1,0 +1,8 @@
+{
+	"ID": "c1049f8640ceecede13e69b47205e718",
+	"TypeName": "Game.CharacterSave",
+	"ParentID": "77de5ce64412bc37c53e588771348a1f",
+	"Enabled": true,
+	"Name": "Default",
+	"Experience": 123.0
+}
