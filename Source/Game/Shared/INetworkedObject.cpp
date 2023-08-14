@@ -35,5 +35,8 @@ void INetworkedObject::SendData(Array<char> data, int srcSize, NetworkRpcParams 
 
     NetworkReplicator::InvokeSerializer(GetTypeHandle(), this, stream, false);
 
-    UPRINT("Recieved replication for {0}", GetType().Fullname.ToString());
+    if (INetworkObject* netObj = ScriptingObject::ToInterface<INetworkObject>(this))
+    {
+        netObj->OnNetworkSync();
+    }
 }

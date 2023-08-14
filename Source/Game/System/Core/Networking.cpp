@@ -176,6 +176,8 @@ ScriptingObjectReference<Entity> Networking::SpawnPrefab(Prefab* prefab, Actor* 
         return {};
     }
 
+    NetworkObjectRole role = NetworkManager::LocalClientId == ownerId ? NetworkObjectRole::OwnedAuthoritative : NetworkObjectRole::ReplicatedSimulated;
+
     NetworkReplicator::SpawnObject(target);
     for (int i = 0; i < target->Scripts.Count(); ++i)
     {
@@ -190,17 +192,14 @@ ScriptingObjectReference<Entity> Networking::SpawnPrefab(Prefab* prefab, Actor* 
             {
                 _spawnList.Add(comp);
             }
+            if (PlayerOwned* owned = Cast<PlayerOwned>(comp))
+            {
+                owned->SetServerIdRemote(target->GetID());
+            }
         }
     }
 
-    if (NetworkManager::LocalClientId == ownerId)
-    {
-        NetworkReplicator::SetObjectOwnership(target, ownerId, NetworkObjectRole::OwnedAuthoritative, true);
-    }
-    else
-    {
-        NetworkReplicator::SetObjectOwnership(target, ownerId, NetworkObjectRole::ReplicatedSimulated, true);
-    }
+    NetworkReplicator::SetObjectOwnership(target, ownerId, role, true);
 
     Level::SpawnActor(target, parent);
 #if !BUILD_RELEASE
@@ -352,19 +351,15 @@ void Networking::DespawnReplicating(Entity* target)
 
 Guid Networking::SerializeEntity(Entity* target)
 {
-    if (PlayerManager::Instance->_ourPlayer == target)
+    if (PlayerOwned* owned = target->GetComponent<PlayerOwned>())
     {
-        return Guid::Empty;
+        return owned->GetServerIdLocal();
     }
     return target->GetID();
 }
 
 Entity* Networking::DeserializeEntity(Guid id, NetworkRpcParams rpcParams)
 {
-    if (id == Guid::Empty)
-    {
-        return PlayerManager::Instance->GetPlayer(rpcParams.SenderId);
-    }
     return Cast<Entity>(NetworkReplicator::ResolveForeignObject(id));
 }
 

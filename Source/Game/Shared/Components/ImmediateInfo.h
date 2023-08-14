@@ -22,7 +22,7 @@
 /// </summary>
 /// <remarks>Interpolation and prediction logic based on https://www.gabrielgambetta.com/client-server-game-architecture.html.</remarks>
 /// <remarks>Overall archetecture revamped in favor of https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/game/shared/usercmd.h</remarks>
-API_CLASS() class GAME_API ImmediateInfo : public IComponent
+API_CLASS() class GAME_API ImmediateInfo : public IComponent, public INetworkSerializable
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(ImmediateInfo);
@@ -64,7 +64,12 @@ public:
     // [Script]
     void OnEnable() override;
     void OnDisable() override;
+    void InitiateUpdate();
     void OnUpdate() override;
+
+    // [INetworkSerializable]
+    void Serialize(NetworkStream* stream) override;
+    void Deserialize(NetworkStream* stream) override;
 
     API_FUNCTION(NetworkRpc = "Server, Unreliable") void SendInfo(const Vector3& position, const Quaternion& rotation, const ButtonsMask& buttons);
     API_FUNCTION(NetworkRpc = "Client, Unreliable") void RecieveInfo(const Vector3& position, const Quaternion& rotation, const ButtonsMask& buttons);

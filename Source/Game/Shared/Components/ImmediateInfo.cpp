@@ -43,6 +43,21 @@ void ImmediateInfo::OnDisable()
     _buffer.Resize(0);
 }
 
+void ImmediateInfo::InitiateUpdate()
+{
+    const auto& position = Position->GetPosition();
+    const auto& rotation = Rotation->GetOrientation();
+    ButtonsMask buttonsMask = ReplicateButtons ? Buttons : ButtonsMask::None;
+
+    if (ShouldUpdate(position, rotation, _lastPosition, _lastRotation) || _lastButtonsMask != buttonsMask)
+    {
+        _lastPosition = position;
+        _lastRotation = rotation;
+        _lastButtonsMask = buttonsMask;
+        SendInfo(Position->GetPosition(), Rotation->GetOrientation(), buttonsMask);
+    }
+}
+
 void ImmediateInfo::OnUpdate()
 {
     const NetworkObjectRole role = NetworkReplicator::GetObjectRole(this);
@@ -50,17 +65,7 @@ void ImmediateInfo::OnUpdate()
     {
         if (USLEEP(_sendBlock))
         {
-            const auto& position = Position->GetPosition();
-            const auto& rotation = Rotation->GetOrientation();
-            ButtonsMask buttonsMask = ReplicateButtons ? Buttons : ButtonsMask::None;
-
-            if (ShouldUpdate(position, rotation, _lastPosition, _lastRotation) || _lastButtonsMask != buttonsMask)
-            {
-                _lastPosition = position;
-                _lastRotation = rotation;
-                _lastButtonsMask = buttonsMask;
-                SendInfo(Position->GetPosition(), Rotation->GetOrientation(), buttonsMask);
-            }
+            InitiateUpdate();
         }
     }
     else
@@ -105,6 +110,29 @@ void ImmediateInfo::OnUpdate()
             Set(_buffer[0].Value);
         }
     }
+}
+
+void ImmediateInfo::Serialize(NetworkStream* stream)
+{
+    stream->Write(Position->GetPosition());
+    stream->Write(Rotation->GetOrientation());
+
+    if (ReplicateButtons)
+        stream->Write(Buttons);
+}
+
+void ImmediateInfo::Deserialize(NetworkStream* stream)
+{
+    Vector3 position;
+    stream->Read(position);
+    Position->SetPosition(position);
+
+    Quaternion rotation;
+    stream->Read(rotation);
+    Rotation->SetOrientation(rotation);
+    
+    if (ReplicateButtons)
+        stream->Read(Buttons);
 }
 
 void ImmediateInfo::SendInfo(const Vector3& position, const Quaternion& rotation, const ButtonsMask& buttons)

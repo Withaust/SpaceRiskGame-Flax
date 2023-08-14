@@ -21,7 +21,7 @@
 #include <Game/System/Core/Logger.h>
 #include <Game/Shared/Entity.h>
 #include <Game/System/Core/SyncInfo.h>
-#include <Game/System/Game/Player/PlayerManager.h>
+#include <Game/Shared/Components/PlayerOwned.h>
 
 API_CLASS() class GAME_API Networking : public ISystem
 {
@@ -31,7 +31,6 @@ API_CLASS() class GAME_API Networking : public ISystem
     friend class CustomHierarchy;
     friend class SyncInfo;
     friend class INetworkedObject;
-    friend class PlayerManager;
 
 private:
     bool _gameStarted = false;
