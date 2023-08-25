@@ -1,8 +1,7 @@
 #include "Drill.h"
 
 Drill::Drill(const SpawnParams& params)
-    : IComponent(params),
-    Generate(4.0f)
+    : IComponent(params)
 {
     _tickUpdate = true;
 }
@@ -20,6 +19,7 @@ void Drill::SetFuel(float value)
 
 void Drill::OnEnable()
 {
+    Generate = 4.0f;
     UBIND_DATA(Drill, Data);
 }
 

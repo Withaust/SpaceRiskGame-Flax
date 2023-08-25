@@ -1,17 +1,33 @@
 #include "SleepBlock.h"
 
-SleepBlock::SleepBlock(float tps)
+const float SleepBlock::_offsetStep = 0.01f;
+const float SleepBlock::_maxOffset = 0.3f;
+float SleepBlock::_currentStep = 0.0f;
+
+void SleepBlock::operator=(float tps)
 {
     _timeout = 1.0f / tps;
     _timer = _timeout + 1.0f;
     _type = Type::Singular;
+    _currentStep += _offsetStep;
+    if (_currentStep >= _maxOffset)
+    {
+        _currentStep = 0.0f;
+    }
+    _timer += _currentStep;
 }
 
-SleepBlock::SleepBlock(float sleepSeconds, float activeSeconds)
+void SleepBlock::operator=(Pair<float, float> seconds)
 {
-    _span = activeSeconds;
-    _timeout = sleepSeconds;
+    _span = seconds.Second;
+    _timeout = seconds.First;
     _type = Type::Range;
+    _currentStep += _offsetStep;
+    if (_currentStep >= _maxOffset)
+    {
+        _currentStep = 0.0f;
+    }
+    _timer += _currentStep;
 }
 
 bool SleepBlock::Poll(float delta)

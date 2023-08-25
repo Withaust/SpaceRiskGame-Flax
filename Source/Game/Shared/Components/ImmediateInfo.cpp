@@ -18,8 +18,7 @@ namespace
 }
 
 ImmediateInfo::ImmediateInfo(const SpawnParams& params)
-    : IComponent(params),
-    _sendBlock(20.0f)
+    : IComponent(params)
 {
     _tickUpdate = true;
 }
@@ -27,6 +26,7 @@ ImmediateInfo::ImmediateInfo(const SpawnParams& params)
 void ImmediateInfo::OnEnable()
 {
     // Initialize state
+    _sendBlock = 20.0f;
     _bufferHasDeltas = false;
     _lastPosition = GetEntity() ? Position->GetPosition() : Vector3::Zero;
     _lastRotation = GetEntity() ? Rotation->GetOrientation() : Quaternion::Identity;

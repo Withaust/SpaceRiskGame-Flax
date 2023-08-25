@@ -3,15 +3,14 @@
 UIMPL_SINGLETON(SyncInfo);
 
 SyncInfo::SyncInfo(const SpawnParams& params)
-    : ISystem(params),
-    _syncBlock(3.0f)
+    : ISystem(params)
 {
     _tickUpdate = true;
 }
 
 void SyncInfo::OnInitialize()
 {
-
+    _syncBlock = 3.0f;
 }
 
 void SyncInfo::OnDeinitialize()

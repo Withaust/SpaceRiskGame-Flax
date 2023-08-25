@@ -1,15 +1,14 @@
 ﻿#include "Footsteps.h"
 
 Footsteps::Footsteps(const SpawnParams& params)
-    : IComponent(params),
-    _sleep(2.0f)
+    : IComponent(params)
 {
     _tickUpdate = true;
 }
 
 void Footsteps::OnEnable()
 {
-
+    _sleep = 2.0f;
 }
 
 void Footsteps::OnUpdate()

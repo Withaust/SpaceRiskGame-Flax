@@ -1,8 +1,7 @@
 ﻿#include "Weapon.h"
 
 Weapon::Weapon(const SpawnParams& params)
-    : IComponent(params),
-    _batchBlock(5.0f)
+    : IComponent(params)
 {
     _tickUpdate = true;
 }
@@ -53,7 +52,12 @@ float Weapon::ProcessHurt(const Array<RayCastHit>& result)
 
 void Weapon::OnEnable()
 {
+    _batchBlock = 5.0f;
     UBIND_DATA(Weapon, Data);
+    if (Data->WaitForLoaded())
+    {
+        return;
+    }
     BulletsEffect->SetParameterValue(TEXT("Main"), TEXT("Rate"), (1000.0f / DataPtr->FireRate) - 1.0f);
     _info = GetEntity()->GetComponent<ImmediateInfo>();
 }
