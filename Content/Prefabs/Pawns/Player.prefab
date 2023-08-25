@@ -66,6 +66,13 @@
 		"Type": 2
 	},
 	{
+		"ID": "dbdc8d074445c884b8d7c7935d83b4a2",
+		"TypeName": "Game.Footsteps",
+		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"RaycastOrigin": "d16e5d6b43f44b796c0f8e9026a47f63",
+		"RaycastMask": 1073741838
+	},
+	{
 		"ID": "f9ad2b0043489327592e42844d1de041",
 		"TypeName": "FlaxEngine.CharacterController",
 		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
@@ -242,6 +249,21 @@
 		"Layer": 4,
 		"Overrides": [],
 		"ParticleSystem": "08dd18094873f0ced571f3a6e10e32c4"
+	},
+	{
+		"ID": "d16e5d6b43f44b796c0f8e9026a47f63",
+		"TypeName": "FlaxEngine.EmptyActor",
+		"ParentID": "f9ad2b0043489327592e42844d1de041",
+		"Name": "EmptyActor",
+		"Transform": {
+			"Translation": {
+				"X": 0.0,
+				"Y": -50.0,
+				"Z": 0.0
+			}
+		},
+		"StaticFlags": 0,
+		"Layer": 4
 	}
 ]
 }

@@ -32,9 +32,9 @@ void SyncInfo::OnPlayerDisconnected(NetworkClient* client)
 void SyncInfo::OnUpdate()
 {
     // TODO: https://github.com/FlaxEngine/FlaxEngine/issues/1211
-    if(USLEEP(_syncBlock))
+    if (USLEEP(_syncBlock))
     {
-        if (_askingForSync)
+        if (_askToSync)
         {
             SendInfo();
         }
@@ -61,10 +61,14 @@ void SyncInfo::SendInfo(NetworkRpcParams param)
 void SyncInfo::RecievedInfo(NetworkRpcParams param)
 {
     NETWORK_RPC_IMPL(SyncInfo, RecievedInfo, param);
-    _askingForSync = false;
+    _syncState = SyncState::Connected;
+    _askToSync = false;
 }
 
 void SyncInfo::RequestSpawnSync()
 {
-    _askingForSync = true;
+    if (_syncState == SyncState::NotConnected)
+    {
+        _askToSync = true;
+    }
 }

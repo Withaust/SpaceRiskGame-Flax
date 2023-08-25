@@ -3,7 +3,6 @@
 #include <Engine/Scripting/Script.h>
 #include <Engine/Networking/INetworkObject.h>
 
-#include <Game/Shared/Defines.h>
 #include <Game/System/Core/Networking.h>
 
 API_CLASS() class GAME_API PlayerOwned : public IComponent, public INetworkObject

@@ -12,7 +12,14 @@ API_CLASS() class GAME_API SyncInfo : public ISystem
 
 private:
 
-    bool _askingForSync = false;
+    enum SyncState
+    {
+        NotConnected,
+        Connected
+    };
+
+    SyncState _syncState = SyncState::NotConnected;
+    bool _askToSync = false;
     SleepBlock _syncBlock;
     HashSet<uint32> _syncList;
 

@@ -1,8 +1,5 @@
 #include "Networking.h"
-#define LZ4_STATIC_LINKING_ONLY
-#define LZ4_HC_STATIC_LINKING_ONLY
-#include <Game/Thirdparty/lz4/lz4.h>
-#include <Game/Thirdparty/lz4/lz4hc.h>
+#include <Game/Shared/Components/PlayerOwned.h>
 
 UIMPL_SINGLETON(Networking)
 
@@ -124,33 +121,32 @@ void Networking::OnUpdate()
     NetworkStream* stream = Networking::Instance->_stream;
     stream->Initialize();
 
-    NetworkReplicator::InvokeSerializer(sync.object->GetTypeHandle(), sync.object, stream, true);
-
-    int bound = LZ4_compressBound(stream->GetLength());
-
-    _buffer.Resize(bound);
-
-    const int compressed_data_size = LZ4_compress_HC((const char*)(stream->GetBuffer()), &_buffer[0], stream->GetLength(), bound, LZ4HC_CLEVEL_MAX);
-
-    if (compressed_data_size <= 0)
+    if (INetworkSerializable* networked = ToInterface<INetworkSerializable>(sync.object))
     {
-        UCRIT(true, "LZ4_compress_HC failed to compress replication data for {0}.", sync.object->GetType().Fullname.ToString());
-        return;
+        networked->Serialize(stream);
+    }
+    else
+    {
+        NetworkReplicator::InvokeSerializer(sync.object->GetTypeHandle(), sync.object, stream, true);
     }
 
-    _buffer.Resize(compressed_data_size);
+    if (!EngineHelper::Compress(stream->GetBuffer(), stream->GetLength()))
+    {
+        UCRIT(true, "EngineHelper::Compress failed to compress replication data for {0}.", sync.object->GetType().Fullname.ToString());
+        return;
+    }
 
     NetworkRpcParams params;
     uint32 ids[1] = { sync.client->ClientId };
     params.TargetIds = ToSpan(ids, ARRAY_COUNT(ids));
-    sync.object->SendData(_buffer, stream->GetLength(), params);
+    sync.object->SendData(EngineHelper::GetCompressBuffer(), stream->GetLength(), params);
 }
 
 void Networking::StartGame()
 {
     const Args* args = LaunchArgs::Instance->GetArgs();
     NetworkSettings* settings = NetworkSettings::Get();
-    settings->NetworkFPS = 20.0f;
+    settings->NetworkFPS = -1.0f;
     settings->Address = args->Hostname;
     settings->Port = args->Port;
     settings->MaxClients = 6;

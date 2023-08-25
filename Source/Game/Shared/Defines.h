@@ -6,6 +6,9 @@
 #include <Game/Shared/Entity.h>
 #include <Engine/Content/JsonAsset.h>
 #include <Game/Shared/SleepBlock.h>
+#include <Game/Shared/MathHelper.h>
+#include <Game/Shared/EngineHelper.h>
+#include <Game/System/Core/Networking.h>
 #if USE_EDITOR
 #include <Editor/Editor.h>
 #include <Editor/Managed/ManagedEditor.h>
@@ -61,33 +64,3 @@ void On##Name##Changed() { \
 
 #define UBIND_DATA(Class, Name) Name.Changed.Bind<Class, &Class::On##Name##Changed>(this); On##Name##Changed(); \
 if(!Name) { UERR("Data field {0} is empty for object {1}", TEXT(#Name), GetEntity()->GetName()); }
-
-// Useful methods
-
-template <class T>
-void FindActors(Actor* target, Array<T*>& result)
-{
-    for (const auto& child : target->GetChildren<T>())
-    {
-        result.Add(child);
-    }
-
-    for (int32 i = 0; i < target->Children.Count(); i++)
-    {
-        FindActors(target->Children[i], result);
-    }
-}
-
-template <class T>
-void FindScripts(Actor* target, Array<T*>& result)
-{
-    for (const auto& child : target->GetScripts<T>())
-    {
-        result.Add(child);
-    }
-
-    for (int32 i = 0; i < target->Children.Count(); i++)
-    {
-        FindScripts(target->Children[i], result);
-    }
-}

@@ -545,6 +545,7 @@
 					"Z": -15046.9697265625
 				}
 			},
+			"Layer": 1,
 			"Material": "6738716e49a3f2936b26bf81961e003c",
 			"LODCount": 6,
 			"ChunkSize": 127,
@@ -555,7 +556,7 @@
 					"Offset": -0.000015259021893143655,
 					"Height": 1.0,
 					"Heightmap": "9ab2b1884680119bd745b9808490c5ce",
-					"Splatmap0": "00000000000000000000000000000000",
+					"Splatmap0": "2e0e792e45c931018a5250a40398da39",
 					"Splatmap1": "00000000000000000000000000000000",
 					"Heightfield": "02cc1dc0444125dc08cceea33520627f",
 					"Chunks": [
@@ -816,6 +817,21 @@
 							}
 						}
 					]
+				}
+			]
+		},
+		{
+			"ID": "93e6121d426d6f73b720e89a36f2f5ce",
+			"TypeName": "Game.TestTerrain",
+			"ParentID": "2dd1a5094b62ff94d5e4f8a9512aef5c",
+			"TerrainTypes": [
+				{
+					"Key": 0,
+					"Value": 1
+				},
+				{
+					"Key": 1,
+					"Value": 2
 				}
 			]
 		},

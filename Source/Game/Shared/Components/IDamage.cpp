@@ -7,7 +7,7 @@ IDamage::IDamage(const SpawnParams& params)
 
 void IDamage::OnNetworkSpawn()
 {
-    FindScripts(GetEntity(), _hitboxes);
+    EngineHelper::FindScripts(GetEntity(), _hitboxes);
 
     for (int i = 0; i < _hitboxes.Count(); ++i)
     {

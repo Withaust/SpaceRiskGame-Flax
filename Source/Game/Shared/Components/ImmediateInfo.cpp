@@ -12,18 +12,14 @@ namespace
 
     FORCE_INLINE bool ShouldUpdate(const Vector3& currentPosition, const Quaternion& currentRotation, const Vector3& newPosition, const Quaternion& newRotation)
     {
-        const auto& curAbs = currentPosition.GetAbsolute();
-        const auto& newAbs = newPosition.GetAbsolute();
-        return newAbs.X - curAbs.X > Precision ||
-            newAbs.Y - curAbs.Y > Precision ||
-            newAbs.Z - curAbs.Z > Precision ||
+        return Vector3::Distance(currentPosition, newPosition) > Precision ||
             Quaternion::AngleBetween(currentRotation, newRotation) > Precision;
     }
 }
 
 ImmediateInfo::ImmediateInfo(const SpawnParams& params)
     : IComponent(params),
-    _sendBlock(NetworkManager::NetworkFPS)
+    _sendBlock(20.0f)
 {
     _tickUpdate = true;
 }
@@ -102,7 +98,6 @@ void ImmediateInfo::OnUpdate()
             Transform transform;
             const float alpha = (gameTime - b0.Timestamp) / (b1.Timestamp - b0.Timestamp);
             Transform::Lerp(b0.Value, b1.Value, alpha, transform);
-            Transform::Lerp(b0.Value, b1.Value, alpha, transform);
             Set(transform);
         }
         else if (_buffer.Count() == 1 && _buffer[0].Timestamp <= gameTime)
@@ -130,9 +125,11 @@ void ImmediateInfo::Deserialize(NetworkStream* stream)
     Quaternion rotation;
     stream->Read(rotation);
     Rotation->SetOrientation(rotation);
-    
+
     if (ReplicateButtons)
+    {
         stream->Read(Buttons);
+    }
 }
 
 void ImmediateInfo::SendInfo(const Vector3& position, const Quaternion& rotation, const ButtonsMask& buttons)
@@ -152,7 +149,9 @@ void ImmediateInfo::RecieveInfo(const Vector3& position, const Quaternion& rotat
     }
 
     if (ReplicateButtons)
+    {
         Buttons = buttons;
+    }
 
     Transform transform(position, rotation);
     // Add to the interpolation buffer

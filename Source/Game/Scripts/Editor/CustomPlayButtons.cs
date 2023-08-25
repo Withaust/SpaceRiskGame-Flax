@@ -18,7 +18,7 @@ namespace Game
         public static void OnClickedClient()
         {
             LaunchArgs.ForceClient = true;
-            Editor.Instance.Simulation.RequestPlayOrStopPlay();
+            Editor.Instance.Simulation.RequestPlayScenesOrStopPlay();
         }
 
         public static void OnStartedPlaying()
@@ -58,7 +58,7 @@ namespace Game
                     continue;
                 }
 
-                if (Button.TooltipText == "Play Game")
+                if (Button.TooltipText == "Play In Editor (F5)")
                 {
                     OriginalPlayButton = Button;
                 }
@@ -77,7 +77,7 @@ namespace Game
             OriginalFrameButton.Visible = false;
 
             PlayHostButton = (ToolStripButton)Editor.Instance.UI.ToolStrip.AddButton(PlayHost.FindSprite("Default"),
-                Editor.Instance.Simulation.RequestPlayOrStopPlay).LinkTooltip("Play as a Host");
+                Editor.Instance.Simulation.RequestPlayScenesOrStopPlay).LinkTooltip("Play as a Host");
 
             PlayClientButton = (ToolStripButton)Editor.Instance.UI.ToolStrip.AddButton(PlayClient.FindSprite("Default"),
                 OnClickedClient).LinkTooltip("Play as a Client");

@@ -18,9 +18,8 @@ public:
         Replicated,
     };
 
-
     API_FIELD() NetworkingType Type = NetworkingType::None;
-    API_FUNCTION(NetworkRpc = "Client, Reliable") void SendData(Array<char> data, int srcSize, NetworkRpcParams info);
+    API_FUNCTION(NetworkRpc = "Client, Reliable") void SendData(const Array<char>& data, int srcSize, NetworkRpcParams info);
 };
 
 typedef INetworkedObject::NetworkingType ObjNetType;

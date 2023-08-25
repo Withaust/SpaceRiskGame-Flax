@@ -4,6 +4,7 @@
 #include <Engine/Networking/NetworkManager.h>
 #include <Engine/Networking/NetworkReplicator.h>
 #include <Engine/Networking/NetworkStream.h>
+#include <Engine/Networking/INetworkSerializable.h>
 #include <Engine/Level/Level.h>
 #include <Engine/Level/Scene/Scene.h>
 #include <Engine/Level/Prefabs/Prefab.h>
@@ -21,7 +22,7 @@
 #include <Game/System/Core/Logger.h>
 #include <Game/Shared/Entity.h>
 #include <Game/System/Core/SyncInfo.h>
-#include <Game/Shared/Components/PlayerOwned.h>
+
 
 API_CLASS() class GAME_API Networking : public ISystem
 {
@@ -37,7 +38,6 @@ private:
     bool _isHosting = false;
 
     NetworkStream* _stream = nullptr;
-    Array<char> _buffer;
 
     struct SyncEvent
     {

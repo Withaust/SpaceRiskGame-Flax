@@ -1,6 +1,7 @@
 ﻿#if FLAX_EDITOR
 using FlaxEditor.CustomEditors;
 using FlaxEngine;
+using System;
 
 namespace Game
 {

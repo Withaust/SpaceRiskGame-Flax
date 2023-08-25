@@ -40,7 +40,7 @@ void PovFx::RefreshModels()
     ShowModels();
     _models.Clear();
     Array<StaticModel*> models;
-    FindActors(_ourPlayer, models);
+    EngineHelper::FindActors(_ourPlayer, models);
 
     for (const auto& model : models)
     {
