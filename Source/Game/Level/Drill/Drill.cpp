@@ -6,12 +6,7 @@ Drill::Drill(const SpawnParams& params)
     _tickUpdate = true;
 }
 
-float Drill::GetFuel() const
-{
-    return _fuel;
-}
-
-void Drill::SetFuel(float value)
+void Drill::SetFuelLocal(float value)
 {
     _fuel = Math::Clamp(value, 0.0f, DataPtr->MaxFuel);
     Text->SetText(String::Format(TEXT("{0}\n{1}"), static_cast<int>(_fuel), DataPtr->Name));
@@ -46,6 +41,6 @@ void Drill::OnUpdate()
 
     if(USLEEP(Generate))
     {
-        SetFuel(_fuel + DataPtr->GenerateSpeed);
+        SetFuelLocal(_fuel + DataPtr->GenerateSpeed);
     }
 }

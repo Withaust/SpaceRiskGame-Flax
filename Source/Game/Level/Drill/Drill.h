@@ -32,8 +32,10 @@ private:
 
 public:
 
-    API_PROPERTY(NetworkReplicated) float GetFuel() const;
-    API_PROPERTY() void SetFuel(float value);
+    API_PROPERTY(NetworkReplicated) float GetFuelLocal() const { UIMPL_NETPROP_GETLOCAL(_fuel); }
+    API_PROPERTY(NetworkReplicated) void SetFuelLocal(float value);
+    API_FUNCTION(NetworkRpc = "Server, Reliable") void SetFuelRemote(float value) { UIMPL_NETPROP_SETREMOTE(Drill, Fuel); }
+    API_FUNCTION(NetworkRpc = "Client, Reliable") void SetFuelSync(float value) { UIMPL_NETPROP_SETSYNC(Drill, Fuel); }
 
     API_FIELD(NetworkReplicated, Attributes = "AssetReference(typeof(DrillData))") AssetReference<JsonAsset> Data;
     UDECLARE_DATA(DrillData, Data);

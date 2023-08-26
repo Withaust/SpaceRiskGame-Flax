@@ -13,6 +13,11 @@
     </div>
 	</div>
 	 -->
+	 
+	<div id="interact_menu">
+		<div class="interact_option">OPTION</div>
+    </div>
+	 
 	<div id="window">
 		<div id="title_bar">Chat</div>
 		<div id="content">

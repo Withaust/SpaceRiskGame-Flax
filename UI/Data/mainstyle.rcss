@@ -71,6 +71,25 @@ scrollbarvertical sliderbar
 	background-color: #ffffff57;
 }
 
+div#interact_menu 
+{
+    position: absolute; 
+	top: 65%; 
+	left: 50%;
+	z-index: 999;
+    text-align: center;
+	transform: translate(-50%, -50%);
+	width: 200dp;
+}
+
+.interact_option 
+{
+    text-align: center;
+	background-color: #ffffff57; /* #ffffff20 for blocked entries */
+	padding: 5dp;
+	font-size: 20dp;
+	color: white;
+}
 
 .tooltip 
 {

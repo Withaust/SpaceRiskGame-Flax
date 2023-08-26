@@ -31,7 +31,7 @@ float Weapon::ProcessHurt(const Array<RayCastHit>& result)
         {
             found = true;
             Guid entity = Networking::Instance->SerializeEntity(GetEntity());
-            Entity::FindEntity(hitActor)->GetComponent<IDamage>()->InflictDamageServer(hitbox->GetHitBoxIndex(), entity, Damage);
+            Entity::FindEntity(hitActor)->GetComponent<IDamage>()->InflictDamageServer(hitbox->Index, entity, Damage);
         }
         if (!found)
         {
@@ -54,10 +54,6 @@ void Weapon::OnEnable()
 {
     _batchBlock = 5.0f;
     UBIND_DATA(Weapon, Data);
-    if (Data->WaitForLoaded())
-    {
-        return;
-    }
     BulletsEffect->SetParameterValue(TEXT("Main"), TEXT("Rate"), (1000.0f / DataPtr->FireRate) - 1.0f);
     _info = GetEntity()->GetComponent<ImmediateInfo>();
 }

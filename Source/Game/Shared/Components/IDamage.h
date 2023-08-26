@@ -20,8 +20,8 @@ private:
 
 public:
 
-    API_EVENT() Delegate<uint32, IDamage*, float> OnDamage;
-    API_EVENT() Delegate<uint32, IDamage*, float> OnDestroyed;
+    API_EVENT() Delegate<uint32, Entity*, float> OnDamage;
+    API_EVENT() Delegate<uint32, Entity*, float> OnDestroyed;
 
     API_FUNCTION(NetworkRpc = "Server, Reliable") void InflictDamageServer(uint32 HitBox, Guid Inflictor, float Damage, NetworkRpcParams rpcParams = NetworkRpcParams());
     API_FUNCTION(NetworkRpc = "Client, Reliable") void InflictDamageClient(uint32 HitBox, Guid Inflictor, float Damage);

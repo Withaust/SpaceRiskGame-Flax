@@ -12,14 +12,9 @@ API_CLASS() class GAME_API IHitBox : public Script
     DECLARE_SCRIPTING_TYPE(IHitBox);
     friend class IDamage;
 
-private:
-
-    uint32 _hitboxIndex = 0;
-
 public:
 
     API_FIELD() float DamageMultiplier = 1.0f;
     API_FIELD() float Health = 100.0f;
-
-    API_PROPERTY() uint32 GetHitBoxIndex() { return _hitboxIndex; }
+    API_FIELD() uint32 Index = 0;
 };

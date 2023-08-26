@@ -316,6 +316,11 @@
 			"ParentID": "449ea996489ad88c1428f58a28a187b5"
 		},
 		{
+			"ID": "9a275930407fdc324d385ca55e808fd4",
+			"TypeName": "Game.UIInteractor",
+			"ParentID": "449ea996489ad88c1428f58a28a187b5"
+		},
+		{
 			"ID": "7d14904b426d1b0ee9c3d3afb09eb0f4",
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "5324473c46f1496a46410a9188243083",

@@ -250,6 +250,11 @@
 			"Head": "01e7dddf448cd875892fa0887eab103c"
 		},
 		{
+			"ID": "647215414c5c7ca0998e25a4f29fbca4",
+			"TypeName": "Game.DrillInteractable",
+			"ParentID": "0e17ba79495a2afb9669e38e2d317b53"
+		},
+		{
 			"ID": "b73c14624e8a4eedc4e3d29d72e78bbe",
 			"TypeName": "FlaxEngine.StaticModel",
 			"ParentID": "0e17ba79495a2afb9669e38e2d317b53",

@@ -22,7 +22,6 @@
 		"ID": "3961a3a5494cab9e549cf99d3a2595bf",
 		"TypeName": "Game.PlayerMovement",
 		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
-		"Type": 1,
 		"Controller": "f9ad2b0043489327592e42844d1de041",
 		"Head": "7636a45345c3bbb03cbe3a8b99032469"
 	},
@@ -54,12 +53,6 @@
 		"Data": "566d1cb045e34768a0eb91bf27a33668"
 	},
 	{
-		"ID": "157e39a64dd02c8db8005f928a923fa1",
-		"TypeName": "Game.IDamage",
-		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
-		"Type": 1
-	},
-	{
 		"ID": "8e8dd9114e12fd6437452c90dee5af20",
 		"TypeName": "Game.PlayerOwned",
 		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
@@ -71,6 +64,13 @@
 		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
 		"RaycastOrigin": "d16e5d6b43f44b796c0f8e9026a47f63",
 		"RaycastMask": 1073741838
+	},
+	{
+		"ID": "3dfd2226487b7a858877d9bd429c83db",
+		"TypeName": "Game.PlayerInteractor",
+		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
+		"RaycastOrigin": "6a86f65f4ecebf990d70708c92d13661",
+		"RaycastMask": 1073741917
 	},
 	{
 		"ID": "f9ad2b0043489327592e42844d1de041",

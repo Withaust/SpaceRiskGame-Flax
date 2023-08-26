@@ -18,12 +18,12 @@
 #define UIMPL_SINGLETON(T) T* T::Instance = nullptr;
 
 // Checks if current object is owned, if it is, then run code in the block
-#define UOWNED NetworkReplicator::IsObjectOwned(this)
-#define UOWNED_RETURN(returnValue) if(NetworkReplicator::IsObjectOwned(this)) { return returnValue; }
+#define UOWNED NetworkReplicator::IsObjectOwned(GetEntity())
+#define UOWNED_RETURN(returnValue) if(NetworkReplicator::IsObjectOwned(GetEntity())) { return returnValue; }
 
 // Checks if current object is not owned, if it is, then run code in the block
-#define UNOT_OWNED !NetworkReplicator::IsObjectOwned(this)
-#define UNOT_OWNED_RETURN(returnValue) if(!NetworkReplicator::IsObjectOwned(this)) { return returnValue; }
+#define UNOT_OWNED !NetworkReplicator::IsObjectOwned(GetEntity())
+#define UNOT_OWNED_RETURN(returnValue) if(!NetworkReplicator::IsObjectOwned(GetEntity())) { return returnValue; }
 
 // Implements generic networked property for a component
 #define UIMPL_NETPROP_GETLOCAL(PrivateValue) return PrivateValue;
@@ -62,5 +62,8 @@ void On##Name##Changed() { \
     UERR("Data field {0} failed to filter datatype assignment for {1}", TEXT(#Name), TEXT(#DataType)); \
     } Name##Ptr = result; } \
 
-#define UBIND_DATA(Class, Name) Name.Changed.Bind<Class, &Class::On##Name##Changed>(this); On##Name##Changed(); \
-if(!Name) { UERR("Data field {0} is empty for object {1}", TEXT(#Name), GetEntity()->GetName()); }
+#define UBIND_DATA(Class, Name) Name.Changed.Bind<Class, &Class::On##Name##Changed>(this); \
+if(!Name) { UERR("Data field {0} is empty for object {1}", TEXT(#Name), GetEntity()->GetName()); } \
+if (Name->WaitForLoaded()) { \
+    UERR("Data field {0} is failed to load on object {1}", TEXT(#Name), GetEntity()->GetName()); return; \
+} On##Name##Changed();

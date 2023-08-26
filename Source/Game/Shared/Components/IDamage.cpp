@@ -12,7 +12,7 @@ void IDamage::OnNetworkSpawn()
     for (int i = 0; i < _hitboxes.Count(); ++i)
     {
         auto hitbox = _hitboxes[i];
-        hitbox->_hitboxIndex = i;
+        hitbox->Index = i;
     }
 }
 
@@ -40,16 +40,14 @@ void IDamage::InflictDamageClient(uint32 HitBox, Guid Inflictor, float Damage)
 {
     NETWORK_RPC_IMPL(IDamage, InflictDamageClient, HitBox, Inflictor, Damage);
 
-    IDamage* inflictor = nullptr;
+    ScriptingObject* foreign = NetworkReplicator::ResolveForeignObject(Inflictor);
 
-    if (ScriptingObject* obj = NetworkReplicator::ResolveForeignObject(Inflictor))
-    {
-        inflictor = Cast<Entity>(obj)->GetComponent<IDamage>();
-    }
-    else
+    if (!foreign)
     {
         UERR("CLIENT Failed to resolve entity!");
     }
+
+    Entity* inflictor = Cast<Entity>(foreign);
 
     IHitBox* hitBox = _hitboxes[HitBox];
 

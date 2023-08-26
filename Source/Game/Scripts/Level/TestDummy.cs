@@ -17,10 +17,10 @@ namespace Game
         public MaterialInstance HitMaterial = null;
         public StaticModel Model = null;
         
-        private void OnDamage(uint HitBox, IDamage Inflictor, float Damage)
+        private void OnDamage(uint HitBox, Entity Inflictor, float Damage)
         {
             Hitbox.Health = Health;
-            Text.Text = "HitBox: " + HitBox + "\n" + "Damager: " + Inflictor.GetEntity().Name + "\n" + "Damage: " + ((int)Damage).ToString();
+            Text.Text = "HitBox: " + HitBox + "\n" + "Damager: " + Inflictor.Name + "\n" + "Damage: " + ((int)Damage).ToString();
             Model.SetMaterial(0, HitMaterial);
             MaterialTimer = 1.0f;
         }
