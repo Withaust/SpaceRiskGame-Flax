@@ -65,6 +65,10 @@ public:
 
     API_FUNCTION() static Entity* FindEntity(Actor* Child)
     {
+        if (!Child)
+        {
+            return nullptr;
+        }
         while (true)
         {
             Entity* entity = Cast<Entity>(Child);
@@ -73,6 +77,10 @@ public:
                 return entity;
             }
             Child = Child->GetParent();
+            if (!Child)
+            {
+                return nullptr;
+            }
         }
     }
 };

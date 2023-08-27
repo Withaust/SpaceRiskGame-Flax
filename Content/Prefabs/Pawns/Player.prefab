@@ -162,6 +162,27 @@
 		}
 	},
 	{
+		"ID": "fa2761c94b63101f80e6639047525208",
+		"TypeName": "FlaxEngine.SpotLight",
+		"ParentID": "3e53508e4eb57720bff5608f3260ce6a",
+		"Name": "SpotLight",
+		"Transform": {
+			"Translation": {
+				"X": 0.0,
+				"Y": 0.0000014241784356272547,
+				"Z": -47.78750228881836
+			},
+			"Orientation": {
+				"X": -1.0,
+				"Y": 0.0,
+				"Z": 0.0,
+				"W": 1.4901159417490817e-8
+			}
+		},
+		"StaticFlags": 0,
+		"Layer": 4
+	},
+	{
 		"ID": "f76d704843f1e49b668f099cdabad6b6",
 		"PrefabID": "a901e4314d6388192b8478af7e6f5534",
 		"PrefabObjectID": "0295761a4d31108dbf88939814365e50",

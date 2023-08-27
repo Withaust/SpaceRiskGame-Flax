@@ -10,7 +10,8 @@ API_ENUM() enum class InteractionType
 {
     None = 0,
     Open,
-    Close
+    Close,
+    Toggle
 };
 
 struct InteractableOption

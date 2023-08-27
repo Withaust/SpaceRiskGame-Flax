@@ -61,7 +61,15 @@ void PlayerInteractor::OnUpdate()
         return;
     }
 
-    Entity* entity = Entity::FindEntity(Cast<Actor>(hit.Collider));
+    Actor* actor = Cast<Actor>(hit.Collider);
+
+    if (!actor)
+    {
+        Hide();
+        return;
+    }
+
+    Entity* entity = Entity::FindEntity(actor);
     
     if (!entity)
     {
