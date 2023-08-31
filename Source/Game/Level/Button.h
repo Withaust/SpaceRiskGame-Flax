@@ -6,7 +6,6 @@
 
 #include <Game/Shared/Defines.h>
 #include <Game/Shared/Components/IInteractable.h>
-#include <Game/Level/Drill/Drill.h>
 
 API_CLASS() class GAME_API Button : public IInteractable
 {

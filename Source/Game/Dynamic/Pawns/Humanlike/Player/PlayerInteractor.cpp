@@ -79,7 +79,7 @@ void PlayerInteractor::OnUpdate()
 
     IInteractable* interactable = entity->GetComponent<IInteractable>();
 
-    if (!interactable)
+    if (!interactable || !interactable->IsEnabled())
     {
         Hide();
         return;

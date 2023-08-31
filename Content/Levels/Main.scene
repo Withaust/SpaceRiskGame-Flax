@@ -2828,6 +2828,184 @@
 				"Y": 32.0,
 				"Z": 12.0
 			}
+		},
+		{
+			"ID": "d1dddeb84d03eaefecfef5a029d393fc",
+			"TypeName": "Game.Entity",
+			"ParentID": "184c880041c13b790c4da2ae27929fd7",
+			"Name": "Cameras",
+			"Transform": {
+				"Translation": {
+					"X": -876.6513061523438,
+					"Y": -210.2161102294922,
+					"Z": -418.72967529296877
+				}
+			}
+		},
+		{
+			"ID": "33f10d664afdeef77180ffaf50345d1b",
+			"TypeName": "Game.CameraControl",
+			"ParentID": "d1dddeb84d03eaefecfef5a029d393fc",
+			"Cameras": [
+				"5f42596a47aa69b59bc88fa80a0ae6e7",
+				"885c1f7a4372b0bcda9332aaf7aa64b0",
+				"60654a0c49b943d37a9d1ea617731583",
+				"54a4a5c24ed3206e7bcc29bcaf945f7b"
+			]
+		},
+		{
+			"ID": "54a4a5c24ed3206e7bcc29bcaf945f7b",
+			"TypeName": "FlaxEngine.Camera",
+			"ParentID": "d1dddeb84d03eaefecfef5a029d393fc",
+			"Name": "Camera 2",
+			"Transform": {
+				"Translation": {
+					"X": -671.5520629882813,
+					"Y": 596.5401611328125,
+					"Z": -2147.452880859375
+				},
+				"Orientation": {
+					"X": 0.06629358977079392,
+					"Y": 0.9240673184394836,
+					"Z": -0.18775780498981477,
+					"W": 0.3262694478034973
+				}
+			}
+		},
+		{
+			"ID": "60654a0c49b943d37a9d1ea617731583",
+			"TypeName": "FlaxEngine.Camera",
+			"ParentID": "d1dddeb84d03eaefecfef5a029d393fc",
+			"Name": "Camera 1",
+			"Transform": {
+				"Translation": {
+					"X": -1843.82763671875,
+					"Y": 535.0775146484375,
+					"Z": -2108.072509765625
+				},
+				"Orientation": {
+					"X": 0.18699125945568086,
+					"Y": 0.3367670476436615,
+					"Z": -0.0684264674782753,
+					"W": 0.9202935099601746
+				}
+			}
+		},
+		{
+			"ID": "885c1f7a4372b0bcda9332aaf7aa64b0",
+			"TypeName": "FlaxEngine.Camera",
+			"ParentID": "d1dddeb84d03eaefecfef5a029d393fc",
+			"Name": "Camera 0",
+			"Transform": {
+				"Translation": {
+					"X": -1919.6337890625,
+					"Y": 610.5791015625,
+					"Z": -523.109130859375
+				},
+				"Orientation": {
+					"X": 0.0,
+					"Y": -0.4991535544395447,
+					"Z": 0.0,
+					"W": 0.8665136098861694
+				}
+			}
+		},
+		{
+			"ID": "5f42596a47aa69b59bc88fa80a0ae6e7",
+			"TypeName": "FlaxEngine.Camera",
+			"ParentID": "d1dddeb84d03eaefecfef5a029d393fc",
+			"Name": "Camera",
+			"Transform": {
+				"Translation": {
+					"X": -690.8427124023438,
+					"Y": 610.5791015625,
+					"Z": -531.6329956054688
+				},
+				"Orientation": {
+					"X": 0.3099464178085327,
+					"Y": 0.3826938271522522,
+					"Z": -0.1380336880683899,
+					"W": 0.8593168258666992
+				}
+			}
+		},
+		{
+			"ID": "814ab33f481c35d01377ffb7215c626e",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "d1dddeb84d03eaefecfef5a029d393fc",
+			"Name": "StaticModel",
+			"Transform": {
+				"Translation": {
+					"X": 0.0,
+					"Y": -87.86958312988281,
+					"Z": 0.0
+				}
+			},
+			"Model": "b43f0f8f4aaba3f3156896a5a22ba493",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "00000000000000000000000000000000",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
+		},
+		{
+			"ID": "259222db437b75a886d87c95bfba9a73",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "d1dddeb84d03eaefecfef5a029d393fc",
+			"Name": "Lowpoly_Notebook_2",
+			"Transform": {
+				"Translation": {
+					"X": -1.23785400390625,
+					"Y": -35.65058898925781,
+					"Z": 5.654449462890625
+				},
+				"Orientation": {
+					"X": 0.0,
+					"Y": -0.6454286575317383,
+					"Z": 0.0,
+					"W": 0.7638205885887146
+				},
+				"Scale": {
+					"X": 0.1899999976158142,
+					"Y": 0.1899999976158142,
+					"Z": 0.1899999976158142
+				}
+			},
+			"Model": "34d5513e4079faf5e94cb8aa9b8b333f",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "00000000000000000000000000000000",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					},
+					{
+						"Material": "00000000000000000000000000000000",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
+		},
+		{
+			"ID": "b35df09d4c279c94375e5fb8ddb9e345",
+			"TypeName": "FlaxEngine.BoxCollider",
+			"ParentID": "d1dddeb84d03eaefecfef5a029d393fc",
+			"Name": "BoxCollider",
+			"Transform": {
+				"Translation": {
+					"X": 0.0,
+					"Y": -55.21430969238281,
+					"Z": 0.0
+				}
+			}
 		}
 	]
 }

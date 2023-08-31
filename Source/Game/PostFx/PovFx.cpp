@@ -92,6 +92,7 @@ void PovFx::ShowModels()
 
 void PovFx::OnDisable()
 {
+    ShowModels();
     // Cleanup
     if (_compositeOutputPipeline)
     {
