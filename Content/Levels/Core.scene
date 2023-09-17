@@ -208,6 +208,17 @@
 			"Material": "ff33104c4779d85b9be81fa14bcaec40"
 		},
 		{
+			"ID": "f54a03604c5e2fd0f88da9a811fd57ca",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "df3598904da36af0d20c0798f9b4b690",
+			"Name": "Map"
+		},
+		{
+			"ID": "2d45f47340a5d2c194f70b8c1c757b39",
+			"TypeName": "Game.Map",
+			"ParentID": "f54a03604c5e2fd0f88da9a811fd57ca"
+		},
+		{
 			"ID": "d02716e244cbaef1249d8cb4961fe7fd",
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "df3598904da36af0d20c0798f9b4b690",
@@ -302,23 +313,51 @@
 			"TypeName": "RmlUi.RmlUiDocument",
 			"ParentID": "f0374dfc45ab7a42190e9ca95463ee81",
 			"Name": "Game",
-			"Document": "eed7e26c43261b835239de854a78ed39"
+			"Document": "a6bc048342a86fca389c94ba987e72e0"
 		},
 		{
 			"ID": "998a592949aff350a6be0ead17ba15e5",
 			"TypeName": "Game.UIGame",
-			"ParentID": "449ea996489ad88c1428f58a28a187b5",
-			"Chat": "7f545993453a4accac431d84cb4b9119"
-		},
-		{
-			"ID": "7f545993453a4accac431d84cb4b9119",
-			"TypeName": "Game.UIChat",
 			"ParentID": "449ea996489ad88c1428f58a28a187b5"
 		},
 		{
-			"ID": "9a275930407fdc324d385ca55e808fd4",
-			"TypeName": "Game.UIInteractor",
+			"ID": "97bc163747a9359e63722b8909b47e4f",
+			"TypeName": "Game.UIGameChat",
 			"ParentID": "449ea996489ad88c1428f58a28a187b5"
+		},
+		{
+			"ID": "bc3ac438408a36fa63477e8f3d025e9e",
+			"TypeName": "Game.UIGameInteractor",
+			"ParentID": "449ea996489ad88c1428f58a28a187b5"
+		},
+		{
+			"ID": "a5d6262b441ccb0a0c43858c2fd6c4b9",
+			"TypeName": "RmlUi.RmlUiDocument",
+			"ParentID": "f0374dfc45ab7a42190e9ca95463ee81",
+			"Name": "SystemMenu",
+			"Document": "2417b1b043d5e6cd24c8b5a9e2b378e1"
+		},
+		{
+			"ID": "6b5691ca4db5d5e3799b70a6758684ea",
+			"TypeName": "Game.UISystemMenu",
+			"ParentID": "a5d6262b441ccb0a0c43858c2fd6c4b9"
+		},
+		{
+			"ID": "2f5e7f414015a57967845086318ae739",
+			"TypeName": "RmlUi.RmlUiDocument",
+			"ParentID": "f0374dfc45ab7a42190e9ca95463ee81",
+			"Name": "PlayMenu",
+			"Document": "48ab346b41a14236a1d181904166c1f2"
+		},
+		{
+			"ID": "db0560544621dc60bd0d6dad1c2a7bec",
+			"TypeName": "Game.UIPlayMenu",
+			"ParentID": "2f5e7f414015a57967845086318ae739"
+		},
+		{
+			"ID": "1e78c4c14be727b070f1a7836f9729c8",
+			"TypeName": "Game.UIPlayMenuMap",
+			"ParentID": "2f5e7f414015a57967845086318ae739"
 		},
 		{
 			"ID": "7d14904b426d1b0ee9c3d3afb09eb0f4",

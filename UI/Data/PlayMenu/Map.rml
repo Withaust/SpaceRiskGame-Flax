@@ -1,0 +1,11 @@
+<template name="map">
+
+	<head>
+		<link type="text/rcss" href="MapStyle.rcss" />
+	</head>
+
+	<body>
+		<div>TEST</div>
+	</body>
+</template>
+</template>

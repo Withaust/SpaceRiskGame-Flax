@@ -1,72 +1,57 @@
-/*
-* Default styles for all the basic elements.
-*/
-
-div
-{
+div {
 	display: block;
 }
 
-p
-{
+p {
 	display: block;
 }
 
-h1
-{
+h1 {
 	display: block;
 }
 
-em
-{
+em {
 	font-style: italic;
 }
 
-strong
-{
+strong {
 	font-weight: bold;
 }
 
-select
-{
+select {
 	text-align: left;
 }
 
-tabset tabs
-{
+tabset tabs {
 	display: block;
 }
 
-table 
-{
+table {
 	box-sizing: border-box;
 	display: table;
 }
 
-tr 
-{
+tr {
 	box-sizing: border-box;
 	display: table-row;
 }
 
-td 
-{
+td {
 	box-sizing: border-box;
 	display: table-cell;
 }
 
-col 
-{
+col {
 	box-sizing: border-box;
 	display: table-column;
 }
 
-colgroup 
-{
+colgroup {
 	display: table-column-group;
 }
 
-thead, tbody, tfoot 
-{
+thead,
+tbody,
+tfoot {
 	display: table-row-group;
 }

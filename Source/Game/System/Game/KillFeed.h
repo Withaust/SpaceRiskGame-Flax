@@ -14,4 +14,6 @@ API_CLASS() class GAME_API KillFeed : public ISystem
 public:
     API_FIELD() static KillFeed* Instance;
     API_EVENT() Delegate<Entity*, Entity*> OnKill;
+
+    void OnDeinitialize() override;
 };

@@ -9,6 +9,11 @@ Networking::Networking(const SpawnParams& params)
     _tickUpdate = true;
 }
 
+void Networking::ForceAddReplicated(INetworkedObject* obj)
+{
+    _spawnList.Add(obj);
+}
+
 void Networking::OnNetworkStateChanged()
 {
     switch (NetworkManager::State)
@@ -92,6 +97,7 @@ void Networking::OnDeinitialize()
 {
     UnbindEvents();
     Delete(_stream);
+    UDEINIT_SINGLETON();
 }
 
 void Networking::OnUpdate()

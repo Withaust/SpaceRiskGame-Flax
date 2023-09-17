@@ -1,7 +1,7 @@
 {
 	"ID": "032ffca740c9d866409f84b148390543",
 	"TypeName": "FlaxEditor.Content.Settings.StreamingSettings",
-	"EngineBuild": 6338,
+	"EngineBuild": 6344,
 	"Data": {
 	"TextureGroups": [
 		{

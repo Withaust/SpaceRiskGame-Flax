@@ -22,7 +22,7 @@ void CameraControl::OnEnable()
     Function<void(Entity*)> func;
     func.Bind<CameraControl, &CameraControl::OnToggle>(this);
 
-    AddOption(InteractionType::Show_Cameras, func);
+    AddOption(InteractionType::Use, func);
 
     for (const auto& camera : Cameras)
     {

@@ -32,6 +32,7 @@ API_CLASS() class GAME_API Networking : public ISystem
     friend class CustomHierarchy;
     friend class SyncInfo;
     friend class INetworkedObject;
+    friend class Core;
 
 private:
     bool _gameStarted = false;
@@ -47,6 +48,8 @@ private:
 
     HashSet<ScriptingObjectReference<INetworkedObject>> _spawnList;
     Array<SyncEvent> _syncEvents;
+
+    API_FUNCTION() void ForceAddReplicated(INetworkedObject* obj);
 
 public:
 

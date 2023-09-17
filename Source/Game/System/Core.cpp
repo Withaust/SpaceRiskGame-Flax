@@ -1,4 +1,5 @@
 #include "Core.h"
+#include <Game/System/Core/Networking.h>
 
 Core* Core::Instance = nullptr;
 Array<ScriptingObjectReference<ISystem>> Core::_systemsArray;
@@ -58,10 +59,7 @@ void Core::ReplicateSystems()
         }
         if (target->Type == ObjNetType::Replicated)
         {
-            // TODO
-            Platform::Error(String("System ") + String(target->GetType().Fullname) + String(" is using replication! Not supported yet!"));
-            Engine::RequestExit(1);
-            break;
+            Networking::Instance->ForceAddReplicated(target);
         }
     }
 }
@@ -95,7 +93,6 @@ ScriptingObjectReference<ISystem> Core::Get(const ScriptingTypeHandle& type)
 #include <Game/System/Core/Steam.h>
 #include <Game/System/Core/Analytics.h>
 #include <Game/System/Core/Logger.h>
-#include <Game/System/Core/Networking.h>
 #include <Game/System/Core/SyncInfo.h>
 #include <Game/System/Core/LevelManager.h>
 // Game systems
@@ -103,6 +100,7 @@ ScriptingObjectReference<ISystem> Core::Get(const ScriptingTypeHandle& type)
 #include <Game/System/Game/VisibilityCPU.h>
 #include <Game/System/Game/VisibilityGPU.h>
 #include <Game/System/Game/PostFx.h>
+#include <Game/System/Game/Map.h>
 #include <Game/System/Game/Player/PlayerRespawns.h>
 #include <Game/System/Game/Player/PlayerManager.h>
 #include <Game/System/Game/Chat.h>
@@ -128,6 +126,7 @@ void Core::LoadSystems()
     Add<VisibilityCPU>();
     Add<VisibilityGPU>();
     Add<PostFx>();
+    Add<Map>();
     Add<PlayerRespawns>(ObjNetType::Registered);
     Add<PlayerManager>(ObjNetType::Registered);
     Add<Chat>(ObjNetType::Registered);

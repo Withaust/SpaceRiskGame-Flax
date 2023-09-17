@@ -13,6 +13,7 @@ void VisibilityCPU::OnInitialize()
 
 void VisibilityCPU::OnDeinitialize()
 {
+    UDEINIT_SINGLETON();
 }
 
 bool VisibilityCPU::Queue(Vector3 origin, Vector3 direction)

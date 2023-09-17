@@ -8,6 +8,11 @@ Chat::Chat(const SpawnParams& params)
     _tickUpdate = true;
 }
 
+void Chat::OnDeinitialize()
+{
+    UDEINIT_SINGLETON();
+}
+
 void Chat::SendMessage(const String& text, NetworkRpcParams info)
 {
     NETWORK_RPC_IMPL(Chat, SendMessage, text, info);

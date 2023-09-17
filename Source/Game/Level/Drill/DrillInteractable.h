@@ -7,6 +7,7 @@
 #include <Game/Shared/Defines.h>
 #include <Game/Shared/Components/IInteractable.h>
 #include <Game/Level/Drill/Drill.h>
+#include <Game/System/Game/Chat.h>
 
 API_CLASS() class GAME_API DrillInteractable : public IInteractable
 {

@@ -7,12 +7,13 @@ IInteractable::IInteractable(const SpawnParams& params)
 {
 }
 
-void IInteractable::AddOption(InteractionType type, Function<void(Entity*)> invoke, bool enabled, uint32 order)
+void IInteractable::AddOption(InteractionType type, Function<void(Entity*)> invoke, bool enabled, float timer, uint32 order)
 {
     InteractableOption newOption;
     newOption.Type = type;
     newOption.Invoke = invoke;
     newOption.Enabled = enabled;
+    newOption.Timer = timer;
     
     if (order == 0)
     {

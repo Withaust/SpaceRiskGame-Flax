@@ -33,7 +33,7 @@ API_ENUM() enum class Layers : int32
     __26__ = 26,
     __27__ = 27,
     __28__ = 28,
-    __29__ = 29,
+    Map = 29,
     Glass = 30,
     NoCollision = 31,
 };

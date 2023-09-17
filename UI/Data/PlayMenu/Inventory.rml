@@ -1,0 +1,20 @@
+<template name="inventory">
+
+	<head>
+		<link type="text/rcss" href="InventoryStyle.rcss" />
+	</head>
+
+	<body>
+		<div class="row" id="rows">
+			<div id="equipped">
+				TEST
+			</div>
+			<div id="player">
+				<img id="player-viewport" src="../Textures/Empty.tga" />
+			</div>
+			<div id="loot">
+				TEST
+			</div>
+		</div>
+	</body>
+</template>

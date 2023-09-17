@@ -12,7 +12,8 @@ API_ENUM() enum class InteractionType
     Open,
     Close,
     Toggle,
-    Show_Cameras,
+    Use,
+    Collect
 };
 
 struct InteractableOption
@@ -20,6 +21,7 @@ struct InteractableOption
     InteractionType Type = InteractionType::None;
     Function<void(Entity*)> Invoke;
     bool Enabled = true;
+    float Timer = 0.0f;
 };
 
 API_CLASS() class GAME_API IInteractable : public IComponent
@@ -43,7 +45,7 @@ public:
 
     bool IsEnabled() { return _enabled; }
 
-    void AddOption(InteractionType type, Function<void(Entity*)> invoke, bool enabled = true, uint32 order = 0);
+    void AddOption(InteractionType type, Function<void(Entity*)> invoke, bool enabled = true, float timer = 0.0f, uint32 order = 0);
     InteractableOption& GetOption(InteractionType type);
     const Array<InteractableOption>& GetOptions();
 };

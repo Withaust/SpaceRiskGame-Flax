@@ -29,4 +29,5 @@ void PostFx::Disable()
 void PostFx::OnDeinitialize()
 {
     Disable();
+    UDEINIT_SINGLETON();
 }

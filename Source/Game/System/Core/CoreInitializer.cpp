@@ -36,6 +36,7 @@ void CoreInitializer::OnInitialize()
 
 void CoreInitializer::OnDeinitialize()
 {
+    UDEINIT_SINGLETON();
 }
 
 void CoreInitializer::OnSceneLoaded(Scene* scene)

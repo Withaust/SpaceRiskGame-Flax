@@ -40,7 +40,6 @@ public:
         }
     }
 
-
 private:
 
     static Array<char> _compressBuffer;

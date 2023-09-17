@@ -29,4 +29,6 @@ public:
 
     API_FUNCTION() void Register(ScriptingObjectReference<PlayerSpawn> spawn);
     API_FUNCTION() void Unregister(ScriptingObjectReference<PlayerSpawn> spawn);
+
+    void OnDeinitialize() override;
 };

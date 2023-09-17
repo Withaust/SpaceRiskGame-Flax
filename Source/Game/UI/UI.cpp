@@ -9,42 +9,22 @@ UIMPL_SINGLETON(UI)
 UI::UI(const SpawnParams& params)
     : ISystem(params)
 {
+    _tickUpdate = true;
 }
 
-void UI::FindStates(Actor* target, Array<IUIState*>& result)
+UIViewports* UI::GetTextures()
 {
-    IUIState* state = target->GetScript<IUIState>();
-
-    if (state)
-    {
-        result.Push(state);
-    }
-
-    for (int32 i = 0; i < target->Children.Count(); i++)
-    {
-        FindStates(target->Children[i], result);
-    }
-}
-
-void UI::FindScripts(Actor* target, Array<Script*>& result)
-{
-    Array<Script*> scripts = target->Scripts;
-
-    if (scripts.Count() != 0)
-    {
-        result.Add(scripts);
-    }
-
-    for (int32 i = 0; i < target->Children.Count(); i++)
-    {
-        FindScripts(target->Children[i], result);
-    }
+    return _textures;
 }
 
 void UI::OnInitialize()
 {
+    _textures = New<UIViewports>();
+    RmlUiPlugin::OnLoadTexture.Bind<UIViewports, &UIViewports::OnLoadTexture>(_textures);
+    RmlUiPlugin::OnReleaseTexture.Bind<UIViewports, &UIViewports::OnReleaseTexture>(_textures);
+
     Array<IUIState*> result;
-    FindStates(GetActor(), result);
+    EngineHelper::FindScripts<IUIState>(GetActor(), result);
 
     for (const auto& state : result)
     {
@@ -57,10 +37,13 @@ void UI::OnInitialize()
 
     for (auto state : _states)
     {
+        auto Document = state.Value->GetDocument();
+        auto Context = Document->GetContext();
+        Context->SetDensityIndependentPixelRatio(1.0f);
         state.Value->OnInitialize();
         state.Value->GetActor()->SetIsActive(false);
         Array<Script*> scripts;
-        FindScripts(state.Value->GetActor(), scripts);
+        EngineHelper::FindScripts(state.Value->GetActor(), scripts);
         for (const auto& script : scripts)
         {
             script->SetEnabled(false);
@@ -74,6 +57,23 @@ void UI::OnDeinitialize()
     {
         state.Value->OnDeinitialize();
     }
+
+    if (_textures)
+    {
+        RmlUiPlugin::OnLoadTexture.Unbind();
+        RmlUiPlugin::OnReleaseTexture.Unbind();
+        _textures->ClearViewports();
+        Delete(_textures);
+    }
+    UDEINIT_SINGLETON();
+}
+
+void UI::OnUpdate()
+{
+    if (Input::GetKeyUp(KeyboardKeys::Escape))
+    {
+        GoBack();
+    }
 }
 
 void UI::GoForward(String state)
@@ -86,7 +86,7 @@ void UI::GoForward(String state)
     {
         _currentState->GetActor()->SetIsActive(false);
         Array<Script*> scripts;
-        UI::Instance->FindScripts(_currentState->GetActor(), scripts);
+        EngineHelper::FindScripts(_currentState->GetActor(), scripts);
         for (const auto& script : scripts)
         {
             script->SetEnabled(false);
@@ -99,7 +99,7 @@ void UI::GoForward(String state)
     IUIState* target = _states[state];
     target->GetActor()->SetIsActive(true);
     Array<Script*> scripts;
-    UI::Instance->FindScripts(target->GetActor(), scripts);
+    EngineHelper::FindScripts(target->GetActor(), scripts);
     for (const auto& script : scripts)
     {
         script->SetEnabled(true);

@@ -47,6 +47,7 @@
 		"TypeName": "Game.Weapon",
 		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
 		"Type": 1,
+		"DamageMask": 1073741896,
 		"Direction": "6a86f65f4ecebf990d70708c92d13661",
 		"Muzzle": "9677d71947aa506847297bad6cfe84f0",
 		"BulletsEffect": "ba62327e45774ffa240b5cbd83d373f7",

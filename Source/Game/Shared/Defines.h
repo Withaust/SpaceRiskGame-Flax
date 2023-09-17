@@ -16,6 +16,7 @@
 
 // Singleton macro implementation
 #define UIMPL_SINGLETON(T) T* T::Instance = nullptr;
+#define UDEINIT_SINGLETON() Instance = nullptr;
 
 // Checks if current object is owned, if it is, then run code in the block
 #define UOWNED NetworkReplicator::IsObjectOwned(GetEntity())

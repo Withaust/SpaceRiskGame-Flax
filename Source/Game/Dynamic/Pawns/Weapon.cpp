@@ -12,7 +12,7 @@ float Weapon::ProcessHurt(const Array<RayCastHit>& result)
     random.GenerateNewSeed();
     float Damage = random.RandRange(DataPtr->Damage - DataPtr->DamageSpread, DataPtr->Damage + DataPtr->DamageSpread);
 
-    for (int i = 0; i < result.Count(); ++i)
+    for (int i = 0; i < result.Count(); i++)
     {
         const auto& hit = result.At(i);
         const auto& hitActor = hit.Collider;
@@ -39,7 +39,7 @@ float Weapon::ProcessHurt(const Array<RayCastHit>& result)
         }
     }
 
-    if (result.Count() == 0)
+    if (result.Count() > 0)
     {
         return result[0].Distance;
     }
@@ -47,7 +47,6 @@ float Weapon::ProcessHurt(const Array<RayCastHit>& result)
     {
         return 0.0f;
     }
-
 }
 
 void Weapon::OnEnable()
@@ -56,6 +55,7 @@ void Weapon::OnEnable()
     UBIND_DATA(Weapon, Data);
     BulletsEffect->SetParameterValue(TEXT("Main"), TEXT("Rate"), (1000.0f / DataPtr->FireRate) - 1.0f);
     _info = GetEntity()->GetComponent<ImmediateInfo>();
+    _movement = GetEntity()->GetComponent<PlayerMovement>();
 }
 
 void Weapon::OnUpdate()
@@ -63,7 +63,11 @@ void Weapon::OnUpdate()
     if (UOWNED)
     {
         _nextShoot = Math::Clamp(_nextShoot - Time::GetDeltaTime(), -1.0f, DataPtr->FireRate);
-        bool hasShot = DataPtr->Automatic ? Input::GetMouseButton(MouseButton::Left) : Input::GetMouseButtonDown(MouseButton::Left);
+        bool hasShot = false;
+        if (_movement->CanMove)
+        {
+            hasShot = DataPtr->Automatic ? Input::GetMouseButton(MouseButton::Left) : Input::GetMouseButtonDown(MouseButton::Left);
+        }
         if (_nextShoot <= 0.0f)
         {
             if (hasShot)
@@ -129,6 +133,11 @@ void Weapon::ShootForVisual(Vector3 Spread, float Distance)
     BulletsEffect->SetParameterValue(TEXT("Main"), TEXT("Active"), true);
 }
 
+bool SortRayCastHits(const RayCastHit& a, const RayCastHit& b, Array<RayCastHit>*)
+{
+    return a.Distance < b.Distance;
+}
+
 Vector3 Weapon::ShootForHurt()
 {
     RandomStream random;
@@ -143,9 +152,10 @@ Vector3 Weapon::ShootForHurt()
 
     DEBUG_DRAW_LINE(start, (Direction->GetPosition() + (Direction->GetDirection() * DataPtr->Distance)) + spread, Color::Orange, 1.0f, true);
 
-    results.Clear();
+    Array<RayCastHit> results;
     if (Physics::RayCastAll(start, direction, results, DataPtr->Distance, DamageMask, false))
     {
+        Sorting::SortArray(results.Get(), results.Count(), SortRayCastHits, &results);
         ProcessHurt(results);
     }
 

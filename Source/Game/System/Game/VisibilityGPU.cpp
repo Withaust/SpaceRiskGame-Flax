@@ -50,6 +50,11 @@ void VisibilityGPU::OnDisable()
     _workers.Clear();
 }
 
+void VisibilityGPU::OnDeinitialize()
+{
+    UDEINIT_SINGLETON();
+}
+
 void VisibilityGPU::OnUpdate()
 {
     if (_tasks.Count() == 0)

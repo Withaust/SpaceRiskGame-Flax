@@ -36,6 +36,26 @@
 			"ParentID": "a7383811434ac0476b9e57893b2d189d"
 		},
 		{
+			"ID": "f7a78f744ae85bb812e07bae40858629",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "MapCameraRoot"
+		},
+		{
+			"ID": "3531a82c45a17be72e551081863c7001",
+			"TypeName": "FlaxEngine.Camera",
+			"ParentID": "f7a78f744ae85bb812e07bae40858629",
+			"Name": "MapCamera",
+			"StaticFlags": 0,
+			"Near": 8.0,
+			"Far": 80000.0
+		},
+		{
+			"ID": "5e24e14e4865df69bfe16bb0a52ac06f",
+			"TypeName": "Game.MapCamera",
+			"ParentID": "3531a82c45a17be72e551081863c7001"
+		},
+		{
 			"ID": "ffd443874b6747326ca53fa9a326110d",
 			"TypeName": "FlaxEngine.Sky",
 			"ParentID": "a7383811434ac0476b9e57893b2d189d",
@@ -3006,6 +3026,51 @@
 					"Z": 0.0
 				}
 			}
+		},
+		{
+			"ID": "0f35171d477b876be03dc382c3696874",
+			"TypeName": "FlaxEngine.TextRender",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "TextRender",
+			"Transform": {
+				"Translation": {
+					"X": 139.49974060058595,
+					"Y": 279.3247985839844,
+					"Z": 0.0
+				},
+				"Orientation": {
+					"X": -0.7071068286895752,
+					"Y": 0.0,
+					"Z": 0.0,
+					"W": 0.7071068286895752
+				},
+				"Scale": {
+					"X": 5.0,
+					"Y": 5.000002861022949,
+					"Z": 5.000002861022949
+				}
+			},
+			"Text": "My Text",
+			"Size": 160.0,
+			"Material": "5a34fb8c4334efaa173b25a6a930988d",
+			"Font": "50f3a5524fcf4dd5a76c0ab24169ed59",
+			"ShadowsMode": 0,
+			"DrawModes": 7,
+			"Bounds": {
+				"Location": {
+					"X": -1000.0,
+					"Y": -300.0
+				},
+				"Size": {
+					"X": 2000.0,
+					"Y": 600.0
+				}
+			}
+		},
+		{
+			"ID": "3627445742c3397d9adf27a0b3d4fd52",
+			"TypeName": "Game.MapLabel",
+			"ParentID": "0f35171d477b876be03dc382c3696874"
 		}
 	]
 }

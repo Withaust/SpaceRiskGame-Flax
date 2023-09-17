@@ -1,0 +1,11 @@
+<rml>
+
+	<head>
+		<link type="text/rcss" href="../Rml.rcss" />
+		<link type="text/rcss" href="SystemMenuStyle.rcss" />
+	</head>
+
+	<body>
+		<h1>SYSTEM MENU</h1>
+	</body>
+</rml>

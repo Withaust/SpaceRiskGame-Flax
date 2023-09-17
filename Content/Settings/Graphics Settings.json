@@ -1,23 +1,23 @@
 {
 	"ID": "4eaf325e4cd72aa4cdeb6393cad05466",
 	"TypeName": "FlaxEditor.Content.Settings.GraphicsSettings",
-	"EngineBuild": 6338,
+	"EngineBuild": 6344,
 	"Data": {
 	"UseVSync": false,
-	"AAQuality": 1,
+	"AAQuality": 2,
 	"SSRQuality": 1,
-	"SSAOQuality": 1,
-	"VolumetricFogQuality": 1,
+	"SSAOQuality": 2,
+	"VolumetricFogQuality": 2,
 	"ShadowsQuality": 1,
-	"ShadowMapsQuality": 1,
+	"ShadowMapsQuality": 2,
 	"AllowCSMBlending": false,
 	"DefaultProbeResolution": 128,
 	"UseHDRProbes": false,
-	"EnableGlobalSDF": false,
-	"GlobalSDFQuality": 2,
+	"EnableGlobalSDF": true,
+	"GlobalSDFQuality": 0,
 	"GenerateSDFOnModelImport": false,
-	"GIQuality": 2,
-	"GIProbesSpacing": 100.0,
+	"GIQuality": 0,
+	"GIProbesSpacing": 500.0,
 	"GlobalSurfaceAtlasResolution": 2048,
 	"PostProcessSettings": {
 		"AO": {
@@ -30,29 +30,29 @@
 			"FadeDistance": 500.0
 		},
 		"GI": {
-			"OverrideFlags": 0,
+			"OverrideFlags": 47,
 			"Mode": 0,
 			"Intensity": 1.0,
 			"BounceIntensity": 1.0,
-			"TemporalResponse": 0.9,
-			"Distance": 20000.0,
+			"TemporalResponse": 1.0,
+			"Distance": 10000.0,
 			"FallbackIrradiance": {
-				"R": 0.0,
-				"G": 0.0,
-				"B": 0.0,
-				"A": 0.0
+				"R": 0.7088889,
+				"G": 0.7088889,
+				"B": 0.7088889,
+				"A": 1.0
 			}
 		},
 		"Bloom": {
-			"OverrideFlags": 0,
+			"OverrideFlags": 31,
 			"Enabled": true,
-			"Intensity": 1.0,
+			"Intensity": 2.0,
 			"Threshold": 3.0,
 			"BlurSigma": 4.0,
 			"Limit": 10.0
 		},
 		"ToneMapping": {
-			"OverrideFlags": 0,
+			"OverrideFlags": 7,
 			"WhiteTemperature": 6500.0,
 			"WhiteTint": 0.0,
 			"Mode": 2
@@ -185,8 +185,8 @@
 			"LutWeight": 1.0
 		},
 		"EyeAdaptation": {
-			"OverrideFlags": 0,
-			"Mode": 2,
+			"OverrideFlags": 1,
+			"Mode": 3,
 			"SpeedUp": 3.0,
 			"SpeedDown": 1.0,
 			"PreExposure": 0.0,
@@ -202,7 +202,7 @@
 			"VignetteColor": {
 				"X": 0.0,
 				"Y": 0.0,
-				"Z": 0.0
+				"Z": 0.001
 			},
 			"VignetteShapeFactor": 0.125,
 			"GrainAmount": 0.006,
@@ -258,15 +258,15 @@
 			"MotionVectorsResolution": 2
 		},
 		"SSR": {
-			"OverrideFlags": 0,
+			"OverrideFlags": 32863,
 			"Intensity": 1.0,
-			"TraceMode": 0,
+			"TraceMode": 1,
 			"DepthResolution": 2,
 			"RayTracePassResolution": 2,
-			"BRDFBias": 0.82,
+			"BRDFBias": 1.0,
 			"RoughnessThreshold": 0.45,
 			"WorldAntiSelfOcclusionBias": 0.1,
-			"ResolvePassResolution": 1,
+			"ResolvePassResolution": 2,
 			"ResolveSamples": 4,
 			"EdgeFadeFactor": 0.1,
 			"FadeOutDistance": 5000.0,
@@ -285,7 +285,7 @@
 			"TAA_MotionBlending": 0.7
 		},
 		"PostFxMaterials": {
-			"Materials": []
+			"Materials": null
 		}
 	}
 }

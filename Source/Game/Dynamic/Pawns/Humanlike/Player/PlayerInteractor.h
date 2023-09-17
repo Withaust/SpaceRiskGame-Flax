@@ -16,6 +16,11 @@ API_CLASS() class GAME_API PlayerInteractor : public IComponent
 
 private:
 
+    bool _interacting = false;
+    float _timer = 0.0f;
+    float _currentTimer = 0.0f;
+    InteractableOption& _option = IInteractable::DefaultOption;
+
     SleepBlock _sleep;
     ScriptingObjectReference<IInteractable> _target;
     bool _showing = false;
@@ -26,13 +31,18 @@ private:
 public:
 
     static Delegate<IInteractable*> OnShowMenu;
-    static Delegate<IInteractable*> OnHideMenu;
+    static Delegate<> OnHideMenu;
+
+    static Delegate<float> OnShowProgress;
+    static Delegate<float> OnUpdateProgress;
+    static Delegate<> OnHideProgress;
 
     API_FIELD() ScriptingObjectReference<Actor> RaycastOrigin;
     API_FIELD() float RaycastDistance = 150.0f;
     API_FIELD() LayersMask RaycastMask;
 
-    void ExecuteOption(InteractableOption& option);
+    void StartInteract(InteractableOption& option);
+    void StopInteract();
 
     void OnEnable() override;
     void OnUpdate() override;

@@ -21,7 +21,8 @@ public class Game : GameModule
 
         Tags["Network"] = string.Empty;
         options.PublicDependencies.Add("Networking");
-		
+        options.PublicDefinitions.Add("COMPILE_WITH_TEXTURE_TOOL");
+
 
         switch (options.Platform.Target)
         {

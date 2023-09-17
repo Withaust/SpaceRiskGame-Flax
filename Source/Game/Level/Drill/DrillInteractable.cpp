@@ -8,7 +8,9 @@ DrillInteractable::DrillInteractable(const SpawnParams& params)
 
 void DrillInteractable::OnClose(Entity* entity)
 {
-    GetEntity()->GetComponent<Drill>()->SetFuelRemote(0.0f);
+    Drill* drill = GetEntity()->GetComponent<Drill>();
+    Chat::Instance->SendMessage(String::Format(TEXT("Collected {0} fuel"), drill->GetFuelLocal()));
+    drill->SetFuelRemote(0.0f);
 }
 
 
@@ -17,5 +19,5 @@ void DrillInteractable::OnEnable()
     Function<void(Entity*)> func;
     func.Bind<DrillInteractable, &DrillInteractable::OnClose>(this);
 
-    AddOption(InteractionType::Close, func);
+    AddOption(InteractionType::Collect, func, true, 1.0f);
 }

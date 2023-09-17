@@ -65,6 +65,10 @@ void PovFx::HideModels()
 
     for (const auto& model : _models)
     {
+        if (!model.Key || !model.Key->Model || EnumHasAnyFlags(model.Key->Flags, ObjectFlags::WasMarkedToDelete))
+        {
+            continue;
+        }
         for (int i = 0; i < model.Value.Count(); ++i)
         {
             model.Key->SetMaterial(i, (MaterialBase*)ShadowBlocker);
@@ -82,6 +86,10 @@ void PovFx::ShowModels()
 
     for (const auto& model : _models)
     {
+        if (!model.Key || !model.Key->Model || EnumHasAnyFlags(model.Key->Flags, ObjectFlags::WasMarkedToDelete))
+        {
+            continue;
+        }
         for (int i = 0; i < model.Value.Count(); ++i)
         {
             model.Key->SetMaterial(i, (MaterialBase*)model.Value[i]);

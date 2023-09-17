@@ -11,6 +11,7 @@ API_CLASS() class GAME_API IUIState : public Script
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(IUIState);
+    friend class UI;
 private:
     Array<IUIUnit*> _units;
 

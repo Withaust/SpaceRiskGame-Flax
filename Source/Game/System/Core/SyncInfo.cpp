@@ -15,7 +15,7 @@ void SyncInfo::OnInitialize()
 
 void SyncInfo::OnDeinitialize()
 {
-
+    UDEINIT_SINGLETON();
 }
 
 void SyncInfo::OnPlayerConnected(NetworkClient* client)

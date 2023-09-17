@@ -19,7 +19,20 @@ namespace Game
         {
             var rmlFiles = Directory.GetFiles(_inputDir, "*.rml", SearchOption.AllDirectories);
             var files = rmlFiles.Concat(Directory.GetFiles(_inputDir, "*.rcss", SearchOption.AllDirectories));
-            Editor.Instance.ContentImporting.Import(files, (ContentFolder)Editor.Instance.ContentDatabase.Find(_outputDir), true);
+
+            foreach (var file in files)
+            {
+                string targetDir = file.Replace(_inputDir, "");
+                targetDir = _outputDir + Path.GetDirectoryName(targetDir);
+                targetDir = Path.TrimEndingDirectorySeparator(targetDir);
+                if (!Directory.Exists(targetDir))
+                {
+                    Directory.CreateDirectory(targetDir);
+                    Editor.Instance.ContentDatabase.Rebuild(true);
+                }
+                Editor.Instance.ContentImporting.Import(file, (ContentFolder)Editor.Instance.ContentDatabase.Find(targetDir), true);
+            }
+
             UI.RefreshCache();
         }
 

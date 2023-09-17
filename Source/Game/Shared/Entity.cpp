@@ -158,11 +158,15 @@ const Dictionary<String, IComponent*> Entity::GetComponents()
 ScriptingObjectReference<IComponent> Entity::GetComponent(const MClass* type)
 {
     CacheComponents();
-    return Components[type->GetFullName()];
+    IComponent* result = nullptr;
+    Components.TryGet(type->GetFullName(), result);
+    return result;
 }
 
 ScriptingObjectReference<IComponent> Entity::GetComponent(const ScriptingTypeHandle& type)
 {
     CacheComponents();
-    return Components[type.GetType().Fullname];
+    IComponent* result = nullptr;
+    Components.TryGet(type.GetType().Fullname, result);
+    return result;
 }

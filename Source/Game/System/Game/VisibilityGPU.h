@@ -44,6 +44,7 @@ public:
 
     void OnEnable() override;
     void OnDisable() override;
+    void OnDeinitialize() override;
     void OnUpdate() override;
     API_FUNCTION() void Queue(Vector3 origin, Actor* target, Function<void(float, Actor*)> callback);
 };

@@ -29,3 +29,8 @@ void PlayerRespawns::Unregister(ScriptingObjectReference<PlayerSpawn> spawn)
 {
     _spawns.Remove(spawn);
 }
+
+void PlayerRespawns::OnDeinitialize()
+{
+    UDEINIT_SINGLETON();
+}

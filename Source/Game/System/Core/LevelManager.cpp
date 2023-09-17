@@ -17,6 +17,7 @@ void LevelManager::OnDeinitialize()
 {
     Level::SceneLoaded.Unbind<LevelManager, &LevelManager::OnSceneLoaded>(this);
     Level::SceneLoaded.Unbind<LevelManager, &LevelManager::OnSceneUnloaded>(this);
+    UDEINIT_SINGLETON();
 }
 
 void LevelManager::OnPlayerConnected(NetworkClient* client)

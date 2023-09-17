@@ -7,9 +7,11 @@
 #include <Engine/Particles/ParticleEffect.h>
 #include <Engine/Physics/Physics.h>
 #include <Engine/Physics/Actors/PhysicsColliderActor.h>
+#include <Engine/Core/Collections/Sorting.h>
 
 #include <Game/Shared/Defines.h>
 #include <Game/System/Core/Networking.h>
+#include <Game/Dynamic/Pawns/Humanlike/Player/PlayerMovement.h>
 #include <Game/Shared/Components/IComponent.h>
 #include <Game/Shared/Components/ImmediateInfo.h>
 #include <Game/Shared/Components/IHitBox.h>
@@ -39,6 +41,7 @@ API_CLASS() class GAME_API Weapon : public IComponent, public INetworkObject
 private:
 
     ImmediateInfo* _info = nullptr;
+    PlayerMovement* _movement = nullptr;
 
     SleepBlock _batchBlock;
 
@@ -46,7 +49,6 @@ private:
 
     bool _firedBefore = false;
 
-    Array<RayCastHit> results;
     RayCastHit visualResult;
     float ProcessHurt(const Array<RayCastHit>& result);
 

@@ -37,4 +37,6 @@ public:
 
     void OnPlayerConnected(NetworkClient* client) override;
     void OnPlayerDisconnected(NetworkClient* client) override;
+
+    void OnDeinitialize() override;
 };

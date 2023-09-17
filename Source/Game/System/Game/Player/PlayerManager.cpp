@@ -64,3 +64,8 @@ void PlayerManager::OnPlayerDisconnected(NetworkClient* client)
     }
     Networking::Instance->DespawnPrefab(_players[client->ClientId]);
 }
+
+void PlayerManager::OnDeinitialize()
+{
+    UDEINIT_SINGLETON();
+}

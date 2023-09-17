@@ -1,0 +1,35 @@
+<rml>
+
+	<head>
+		<link type="text/rcss" href="../Rml.rcss" />
+		<link type="text/rcss" href="GameStyle.rcss" />
+	</head>
+
+	<body>
+		<div id="blackout" />
+		<!-- 
+	<div class="tooltip">Hover Me to Preview
+    <div class="right">
+        <h3>Lorem Ipsum</h3>
+        <p>Dolor sit amet, consectetur adipiscing elit.</p>
+		<img style="image-color: red;" src="crosshair.tga" width="32dp" height="32dp"></img>
+    </div>
+	</div>
+	 -->
+
+		<div id="interact_menu">
+			<div class="interact_option">OPTION</div>
+		</div>
+
+		<progress id="interaction" direction="clockwise" start-edge="top" value="0.0" max="1.0"></progress>
+
+		<div id="window">
+			<div id="title_bar">Chat</div>
+			<div id="content">
+				<div>This is a text</div>
+			</div>
+			<input type="text" id="text"></input>
+		</div>
+		<img id="crosshair" src="../Textures/crosshair.tga" width="32dp" height="32dp"></img>
+	</body>
+</rml>

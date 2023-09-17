@@ -1,0 +1,155 @@
+body {
+	font-family: LatoLatin;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 18dp;
+	color: white;
+	width: 100%;
+	height: 100%;
+}
+
+div#blackout {
+	pointer-events: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+	background-color: #000000ff;
+	opacity: 1;
+}
+
+div#window {
+	width: 500dp;
+	height: 400dp;
+	background-color: #ffffff42;
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	opacity: 1;
+}
+
+div#title_bar {
+	text-align: left;
+	background-color: #ffffff76;
+}
+
+div#content {
+	overflow: scroll;
+	z-index: 1;
+	flex-grow: 999;
+}
+
+input#text {
+	background-color: #ffffff76;
+	width: 100%;
+	color: black;
+	text-align: left;
+}
+
+img#crosshair {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -16dp;
+	margin-left: -16dp;
+	z-index: 999;
+}
+
+scrollbarvertical {
+	width: 5dp;
+}
+
+scrollbarvertical slidertrack {
+	width: 5dp;
+	background-color: #ffffff17;
+}
+
+scrollbarvertical sliderbar {
+	width: 5dp;
+	background-color: #ffffff57;
+}
+
+div#interact_menu {
+	position: absolute;
+	top: 65%;
+	left: 50%;
+	z-index: 999;
+	text-align: center;
+	transform: translate(-50%, -50%);
+	min-width: 200dp;
+}
+
+.interact_option {
+	text-align: center;
+	background-color: #ffffff57;
+	/* #ffffff20 for blocked entries */
+	padding: 5dp;
+	font-size: 20dp;
+	color: white;
+}
+
+#interaction {
+	width: 128dp;
+	height: 128dp;
+	fill-image: "../Textures/interaction.tga";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -64dp;
+	margin-left: -64dp;
+	z-index: 999;
+}
+
+.tooltip {
+	display: inline-block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	text-align: left;
+}
+
+.tooltip .right {
+	min-width: 200px;
+	top: 50%;
+	left: 100%;
+	margin-left: 20px;
+	transform: translate(0, -50%);
+	padding: 10px 20px;
+	color: #444444;
+	background-color: #EEEEEE;
+	font-weight: normal;
+	font-size: 13px;
+	border-radius: 8px;
+	position: absolute;
+	z-index: 99999999;
+	box-sizing: border-box;
+	visibility: hidden;
+	opacity: 0;
+}
+
+.tooltip:hover .right {
+	visibility: visible;
+	opacity: 1;
+}
+
+.tooltip .right i {
+	position: absolute;
+	top: 50%;
+	right: 100%;
+	margin-top: -12px;
+	width: 12px;
+	height: 24px;
+	overflow: hidden;
+}
+
+.tooltip .right i::after {
+	position: absolute;
+	width: 12px;
+	height: 12px;
+	left: 0;
+	top: 50%;
+	transform: translate(50%, -50%) rotate(-45deg);
+	background-color: #EEEEEE;
+}

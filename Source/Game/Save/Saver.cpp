@@ -109,4 +109,6 @@ void Saver::OnDeinitialize()
     {
         SaveWorld();
     }
+
+    UDEINIT_SINGLETON();
 }

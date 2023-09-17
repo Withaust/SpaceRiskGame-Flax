@@ -1,0 +1,27 @@
+<rml>
+
+	<head>
+		<link type="text/rcss" href="../Rml.rcss" />
+		<link type="text/rcss" href="PlayMenuStyle.rcss" />
+		<link type="text/template" href="Map.rml" />
+		<link type="text/template" href="Inventory.rml" />
+	</head>
+
+	<body>
+		<div id="blackout" />
+		<tabset>
+			<tab>Map</tab>
+			<panel><template src="map" /></panel>
+			<tab>Inventory</tab>
+			<panel><template src="inventory" /></panel>
+			<tab>Crafting</tab>
+			<panel>
+				Crafting
+			</panel>
+			<tab>Skills</tab>
+			<panel>
+				Skills
+			</panel>
+		</tabset>
+	</body>
+</rml>

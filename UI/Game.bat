@@ -1,0 +1,1 @@
+RmlDebug.exe Data/Game/GameMain.rml
