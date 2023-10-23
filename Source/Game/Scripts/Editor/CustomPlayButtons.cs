@@ -15,9 +15,25 @@ namespace Game
         private static ToolStripButton PlayHostButton;
         private static ToolStripButton PlayClientButton;
 
+        public static void OnClickedHost()
+        {
+            LaunchArgs.IsHost = true;
+            LaunchArgs.Hostname = "";
+            if (!LaunchArgs.IsSteam)
+            {
+                LaunchArgs.Name = "Host";
+            }
+            Editor.Instance.Simulation.RequestPlayScenesOrStopPlay();
+        }
+
         public static void OnClickedClient()
         {
-            LaunchArgs.ForceClient = true;
+            LaunchArgs.IsHost = false;
+            LaunchArgs.Hostname = "localhost";
+            if (!LaunchArgs.IsSteam)
+            {
+                LaunchArgs.Name = "Client";
+            }
             Editor.Instance.Simulation.RequestPlayScenesOrStopPlay();
         }
 
@@ -77,7 +93,7 @@ namespace Game
             OriginalFrameButton.Visible = false;
 
             PlayHostButton = (ToolStripButton)Editor.Instance.UI.ToolStrip.AddButton(PlayHost.FindSprite("Default"),
-                Editor.Instance.Simulation.RequestPlayScenesOrStopPlay).LinkTooltip("Play as a Host");
+                OnClickedHost).LinkTooltip("Play as a Host");
 
             PlayClientButton = (ToolStripButton)Editor.Instance.UI.ToolStrip.AddButton(PlayClient.FindSprite("Default"),
                 OnClickedClient).LinkTooltip("Play as a Client");

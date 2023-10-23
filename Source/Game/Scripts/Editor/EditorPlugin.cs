@@ -25,6 +25,7 @@ namespace Game
             CustomPlayButtons.AddCustomPlayButtons();
             SaveSelector.AddButton();
             UIRefresh.AddButton();
+            WindowResize.ProcessCmd();
             Editor.UI.ToolStrip.PerformLayout(true);
         }
 

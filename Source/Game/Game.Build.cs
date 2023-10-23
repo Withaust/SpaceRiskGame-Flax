@@ -18,11 +18,11 @@ public class Game : GameModule
         base.Setup(options);
 
         options.ScriptingAPI.IgnoreMissingDocumentationWarnings = true;
+		options.ScriptingAPI.SystemReferences.Add("System.Text.RegularExpressions");
 
         Tags["Network"] = string.Empty;
         options.PublicDependencies.Add("Networking");
         options.PublicDefinitions.Add("COMPILE_WITH_TEXTURE_TOOL");
-
 
         switch (options.Platform.Target)
         {

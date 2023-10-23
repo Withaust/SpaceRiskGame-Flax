@@ -222,11 +222,9 @@ uint64 Steam::GetSteamID64(CSteamID SteamID)
 
 void Steam::OnInitialize()
 {
-    const Args* args = LaunchArgs::Instance->GetArgs();
-
-    if (!args->IsSteam)
+    if (!LaunchArgs::Instance->IsSteam)
     {
-        _name = args->Name;
+        _name = LaunchArgs::Instance->Name;
         // Derive fake steamId from given name
         uint32 nameHash = StringUtils::GetHashCode(_name.GetText(), _name.Length());
         uint64 steamId;

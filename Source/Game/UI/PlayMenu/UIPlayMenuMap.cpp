@@ -1,7 +1,8 @@
 ﻿#include "UIPlayMenuMap.h"
 
 UIPlayMenuMap::UIPlayMenuMap(const SpawnParams& params)
-    : IUIUnit(params)
+    : IUIUnit(params),
+    _targetPosition()
 {
     _tickUpdate = true;
 }
@@ -22,35 +23,50 @@ void UIPlayMenuMap::OnEnable()
     {
         _camera = Map::Instance->Camera;
         _camera->SetIsActive(true);
-        _distance = -((Map::Instance->MaxZoom - Map::Instance->MinZoom) / 2.0f);
-        _camera->SetLocalPosition(Vector3(0.0f, 0.0f, _distance));
-        _camera->GetParent()->SetOrientation(Quaternion::Euler(45.0f, 0.0f, 0.0f));
-        _camera->LookAt(GetParent()->GetPosition(), Vector3::Up);
+        if (_targetDistance == 0.0f)
+        {
+            _targetDistance = -((Map::Instance->MaxZoom - Map::Instance->MinZoom) / 2.0f);
+            _camera->LookAt(GetParent()->GetPosition(), Vector3::Up);
+        }
+        // Position
+        _camera->GetParent()->SetPosition(_targetPosition);
+        // Orientation
+        _camera->GetParent()->SetOrientation(Quaternion::Euler(_targetPitch, 0.0f, 0.0f));
+        // Distance
+        _camera->SetLocalPosition(Vector3(0.0f, 0.0f, _targetDistance));
+        Map::Instance->StartUpdate();
     }
 }
 
 void UIPlayMenuMap::OnDisable()
 {
-    if (_camera)
+    if (_camera && Map::Instance)
     {
         _camera->SetIsActive(false);
+        Map::Instance->StopUpdate();
     }
 }
 
 void UIPlayMenuMap::OnUpdate()
 {
-    
+    if (!_camera || !Map::Instance)
+    {
+        return;
+    }
+
+    Vector3 _currentPosition = _camera->GetParent()->GetPosition();
+    float _currentPitch = _camera->GetParent()->GetOrientation().GetEuler().X;
+    float _currentDistance = _camera->GetLocalPosition().Z;
+
     if (Input::GetMouseButton(MouseButton::Right))
     {
-        // Get mouse axis values and clamp pitch
-        _yaw += Input::GetAxis(TEXT("Mouse X")) * _mouseSensitivity * Time::GetDeltaTime(); // H
-        _pitch += Input::GetAxis(TEXT("Mouse Y")) * _mouseSensitivity * Time::GetDeltaTime(); // V
-        _pitch = Math::Clamp(_pitch, _pitchMin, _pitchMax);
+        float move = Math::Remap(_currentDistance, -Map::Instance->MinZoom, -Map::Instance->MaxZoom, _moveMin, _moveMax);
+        float forward = Input::GetAxis(TEXT("Mouse X")) * _mouseSensitivity * move * Time::GetDeltaTime(); // H
+        float side = Input::GetAxis(TEXT("Mouse Y")) * _mouseSensitivity * move * Time::GetDeltaTime(); // V
 
         if (_camera)
         {
-            _camera->GetParent()->SetOrientation(Quaternion::Euler(_pitch, _yaw, 0));
-            _camera->LookAt(GetParent()->GetPosition(), Vector3::Up);
+            _targetPosition = _camera->GetParent()->GetPosition() + Vector3(-forward, 0.0f, side);
         }
     }
 
@@ -58,21 +74,28 @@ void UIPlayMenuMap::OnUpdate()
 
     if (scroll != 0.0f)
     {
-        _zoomStep = Math::Remap(_distance, -Map::Instance->MinZoom, -Map::Instance->MaxZoom, _zoomStepMin, _zoomStepMax);
+        _zoomStep = Math::Remap(_currentDistance, -Map::Instance->MinZoom, -Map::Instance->MaxZoom, _zoomStepMin, _zoomStepMax);
+        _targetPitch = Math::Remap(_currentDistance, -Map::Instance->MinZoom, -Map::Instance->MaxZoom, _pitchMin, _pitchMax);
         if (scroll > 0.0f)
         {
-            _distance += _zoomStep;
+            _targetDistance += _zoomStep;
         }
         else
         {
-            _distance -= _zoomStep;
+            _targetDistance -= _zoomStep;
         }
-        _distance = Math::Clamp(_distance, -Map::Instance->MaxZoom, -Map::Instance->MinZoom);
-        _camera->SetLocalPosition(Vector3(0.0f, 0.0f, _distance));
+        _targetDistance = Math::Clamp(_targetDistance, -Map::Instance->MaxZoom, -Map::Instance->MinZoom);
     }
+
+    // Position
+    _camera->GetParent()->SetPosition(Vector3::Lerp(_currentPosition, _targetPosition, 0.33f));
+    // Orientation
+    _camera->GetParent()->SetOrientation(Quaternion::Euler(Math::Lerp(_currentPitch, _targetPitch, 0.33f), 0.0f, 0.0f));
+    // Distance
+    _camera->SetLocalPosition(Vector3(0.0f, 0.0f, Math::Lerp(_currentDistance, _targetDistance, 0.33f)));
 
     if (Map::Instance)
     {
-        Map::Instance->UpdateSizes();
+        Map::Instance->Update();
     }
 }

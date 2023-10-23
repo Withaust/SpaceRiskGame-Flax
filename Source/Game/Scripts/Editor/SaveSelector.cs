@@ -7,13 +7,13 @@ namespace Game
 {
     public class SaveSelector
     {
-        private static Dropdown _worldDropdown;
+        private static Dropdown _universeDropdown;
         private static Dropdown _characterDropdown;
 
-        private static string _selectedWorld = string.Empty;
+        private static string _selectedUniverse = string.Empty;
         private static string _selectedCharacter = string.Empty;
 
-        private static string worldPath = "PersistentData/World";
+        private static string universePath = "PersistentData/Universe";
         private static string characterPath = "PersistentData/Character";
 
         public static void Refresh()
@@ -23,9 +23,9 @@ namespace Game
                 Directory.CreateDirectory("PersistentData");
             }
 
-            if (!Directory.Exists(worldPath))
+            if (!Directory.Exists(universePath))
             {
-                Directory.CreateDirectory(worldPath);
+                Directory.CreateDirectory(universePath);
             }
 
             if (!Directory.Exists(characterPath))
@@ -33,9 +33,9 @@ namespace Game
                 Directory.CreateDirectory(characterPath);
             }
 
-            if (!File.Exists(worldPath + "/Default.json"))
+            if (!File.Exists(universePath + "/Default.json"))
             {
-                Saver.SaveDefaultWorld();
+                Saver.SaveDefaultUniverse();
             }
 
             if (!File.Exists(characterPath + "/Default.json"))
@@ -43,21 +43,21 @@ namespace Game
                 Saver.SaveDefaultCharacter();
             }
 
-            _worldDropdown.ClearItems();
-            string[] worldFiles = Directory.GetFiles(worldPath, "*.*");
-            foreach (string worldFile in worldFiles)
+            _universeDropdown.ClearItems();
+            string[] universeFiles = Directory.GetFiles(universePath, "*.*");
+            foreach (string universeFile in universeFiles)
             {
-                _worldDropdown.AddItem(Path.GetFileNameWithoutExtension(worldFile));
+                _universeDropdown.AddItem(Path.GetFileNameWithoutExtension(universeFile));
             }
 
-            if (_selectedWorld != string.Empty && _worldDropdown.Items.Contains(_selectedWorld))
+            if (_selectedUniverse != string.Empty && _universeDropdown.Items.Contains(_selectedUniverse))
             {
-                _worldDropdown.SelectedItem = _selectedWorld;
+                _universeDropdown.SelectedItem = _selectedUniverse;
             }
             else
             {
-                _worldDropdown.SelectedItem = "Default";
-                _selectedWorld = "Default";
+                _universeDropdown.SelectedItem = "Default";
+                _selectedUniverse = "Default";
             }
 
             _characterDropdown.ClearItems();
@@ -81,10 +81,10 @@ namespace Game
         public static void AddButton()
         {
             var label = Editor.Instance.UI.ToolStrip.AddChild<Label>();
-            label.Text = "World:";
+            label.Text = "Universe:";
             label.AutoWidth = true;
-            _worldDropdown = Editor.Instance.UI.ToolStrip.AddChild<Dropdown>();
-            _worldDropdown.SelectedIndexChanged += WorldChanged;
+            _universeDropdown = Editor.Instance.UI.ToolStrip.AddChild<Dropdown>();
+            _universeDropdown.SelectedIndexChanged += UniverseChanged;
             label = Editor.Instance.UI.ToolStrip.AddChild<Label>();
             label.Text = "Character:";
             label.AutoWidth = true;
@@ -95,20 +95,20 @@ namespace Game
 
         private static void CharacterChanged(Dropdown obj)
         {
-            LaunchArgs.ForceCharacter = obj.SelectedItem;
+            LaunchArgs.Character = obj.SelectedItem;
         }
 
-        private static void WorldChanged(Dropdown obj)
+        private static void UniverseChanged(Dropdown obj)
         {
-            LaunchArgs.ForceWorld = obj.SelectedItem;
+            LaunchArgs.Universe = obj.SelectedItem;
         }
 
         public static void RemoveButton()
         {
-            if (_worldDropdown != null)
+            if (_universeDropdown != null)
             {
-                _worldDropdown.Dispose();
-                _worldDropdown = null;
+                _universeDropdown.Dispose();
+                _universeDropdown = null;
             }
             if (_characterDropdown != null)
             {

@@ -6,31 +6,31 @@ using FlaxEngine;
 
 namespace Game
 {
-    [CustomEditor(typeof(WorldSave))]
-    public class WorldSaveEditor : GenericEditor
+    [CustomEditor(typeof(UniverseSave))]
+    public class UniverseSaveEditor : GenericEditor
     {
-        TextBoxElement _worldInput = null;
-        ButtonElement _worldButton = null;
+        TextBoxElement _universeInput = null;
+        ButtonElement _universeButton = null;
 
-        private void OnWorldSave()
+        private void OnUniverseSave()
         {
             if (Saver.Instance == null)
             {
                 return;
             }
 
-            Saver.Instance.SaveWorldAs(_worldInput.Text);
+            Saver.Instance.SaveUniverseAs(_universeInput.Text);
         }
 
         public override void Initialize(LayoutElementsContainer layout)
         {
             base.Initialize(layout);
 
-            layout.Label("World Name", TextAlignment.Center);
-            _worldInput = layout.TextBox();
-            _worldInput.Text = "Default";
-            _worldButton = layout.Button("Save World", Color.Green);
-            _worldButton.Button.Clicked += OnWorldSave;
+            layout.Label("Universe Name", TextAlignment.Center);
+            _universeInput = layout.TextBox();
+            _universeInput.Text = "Default";
+            _universeButton = layout.Button("Save Universe", Color.Green);
+            _universeButton.Button.Clicked += OnUniverseSave;
         }
     }
 

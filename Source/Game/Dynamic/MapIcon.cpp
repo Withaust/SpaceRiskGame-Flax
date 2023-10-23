@@ -1,22 +1,38 @@
 #include "MapIcon.h"
 
 MapIcon::MapIcon(const SpawnParams& params)
-    : Script(params)
+    : IComponent(params)
 {
+    _tickUpdate = true;
 }
 
-void MapIcon::OnEnable()
+void MapIcon::OnStart()
 {
-    if (SpriteRender* icon = Cast<SpriteRender>(GetActor()))
+    if (!Static)
     {
-        Map::Instance->AddIcon(icon);
+        _update = 4.0f;
+    }
+    if (Sprite)
+    {
+        Map::Instance->AddIcon(Sprite);
+        Sprite->SetParent(Sprite->GetScene());
     }
 }
 
-void MapIcon::OnDisable()
+void MapIcon::OnUpdate()
 {
-    if (SpriteRender* icon = Cast<SpriteRender>(GetActor()))
+    if (Static)
     {
-        Map::Instance->RemoveIcon(icon);
+        return;
+    }
+
+    Sprite->SetPosition(Root->GetPosition());
+}
+
+void MapIcon::OnDestroy()
+{
+    if (Sprite)
+    {
+        Map::Instance->RemoveIcon(Sprite);
     }
 }

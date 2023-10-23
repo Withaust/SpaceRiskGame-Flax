@@ -58,6 +58,7 @@ public:
     API_FIELD() ScriptingObjectReference<Actor> Direction;
     API_FIELD() ScriptingObjectReference<Actor> Muzzle;
     API_FIELD() ScriptingObjectReference<ParticleEffect> BulletsEffect;
+    API_FIELD() ScriptingObjectReference<ParticleEffect> MuzzleEffect;
     API_FIELD() float BulletMuzzleOffset = 160.0f;
 
     void OnEnable() override;

@@ -3,7 +3,7 @@
 UIMPL_SINGLETON(Saver);
 
 const Char* Saver::_characterPath = TEXT("PersistentData/Character/{0}.json");
-const Char* Saver::_worldPath = TEXT("PersistentData/World/{0}.json");
+const Char* Saver::_universePath = TEXT("PersistentData/Universe/{0}.json");
 
 Saver::Saver(const SpawnParams& params)
     : ISystem(params)
@@ -22,15 +22,15 @@ void Saver::LoadCharacter()
     }    
 }
 
-void Saver::LoadWorld()
+void Saver::LoadUniverse()
 {
     BytesContainer data;
-    File::ReadAllBytes(String::Format(_worldPath, _args->World.GetText()), data);
+    File::ReadAllBytes(String::Format(_universePath, _args->Universe.GetText()), data);
     SerializeDocument Document;
     Document.Parse(data.Get<char>(), data.Length());
     if (!Document.HasParseError())
     {
-        World->Deserialize(Document, nullptr);
+        Universe->Deserialize(Document, nullptr);
     }
 }
 
@@ -45,15 +45,15 @@ void Saver::SaveDefaultCharacter()
     File::WriteAllBytes(String::Format(_characterPath, TEXT("Default")), (byte*)buffer.GetString(), (int32)buffer.GetSize());
 }
 
-void Saver::SaveDefaultWorld()
+void Saver::SaveDefaultUniverse()
 {
-    ScriptingObjectReference<WorldSave> world = New<WorldSave>();
+    ScriptingObjectReference<UniverseSave> universe = New<UniverseSave>();
     rapidjson_flax::StringBuffer buffer;
     PrettyJsonWriter writer(buffer);
     writer.StartObject();
-    world->Serialize(writer, nullptr);
+    universe->Serialize(writer, nullptr);
     writer.EndObject();
-    File::WriteAllBytes(String::Format(_worldPath, TEXT("Default")), (byte*)buffer.GetString(), (int32)buffer.GetSize());
+    File::WriteAllBytes(String::Format(_universePath, TEXT("Default")), (byte*)buffer.GetString(), (int32)buffer.GetSize());
 }
 
 void Saver::SaveCharacterAs(String Name)
@@ -66,14 +66,14 @@ void Saver::SaveCharacterAs(String Name)
     File::WriteAllBytes(String::Format(_characterPath, Name.GetText()), (byte*)buffer.GetString(), (int32)buffer.GetSize());
 }
 
-void Saver::SaveWorldAs(String Name)
+void Saver::SaveUniverseAs(String Name)
 {
     rapidjson_flax::StringBuffer buffer;
     PrettyJsonWriter writer(buffer);
     writer.StartObject();
-    World->Serialize(writer, nullptr);
+    Universe->Serialize(writer, nullptr);
     writer.EndObject();
-    File::WriteAllBytes(String::Format(_worldPath, Name.GetText()), (byte*)buffer.GetString(), (int32)buffer.GetSize());
+    File::WriteAllBytes(String::Format(_universePath, Name.GetText()), (byte*)buffer.GetString(), (int32)buffer.GetSize());
 }
 
 void Saver::SaveCharacter()
@@ -81,19 +81,19 @@ void Saver::SaveCharacter()
     SaveCharacterAs(_args->Character);
 }
 
-void Saver::SaveWorld()
+void Saver::SaveUniverse()
 {
-    SaveWorldAs(_args->World);
+    SaveUniverseAs(_args->Universe);
 }
 
 void Saver::OnInitialize()
 {
-    _args = LaunchArgs::Instance->GetArgs();
+    _args = LaunchArgs::Instance;
 
     LoadCharacter();
     if (_args->IsHost)
     {
-        LoadWorld();
+        LoadUniverse();
     }
 }
 
@@ -107,7 +107,7 @@ void Saver::OnDeinitialize()
     SaveCharacter();
     if (_args->IsHost)
     {
-        SaveWorld();
+        SaveUniverse();
     }
 
     UDEINIT_SINGLETON();

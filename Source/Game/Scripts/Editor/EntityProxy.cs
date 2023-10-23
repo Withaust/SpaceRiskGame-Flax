@@ -4,7 +4,7 @@ using FlaxEngine;
 
 namespace Game
 {
-    public class EntityProxy : FlaxEngine.Object
+    public class EntityProxy : Object
     {
         public static void Add()
         {

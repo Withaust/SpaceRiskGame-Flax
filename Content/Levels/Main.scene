@@ -1,7 +1,7 @@
 {
 	"ID": "a7383811434ac0476b9e57893b2d189d",
 	"TypeName": "FlaxEngine.SceneAsset",
-	"EngineBuild": 6344,
+	"EngineBuild": 6401,
 	"Data": [
 		{
 			"ID": "a7383811434ac0476b9e57893b2d189d",
@@ -47,8 +47,11 @@
 			"ParentID": "f7a78f744ae85bb812e07bae40858629",
 			"Name": "MapCamera",
 			"StaticFlags": 0,
+			"Layer": 29,
 			"Near": 8.0,
-			"Far": 80000.0
+			"Far": 80000.0,
+			"RenderLayersMask": 939524096,
+			"RenderFlags": 72479296
 		},
 		{
 			"ID": "5e24e14e4865df69bfe16bb0a52ac06f",
@@ -60,7 +63,7 @@
 			"TypeName": "FlaxEngine.Sky",
 			"ParentID": "a7383811434ac0476b9e57893b2d189d",
 			"Name": "Sky",
-			"Layer": 31,
+			"Layer": 28,
 			"Sun": "9d7a04ab4aa136eccc643781e14d5e3a"
 		},
 		{
@@ -81,7 +84,7 @@
 					"W": 0.9238795042037964
 				}
 			},
-			"Layer": 31,
+			"Layer": 28,
 			"Brightness": 3.140000104904175,
 			"CustomTexture": "c54410104ff39427bc11e5bc761d66b0"
 		},
@@ -103,7 +106,7 @@
 					"W": 0.25343459844589236
 				}
 			},
-			"Layer": 31
+			"Layer": 28
 		},
 		{
 			"ID": "6799f42d4d2413577d18cc8fc9647530",
@@ -570,7 +573,7 @@
 					"Z": -15046.9697265625
 				}
 			},
-			"Layer": 1,
+			"Layer": 27,
 			"Material": "6738716e49a3f2936b26bf81961e003c",
 			"LODCount": 6,
 			"ChunkSize": 127,
@@ -3034,15 +3037,15 @@
 			"Name": "TextRender",
 			"Transform": {
 				"Translation": {
-					"X": 139.49974060058595,
-					"Y": 279.3247985839844,
-					"Z": 0.0
+					"X": -2231.26220703125,
+					"Y": 648.3048095703125,
+					"Z": -2001.1533203125
 				},
 				"Orientation": {
-					"X": -0.7071068286895752,
-					"Y": 0.0,
-					"Z": 0.0,
-					"W": 0.7071068286895752
+					"X": 3.090862321641907e-8,
+					"Y": 0.7071068286895752,
+					"Z": 0.7071068286895752,
+					"W": -3.090862321641907e-8
 				},
 				"Scale": {
 					"X": 5.0,
@@ -3050,9 +3053,10 @@
 					"Z": 5.000002861022949
 				}
 			},
-			"Text": "My Text",
+			"Layer": 29,
+			"Text": "Hangar",
 			"Size": 160.0,
-			"Material": "5a34fb8c4334efaa173b25a6a930988d",
+			"Material": "9573eda146ed9eabfe79d882067de0ed",
 			"Font": "50f3a5524fcf4dd5a76c0ab24169ed59",
 			"ShadowsMode": 0,
 			"DrawModes": 7,
@@ -3071,6 +3075,118 @@
 			"ID": "3627445742c3397d9adf27a0b3d4fd52",
 			"TypeName": "Game.MapLabel",
 			"ParentID": "0f35171d477b876be03dc382c3696874"
+		},
+		{
+			"ID": "61229b3648db28c1f2eec7815989b332",
+			"TypeName": "FlaxEngine.TextRender",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "TextRender 0",
+			"Transform": {
+				"Translation": {
+					"X": -266.3585205078125,
+					"Y": 648.3048095703125,
+					"Z": 8885.12109375
+				},
+				"Orientation": {
+					"X": 3.090862321641907e-8,
+					"Y": 0.7071068286895752,
+					"Z": 0.7071068286895752,
+					"W": -3.090862321641907e-8
+				},
+				"Scale": {
+					"X": 5.0,
+					"Y": 5.000002861022949,
+					"Z": 5.000002861022949
+				}
+			},
+			"Layer": 29,
+			"Text": "Shooting\nRange",
+			"Color": {
+				"R": 30.0,
+				"G": 30.0,
+				"B": 30.0,
+				"A": 30.0
+			},
+			"Size": 160.0,
+			"Material": "9573eda146ed9eabfe79d882067de0ed",
+			"Font": "50f3a5524fcf4dd5a76c0ab24169ed59",
+			"ShadowsMode": 0,
+			"DrawModes": 7,
+			"Bounds": {
+				"Location": {
+					"X": -1000.0,
+					"Y": -300.0
+				},
+				"Size": {
+					"X": 2000.0,
+					"Y": 600.0
+				}
+			}
+		},
+		{
+			"ID": "7ecfa08c49baae89511409ad90964c81",
+			"TypeName": "Game.MapLabel",
+			"ParentID": "61229b3648db28c1f2eec7815989b332"
+		},
+		{
+			"ID": "b9f72e5048ec810a159f6db84acc6c89",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "StaticModel 0",
+			"Transform": {
+				"Translation": {
+					"X": -2172.563232421875,
+					"Y": 0.0,
+					"Z": -1767.5645751953126
+				},
+				"Scale": {
+					"X": 12.129057884216309,
+					"Y": 9.554037094116211,
+					"Z": 16.602291107177736
+				}
+			},
+			"Layer": 29,
+			"Model": "60093f7e4c7c642f74ffc1b9fc0f3311",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "4b4a44d74704b84818172ea471265b9b",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
+		},
+		{
+			"ID": "aa2a5895485e823b62bb7ebb8d45ca24",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "a7383811434ac0476b9e57893b2d189d",
+			"Name": "StaticModel 1",
+			"Transform": {
+				"Translation": {
+					"X": -239.108154296875,
+					"Y": 0.0,
+					"Z": 9582.52734375
+				},
+				"Scale": {
+					"X": 15.916444778442383,
+					"Y": 4.037474155426025,
+					"Z": 173.82920837402345
+				}
+			},
+			"Layer": 29,
+			"Model": "60093f7e4c7c642f74ffc1b9fc0f3311",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "4b4a44d74704b84818172ea471265b9b",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
 		}
 	]
 }

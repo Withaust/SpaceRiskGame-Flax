@@ -64,6 +64,7 @@ void UIGame::OnEnable()
 
     Screen::SetCursorLock(CursorLockMode::Locked);
     Screen::SetCursorVisible(false);
+
     if (PlayerManager::Instance)
     {
         if (auto player = PlayerManager::Instance->GetOurPlayer())

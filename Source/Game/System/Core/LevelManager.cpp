@@ -81,7 +81,7 @@ void LevelManager::LoadLevel(String scene)
     }
     Level::ScenesLock.Unlock();
     Level::LoadSceneAsync(info.ID);
-    if (LaunchArgs::Instance->GetArgs()->IsHost)
+    if (LaunchArgs::Instance->IsHost)
     {
         _mainScene = scene;
     }

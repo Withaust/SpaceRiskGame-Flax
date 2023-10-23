@@ -39,4 +39,4 @@ public:
     void OnDisable() override;
 };
 
-//DECLARE_ENUM_OPERATORS(TestTerrain::TerrainType);
+DECLARE_ENUM_OPERATORS(TestTerrain::TerrainType);

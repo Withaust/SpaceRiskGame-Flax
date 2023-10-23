@@ -150,15 +150,15 @@ void Networking::OnUpdate()
 
 void Networking::StartGame()
 {
-    const Args* args = LaunchArgs::Instance->GetArgs();
+    const auto instance = LaunchArgs::Instance;
     NetworkSettings* settings = NetworkSettings::Get();
     settings->NetworkFPS = -1.0f;
-    settings->Address = args->Hostname;
-    settings->Port = args->Port;
+    settings->Address = instance->Hostname;
+    settings->Port = 40808;
     settings->MaxClients = 6;
     settings->Apply();
 
-    if (args->IsHost)
+    if (instance->IsHost)
     {
         NetworkManager::StartHost();
     }

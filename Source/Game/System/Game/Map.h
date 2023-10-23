@@ -6,6 +6,7 @@
 #include <Engine/Level/Actors/Camera.h>
 
 #include <Game/Shared/Defines.h>
+#include <Game/System/Game/PostFx.h>
 
 API_CLASS() class GAME_API Map : public ISystem
 {
@@ -34,7 +35,9 @@ public:
 
     void OnDeinitialize() override;
 
-    void UpdateSizes();
+    void StartUpdate();
+    void Update();
+    void StopUpdate();
 
     API_FUNCTION() void AddLabel(TextRender* text);
     API_FUNCTION() void RemoveLabel(TextRender* text);

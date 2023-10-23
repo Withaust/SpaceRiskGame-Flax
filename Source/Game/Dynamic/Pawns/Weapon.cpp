@@ -53,7 +53,9 @@ void Weapon::OnEnable()
 {
     _batchBlock = 5.0f;
     UBIND_DATA(Weapon, Data);
-    BulletsEffect->SetParameterValue(TEXT("Main"), TEXT("Rate"), (1000.0f / DataPtr->FireRate) - 1.0f);
+    float Rate = (1000.0f / DataPtr->FireRate) - 1.0f;
+    BulletsEffect->SetParameterValue(TEXT("Main"), TEXT("Rate"), Rate);
+    MuzzleEffect->SetParameterValue(TEXT("Main"), TEXT("Rate"), Rate);
     _info = GetEntity()->GetComponent<ImmediateInfo>();
     _movement = GetEntity()->GetComponent<PlayerMovement>();
 }
@@ -84,6 +86,7 @@ void Weapon::OnUpdate()
             else
             {
                 BulletsEffect->SetParameterValue(TEXT("Main"), TEXT("Active"), false);
+                MuzzleEffect->SetParameterValue(TEXT("Main"), TEXT("Active"), false);
                 if (_firedBefore)
                 {
                     _firedBefore = false;
@@ -101,6 +104,7 @@ void Weapon::OnUpdate()
         else
         {
             BulletsEffect->SetParameterValue(TEXT("Main"), TEXT("Active"), false);
+            MuzzleEffect->SetParameterValue(TEXT("Main"), TEXT("Active"), false);
         }
     }
 }
@@ -128,9 +132,14 @@ void Weapon::ShootForVisual(Vector3 Spread, float Distance)
         }
     }
 
-    BulletsEffect->LookAt((Muzzle->GetPosition() + (Direction->GetDirection() * DataPtr->Distance)) + Spread);
-    BulletsEffect->SetParameterValue(TEXT("Main"), TEXT("Lifetime"), (Distance - BulletMuzzleOffset) / DataPtr->Velocity);
+    Vector3 direction = (Muzzle->GetPosition() + (Direction->GetDirection() * DataPtr->Distance)) + Spread;
+    float lifetime = (Distance - BulletMuzzleOffset) / DataPtr->Velocity;
+
+    BulletsEffect->LookAt(direction);
+    BulletsEffect->SetParameterValue(TEXT("Main"), TEXT("Lifetime"), lifetime);
     BulletsEffect->SetParameterValue(TEXT("Main"), TEXT("Active"), true);
+
+    MuzzleEffect->SetParameterValue(TEXT("Main"), TEXT("Active"), true);
 }
 
 bool SortRayCastHits(const RayCastHit& a, const RayCastHit& b, Array<RayCastHit>*)

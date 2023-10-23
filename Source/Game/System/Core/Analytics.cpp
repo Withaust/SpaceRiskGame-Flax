@@ -79,7 +79,7 @@ void Analytics::OnLog(const char* message, gameanalytics::EGALoggerMessageType m
 
 void Analytics::OnInitialize()
 {
-    if (LaunchArgs::Instance->GetArgs()->IsModded)
+    if (LaunchArgs::Instance->IsModded)
     {
         return;
     }

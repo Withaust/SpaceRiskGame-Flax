@@ -10,7 +10,7 @@
 #include <Game/UI/IUIState.h>
 #include <Game/System/Core/LaunchArgs.h>
 #include <Game/Save/CharacterSave.h>
-#include <Game/Save/WorldSave.h>
+#include <Game/Save/UniverseSave.h>
 
 
 API_CLASS() class GAME_API Saver : public ISystem
@@ -20,29 +20,29 @@ API_CLASS() class GAME_API Saver : public ISystem
 
 private:
 
-    ScriptingObjectReference<Args> _args;
+    LaunchArgs* _args = nullptr;
     
     static const Char* _characterPath;
-    static const Char* _worldPath;
+    static const Char* _universePath;
 
     void LoadCharacter();
-    void LoadWorld();
+    void LoadUniverse();
     
 
 public:
     API_FIELD() static Saver* Instance;
 
     API_FIELD() ScriptingObjectReference<CharacterSave> Character;
-    API_FIELD() ScriptingObjectReference<WorldSave> World;
+    API_FIELD() ScriptingObjectReference<UniverseSave> Universe;
 
     API_FUNCTION() static void SaveDefaultCharacter();
-    API_FUNCTION() static void SaveDefaultWorld();
+    API_FUNCTION() static void SaveDefaultUniverse();
 
     API_FUNCTION() void SaveCharacterAs(String Name);
-    API_FUNCTION() void SaveWorldAs(String Name);
+    API_FUNCTION() void SaveUniverseAs(String Name);
 
     API_FUNCTION() void SaveCharacter();
-    API_FUNCTION() void SaveWorld();
+    API_FUNCTION() void SaveUniverse();
 
     void OnInitialize() override;
     void OnDeinitialize() override;

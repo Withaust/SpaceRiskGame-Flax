@@ -22,12 +22,18 @@ ScriptingObjectReference<PlayerSpawn> PlayerRespawns::GetRandomSpawn()
 
 void PlayerRespawns::Register(ScriptingObjectReference<PlayerSpawn> spawn)
 {
-    _spawns.Add(spawn);
+    if (spawn)
+    {
+        _spawns.Add(spawn);
+    }
 }
 
 void PlayerRespawns::Unregister(ScriptingObjectReference<PlayerSpawn> spawn)
 {
-    _spawns.Remove(spawn);
+    if (spawn)
+    {
+        _spawns.Remove(spawn);
+    }
 }
 
 void PlayerRespawns::OnDeinitialize()

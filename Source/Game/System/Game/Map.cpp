@@ -22,7 +22,22 @@ void Map::OnDeinitialize()
     UDEINIT_SINGLETON();
 }
 
-void Map::UpdateSizes()
+void Map::StartUpdate()
+{
+    for (const auto& target : _labels)
+    {
+        target.Item->SetIsActive(true);
+    }
+
+    for (const auto& target : _icons)
+    {
+        target.Item->SetIsActive(true);
+    }
+
+    PostFx::Instance->PovFx->SetEnabled(false);
+}
+
+void Map::Update()
 {
     if (!Camera)
     {
@@ -32,11 +47,6 @@ void Map::UpdateSizes()
     for (const auto& target : _labels)
     {
         const auto label = target.Item;
-        label->LookAt(Camera->GetPosition(), Vector3::Up);
-        Vector3 orient = label->GetOrientation().GetEuler();
-        orient.X = -90.0f;
-        orient.Z = 0.0f;
-        label->SetOrientation(Quaternion::Euler(orient));
         float distance = Vector3::Distance(Camera->GetPosition(), label->GetPosition());
         float scale = Math::Remap(distance, MinZoom, MaxZoom, MinLabel, MaxLabel);
         label->SetScale(Vector3(scale, scale, scale));
@@ -51,9 +61,25 @@ void Map::UpdateSizes()
     }
 }
 
+void Map::StopUpdate()
+{
+    for (const auto& target : _labels)
+    {
+        target.Item->SetIsActive(false);
+    }
+
+    for (const auto& target : _icons)
+    {
+        target.Item->SetIsActive(false);
+    }
+
+    PostFx::Instance->PovFx->SetEnabled(true);
+}
+
 void Map::AddLabel(TextRender* text)
 {
     _labels.Add(text);
+    text->SetIsActive(false);
 }
 
 void Map::RemoveLabel(TextRender* text)
@@ -64,6 +90,7 @@ void Map::RemoveLabel(TextRender* text)
 void Map::AddIcon(SpriteRender* icon)
 {
     _icons.Add(icon);
+    icon->SetIsActive(false);
 }
 
 void Map::RemoveIcon(SpriteRender* icon)

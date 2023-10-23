@@ -19,7 +19,7 @@ API_CLASS() class GAME_API PlayerSpawnGroup : public IComponent
 
 public:
 
-    API_FIELD() Array<PlayerSpawn*> Spawns;
+    API_FIELD() Array<ScriptingObjectReference<PlayerSpawn>> Spawns;
 
     void OnEnable() override;
     void OnDisable() override;

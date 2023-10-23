@@ -10,6 +10,6 @@ API_CLASS() class GAME_API MapLabel : public Script
     DECLARE_SCRIPTING_TYPE(MapLabel);
 public:
 
-    void OnEnable() override;
-    void OnDisable() override;
+    void OnStart() override;
+    void OnDestroy() override;
 };

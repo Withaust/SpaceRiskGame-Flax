@@ -12,27 +12,6 @@
 
 #include <Game/System/Core.h>
 
-API_CLASS() class GAME_API Args : public ScriptingObject, public ISerializable
-{
-    API_AUTO_SERIALIZATION();
-    DECLARE_SCRIPTING_TYPE(Args);
-public:
-    // Steam
-    API_FIELD() bool IsSteam = false;
-    API_FIELD() String Name;
-    // Networking
-    API_FIELD() bool IsHost = true;
-    API_FIELD() String Hostname;
-    API_FIELD() int Port = 40808;
-    // Mod support
-    API_FIELD() bool IsModded = false;
-    API_FIELD() String Core;
-    // Save loading
-    API_FIELD() String Character = TEXT("Default");
-    API_FIELD() String World = TEXT("Default");
-    API_FIELD() bool Autosave = false;
-};
-
 API_CLASS() class GAME_API LaunchArgs : public ISystem
 {
     API_AUTO_SERIALIZATION();
@@ -40,16 +19,27 @@ API_CLASS() class GAME_API LaunchArgs : public ISystem
 
 private:
 
-    ScriptingObjectReference<Args> _args;
     String GetNextArgument(int currentIndex, const Array<String>& args);
 
 public:
     API_FIELD() static LaunchArgs* Instance;
 
-    API_FIELD() static bool ForceClient;
-    API_FIELD() static String ForceWorld;
-    API_FIELD() static String ForceCharacter;
+    // Steam
+    API_FIELD() static bool IsSteam;
+    API_FIELD() static String Name;
+    // Networking
+    API_FIELD() static bool IsHost;
+    API_FIELD() static String Hostname;
+    // Mod support
+    API_FIELD() static bool IsModded;
+    API_FIELD() static String Build;
+    // Save loading
+    API_FIELD() static String Character;
+    API_FIELD() static String Universe;
+    API_FIELD() static bool Autosave;
+    API_FIELD() static String Level;
 
     void OnInitialize() override;
-    API_FUNCTION() const ScriptingObjectReference<Args> GetArgs();
+
+    void RegisterArguments();
 };

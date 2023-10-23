@@ -19,5 +19,5 @@ void DrillInteractable::OnEnable()
     Function<void(Entity*)> func;
     func.Bind<DrillInteractable, &DrillInteractable::OnClose>(this);
 
-    AddOption(InteractionType::Collect, func, true, 1.0f);
+    AddOption(InteractionType::Collect, [this](Entity* e) -> void { this->OnClose(e); }, true, 1.0f);
 }

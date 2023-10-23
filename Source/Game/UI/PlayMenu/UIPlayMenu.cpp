@@ -9,10 +9,6 @@ UIPlayMenu::UIPlayMenu(const SpawnParams& params)
 void UIPlayMenu::StartBlackout()
 {
     _blackout->StartFade(0.5f);
-}
-
-void UIPlayMenu::OnEndBlackout()
-{
     for (auto& group : StreamingSettings::Get()->TextureGroups)
     {
         if (group.Name == TEXT("Terrain"))
@@ -23,6 +19,10 @@ void UIPlayMenu::OnEndBlackout()
             break;
         }
     }
+}
+
+void UIPlayMenu::OnEndBlackout()
+{
     UI::Instance->GoBack();
 }
 

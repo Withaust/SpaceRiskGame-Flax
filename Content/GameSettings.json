@@ -21,9 +21,6 @@
 	"Localization": "637df29742f82fb9f2706da6d51d5ef9",
 	"GameCooking": "2364031e4e327637c1ad88b415fa756e",
 	"Streaming": "032ffca740c9d866409f84b148390543",
-	"CustomSettings": {
-		"DebugArgs": "70f47c2544ecfe4f9c2a498580660a7d"
-	},
 	"WindowsPlatform": "79ac390447f4263e30f56e9190a70dbc",
 	"UWPPlatform": "8660bbf44f1ea61cb9bc4580b3631973",
 	"LinuxPlatform": "1bf4eedd41508974d6646e8faa55420a",

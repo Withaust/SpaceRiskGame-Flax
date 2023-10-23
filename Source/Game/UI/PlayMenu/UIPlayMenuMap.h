@@ -20,12 +20,16 @@ private:
 
     ScriptingObjectReference<Camera> _camera;
 
-    float _yaw = 0.0f;
-    float _pitch = 0.0f;
+    float _targetPitch = 45.0f;
+    float _targetDistance = 0.0f;
+    Vector3 _targetPosition;
+
     float _mouseSensitivity = 100.0f;
+
     float _pitchMin = 45.0f;
     float _pitchMax = 80.0f;
-    float _distance = 0.0f;
+    float _moveMin = 150.0f;
+    float _moveMax = 1500.0f;
 
     float _zoomStepMin = 1000.0f;
     float _zoomStep = 500.0f;

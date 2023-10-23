@@ -73,7 +73,6 @@ public class AssetIconsProxy
 
     public static void LoadIcons()
     {
-        RegAssetIcon<DebugArgs>();
         RegAssetIcon<DrillData>();
     }
 }

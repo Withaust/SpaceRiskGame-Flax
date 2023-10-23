@@ -19,10 +19,7 @@ void CameraControl::OnToggle(Entity* entity)
 
 void CameraControl::OnEnable()
 {
-    Function<void(Entity*)> func;
-    func.Bind<CameraControl, &CameraControl::OnToggle>(this);
-
-    AddOption(InteractionType::Use, func);
+    AddOption(InteractionType::Use, [this](Entity* e) -> void { this->OnToggle(e); });
 
     for (const auto& camera : Cameras)
     {

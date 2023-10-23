@@ -9,20 +9,10 @@ CoreInitializer::CoreInitializer(const SpawnParams& params)
 
 void CoreInitializer::OnInitialize()
 {
-    if (LaunchArgs::Instance->GetArgs()->IsHost)
+    if (LaunchArgs::Instance->IsHost)
     {
-        String Level = TEXT("Main");
-        if (SceneRoot::EditorLaunch)
-        {
-            DebugArgs* args = SceneRoot::EditorLaunch->GetInstance<DebugArgs>();
-            if (args->LaunchScene != String::Empty)
-            {
-                Level = args->LaunchScene;
-                args->LaunchScene = String::Empty;
-            }
-        }
         Networking::Instance->StartGame();
-        LevelManager::Instance->LoadLevel(Level);
+        LevelManager::Instance->LoadLevel(LaunchArgs::Instance->Level);
         Networking::Instance->BindEvents();
     }
     else
@@ -41,7 +31,7 @@ void CoreInitializer::OnDeinitialize()
 
 void CoreInitializer::OnSceneLoaded(Scene* scene)
 {
-    if (LaunchArgs::Instance->GetArgs()->IsHost)
+    if (LaunchArgs::Instance->IsHost)
     {
         Core::Instance->OnPlayerConnected(NetworkManager::LocalClient);
         Core::Instance->ReplicateSystems();

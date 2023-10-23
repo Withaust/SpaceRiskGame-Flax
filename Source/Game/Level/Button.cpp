@@ -23,8 +23,5 @@ void Button::OnToggle(Entity* entity)
 
 void Button::OnEnable()
 {
-    Function<void(Entity*)> func;
-    func.Bind<Button, &Button::OnToggle>(this);
-
-    AddOption(InteractionType::Toggle, func);
+    AddOption(InteractionType::Toggle, [this](Entity* e) -> void { this->OnToggle(e); });
 }

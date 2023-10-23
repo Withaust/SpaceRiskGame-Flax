@@ -5,7 +5,7 @@ MapLabel::MapLabel(const SpawnParams& params)
 {
 }
 
-void MapLabel::OnEnable()
+void MapLabel::OnStart()
 {
     if (TextRender* text = Cast<TextRender>(GetActor()))
     {
@@ -13,7 +13,7 @@ void MapLabel::OnEnable()
     }
 }
 
-void MapLabel::OnDisable()
+void MapLabel::OnDestroy()
 {
     if (TextRender* text = Cast<TextRender>(GetActor()))
     {
