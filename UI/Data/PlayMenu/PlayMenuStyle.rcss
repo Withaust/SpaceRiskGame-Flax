@@ -15,7 +15,7 @@ div#blackout {
 	height: 100%;
 	z-index: 1000;
 	background-color: #000000ff;
-	opacity: 1;
+	opacity: 0;
 }
 
 /* Force the tabset element to a fixed size. */

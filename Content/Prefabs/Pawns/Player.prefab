@@ -1,7 +1,7 @@
 {
 	"ID": "4cab2b9f4ec52072b975c2b5967524b4",
 	"TypeName": "FlaxEngine.Prefab",
-	"EngineBuild": 6344,
+	"EngineBuild": 6401,
 	"Data": [
 	{
 		"ID": "140348bb4794ddf592b1b0b82dc7c9a7",
@@ -372,7 +372,7 @@
 		},
 		"Sprite": {},
 		"Image": "a829fc4a4959623c24882598498d7450",
-		"Material": "fe68a2e74818e2275a4a8db8f5257438",
+		"Material": "d8710a394800ef7a4bf4afb3dd867760",
 		"FaceCamera": false,
 		"DrawModes": 2,
 		"SortOrder": 1000

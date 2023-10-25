@@ -9,21 +9,11 @@ UIPlayMenu::UIPlayMenu(const SpawnParams& params)
 void UIPlayMenu::StartBlackout()
 {
     _blackout->StartFade(0.5f);
-    for (auto& group : StreamingSettings::Get()->TextureGroups)
-    {
-        if (group.Name == TEXT("Terrain"))
-        {
-            group.MaxAnisotropy = 16;
-            group.MipLevelsMax = 14;
-            StreamingSettings::Get()->Apply();
-            break;
-        }
-    }
 }
 
 void UIPlayMenu::OnEndBlackout()
 {
-    UI::Instance->GoBack();
+    UI::Instance->GoForward(GetBackState());
 }
 
 void UIPlayMenu::OnInitialize()
@@ -68,4 +58,9 @@ void UIPlayMenu::OnUpdate()
 String UIPlayMenu::GetBackState()
 {
     return TEXT("Game.UIGame");
+}
+
+bool UIPlayMenu::HasCustomBack()
+{
+    return true;
 }

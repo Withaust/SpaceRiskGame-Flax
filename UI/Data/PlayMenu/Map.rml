@@ -5,7 +5,10 @@
 	</head>
 
 	<body>
-		<div>TEST</div>
+		<div id="buttons">
+			<button class="button" id="setGame">Game </button>
+			<button class="button" id="setResources">Resources</button>
+		</div>
 	</body>
 </template>
 </template>

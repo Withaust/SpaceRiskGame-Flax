@@ -30,4 +30,5 @@ public:
 
     void OnUpdate() override;
     String GetBackState() override;
+    bool HasCustomBack() override;
 };

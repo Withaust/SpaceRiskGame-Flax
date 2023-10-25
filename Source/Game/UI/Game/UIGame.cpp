@@ -13,16 +13,6 @@ void UIGame::StartBlackout()
 
 void UIGame::OnEndBlackout()
 {
-    for (auto& group : StreamingSettings::Get()->TextureGroups)
-    {
-        if (group.Name == TEXT("Terrain"))
-        {
-            group.MaxAnisotropy = 1;
-            group.MipLevelsMax = 1;
-            StreamingSettings::Get()->Apply();
-            break;
-        }
-    }
     UI::Instance->GoForward(TEXT("Game.UIPlayMenu"));
 }
 
@@ -41,17 +31,6 @@ void UIGame::OnDeinitialize()
 {
     _document->RemoveEventListener(Rml::EventId::Animationend, _blackout);
     Delete(_blackout);
-
-    for (auto& group : StreamingSettings::Get()->TextureGroups)
-    {
-        if (group.Name == TEXT("Terrain"))
-        {
-            group.MaxAnisotropy = 16;
-            group.MipLevelsMax = 14;
-            StreamingSettings::Get()->Apply();
-            break;
-        }
-    }
     IUIState::OnDeinitialize();
 }
 

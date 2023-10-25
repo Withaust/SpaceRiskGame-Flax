@@ -112,7 +112,7 @@ void UI::GoForward(String state)
 
 void UI::GoBack()
 {
-    if (!_currentState)
+    if (!_currentState || _currentState->HasCustomBack())
     {
         return;
     }

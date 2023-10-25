@@ -12,7 +12,7 @@
 #include <Game/System/Game/Map.h>
 
 
-API_CLASS() class GAME_API UIPlayMenuMap : public IUIUnit
+API_CLASS() class GAME_API UIPlayMenuMap : public IUIUnit, private Rml::EventListener
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(UIPlayMenuMap);
@@ -42,4 +42,5 @@ public:
     void OnEnable() override;
     void OnDisable() override;
     void OnUpdate() override;
+    void ProcessEvent(Rml::Event& event) override;
 };

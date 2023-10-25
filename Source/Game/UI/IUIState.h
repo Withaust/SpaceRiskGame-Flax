@@ -18,6 +18,7 @@ private:
 public:
     API_FUNCTION() virtual void OnInitialize();
     API_FUNCTION() virtual void OnDeinitialize();
+    API_FUNCTION() virtual bool HasCustomBack() { return false; };
     API_FUNCTION() virtual String GetBackState() { return TEXT("!"); };
     API_FUNCTION() RmlUiDocument* GetDocument();
 };

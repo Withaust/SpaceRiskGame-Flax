@@ -34,15 +34,22 @@
 
 #ifdef BUILD_DEBUG
 #define UPRINT(text, ...) Logger::Instance->Print(String::Format(TEXT(text), ##__VA_ARGS__))
+#define UPRINT_STR(string) Logger::Instance->Print(string)
 #define UINFO(text, ...) Logger::Instance->Info(String::Format(TEXT(text), ##__VA_ARGS__))
+#define UINFO_STR(string) Logger::Instance->Info(string)
 #else
 #define UPRINT(text, ...)
+#define UPRINT_STR(string)
 #define UINFO(text, ...)
+#define UINFO_STR(string)
 #endif
 
 #define UWARN(text, ...) Logger::Instance->Warning(String::Format(TEXT(text), ##__VA_ARGS__), __FILE__, __LINE__)
+#define UWARN_STR(string) Logger::Instance->Warning(string, __FILE__, __LINE__)
 #define UERR(text, ...) Logger::Instance->Error(String::Format(TEXT(text), ##__VA_ARGS__), __FILE__, __LINE__)
+#define UERR_STR(string) Logger::Instance->Error(string, __FILE__, __LINE__)
 #define UCRIT(shutdown, text, ...) Logger::Instance->Critical(shutdown, String::Format(TEXT(text), ##__VA_ARGS__), __FILE__, __LINE__)
+#define UCRIT_STR(shutdown, string) Logger::Instance->Critical(shutdown, string, __FILE__, __LINE__)
 
 // Polls target SleepGroup, and runs code block below as necessary
 #define USLEEP(sleepBlock) sleepBlock.Poll(Time::GetDeltaTime())

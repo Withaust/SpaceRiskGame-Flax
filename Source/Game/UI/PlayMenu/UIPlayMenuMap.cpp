@@ -9,12 +9,12 @@ UIPlayMenuMap::UIPlayMenuMap(const SpawnParams& params)
 
 void UIPlayMenuMap::OnInitialize()
 {
-
+    GetDocument()->GetDocument()->AddEventListener(Rml::EventId::Click, this);
 }
 
 void UIPlayMenuMap::OnDeinitialize()
 {
-
+    GetDocument()->GetDocument()->RemoveEventListener(Rml::EventId::Click, this);
 }
 
 void UIPlayMenuMap::OnEnable()
@@ -40,16 +40,17 @@ void UIPlayMenuMap::OnEnable()
 
 void UIPlayMenuMap::OnDisable()
 {
-    if (_camera && Map::Instance)
+    if (_camera && Map::Instance && Map::Instance->Terrain)
     {
         _camera->SetIsActive(false);
         Map::Instance->StopUpdate();
+        Map::Instance->Terrain->SetSplatmap(TestTerrain::SplatmapType::Game);
     }
 }
 
 void UIPlayMenuMap::OnUpdate()
 {
-    if (!_camera || !Map::Instance)
+    if (!_camera || !Map::Instance || !Map::Instance->Terrain)
     {
         return;
     }
@@ -97,5 +98,30 @@ void UIPlayMenuMap::OnUpdate()
     if (Map::Instance)
     {
         Map::Instance->Update();
+    }
+}
+
+void UIPlayMenuMap::ProcessEvent(Rml::Event& event)
+{
+    using namespace Rml;
+
+    switch (event.GetId())
+    {
+    case EventId::Click:
+    {
+        auto el = event.GetTargetElement();
+        if (el->GetId() == "setGame")
+        {
+            Map::Instance->Terrain->SetSplatmap(TestTerrain::SplatmapType::Game);
+        }
+        else if (el->GetId() == "setResources")
+        {
+            Map::Instance->Terrain->SetSplatmap(TestTerrain::SplatmapType::MapResources);
+        }
+    }
+    break;
+
+    default:
+        break;
     }
 }

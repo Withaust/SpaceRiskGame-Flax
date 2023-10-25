@@ -23,15 +23,22 @@ void ColorCompare(const byte& Color, byte& CurrentColor, TestTerrain::TerrainTyp
 
 void TestTerrain::OnEnable()
 {
-    _terrain = Cast<Terrain>(GetActor());
+    SetSplatmap(TestTerrain::SplatmapType::Game);
 
-    for (int i = 0; i < _terrain->GetPatchesCount(); ++i)
+    if (!Map::Instance || !Terrain)
     {
-        TerrainPatch* patch = _terrain->GetPatch(i);
+        return;
+    }
+
+    Map::Instance->Terrain = this;
+
+    for (int i = 0; i < Terrain->GetPatchesCount(); ++i)
+    {
+        TerrainPatch* patch = Terrain->GetPatch(i);
 
         Array<TerrainType> type;
 
-        const int32 heightMapSize = _terrain->GetChunkSize() * TerrainPatch::CHUNKS_COUNT_EDGE + 1;
+        const int32 heightMapSize = Terrain->GetChunkSize() * TerrainPatch::CHUNKS_COUNT_EDGE + 1;
         const int32 heightMapLength = heightMapSize * heightMapSize;
 
         type.Resize(heightMapLength);
@@ -76,16 +83,16 @@ TestTerrain::TerrainType TestTerrain::GetTerrainType(const Vector3& position, co
 {
     TerrainType result = TerrainType::Grass;
 
-    int32 splatmapSize = _terrain->GetChunkSize() * TerrainPatch::CHUNKS_COUNT_EDGE + 1;
-    float splatmapSizeWorld = _terrain->GetPatch(0)->GetBounds().GetSize().X;
+    int32 splatmapSize = Terrain->GetChunkSize() * TerrainPatch::CHUNKS_COUNT_EDGE + 1;
+    float splatmapSizeWorld = Terrain->GetPatch(0)->GetBounds().GetSize().X;
 
     Transform local;
-    _terrain->GetTransform().WorldToLocal(Transform(position, {}), local);
+    Terrain->GetTransform().WorldToLocal(Transform(position, {}), local);
     Vector3 localPosition = local.Translation;
 
     Int2 patchCoord((int32)(localPosition.X / splatmapSizeWorld), (int32)(localPosition.Z / splatmapSizeWorld));
 
-    TerrainPatch* patch = _terrain->GetPatch(patchCoord);
+    TerrainPatch* patch = Terrain->GetPatch(patchCoord);
 
     if (!patch)
     {
@@ -97,7 +104,7 @@ TestTerrain::TerrainType TestTerrain::GetTerrainType(const Vector3& position, co
         return result;
     }
 
-    BoundingBox bb = _terrain->GetBox();
+    BoundingBox bb = Terrain->GetBox();
     Vector3 totalTerrainSize = bb.GetSize();
     Vector3 terrainOffset = bb.Minimum;
 
@@ -117,5 +124,5 @@ TestTerrain::TerrainType TestTerrain::GetTerrainType(const Vector3& position, co
 
 void TestTerrain::OnDisable()
 {
-    // Here you can add code that needs to be called when script is disabled (eg. unregister from events)
+    Map::Instance->Terrain = nullptr;
 }
