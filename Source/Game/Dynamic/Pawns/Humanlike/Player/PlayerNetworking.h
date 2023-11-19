@@ -12,7 +12,6 @@
 #include <Game/Shared/Components/IComponent.h>
 #include <Game/Shared/Layers.h>
 #include <Game/System/Game/Player/PlayerManager.h>
-#include <Game/System/Game/PostFx.h>
 #include <Game/Dynamic/Pawns/PawnInfo.h>
 
 API_CLASS() class GAME_API PlayerNetworking : public IComponent, public INetworkObject

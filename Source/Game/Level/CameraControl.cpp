@@ -9,9 +9,7 @@ CameraControl::CameraControl(const SpawnParams& params)
 void CameraControl::OnToggle(Entity* entity)
 {
     _state = true;
-    PostFx::Instance->PovFx->SetEnabled(false);
-    entity->GetComponent<PlayerNetworking>()->Camera->SetIsActive(false);
-    entity->GetComponent<PlayerMovement>()->CanMove = false;
+    entity->GetComponent<PlayerMovement>()->Camera->SetIsActive(false);
     Cameras[0]->SetIsActive(true);
     _index = 0;
     Disable();
@@ -36,12 +34,10 @@ void CameraControl::OnUpdate()
 
     if (Input::GetKeyDown(KeyboardKeys::Escape))
     {
-        Cameras[_index]->SetIsActive(false);
         auto player = PlayerManager::Instance->GetOurPlayer();
-        player->GetComponent<PlayerNetworking>()->Camera->SetIsActive(true);
-        player->GetComponent<PlayerMovement>()->CanMove = true;
+        Cameras[_index]->SetIsActive(false);
+        player->GetComponent<PlayerMovement>()->Camera->SetIsActive(true);
         _index = 0;
-        PostFx::Instance->PovFx->SetEnabled(true);
         Enable();
     }
 

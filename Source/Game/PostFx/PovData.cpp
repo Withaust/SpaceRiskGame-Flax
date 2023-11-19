@@ -1,21 +1,13 @@
-﻿#include "PovFx.h"
+﻿#include "PovData.h"
 
-PovFx::PovFx(const SpawnParams& params)
-    : PostProcessEffect(params)
+PovData::PovData(const SpawnParams& params)
+    : Script(params)
 {
-    Location = PostProcessEffectLocation::AfterForwardPass;
-    UseSingleTarget = true;
+    
 }
 
-void PovFx::SetPlayer(Entity* player)
+void PovData::OnEnable()
 {
-    _ourPlayer = player;
-}
-
-void PovFx::OnEnable()
-{
-    RefreshModels();
-
     // Create new rendering task to draw
     _outputTexture = GPUDevice::Instance->CreateTexture(TEXT("PlayerPOV"));
     _renderingTask = New<SceneRenderTask>();
@@ -35,7 +27,7 @@ void PovFx::OnEnable()
     _compositeOutputPipeline->Init(psoDesc);
 }
 
-void PovFx::RefreshModels()
+void PovData::RefreshModels()
 {
     ShowModels();
     _models.Clear();
@@ -56,7 +48,7 @@ void PovFx::RefreshModels()
     }
 }
 
-void PovFx::HideModels()
+void PovData::HideModels()
 {
     if (!_ourPlayer || EnumHasAnyFlags(_ourPlayer->Flags, ObjectFlags::WasMarkedToDelete))
     {
@@ -77,7 +69,7 @@ void PovFx::HideModels()
     }
 }
 
-void PovFx::ShowModels()
+void PovData::ShowModels()
 {
     if (!_ourPlayer || EnumHasAnyFlags(_ourPlayer->Flags, ObjectFlags::WasMarkedToDelete))
     {
@@ -98,9 +90,8 @@ void PovFx::ShowModels()
     }
 }
 
-void PovFx::OnDisable()
+void PovData::OnDisable()
 {
-    ShowModels();
     // Cleanup
     if (_compositeOutputPipeline)
     {
@@ -118,12 +109,28 @@ void PovFx::OnDisable()
     }
 }
 
-void PovFx::Render(GPUContext* context, RenderContext& renderContext, GPUTexture* input, GPUTexture* output)
+bool PovData::CanRender()
 {
     if (!_renderingTask)
     {
-        return;
+        return false;
     }
+
+    if (_models.Count() == 0)
+    {
+        _ourPlayer = PlayerManager::Instance->GetOurPlayer();
+        if (!_ourPlayer)
+        {
+            return false;
+        }
+        RefreshModels();
+    }
+
+    return true;
+}
+
+void PovData::Render(Pov* target, GPUContext* context, RenderContext& renderContext, GPUTexture* input, GPUTexture* output)
+{
 #if USE_EDITOR
     auto p = ProfilerGPU::BeginEvent(TEXT("PlayerPOV"));
 #endif

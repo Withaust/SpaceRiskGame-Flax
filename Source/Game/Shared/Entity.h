@@ -63,6 +63,11 @@ public:
         return Cast<T>(GetComponent(T::TypeInitializer));
     }
 
+    API_FUNCTION() static Entity* FindEntity(Script* Script)
+    {
+        return FindEntity(Script->GetActor());
+    }
+
     API_FUNCTION() static Entity* FindEntity(Actor* Child)
     {
         if (!Child)

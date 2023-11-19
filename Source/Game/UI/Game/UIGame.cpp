@@ -48,8 +48,7 @@ void UIGame::OnEnable()
     {
         if (auto player = PlayerManager::Instance->GetOurPlayer())
         {
-            player->GetComponent<PlayerMovement>()->CanMove = true;
-            player->GetComponent<PlayerNetworking>()->Camera->SetIsActive(true);
+            player->GetComponent<PlayerMovement>()->Camera->SetIsActive(true);
         }
     }
 }
@@ -63,8 +62,7 @@ void UIGame::OnDisable()
     {
         if (auto player = PlayerManager::Instance->GetOurPlayer())
         {
-            player->GetComponent<PlayerMovement>()->CanMove = false;
-            player->GetComponent<PlayerNetworking>()->Camera->SetIsActive(false);
+            player->GetComponent<PlayerMovement>()->Camera->SetIsActive(false);
         }
     }
 }

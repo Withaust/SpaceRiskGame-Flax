@@ -102,8 +102,8 @@ public:
             StringUtils::Parse(split[0].Get(), &x);
             StringUtils::Parse(split[1].Get(), &y);
             Int2 key(x, y);
-            Terrain->GetPatch(key)->SetSplatmap(0, textures[index * 2]);
-            Terrain->GetPatch(key)->SetSplatmap(1, textures[(index * 2) + 1]);
+            Terrain->GetPatch(key)->Splatmap[0] = textures[index * 2];
+            Terrain->GetPatch(key)->Splatmap[1] = textures[(index * 2) + 1];
             Terrain->GetPatch(key)->ClearSplatMapCache();
         }
         Terrain->Material = SplatMapMaterials[type];

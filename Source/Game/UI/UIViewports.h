@@ -10,6 +10,7 @@
 #include <Engine/Level/Actors/Camera.h>
 #include <Engine/Content/Content.h>
 #include <Engine/Core/Collections/HashSet.h>
+#include <Engine/Core/Collections/Dictionary.h>
 #include <Engine/Core/RandomStream.h>
 
 API_CLASS() class GAME_API UIViewports : public Script

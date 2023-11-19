@@ -6,7 +6,6 @@
 #include <Engine/Level/Actors/Camera.h>
 
 #include <Game/Shared/Defines.h>
-#include <Game/System/Game/PostFx.h>
 #include <Game/Level/TestTerrain.h>
 
 API_CLASS() class GAME_API Map : public ISystem

@@ -1,7 +1,7 @@
 {
 	"ID": "362b418c43b31919b71055b252931fb3",
 	"TypeName": "FlaxEngine.SceneAsset",
-	"EngineBuild": 6401,
+	"EngineBuild": 6405,
 	"Data": [
 		{
 			"ID": "362b418c43b31919b71055b252931fb3",
@@ -189,22 +189,20 @@
 			"ID": "bc195d664a9a1f3ff086118de5f9adf3",
 			"TypeName": "Game.PostFx",
 			"ParentID": "5d1b68814350a78dd85517ab113ed501",
-			"PovFx": "b6d8692e4f465a7f74e783aa0f62529b",
-			"OutlineFx": "f0c56b1f44ce6ae7e79a21af47b96b96"
+			"PovData": "6e59760a4645cff56f46c9bd026913f2",
+			"OutlineData": "cee07f3e45e4d5e2d133769c2a665966"
 		},
 		{
-			"ID": "b6d8692e4f465a7f74e783aa0f62529b",
-			"TypeName": "Game.PovFx",
+			"ID": "6e59760a4645cff56f46c9bd026913f2",
+			"TypeName": "Game.PovData",
 			"ParentID": "5d1b68814350a78dd85517ab113ed501",
-			"Enabled": false,
 			"ShadowBlocker": "e31a3aa7493e517a48f743adf71bc3d2",
 			"Layers": 2415919136
 		},
 		{
-			"ID": "f0c56b1f44ce6ae7e79a21af47b96b96",
-			"TypeName": "Game.OutlineFx",
+			"ID": "cee07f3e45e4d5e2d133769c2a665966",
+			"TypeName": "Game.OutlineData",
 			"ParentID": "5d1b68814350a78dd85517ab113ed501",
-			"Enabled": false,
 			"Material": "ff33104c4779d85b9be81fa14bcaec40"
 		},
 		{

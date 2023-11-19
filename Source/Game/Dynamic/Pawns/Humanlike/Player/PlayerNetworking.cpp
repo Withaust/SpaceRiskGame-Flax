@@ -14,7 +14,6 @@ void PlayerNetworking::OnNetworkSpawn()
         Direction->SetIsActive(false);
         GetEntity()->SetLayerRecursive(static_cast<int32>(Layers::PawnPlayerLocal));
         PlayerManager::Instance->SetOurPlayer(GetEntity());
-        PostFx::Instance->Enable(GetEntity());
         GetEntity()->GetComponent<PawnInfo>()->SetNameRemote(Steam::Instance->GetPersonaName());
     }
 }

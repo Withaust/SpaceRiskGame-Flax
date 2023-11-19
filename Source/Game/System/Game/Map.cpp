@@ -33,8 +33,6 @@ void Map::StartUpdate()
     {
         target.Item->SetIsActive(true);
     }
-
-    PostFx::Instance->PovFx->SetEnabled(false);
 }
 
 void Map::Update()
@@ -72,8 +70,6 @@ void Map::StopUpdate()
     {
         target.Item->SetIsActive(false);
     }
-
-    PostFx::Instance->PovFx->SetEnabled(true);
 }
 
 void Map::AddLabel(TextRender* text)

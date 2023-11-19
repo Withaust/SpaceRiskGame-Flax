@@ -99,12 +99,13 @@ ScriptingObjectReference<ISystem> Core::Get(const ScriptingTypeHandle& type)
 #include <Game/Save/Saver.h>
 #include <Game/System/Game/VisibilityCPU.h>
 #include <Game/System/Game/VisibilityGPU.h>
-#include <Game/System/Game/PostFx.h>
 #include <Game/System/Game/Map.h>
 #include <Game/System/Game/Player/PlayerRespawns.h>
 #include <Game/System/Game/Player/PlayerManager.h>
 #include <Game/System/Game/Chat.h>
 #include <Game/System/Game/KillFeed.h>
+// PostFx
+#include <Game/PostFx/PostFx.h>
 // UI
 #include <Game/UI/UI.h>
 
@@ -125,12 +126,14 @@ void Core::LoadSystems()
     Add<Saver>();
     Add<VisibilityCPU>();
     Add<VisibilityGPU>();
-    Add<PostFx>();
     Add<Map>();
     Add<PlayerRespawns>(ObjNetType::Registered);
     Add<PlayerManager>(ObjNetType::Registered);
     Add<Chat>(ObjNetType::Registered);
     Add<KillFeed>(ObjNetType::Registered);
+
+    // PostFx
+    Add<PostFx>();
     // UI
     Add<UI>();
 

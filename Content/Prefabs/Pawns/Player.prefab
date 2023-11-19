@@ -1,7 +1,7 @@
 {
 	"ID": "4cab2b9f4ec52072b975c2b5967524b4",
 	"TypeName": "FlaxEngine.Prefab",
-	"EngineBuild": 6401,
+	"EngineBuild": 6405,
 	"Data": [
 	{
 		"ID": "140348bb4794ddf592b1b0b82dc7c9a7",
@@ -23,7 +23,8 @@
 		"TypeName": "Game.PlayerMovement",
 		"ParentID": "140348bb4794ddf592b1b0b82dc7c9a7",
 		"Controller": "f9ad2b0043489327592e42844d1de041",
-		"Head": "7636a45345c3bbb03cbe3a8b99032469"
+		"Head": "7636a45345c3bbb03cbe3a8b99032469",
+		"Camera": "6a86f65f4ecebf990d70708c92d13661"
 	},
 	{
 		"ID": "78c31c624a7f0b546a975fb09ba61b34",
@@ -144,6 +145,16 @@
 		"Tag": "Player",
 		"FOV": 100.0,
 		"RenderLayersMask": 3758096383
+	},
+	{
+		"ID": "b880ae9542d9ba42b4e0b0b61d8c5fb4",
+		"TypeName": "Game.Pov",
+		"ParentID": "6a86f65f4ecebf990d70708c92d13661"
+	},
+	{
+		"ID": "01e231b645d533a18254b5b582a2f82d",
+		"TypeName": "Game.PlayerCamera",
+		"ParentID": "6a86f65f4ecebf990d70708c92d13661"
 	},
 	{
 		"ID": "3e53508e4eb57720bff5608f3260ce6a",

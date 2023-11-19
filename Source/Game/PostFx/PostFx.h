@@ -6,21 +6,22 @@
 #include <Engine/Graphics/RenderTask.h>
 
 #include <Game/Shared/Defines.h>
-#include <Game/PostFx/PovFx.h>
-#include <Game/PostFx/OutlineFx.h>
+#include <Game/PostFx/PovData.h>
+#include <Game/PostFx/OutlineData.h>
 
 API_CLASS() class GAME_API PostFx : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(PostFx);
+    friend class PovData;
+    friend class OutlineData;
 
 public:
     API_FIELD() static PostFx* Instance;
 
-    API_FIELD() ScriptingObjectReference<PovFx> PovFx;
-    API_FIELD() ScriptingObjectReference<OutlineFx> OutlineFx;
+    API_FIELD() ScriptingObjectReference<PovData> PovData;
+    API_FIELD() ScriptingObjectReference<OutlineData> OutlineData;
 
-    void Enable(Entity* LocalPawn);
-    void Disable();
+    void OnInitialize() override;
     void OnDeinitialize() override;
 };

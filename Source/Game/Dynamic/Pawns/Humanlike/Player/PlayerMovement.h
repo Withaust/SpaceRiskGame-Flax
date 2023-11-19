@@ -27,6 +27,7 @@ public:
 
     API_FIELD() ScriptingObjectReference<CharacterController> Controller;
     API_FIELD() ScriptingObjectReference<Actor> Head;
+    API_FIELD() ScriptingObjectReference<Camera> Camera;
 
     API_FIELD() float Friction = 8.0f;
     API_FIELD() float GroundAccelerate = 3000.0f;

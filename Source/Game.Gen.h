@@ -8,6 +8,7 @@
 #define GAME_VERSION_MAJOR 1
 #define GAME_VERSION_MINOR 0
 #define GAME_VERSION_BUILD -1
+#define GAME_VERSION_REVISION -1
 #define GAME_COMPANY "Unary Software"
 #define GAME_COPYRIGHT ""
 

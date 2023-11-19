@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include <Engine/Scripting/Script.h>
-#include <Engine/Graphics/PostProcessEffect.h>
 #include <Engine/Graphics/RenderTask.h>
 #include <Engine/Graphics/GPUPipelineState.h>
 #include <Engine/Graphics/GPUDevice.h>
@@ -17,17 +16,21 @@
 #include <Engine/Level/Actors/StaticModel.h>
 
 #include <Game/Shared/Defines.h>
+#include <Game/PostFx/Pov.h>
+#include <Game/System/Game/Player/PlayerManager.h>
 
-API_CLASS() class GAME_API PovFx : public PostProcessEffect
+API_CLASS() class GAME_API PovData : public Script
 {
     API_AUTO_SERIALIZATION();
-    DECLARE_SCRIPTING_TYPE(PovFx);
+    DECLARE_SCRIPTING_TYPE(PovData);
+    friend class Pov;
+
 private:
 
     SceneRenderTask* _renderingTask = nullptr;
     GPUTexture* _outputTexture = nullptr;
     GPUPipelineState* _compositeOutputPipeline = nullptr;
-    Entity* _ourPlayer = nullptr;
+    ScriptingObjectReference<Entity> _ourPlayer;
     Dictionary<StaticModel*, Array<Material*>> _models;
 
     void HideModels();
@@ -44,10 +47,10 @@ public:
         ViewFlags::Fog | ViewFlags::Reflections |
         ViewFlags::GI;
 
-    void SetPlayer(Entity* player);
     void OnEnable() override;
     void OnDisable() override;
-    void Render(GPUContext* context, RenderContext& renderContext, GPUTexture* input, GPUTexture* output) override;
+    bool CanRender();
+    void Render(Pov* target, GPUContext* context, RenderContext& renderContext, GPUTexture* input, GPUTexture* output);
 
     API_FUNCTION() void RefreshModels();
 };
