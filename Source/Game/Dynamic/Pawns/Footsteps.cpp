@@ -33,15 +33,15 @@ void Footsteps::OnUpdate()
             return;
         }
 
-        TestTerrain* test = terrain->GetScript<TestTerrain>();
+        LayeredTerrain* layeredTerrain = terrain->GetScript<LayeredTerrain>();
 
-        if (!test)
+        if (!layeredTerrain)
         {
             return;
         }
 
-        auto type = test->GetTerrainType(position, direction, 100.0f);
-        //UPRINT("{0}", ScriptingEnum::ToString(type));
+        auto type = layeredTerrain->GetTerrainType<TerrainGameType>(TerrainSplatmapType::Game, position, direction, 100.0f);
+        UPRINT("{0}", ScriptingEnum::ToString(type));
     }
 
 }

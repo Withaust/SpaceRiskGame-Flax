@@ -22,15 +22,18 @@ namespace Game
             Editor.Instance.StateMachine.PlayingState.SceneRestored += OnStoppedPlaying;
             AssetIconsProxy.LoadIcons();
             AssetIconsProxy.ApplyProxies();
+            TerrainDataAssetProxy.ApplyProxies();
             CustomPlayButtons.AddCustomPlayButtons();
             SaveSelector.AddButton();
             UIRefresh.AddButton();
             WindowResize.ProcessCmd();
+
             Editor.UI.ToolStrip.PerformLayout(true);
         }
 
         public override void DeinitializeEditor()
         {
+            TerrainDataAssetProxy.RemoveProxies();
             AssetIconsProxy.RemoveProxies();
             SaveSelector.RemoveButton();
             UIRefresh.RemoveButton();

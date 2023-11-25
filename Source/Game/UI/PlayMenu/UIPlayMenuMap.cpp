@@ -44,7 +44,7 @@ void UIPlayMenuMap::OnDisable()
     {
         _camera->SetIsActive(false);
         Map::Instance->StopUpdate();
-        Map::Instance->Terrain->SetSplatmap(TestTerrain::SplatmapType::Game);
+        Map::Instance->Terrain->SetSplatmapType(TerrainSplatmapType::Game);
     }
 }
 
@@ -112,11 +112,11 @@ void UIPlayMenuMap::ProcessEvent(Rml::Event& event)
         auto el = event.GetTargetElement();
         if (el->GetId() == "setGame")
         {
-            Map::Instance->Terrain->SetSplatmap(TestTerrain::SplatmapType::Game);
+            Map::Instance->Terrain->SetSplatmapType(TerrainSplatmapType::Game);
         }
         else if (el->GetId() == "setResources")
         {
-            Map::Instance->Terrain->SetSplatmap(TestTerrain::SplatmapType::MapResources);
+            Map::Instance->Terrain->SetSplatmapType(TerrainSplatmapType::MapResources);
         }
     }
     break;

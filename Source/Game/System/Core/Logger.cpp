@@ -34,7 +34,10 @@ void Logger::Warning(const StringView& message)
 #ifdef BUILD_DEBUG
     DebugLog::LogWarning(message);
 #endif
-    Analytics::Instance->AddErrorEvent(Analytics::ErrorSeverity::Warning, message);
+    if (Analytics::Instance)
+    {
+        Analytics::Instance->AddErrorEvent(Analytics::ErrorSeverity::Warning, message);
+    }
 }
 
 void Logger::Warning(const StringView& message, const char* file, int line)
@@ -47,7 +50,10 @@ void Logger::Error(const StringView& message)
 #ifdef BUILD_DEBUG
     DebugLog::LogError(message);
 #endif
-    Analytics::Instance->AddErrorEvent(Analytics::ErrorSeverity::Error, message);
+    if (Analytics::Instance)
+    {
+        Analytics::Instance->AddErrorEvent(Analytics::ErrorSeverity::Error, message);
+    }
 }
 
 void Logger::Error(const StringView& message, const char* file, int line)
@@ -60,12 +66,23 @@ void Logger::Critical(bool shutdown, const StringView& message)
 #ifdef BUILD_DEBUG
     DebugLog::LogError(message);
 #endif
-    Analytics::Instance->AddErrorEvent(Analytics::ErrorSeverity::Critical, message);
+    if (Analytics::Instance)
+    {
+        Analytics::Instance->AddErrorEvent(Analytics::ErrorSeverity::Critical, message);
+    }
+#ifdef BUILD_DEBUG
+    Platform::Error(message);
+    if (shutdown)
+    {
+        Engine::RequestExit(1);
+    }
+#else
     if (shutdown)
     {
         Platform::Error(message);
         Engine::RequestExit(1);
     }
+#endif
 }
 
 void Logger::Critical(bool shutdown, const StringView& message, const char* file, int line)

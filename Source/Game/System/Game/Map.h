@@ -6,13 +6,13 @@
 #include <Engine/Level/Actors/Camera.h>
 
 #include <Game/Shared/Defines.h>
-#include <Game/Level/TestTerrain.h>
+#include <Game/Level/LayeredTerrain.h>
 
 API_CLASS() class GAME_API Map : public ISystem
 {
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Map);
-    friend class TestTerrain;
+    friend class LayeredTerrain;
 
     HashSet<TextRender*> _labels;
     HashSet<SpriteRender*> _icons;
@@ -30,7 +30,7 @@ public:
     API_FIELD() static Map* Instance;
 
     API_FIELD() ScriptingObjectReference<Camera> Camera;
-    API_FIELD() ScriptingObjectReference<TestTerrain> Terrain;
+    API_FIELD() ScriptingObjectReference<LayeredTerrain> Terrain;
 
     const HashSet<TextRender*> GetLabels();
     const HashSet<SpriteRender*> GetIcons();

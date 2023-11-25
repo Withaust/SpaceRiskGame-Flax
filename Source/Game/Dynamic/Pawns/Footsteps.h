@@ -7,7 +7,7 @@
 #include <Engine/Scripting/Enums.h>
 
 #include <Game/Shared/Defines.h>
-#include <Game/Level/TestTerrain.h>
+#include <Game/Level/LayeredTerrain.h>
 
 API_CLASS() class GAME_API Footsteps : public IComponent
 {
