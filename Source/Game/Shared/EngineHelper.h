@@ -58,7 +58,7 @@ public:
 
         _compressBuffer.Resize(bound);
 
-        const int compressed_data_size = LZ4_compress_HC((const char*)(target), (char*)&_compressBuffer[0], static_cast<int>(length), bound, LZ4HC_CLEVEL_MAX);
+        const int compressed_data_size = LZ4_compress_HC(static_cast<const char*>(target), reinterpret_cast<char*>(&_compressBuffer[0]), static_cast<int>(length), bound, LZ4HC_CLEVEL_MAX);
 
         if (compressed_data_size <= 0)
         {
@@ -79,7 +79,7 @@ public:
     {
         _compressBuffer.Resize(srcSize);
 
-        const int decompressed_size = LZ4_decompress_safe((const char*)&data[0], (char*)&_compressBuffer[0], data.Count(), static_cast<int>(srcSize));
+        const int decompressed_size = LZ4_decompress_safe(reinterpret_cast<const char*>(&data[0]), reinterpret_cast<char*>(&_compressBuffer[0]), data.Count(), static_cast<int>(srcSize));
 
         if (decompressed_size < 0 || decompressed_size != srcSize)
         {
