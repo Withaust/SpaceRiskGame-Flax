@@ -1,6 +1,6 @@
 ﻿#include "EngineHelper.h"
 
-Array<char> EngineHelper::_compressBuffer;
+Array<byte> EngineHelper::_compressBuffer;
 
 EngineHelper::EngineHelper(const SpawnParams& params)
     : ScriptingObject(params)

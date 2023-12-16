@@ -16,6 +16,7 @@
 #include <Engine/Scripting/Enums.h>
 #include <Engine/Networking/INetworkObject.h>
 #include <Engine/Core/Collections/HashSet.h>
+#include <Engine/Serialization/MemoryWriteStream.h>
 
 #include <Game/Shared/SleepBlock.h>
 #include <Game/System/Core/LaunchArgs.h>
@@ -33,6 +34,7 @@ API_CLASS() class GAME_API Networking : public ISystem
     friend class SyncInfo;
     friend class INetworkedObject;
     friend class Core;
+    friend class EngineHelper;
 
 private:
     bool _gameStarted = false;
@@ -43,13 +45,13 @@ private:
     struct SyncEvent
     {
         NetworkClient* client;
-        ScriptingObjectReference<INetworkedObject> object;
+        ScriptingObjectReference<ScriptingObject> object;
     };
 
-    HashSet<ScriptingObjectReference<INetworkedObject>> _spawnList;
+    HashSet<ScriptingObjectReference<ScriptingObject>> _spawnList;
     Array<SyncEvent> _syncEvents;
 
-    API_FUNCTION() void ForceAddReplicated(INetworkedObject* obj);
+    API_FUNCTION() void AddReplicatedSystem(ScriptingObjectReference<ScriptingObject> obj);
 
 public:
 
@@ -72,11 +74,11 @@ public:
     API_FUNCTION() ScriptingObjectReference<Entity> SpawnPrefab(Prefab* prefab, Actor* parent, uint32 ownerId = NetworkManager::ServerClientId, const Vector3& position = Vector3(), const Quaternion& rotation = Quaternion());
     API_FUNCTION() void DespawnPrefab(ScriptingObjectReference<Entity> target);
 
-    API_FUNCTION() void StartReplicating(Entity* target);
-    API_FUNCTION() void StopReplicating(Entity* target);
-    API_FUNCTION() void DespawnReplicating(Entity* target);
+    API_FUNCTION() void StartReplicating(ScriptingObjectReference<Entity> target);
+    API_FUNCTION() void StopReplicating(ScriptingObjectReference<Entity> target);
+    API_FUNCTION() void DespawnReplicating(ScriptingObjectReference<Entity> target);
 
-    API_FUNCTION() Guid SerializeEntity(Entity* target);
-    API_FUNCTION() Entity* DeserializeEntity(Guid id, NetworkRpcParams rpcParams);
+    API_FUNCTION() Guid SerializeEntity(ScriptingObjectReference<Entity> target);
+    API_FUNCTION() ScriptingObjectReference<Entity> DeserializeEntity(Guid id, NetworkRpcParams rpcParams);
     API_FUNCTION() Span<uint32> GetClientIdsExcept(uint32 exception);
 };

@@ -2,6 +2,7 @@
 
 #include <Engine/Scripting/Script.h>
 #include <Engine/Level/Actor.h>
+#include <Engine/Serialization/MemoryReadStream.h>
 #if USE_EDITOR
 #include <Editor/Editor.h>
 #include <Engine/Content/AssetReference.h>
@@ -44,6 +45,7 @@ public:
     };
 
     API_FIELD() NetworkingType Type = NetworkingType::None;
+    API_FUNCTION(NetworkRpc = "Client, Reliable") void SendData(bool compressed, const Array<byte>& data, uint32 srcSize, NetworkRpcParams info);
 #if USE_EDITOR
     API_FIELD() AssetReference<Texture> Icon;
     void OnDebugDrawSelected() override;
@@ -63,31 +65,7 @@ public:
         return Cast<T>(GetComponent(T::TypeInitializer));
     }
 
-    API_FUNCTION() static Entity* FindEntity(Script* Script)
-    {
-        return FindEntity(Script->GetActor());
-    }
-
-    API_FUNCTION() static Entity* FindEntity(Actor* Child)
-    {
-        if (!Child)
-        {
-            return nullptr;
-        }
-        while (true)
-        {
-            Entity* entity = Cast<Entity>(Child);
-            if (entity)
-            {
-                return entity;
-            }
-            Child = Child->GetParent();
-            if (!Child)
-            {
-                return nullptr;
-            }
-        }
-    }
+    API_FUNCTION() static Entity* FindEntity(Script* Script);
+    API_FUNCTION() static Entity* FindEntity(Actor* Child);
 };
 
-typedef Entity::NetworkingType EntNetType;

@@ -9,6 +9,7 @@
 API_CLASS() class GAME_API EngineHelper : public ScriptingObject
 {
     DECLARE_SCRIPTING_TYPE(EngineHelper);
+    friend class Networking;
 
 public:
 
@@ -42,22 +43,22 @@ public:
 
 private:
 
-    static Array<char> _compressBuffer;
+    static Array<byte> _compressBuffer;
 
 public:
 
-    static bool Compress(void* target, int length)
+    static bool Compress(void* target, uint32 length)
     {
         return Compress(target, length, _compressBuffer);
     }
 
-    static bool Compress(void* target, int length, Array<char>& compressed)
+    static bool Compress(void* target, uint32 length, Array<byte>& compressed)
     {
-        int bound = LZ4_compressBound(length);
+        int bound = LZ4_compressBound(static_cast<int>(length));
 
         _compressBuffer.Resize(bound);
 
-        const int compressed_data_size = LZ4_compress_HC((const char*)(target), &_compressBuffer[0], length, bound, LZ4HC_CLEVEL_MAX);
+        const int compressed_data_size = LZ4_compress_HC((const char*)(target), (char*)&_compressBuffer[0], static_cast<int>(length), bound, LZ4HC_CLEVEL_MAX);
 
         if (compressed_data_size <= 0)
         {
@@ -69,16 +70,16 @@ public:
         return true;
     }
 
-    static bool Decompress(const Array<char>& data, int srcSize)
+    static bool Decompress(const Array<byte>& data, uint32 srcSize)
     {
         return Decompress(data, srcSize, _compressBuffer);
     }
 
-    static bool Decompress(const Array<char>& data, int srcSize, Array<char>& decompressed)
+    static bool Decompress(const Array<byte>& data, uint32 srcSize, Array<byte>& decompressed)
     {
         _compressBuffer.Resize(srcSize);
 
-        const int decompressed_size = LZ4_decompress_safe(&data[0], &_compressBuffer[0], data.Count(), srcSize);
+        const int decompressed_size = LZ4_decompress_safe((const char*)&data[0], (char*)&_compressBuffer[0], data.Count(), static_cast<int>(srcSize));
 
         if (decompressed_size < 0 || decompressed_size != srcSize)
         {
@@ -89,7 +90,7 @@ public:
         return true;
     }
 
-    static const Array<char>& GetCompressBuffer()
+    static const Array<byte>& GetCompressBuffer()
     {
         return _compressBuffer;
     }

@@ -61,6 +61,63 @@ void Entity::CacheComponents()
     }
 }
 
+void Entity::SendData(bool compressed, const Array<byte>& data, uint32 srcSize, NetworkRpcParams info)
+{
+    NETWORK_RPC_IMPL(Entity, SendData, compressed, data, srcSize, info);
+
+    MemoryReadStream readStream;
+
+    if (compressed && srcSize != 0)
+    {
+        if (!EngineHelper::Decompress(data, srcSize))
+        {
+            UCRIT(true, "EngineHelper::Decompress failed to decompress a replication data for entity \"{0}\".", GetNamePath());
+            return;
+        }
+
+        const Array<byte>& buffer = EngineHelper::GetCompressBuffer();
+
+        readStream.Init(buffer.begin(), buffer.Count());
+    }
+    else
+    {
+        readStream.Init(data.begin(), data.Count());
+    }
+
+    Dictionary<byte, Array<byte>> SyncData;
+
+    readStream.Read(SyncData);
+
+    NetworkStream* stream = Networking::Instance->_stream;
+
+    for (const auto& comp : SyncData)
+    {
+        Script* target = GetScript(comp.Key);
+
+        if (!target)
+        {
+            UCRIT(true, "Entity::SendData came for a missing/non-existent component {0} in entity \"{1}\".", comp.Key, GetNamePath());
+            return;
+        }
+
+        stream->Initialize((byte*)comp.Value.begin(), comp.Value.Count());
+
+        if (INetworkSerializable* networked = ToInterface<INetworkSerializable>(target))
+        {
+            networked->Deserialize(stream);
+        }
+        else
+        {
+            NetworkReplicator::InvokeSerializer(target->GetTypeHandle(), target, stream, false);
+        }
+
+        if (INetworkObject* netObj = ScriptingObject::ToInterface<INetworkObject>(target))
+        {
+            netObj->OnNetworkSync();
+        }
+    }
+}
+
 #if USE_EDITOR
 
 // SceneGraphFactory.CustomNodesTypes is not exposed to C++, so
@@ -169,4 +226,30 @@ ScriptingObjectReference<IComponent> Entity::GetComponent(const ScriptingTypeHan
     IComponent* result = nullptr;
     Components.TryGet(type.GetType().Fullname, result);
     return result;
+}
+
+Entity* Entity::FindEntity(Script* Script)
+{
+    return FindEntity(Script->GetActor());
+}
+
+Entity* Entity::FindEntity(Actor* Child)
+{
+    if (!Child)
+    {
+        return nullptr;
+    }
+    while (true)
+    {
+        Entity* entity = Cast<Entity>(Child);
+        if (entity)
+        {
+            return entity;
+        }
+        Child = Child->GetParent();
+        if (!Child)
+        {
+            return nullptr;
+        }
+    }
 }

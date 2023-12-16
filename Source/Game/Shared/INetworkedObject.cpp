@@ -6,21 +6,28 @@ INetworkedObject::INetworkedObject(const SpawnParams& params)
 {
 }
 
-void INetworkedObject::SendData(const Array<char>& data, int srcSize, NetworkRpcParams info)
+void INetworkedObject::SendData(bool compressed, const Array<byte>& data, uint32 srcSize, NetworkRpcParams info)
 {
-    NETWORK_RPC_IMPL(INetworkedObject, SendData, data, srcSize, info);
-
-    if (!EngineHelper::Decompress(data, srcSize))
-    {
-        UCRIT(true, "EngineHelper::Decompress failed to decompress a replication data.");
-        return;
-    }
+    NETWORK_RPC_IMPL(INetworkedObject, SendData, compressed, data, srcSize, info);
 
     NetworkStream* stream = Networking::Instance->_stream;
 
-    const auto& buffer = EngineHelper::GetCompressBuffer();
+    if (compressed && srcSize != 0)
+    {
+        if (!EngineHelper::Decompress(data, srcSize))
+        {
+            UCRIT(true, "EngineHelper::Decompress failed to decompress a replication data.");
+            return;
+        }
 
-    stream->Initialize((unsigned char*)buffer.begin(), buffer.Count());
+        const auto& buffer = EngineHelper::GetCompressBuffer();
+
+        stream->Initialize((byte*)buffer.begin(), buffer.Count());
+    }
+    else
+    {
+        stream->Initialize((byte*)data.begin(), data.Count());
+    }
 
     if (INetworkSerializable* networked = ToInterface<INetworkSerializable>(this))
     {

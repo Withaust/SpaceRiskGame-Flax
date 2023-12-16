@@ -41,7 +41,7 @@ void Footsteps::OnUpdate()
         }
 
         auto type = layeredTerrain->GetTerrainType<TerrainGameType>(TerrainSplatmapType::Game, position, direction, 100.0f);
-        UPRINT("{0}", ScriptingEnum::ToString(type));
+        //UPRINT("{0}", ScriptingEnum::ToString(type));
     }
 
 }

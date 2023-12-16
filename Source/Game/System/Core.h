@@ -73,7 +73,7 @@ public:
     }
 
     template<typename T>
-    static void Add(ObjNetType type = ObjNetType::None)
+    static void Add(INetworkedObject::NetworkingType type = INetworkedObject::NetworkingType::None)
     {
         static_assert(HasInstance<T>::value, "T must return Instance pointer for singleton implementation");
         static_assert(std::is_base_of<ISystem, T>::value, "T must inherit System to be used with Add()");

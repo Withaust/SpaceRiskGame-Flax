@@ -9,7 +9,7 @@ Networking::Networking(const SpawnParams& params)
     _tickUpdate = true;
 }
 
-void Networking::ForceAddReplicated(INetworkedObject* obj)
+void Networking::AddReplicatedSystem(ScriptingObjectReference<ScriptingObject> obj)
 {
     _spawnList.Add(obj);
 }
@@ -50,7 +50,7 @@ void Networking::OnNetworkClientDisconnected(NetworkClient* client)
 
 void Networking::OnSynced(NetworkClient* client)
 {
-    Array<ScriptingObjectReference<INetworkedObject>> deleted;
+    Array<ScriptingObjectReference<ScriptingObject>> deleted;
     for (const auto& spawn : _spawnList)
     {
         if (spawn.Item)
@@ -112,40 +112,111 @@ void Networking::OnUpdate()
         return;
     }
 
-    SyncEvent sync = _syncEvents.Dequeue();
-
-    if (!NetworkManager::Clients.Contains(sync.client) || NetworkReplicator::GetObjectOwnerClientId(sync.object) == sync.client->ClientId)
+    while (_syncEvents.Count() != 0)
     {
-        return;
-    }
+        SyncEvent sync = _syncEvents.Dequeue();
 
-    if (!sync.object)
-    {
-        return;
-    }
+        if (!NetworkManager::Clients.Contains(sync.client))
+        {
+            return;
+        }
 
-    NetworkStream* stream = Networking::Instance->_stream;
-    stream->Initialize();
+        if (!sync.object || NetworkReplicator::GetObjectOwnerClientId(sync.object) == sync.client->ClientId)
+        {
+            return;
+        }
 
-    if (INetworkSerializable* networked = ToInterface<INetworkSerializable>(sync.object))
-    {
-        networked->Serialize(stream);
-    }
-    else
-    {
-        NetworkReplicator::InvokeSerializer(sync.object->GetTypeHandle(), sync.object, stream, true);
-    }
+        NetworkStream* stream = Networking::Instance->_stream;
 
-    if (!EngineHelper::Compress(stream->GetBuffer(), stream->GetLength()))
-    {
-        UCRIT(true, "EngineHelper::Compress failed to compress replication data for {0}.", sync.object->GetType().Fullname.ToString());
-        return;
-    }
+        ScriptingObjectReference<Entity> entity = Cast<Entity>(sync.object);
 
-    NetworkRpcParams params;
-    uint32 ids[1] = { sync.client->ClientId };
-    params.TargetIds = ToSpan(ids, ARRAY_COUNT(ids));
-    sync.object->SendData(EngineHelper::GetCompressBuffer(), stream->GetLength(), params);
+        // Entity has custom replication code that groups up and compresses all of the networked components inside
+        if (entity)
+        {
+            Dictionary<byte, Array<byte>> SyncData;
+
+            for (int i = 0; i < entity->Scripts.Count(); ++i)
+            {
+                IComponent* comp = Cast<IComponent>(entity->Scripts[i]);
+                if (comp && comp->Type == INetworkedObject::NetworkingType::Replicated)
+                {
+                    stream->Initialize();
+
+                    if (INetworkSerializable* networked = ToInterface<INetworkSerializable>(comp))
+                    {
+                        networked->Serialize(stream);
+                    }
+                    else
+                    {
+                        NetworkReplicator::InvokeSerializer(comp->GetTypeHandle(), comp, stream, true);
+                    }
+
+                    SyncData[static_cast<byte>(i)] = { stream->GetBuffer(), static_cast<int32>(stream->GetPosition()) };
+                }
+            }
+
+            MemoryWriteStream stream(32 * entity->Scripts.Count());
+
+            stream.Write(SyncData);
+
+            if (!EngineHelper::Compress(stream.GetHandle(), stream.GetPosition()))
+            {
+                UCRIT(true, "EngineHelper::Compress failed to compress replication data for entity \"{0}\".", entity->GetNamePath());
+                return;
+            }
+
+            NetworkRpcParams params;
+            uint32 ids[1] = { sync.client->ClientId };
+            params.TargetIds = ToSpan(ids, ARRAY_COUNT(ids));
+
+            // We should only send the compressed version if we are certain that it would be benificial to the bandwith
+            if (stream.GetPosition() < static_cast<uint32>(EngineHelper::_compressBuffer.Count()))
+            {
+                entity->SendData(false, { stream.GetHandle(), static_cast<int32>(stream.GetPosition()) }, 0, params);
+            }
+            else
+            {
+                entity->SendData(true, EngineHelper::GetCompressBuffer(), stream.GetPosition(), params);
+            }
+        }
+        // We are dealing with a replicated INetworkedObject, which means it is probably a System or something simular 
+        // (where hierarchy does not matter and grouping like in entity code is probably out of the question)
+        else
+        {
+            stream->Initialize();
+
+            if (INetworkSerializable* networked = ToInterface<INetworkSerializable>(sync.object))
+            {
+                networked->Serialize(stream);
+            }
+            else
+            {
+                NetworkReplicator::InvokeSerializer(sync.object->GetTypeHandle(), sync.object, stream, true);
+            }
+
+            if (!EngineHelper::Compress(stream->GetBuffer(), stream->GetLength()))
+            {
+                UCRIT(true, "EngineHelper::Compress failed to compress replication data for {0}.", sync.object->GetType().Fullname.ToString());
+                return;
+            }
+
+            NetworkRpcParams params;
+            uint32 ids[1] = { sync.client->ClientId };
+            params.TargetIds = ToSpan(ids, ARRAY_COUNT(ids));
+            if (ScriptingObjectReference<INetworkedObject> object = Cast<INetworkedObject>(sync.object))
+            {
+                // We should only send the compressed version if we are certain that it would be benificial to the bandwith
+                if (stream->GetLength() < static_cast<uint32>(EngineHelper::_compressBuffer.Count()))
+                {
+                    entity->SendData(false, { stream->GetBuffer(), static_cast<int32>(stream->GetLength()) }, 0, params);
+                }
+                else
+                {
+                    entity->SendData(true, EngineHelper::GetCompressBuffer(), stream->GetLength(), params);
+                }
+            }
+        }
+    }
 }
 
 void Networking::StartGame()
@@ -186,13 +257,13 @@ ScriptingObjectReference<Entity> Networking::SpawnPrefab(Prefab* prefab, Actor* 
         IComponent* comp = Cast<IComponent>(target->Scripts[i]);
         if (comp)
         {
-            if (comp->Type != ObjNetType::None)
+            if (comp->Type != INetworkedObject::NetworkingType::None)
             {
                 NetworkReplicator::SpawnObject(target->Scripts[i]);
             }
-            if (comp->Type == ObjNetType::Replicated)
+            if (comp->Type == INetworkedObject::NetworkingType::Replicated)
             {
-                _spawnList.Add(comp);
+                _spawnList.Add(Cast<ScriptingObject>(target));
             }
             if (PlayerOwned* owned = Cast<PlayerOwned>(comp))
             {
@@ -205,7 +276,7 @@ ScriptingObjectReference<Entity> Networking::SpawnPrefab(Prefab* prefab, Actor* 
 
     Level::SpawnActor(target, parent);
 #if !BUILD_RELEASE
-    if (target->Type != EntNetType::None)
+    if (target->Type != Entity::NetworkingType::None)
     {
         Logger::Instance->Error(TEXT("Tried to spawn prefab ") + prefab->GetPath() + TEXT(" but its root entity was not marked as LevelReplication = None!"));
     }
@@ -242,13 +313,13 @@ void Networking::DespawnPrefab(ScriptingObjectReference<Entity> target)
         IComponent* comp = Cast<IComponent>(target->Scripts[i]);
         if (comp)
         {
-            if (comp->Type != ObjNetType::None)
+            if (comp->Type != INetworkedObject::NetworkingType::None)
             {
                 NetworkReplicator::DespawnObject(target->Scripts[i]);
             }
-            if (comp->Type == ObjNetType::Replicated)
+            if (comp->Type == INetworkedObject::NetworkingType::Replicated)
             {
-                _spawnList.Remove(comp);
+                _spawnList.Remove(Cast<ScriptingObject>(target));
             }
         }
     }
@@ -256,7 +327,7 @@ void Networking::DespawnPrefab(ScriptingObjectReference<Entity> target)
     NetworkReplicator::DespawnObject(target);
 }
 
-void Networking::StartReplicating(Entity* target)
+void Networking::StartReplicating(ScriptingObjectReference<Entity> target)
 {
     NetworkReplicator::AddObject(target);
     for (int i = 0; i < target->Scripts.Count(); ++i)
@@ -264,13 +335,13 @@ void Networking::StartReplicating(Entity* target)
         IComponent* comp = Cast<IComponent>(target->Scripts[i]);
         if (comp)
         {
-            if (comp->Type != ObjNetType::None)
+            if (comp->Type != INetworkedObject::NetworkingType::None)
             {
                 NetworkReplicator::AddObject(target->Scripts[i]);
             }
-            if (comp->Type == ObjNetType::Replicated)
+            if (comp->Type == INetworkedObject::NetworkingType::Replicated)
             {
-                _spawnList.Add(comp);
+                _spawnList.Add(Cast<ScriptingObject>(target));
             }
         }
     }
@@ -294,7 +365,7 @@ void Networking::StartReplicating(Entity* target)
     }
 }
 
-void Networking::StopReplicating(Entity* target)
+void Networking::StopReplicating(ScriptingObjectReference<Entity> target)
 {
     for (int i = 0; i < target->Scripts.Count(); ++i)
     {
@@ -309,20 +380,20 @@ void Networking::StopReplicating(Entity* target)
         IComponent* comp = Cast<IComponent>(target->Scripts[i]);
         if (comp)
         {
-            if (comp->Type != ObjNetType::None)
+            if (comp->Type != INetworkedObject::NetworkingType::None)
             {
                 NetworkReplicator::RemoveObject(target->Scripts[i]);
             }
-            if (comp->Type == ObjNetType::Replicated)
+            if (comp->Type == INetworkedObject::NetworkingType::Replicated)
             {
-                _spawnList.Remove(comp);
+                _spawnList.Remove(Cast<ScriptingObject>(target));
             }
         }
     }
     NetworkReplicator::RemoveObject(target);
 }
 
-void Networking::DespawnReplicating(Entity* target)
+void Networking::DespawnReplicating(ScriptingObjectReference<Entity> target)
 {
     for (int i = 0; i < target->Scripts.Count(); ++i)
     {
@@ -338,20 +409,20 @@ void Networking::DespawnReplicating(Entity* target)
         IComponent* comp = Cast<IComponent>(target->Scripts[i]);
         if (comp)
         {
-            if (comp->Type != ObjNetType::None)
+            if (comp->Type != INetworkedObject::NetworkingType::None)
             {
                 NetworkReplicator::DespawnObject(target->Scripts[i]);
             }
-            if (comp->Type == ObjNetType::Replicated)
+            if (comp->Type == INetworkedObject::NetworkingType::Replicated)
             {
-                _spawnList.Remove(comp);
+                _spawnList.Remove(Cast<ScriptingObject>(target));
             }
         }
     }
     NetworkReplicator::DespawnObject(target);
 }
 
-Guid Networking::SerializeEntity(Entity* target)
+Guid Networking::SerializeEntity(ScriptingObjectReference<Entity> target)
 {
     if (PlayerOwned* owned = target->GetComponent<PlayerOwned>())
     {
@@ -360,7 +431,7 @@ Guid Networking::SerializeEntity(Entity* target)
     return target->GetID();
 }
 
-Entity* Networking::DeserializeEntity(Guid id, NetworkRpcParams rpcParams)
+ScriptingObjectReference<Entity> Networking::DeserializeEntity(Guid id, NetworkRpcParams rpcParams)
 {
     return Cast<Entity>(NetworkReplicator::ResolveForeignObject(id));
 }

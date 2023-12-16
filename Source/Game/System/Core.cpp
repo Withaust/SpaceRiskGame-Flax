@@ -52,14 +52,14 @@ void Core::ReplicateSystems()
     for (int i = 0; i < _systemsArray.Count(); ++i)
     {
         const auto& target = _systemsArray[i];
-        if (target->Type != ObjNetType::None)
+        if (target->Type != INetworkedObject::NetworkingType::None)
         {
             NetworkReplicator::AddObject(target->GetParent());
             NetworkReplicator::AddObject(target);
         }
-        if (target->Type == ObjNetType::Replicated)
+        if (target->Type == INetworkedObject::NetworkingType::Replicated)
         {
-            Networking::Instance->ForceAddReplicated(target);
+            Networking::Instance->AddReplicatedSystem(Cast<ScriptingObject>(target));
         }
     }
 }
@@ -120,17 +120,17 @@ void Core::LoadSystems()
     Add<Analytics>();
     Add<Logger>();
     Add<Networking>();
-    Add<SyncInfo>(ObjNetType::Registered);
-    Add<LevelManager>(ObjNetType::Registered);
+    Add<SyncInfo>(INetworkedObject::NetworkingType::Registered);
+    Add<LevelManager>(INetworkedObject::NetworkingType::Registered);
     // Game systems
     Add<Saver>();
     Add<VisibilityCPU>();
     Add<VisibilityGPU>();
     Add<Map>();
-    Add<PlayerRespawns>(ObjNetType::Registered);
-    Add<PlayerManager>(ObjNetType::Registered);
-    Add<Chat>(ObjNetType::Registered);
-    Add<KillFeed>(ObjNetType::Registered);
+    Add<PlayerRespawns>(INetworkedObject::NetworkingType::Registered);
+    Add<PlayerManager>(INetworkedObject::NetworkingType::Registered);
+    Add<Chat>(INetworkedObject::NetworkingType::Registered);
+    Add<KillFeed>(INetworkedObject::NetworkingType::Registered);
 
     // PostFx
     Add<PostFx>();
