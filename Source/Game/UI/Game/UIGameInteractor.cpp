@@ -35,7 +35,7 @@ void UIGameInteractor::OnDeinitialize()
 
 void UIGameInteractor::OnUpdate()
 {
-    if (Input::GetKeyDown(KeyboardKeys::F))
+    if (Input::GetKeyDown(KeyboardKeys::F) && _options.Count() > 0)
     {
         PlayerManager::Instance->GetOurPlayer()->GetComponent<PlayerInteractor>()->StartInteract(_options[_counter]);
     }
@@ -107,6 +107,8 @@ void UIGameInteractor::OnHideMenu()
     }
 
     _menu->SetProperty("opacity", "0");
+
+    _options.Clear();
 }
 
 void UIGameInteractor::OnShowProgress(float timer)

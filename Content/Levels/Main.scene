@@ -1,7 +1,7 @@
 {
 	"ID": "a7383811434ac0476b9e57893b2d189d",
 	"TypeName": "FlaxEngine.SceneAsset",
-	"EngineBuild": 6405,
+	"EngineBuild": 6406,
 	"Data": [
 		{
 			"ID": "a7383811434ac0476b9e57893b2d189d",
@@ -45,7 +45,6 @@
 			"ID": "3531a82c45a17be72e551081863c7001",
 			"TypeName": "FlaxEngine.Camera",
 			"ParentID": "f7a78f744ae85bb812e07bae40858629",
-			"IsActive": false,
 			"Name": "MapCamera",
 			"StaticFlags": 0,
 			"Layer": 29,
@@ -521,10 +520,7 @@
 			"TypeName": "Game.TestTrigger",
 			"ParentID": "d0407b42463cd5f7d244688ce027a6b4",
 			"V": {
-	"FilterTrigger": "17dc04224860e2965429d48693536f3b",
-	"Actor": "d0407b42463cd5f7d244688ce027a6b4",
-	"Parent": "d0407b42463cd5f7d244688ce027a6b4",
-	"OrderInParent": 1
+	"FilterTrigger": "17dc04224860e2965429d48693536f3b"
 }
 		},
 		{
@@ -958,10 +954,7 @@
 			"V": {
 	"Collider": "371e01ae4697d882b1a2f4abe7ea606f",
 	"Drill": "bc4c60b74b2298673b9b08a8a3fa25c4",
-	"Asset": "d39922824c525b512be02f88b3e0c650",
-	"Actor": "8381731b4f7543df8b50e7a7e01e2d25",
-	"Parent": "8381731b4f7543df8b50e7a7e01e2d25",
-	"OrderInParent": 0
+	"Asset": "d39922824c525b512be02f88b3e0c650"
 }
 		},
 		{
@@ -1019,10 +1012,7 @@
 			"TypeName": "Game.TestBush",
 			"ParentID": "966286ab4b3479c2252dd7b1fa028826",
 			"V": {
-	"Collider": "bdb5d36545d2074bc041588f90a57aa7",
-	"Actor": "966286ab4b3479c2252dd7b1fa028826",
-	"Parent": "966286ab4b3479c2252dd7b1fa028826",
-	"OrderInParent": 0
+	"Collider": "bdb5d36545d2074bc041588f90a57aa7"
 }
 		},
 		{
@@ -2154,11 +2144,7 @@
 	"Text": "b50bdd2c4d7bfc728b6f9c94e20b3083",
 	"DefaultMaterial": "7828fe734993a308350446b1c79cdfdd",
 	"HitMaterial": "09171ca147a74d69a232c7b2c2a7351b",
-	"Model": "6d86ed784be3b42a76ec818adae0d7cf",
-	"Type": 1,
-	"Actor": "588c17194d6971d0824dc1b3305ca847",
-	"Parent": "588c17194d6971d0824dc1b3305ca847",
-	"OrderInParent": 0
+	"Model": "6d86ed784be3b42a76ec818adae0d7cf"
 },
 			"Type": 1
 		},
@@ -2273,11 +2259,7 @@
 	"Text": "84991469446df1ef5dbebdb7a87a9ef2",
 	"DefaultMaterial": "7828fe734993a308350446b1c79cdfdd",
 	"HitMaterial": "09171ca147a74d69a232c7b2c2a7351b",
-	"Model": "2eac174e46f1862fab17499f24e9795a",
-	"Type": 1,
-	"Actor": "170e05cf46ebaf015ff2c0bdcd2e66ef",
-	"Parent": "170e05cf46ebaf015ff2c0bdcd2e66ef",
-	"OrderInParent": 0
+	"Model": "2eac174e46f1862fab17499f24e9795a"
 },
 			"Type": 1
 		},
@@ -2392,11 +2374,7 @@
 	"Text": "6b807b6b4cb4bce0418970916193d477",
 	"DefaultMaterial": "7828fe734993a308350446b1c79cdfdd",
 	"HitMaterial": "09171ca147a74d69a232c7b2c2a7351b",
-	"Model": "eb96d973495c87a443ba3cbd2e5ebcc0",
-	"Type": 1,
-	"Actor": "79ae3e3e47d074ef6e803f860f7e2b8e",
-	"Parent": "79ae3e3e47d074ef6e803f860f7e2b8e",
-	"OrderInParent": 0
+	"Model": "eb96d973495c87a443ba3cbd2e5ebcc0"
 },
 			"Type": 1
 		},
@@ -2511,11 +2489,7 @@
 	"Text": "33e0541040757f30bbfa5c8d4107209b",
 	"DefaultMaterial": "7828fe734993a308350446b1c79cdfdd",
 	"HitMaterial": "09171ca147a74d69a232c7b2c2a7351b",
-	"Model": "8d2043b34d1676a0fb465b916594fd03",
-	"Type": 1,
-	"Actor": "804a15cc44ed7eab138c0d970bf8c222",
-	"Parent": "804a15cc44ed7eab138c0d970bf8c222",
-	"OrderInParent": 0
+	"Model": "8d2043b34d1676a0fb465b916594fd03"
 },
 			"Type": 1
 		},
