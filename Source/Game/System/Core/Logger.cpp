@@ -7,33 +7,48 @@ Logger::Logger(const SpawnParams& params)
 {
 }
 
+void Logger::OnMessageCapture(LogType type, const StringView& message)
+{
+    switch (type)
+    {
+    case LogType::Info:
+        OnInfo(message);
+        break;
+    case LogType::Warning:
+        OnWarning(message);
+        break;
+    case LogType::Error:
+        OnError(message);
+        break;
+    case LogType::Fatal:
+        OnFatal(message);
+        break;
+    default:
+        OnInfo(message);
+        break;
+    }
+}
+
 void Logger::OnInitialize()
 {
+    Log::Logger::OnMessage.Bind<Logger, &Logger::OnMessageCapture>(this);
+    Log::Logger::OnError.Bind<Logger, &Logger::OnMessageCapture>(this);
 }
 
 void Logger::OnDeinitialize()
 {
-}
-
-void Logger::Print(const StringView& message)
-{
-#ifdef BUILD_DEBUG
-    LOG_STR(Info, message);
-#endif
+    Log::Logger::OnMessage.Unbind<Logger, &Logger::OnMessageCapture>(this);
+    Log::Logger::OnError.Unbind<Logger, &Logger::OnMessageCapture>(this);
 }
 
 void Logger::Info(const StringView& message)
 {
-#ifdef BUILD_DEBUG
     DebugLog::Log(message);
-#endif
 }
 
 void Logger::Warning(const StringView& message)
 {
-#ifdef BUILD_DEBUG
     DebugLog::LogWarning(message);
-#endif
     if (Analytics::Instance)
     {
         Analytics::Instance->AddErrorEvent(Analytics::ErrorSeverity::Warning, message);
@@ -47,9 +62,7 @@ void Logger::Warning(const StringView& message, const char* file, int line)
 
 void Logger::Error(const StringView& message)
 {
-#ifdef BUILD_DEBUG
     DebugLog::LogError(message);
-#endif
     if (Analytics::Instance)
     {
         Analytics::Instance->AddErrorEvent(Analytics::ErrorSeverity::Error, message);
@@ -63,9 +76,7 @@ void Logger::Error(const StringView& message, const char* file, int line)
 
 void Logger::Critical(bool shutdown, const StringView& message)
 {
-#ifdef BUILD_DEBUG
     DebugLog::LogError(message);
-#endif
     if (Analytics::Instance)
     {
         Analytics::Instance->AddErrorEvent(Analytics::ErrorSeverity::Critical, message);

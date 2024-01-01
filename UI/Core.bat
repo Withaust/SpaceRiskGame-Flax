@@ -1,0 +1,1 @@
+RmlDebug.exe Data/Core/CoreMain.rml

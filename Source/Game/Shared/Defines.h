@@ -33,13 +33,9 @@
 #define UIMPL_NETPROP_SETSYNC(Class, ValueName) NETWORK_RPC_IMPL(Class, Set##ValueName##Sync, value); Set##ValueName##Local(value);
 
 #ifdef BUILD_DEBUG
-#define UPRINT(text, ...) Logger::Instance->Print(String::Format(TEXT(text), ##__VA_ARGS__))
-#define UPRINT_STR(string) Logger::Instance->Print(string)
 #define UINFO(text, ...) Logger::Instance->Info(String::Format(TEXT(text), ##__VA_ARGS__))
 #define UINFO_STR(string) Logger::Instance->Info(string)
 #else
-#define UPRINT(text, ...)
-#define UPRINT_STR(string)
 #define UINFO(text, ...)
 #define UINFO_STR(string)
 #endif

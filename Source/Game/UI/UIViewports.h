@@ -4,7 +4,6 @@
 #include <Engine/Graphics/Textures/GPUTexture.h>
 #include <Engine/Graphics/GPUContext.h>
 #include <Engine/Graphics/Textures/TextureData.h>
-#include <Engine/Graphics/Textures/TextureUtils.h>
 #include <Engine/Threading/Task.h>
 #include <Engine/Graphics/RenderTask.h>
 #include <Engine/Level/Actors/Camera.h>

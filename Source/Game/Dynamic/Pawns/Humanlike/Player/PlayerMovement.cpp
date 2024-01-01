@@ -59,7 +59,7 @@ void PlayerMovement::OnUpdate()
 
     bool jump = false;
 
-    if (CanMove)
+    if (CanMove && !Screen::GetCursorVisible())
     {
         // Movement
         _horizontal += Input::GetAxis(TEXT("Horizontal"));

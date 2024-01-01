@@ -12,13 +12,20 @@ API_CLASS() class GAME_API Logger : public ISystem
     API_AUTO_SERIALIZATION();
     DECLARE_SCRIPTING_TYPE(Logger);
 
+    void OnMessageCapture(LogType type, const StringView& message);
+
 public:
+
     API_FIELD() static Logger* Instance;
 
     void OnInitialize() override;
     void OnDeinitialize() override;
 
-    API_FUNCTION() void Print(const StringView& message);
+    API_EVENT() Delegate<const StringView&> OnInfo;
+    API_EVENT() Delegate<const StringView&> OnWarning;
+    API_EVENT() Delegate<const StringView&> OnError;
+    API_EVENT() Delegate<const StringView&> OnFatal;
+
     API_FUNCTION() void Info(const StringView& message);
 
     API_FUNCTION() void Warning(const StringView& message);

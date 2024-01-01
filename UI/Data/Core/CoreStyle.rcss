@@ -1,0 +1,83 @@
+body {
+	font-family: LatoLatin;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 18dp;
+	color: white;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	font-effect: glow(1dp black);
+}
+
+div#info_tab {
+	color: white;
+	display: flex;
+}
+
+.info_entry {
+	width: 68dp;
+	display: flex;
+	justify-content: center;
+	border-radius: 6dp;
+	background-color: #0000007d;
+}
+
+.info_icon {
+	width: 18dp;
+	height: 18dp;
+	margin: 0dp 4dp 0dp 0dp;
+}
+
+div#console_window {
+	width: 36%;
+	min-width: 150dp;
+	height: 82%;
+	min-height: 100dp;
+	background-color: #0000007d;
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	right: 4%;
+	top: 4%;
+	opacity: 1;
+}
+
+handle#console_title_bar {
+	height: 18dp;
+	min-height: 18dp;
+	width: 100%;
+	text-align: left;
+	background-color: #ffffff56;
+}
+
+div#console_content {
+	overflow: auto;
+	height: 100%;
+	z-index: 1;
+	flex-grow: 999;
+	margin: 2dp 2dp 2dp 2dp;
+}
+
+input#console_input {
+	height: 18dp;
+	min-height: 18dp;
+	background-color: #ffffff56;
+	width: 100%;
+	color: white;
+	text-align: left;
+}
+
+scrollbarvertical {
+	width: 5dp;
+}
+
+scrollbarvertical slidertrack {
+	width: 5dp;
+	background-color: #ffffff17;
+}
+
+scrollbarvertical sliderbar {
+	width: 5dp;
+	background-color: #ffffff27;
+}

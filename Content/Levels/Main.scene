@@ -1,7 +1,7 @@
 {
 	"ID": "a7383811434ac0476b9e57893b2d189d",
 	"TypeName": "FlaxEngine.SceneAsset",
-	"EngineBuild": 6406,
+	"EngineBuild": 6407,
 	"Data": [
 		{
 			"ID": "a7383811434ac0476b9e57893b2d189d",
@@ -494,9 +494,9 @@
 			"Name": "FilterTrigger",
 			"Transform": {
 				"Translation": {
-					"X": -28.738914489746095,
+					"X": 593.2031860351563,
 					"Y": -189.62808227539063,
-					"Z": 169.91165161132813
+					"Z": 789.6846313476563
 				},
 				"Scale": {
 					"X": 2.3767354488372804,

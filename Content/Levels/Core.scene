@@ -1,13 +1,14 @@
 {
 	"ID": "362b418c43b31919b71055b252931fb3",
 	"TypeName": "FlaxEngine.SceneAsset",
-	"EngineBuild": 6405,
+	"EngineBuild": 6407,
 	"Data": [
 		{
 			"ID": "362b418c43b31919b71055b252931fb3",
 			"TypeName": "FlaxEngine.Scene",
 			"Name": "Core",
 			"StaticFlags": 0,
+			"Layer": 31,
 			"LightmapSettings": {
 				"IndirectLightingIntensity": 1.0,
 				"GlobalObjectsScale": 1.0,
@@ -24,21 +25,24 @@
 			"TypeName": "Game.Core",
 			"ParentID": "362b418c43b31919b71055b252931fb3",
 			"Name": "Core",
-			"StaticFlags": 0
+			"StaticFlags": 0,
+			"Layer": 31
 		},
 		{
 			"ID": "23a9f8294afeeb178dcdeb9054b2e326",
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "5324473c46f1496a46410a9188243083",
 			"Name": "Core",
-			"StaticFlags": 0
+			"StaticFlags": 0,
+			"Layer": 31
 		},
 		{
 			"ID": "a513622f468a803f081ea3aca41c3bcc",
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "23a9f8294afeeb178dcdeb9054b2e326",
 			"Name": "LaunchArgs",
-			"StaticFlags": 0
+			"StaticFlags": 0,
+			"Layer": 31
 		},
 		{
 			"ID": "cc74f8304bc7068c8f9630a944d42c3d",
@@ -50,7 +54,8 @@
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "23a9f8294afeeb178dcdeb9054b2e326",
 			"Name": "Steam",
-			"StaticFlags": 0
+			"StaticFlags": 0,
+			"Layer": 31
 		},
 		{
 			"ID": "a171098e4dbf8cc7aadf8c8c985f9b9d",
@@ -62,7 +67,8 @@
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "23a9f8294afeeb178dcdeb9054b2e326",
 			"Name": "Analytics",
-			"StaticFlags": 0
+			"StaticFlags": 0,
+			"Layer": 31
 		},
 		{
 			"ID": "49ecdf124e230aeb93a1c5b83cb992fa",
@@ -74,7 +80,8 @@
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "23a9f8294afeeb178dcdeb9054b2e326",
 			"Name": "Logger",
-			"StaticFlags": 0
+			"StaticFlags": 0,
+			"Layer": 31
 		},
 		{
 			"ID": "bd0404194001c30bfaf0c1af6d9334e4",
@@ -86,14 +93,16 @@
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "23a9f8294afeeb178dcdeb9054b2e326",
 			"Name": "InfoWare",
-			"StaticFlags": 0
+			"StaticFlags": 0,
+			"Layer": 31
 		},
 		{
 			"ID": "3a1c00d64d2daac3cf16d0ae89e76235",
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "23a9f8294afeeb178dcdeb9054b2e326",
 			"Name": "Networking",
-			"StaticFlags": 0
+			"StaticFlags": 0,
+			"Layer": 31
 		},
 		{
 			"ID": "d802b87a44b455a968bd0ab8a4ba4759",
@@ -104,7 +113,8 @@
 			"ID": "fc1ba5d34ff0fb0789ff46aa5c52bd18",
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "23a9f8294afeeb178dcdeb9054b2e326",
-			"Name": "SyncInfo"
+			"Name": "SyncInfo",
+			"Layer": 31
 		},
 		{
 			"ID": "200ea84e4128a8ae5d088c9e5b5dcf6c",
@@ -116,7 +126,8 @@
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "23a9f8294afeeb178dcdeb9054b2e326",
 			"Name": "LevelManager",
-			"StaticFlags": 0
+			"StaticFlags": 0,
+			"Layer": 31
 		},
 		{
 			"ID": "960e88d54cd1f484306ebe815b98cfd8",
@@ -128,13 +139,15 @@
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "5324473c46f1496a46410a9188243083",
 			"Name": "Game",
-			"StaticFlags": 0
+			"StaticFlags": 0,
+			"Layer": 31
 		},
 		{
 			"ID": "77de5ce64412bc37c53e588771348a1f",
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "df3598904da36af0d20c0798f9b4b690",
-			"Name": "Saver"
+			"Name": "Saver",
+			"Layer": 31
 		},
 		{
 			"ID": "c1049f8640ceecede13e69b47205e718",
@@ -158,7 +171,8 @@
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "df3598904da36af0d20c0798f9b4b690",
 			"Name": "VisibilityCPU",
-			"StaticFlags": 0
+			"StaticFlags": 0,
+			"Layer": 31
 		},
 		{
 			"ID": "52c5a2e541a0b178211393a93946996d",
@@ -171,7 +185,8 @@
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "df3598904da36af0d20c0798f9b4b690",
 			"Name": "VisibilityGPU",
-			"StaticFlags": 0
+			"StaticFlags": 0,
+			"Layer": 31
 		},
 		{
 			"ID": "f103c26e460447e7a05a21a9773dea75",
@@ -183,7 +198,8 @@
 			"ID": "5d1b68814350a78dd85517ab113ed501",
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "df3598904da36af0d20c0798f9b4b690",
-			"Name": "PostFx"
+			"Name": "PostFx",
+			"Layer": 31
 		},
 		{
 			"ID": "bc195d664a9a1f3ff086118de5f9adf3",
@@ -209,7 +225,8 @@
 			"ID": "f54a03604c5e2fd0f88da9a811fd57ca",
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "df3598904da36af0d20c0798f9b4b690",
-			"Name": "Map"
+			"Name": "Map",
+			"Layer": 31
 		},
 		{
 			"ID": "2d45f47340a5d2c194f70b8c1c757b39",
@@ -221,7 +238,8 @@
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "df3598904da36af0d20c0798f9b4b690",
 			"Name": "PlayerRespawns",
-			"StaticFlags": 0
+			"StaticFlags": 0,
+			"Layer": 31
 		},
 		{
 			"ID": "4099a72d47fc92f1d2294392ddd77d54",
@@ -233,7 +251,8 @@
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "df3598904da36af0d20c0798f9b4b690",
 			"Name": "PlayerManager",
-			"StaticFlags": 0
+			"StaticFlags": 0,
+			"Layer": 31
 		},
 		{
 			"ID": "9e3d69e64a6fcf4c616bbb99011bda4f",
@@ -246,7 +265,8 @@
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "df3598904da36af0d20c0798f9b4b690",
 			"Name": "Chat",
-			"StaticFlags": 0
+			"StaticFlags": 0,
+			"Layer": 31
 		},
 		{
 			"ID": "777f450c4cccf758b2203ab7709216c8",
@@ -257,7 +277,8 @@
 			"ID": "8915c3114265ca897a772996ce731461",
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "df3598904da36af0d20c0798f9b4b690",
-			"Name": "KillFeed"
+			"Name": "KillFeed",
+			"Layer": 31
 		},
 		{
 			"ID": "0f10e41b439cb84b3871feb8654dd1ff",
@@ -282,6 +303,7 @@
 			"TypeName": "RmlUi.RmlUiCanvas",
 			"ParentID": "d160097b45efbbc385e6849bcbcad5d0",
 			"Name": "Canvas",
+			"Layer": 31,
 			"Fonts": [
 				{
 					"Font": "585aae534c7205289bccc9a4f5bc3716",
@@ -307,10 +329,24 @@
 			"EnableDebugger": true
 		},
 		{
+			"ID": "bf63b12d481d6c3f76d6a8880c493905",
+			"TypeName": "RmlUi.RmlUiDocument",
+			"ParentID": "f0374dfc45ab7a42190e9ca95463ee81",
+			"Name": "Core",
+			"Layer": 31,
+			"Document": "a84d4de94a35e8dd453c9c9a8c0aca4f"
+		},
+		{
+			"ID": "81d5fb3e4d49c0e812dd65b93a8309ed",
+			"TypeName": "Game.UICore",
+			"ParentID": "bf63b12d481d6c3f76d6a8880c493905"
+		},
+		{
 			"ID": "449ea996489ad88c1428f58a28a187b5",
 			"TypeName": "RmlUi.RmlUiDocument",
 			"ParentID": "f0374dfc45ab7a42190e9ca95463ee81",
 			"Name": "Game",
+			"Layer": 31,
 			"Document": "a6bc048342a86fca389c94ba987e72e0"
 		},
 		{
@@ -333,6 +369,7 @@
 			"TypeName": "RmlUi.RmlUiDocument",
 			"ParentID": "f0374dfc45ab7a42190e9ca95463ee81",
 			"Name": "SystemMenu",
+			"Layer": 31,
 			"Document": "2417b1b043d5e6cd24c8b5a9e2b378e1"
 		},
 		{
@@ -345,6 +382,7 @@
 			"TypeName": "RmlUi.RmlUiDocument",
 			"ParentID": "f0374dfc45ab7a42190e9ca95463ee81",
 			"Name": "PlayMenu",
+			"Layer": 31,
 			"Document": "48ab346b41a14236a1d181904166c1f2"
 		},
 		{
@@ -362,7 +400,8 @@
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "5324473c46f1496a46410a9188243083",
 			"Name": "CoreInitializer",
-			"StaticFlags": 0
+			"StaticFlags": 0,
+			"Layer": 31
 		},
 		{
 			"ID": "841e1f4b4504f6b6ced263aea984704e",

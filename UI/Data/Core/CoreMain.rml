@@ -1,0 +1,36 @@
+<rml>
+
+	<head>
+		<link type="text/rcss" href="../Rml.rcss" />
+		<link type="text/rcss" href="CoreStyle.rcss" />
+	</head>
+
+	<body>
+		<div id="info_tab">
+			<div class="info_entry">
+				<img class="info_icon" src="../Textures/Core/InfoPrint.tga" width="16dp" height="16dp"></img>
+				<div id="info_text">999+</div>
+			</div>
+			<div class="info_entry">
+				<img class="info_icon" src="../Textures/Core/WarnPrint.tga" width="16dp" height="16dp"></img>
+				<div id="warn_text">999+</div>
+			</div>
+			<div class="info_entry">
+				<img class="info_icon" src="../Textures/Core/ErrorPrint.tga" width="16dp" height="16dp"></img>
+				<div id="error_text">999+</div>
+			</div>
+		</div>
+		<div id="console_window">
+			<handle id="console_title_bar" move_target="console_window">
+				Console
+			</handle>
+			<div id="console_content">
+				<div>This is a text</div>
+			</div>
+			<input type="text" id="console_input"></input>
+			<handle size_target="console_window"
+				style="position: absolute; width: 32dp; height: 32dp; bottom: -16px; right: -16px; cursor: resize;">
+			</handle>
+		</div>
+	</body>
+</rml>

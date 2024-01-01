@@ -41,12 +41,15 @@ void UI::OnInitialize()
         auto Context = Document->GetContext();
         Context->SetDensityIndependentPixelRatio(1.0f);
         state.Value->OnInitialize();
-        state.Value->GetActor()->SetIsActive(false);
-        Array<Script*> scripts;
-        EngineHelper::FindScripts(state.Value->GetActor(), scripts);
-        for (const auto& script : scripts)
+        if (state.Key != TEXT("Game.UICore"))
         {
-            script->SetEnabled(false);
+            state.Value->GetActor()->SetIsActive(false);
+            Array<Script*> scripts;
+            EngineHelper::FindScripts(state.Value->GetActor(), scripts);
+            for (const auto& script : scripts)
+            {
+                script->SetEnabled(false);
+            }
         }
     }
 }

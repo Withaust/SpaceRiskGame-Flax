@@ -15,11 +15,11 @@ void UIGameChat::OnInitialize()
 {
     Chat::Instance->OnChatMessage.Bind<UIGameChat, &UIGameChat::OnChatMessage>(this);
     auto RmlDocument = GetDocument()->GetDocument();
-    _window = RmlDocument->GetElementById("window");
+    _window = RmlDocument->GetElementById("chat_window");
     _window->SetProperty("opacity", "0");
-    _textBox = RmlDocument->GetElementById("text");
+    _textBox = RmlDocument->GetElementById("chat_input");
     _textBox->SetProperty("display", "none");
-    _root = RmlDocument->GetElementById("content");
+    _root = RmlDocument->GetElementById("chat_content");
     auto originalElement = _root->GetFirstChild();
     _entry = originalElement->Clone();
     _root->RemoveChild(originalElement);
@@ -32,7 +32,7 @@ void UIGameChat::OnDeinitialize()
 
 void UIGameChat::OnUpdate()
 {
-    if (Input::GetKeyUp(KeyboardKeys::T) && !_isFocused)
+    if (!Screen::GetCursorVisible() && Input::GetKeyUp(KeyboardKeys::T) && !_isFocused)
     {
         Focus();
     }
