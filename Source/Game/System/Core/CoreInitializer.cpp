@@ -37,4 +37,8 @@ void CoreInitializer::OnSceneLoaded(Scene* scene)
         Core::Instance->ReplicateSystems();
         UI::Instance->GoForward(TEXT("Game.UIGame"));
     }
+    else
+    {
+        SyncInfo::Instance->RequestSpawnSync();
+    }
 }

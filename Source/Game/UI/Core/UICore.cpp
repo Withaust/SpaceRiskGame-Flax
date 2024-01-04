@@ -49,22 +49,50 @@ void UICore::PrintMessage(LogType type, const StringView& message)
 
 void UICore::OnInfo(const StringView& message)
 {
+    if (message.StartsWith(TEXT("[NetworkReplicator] Spawn object")) ||
+        message.StartsWith(TEXT("[NetworkReplicator] Add new object")) ||
+        message.StartsWith(TEXT("[NetworkReplicator] Remap object")))
+    {
+        return;
+    }
+
     _infoCounter++;
-    _infoText->SetInnerRML(std::to_string(_infoCounter));
+    if (_infoCounter > 999)
+    {
+        _infoText->SetInnerRML("999+");
+    }
+    else
+    {
+        _infoText->SetInnerRML(std::to_string(_infoCounter));
+    }
     PrintMessage(LogType::Info, message);
 }
 
 void UICore::OnWarning(const StringView& message)
 {
     _warnCounter++;
-    _warnText->SetInnerRML(std::to_string(_warnCounter));
+    if (_warnCounter > 999)
+    {
+        _warnText->SetInnerRML("999+");
+    }
+    else
+    {
+        _warnText->SetInnerRML(std::to_string(_warnCounter));
+    }
     PrintMessage(LogType::Warning, message);
 }
 
 void UICore::OnError(const StringView& message)
 {
     _errorCounter++;
-    _errorText->SetInnerRML(std::to_string(_errorCounter));
+    if (_errorCounter > 999)
+    {
+        _errorText->SetInnerRML("999+");
+    }
+    else
+    {
+        _errorText->SetInnerRML(std::to_string(_errorCounter));
+    }
     PrintMessage(LogType::Error, message);
 }
 

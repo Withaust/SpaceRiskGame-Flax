@@ -259,7 +259,8 @@
 				}
 			},
 			"Layer": 1,
-			"Type": 2
+			"Type": 2,
+			"Priority": 2
 		},
 		{
 			"ID": "bc4c60b74b2298673b9b08a8a3fa25c4",
@@ -513,7 +514,8 @@
 			"ParentID": "d0407b42463cd5f7d244688ce027a6b4",
 			"FilterTags": [
 				"Player"
-			]
+			],
+			"RobotPrefab": "51cc057441557d1662e76680c07f42fa"
 		},
 		{
 			"ID": "4cf227684adc42ded90916aff988625e",
@@ -945,7 +947,8 @@
 			"TypeName": "Game.Entity",
 			"ParentID": "a7383811434ac0476b9e57893b2d189d",
 			"Name": "TestDrill",
-			"Type": 1
+			"Type": 1,
+			"Priority": 2
 		},
 		{
 			"ID": "6bbe02fd445e7385d1ee23bc2c94ab00",
@@ -2132,7 +2135,8 @@
 			"TypeName": "Game.Entity",
 			"ParentID": "d2b16ac946262ae88c329e89a0fff19c",
 			"Name": "Dummy",
-			"Type": 2
+			"Type": 2,
+			"Priority": 2
 		},
 		{
 			"ID": "d0bd849042ce83e5be95bc84443cfc57",
@@ -2247,7 +2251,8 @@
 					"Z": 128.6927490234375
 				}
 			},
-			"Type": 2
+			"Type": 2,
+			"Priority": 2
 		},
 		{
 			"ID": "d1ecae414e5940124f0167aa8943ec21",
@@ -2362,7 +2367,8 @@
 					"Z": 292.157958984375
 				}
 			},
-			"Type": 2
+			"Type": 2,
+			"Priority": 2
 		},
 		{
 			"ID": "92eb976a45a8e1c644b1d38a0178ac72",
@@ -2477,7 +2483,8 @@
 					"Z": 491.0928955078125
 				}
 			},
-			"Type": 2
+			"Type": 2,
+			"Priority": 2
 		},
 		{
 			"ID": "963353fc4f8a887c094bf0a29efe35e6",
@@ -2812,7 +2819,8 @@
 					"Z": -967.9242553710938
 				}
 			},
-			"Type": 2
+			"Type": 2,
+			"Priority": 2
 		},
 		{
 			"ID": "59ba68d2486fdca09c8923b61ec7e3f8",
@@ -3164,36 +3172,6 @@
 			"ID": "7ecfa08c49baae89511409ad90964c81",
 			"TypeName": "Game.MapLabel",
 			"ParentID": "61229b3648db28c1f2eec7815989b332"
-		},
-		{
-			"ID": "b9f72e5048ec810a159f6db84acc6c89",
-			"TypeName": "FlaxEngine.StaticModel",
-			"ParentID": "a7383811434ac0476b9e57893b2d189d",
-			"Name": "StaticModel 0",
-			"Transform": {
-				"Translation": {
-					"X": -2172.563232421875,
-					"Y": 0.0,
-					"Z": -1767.5645751953126
-				},
-				"Scale": {
-					"X": 12.129057884216309,
-					"Y": 9.554037094116211,
-					"Z": 16.602291107177736
-				}
-			},
-			"Layer": 29,
-			"Model": "60093f7e4c7c642f74ffc1b9fc0f3311",
-			"Buffer": {
-				"Entries": [
-					{
-						"Material": "4b4a44d74704b84818172ea471265b9b",
-						"ShadowsMode": 3,
-						"Visible": true,
-						"ReceiveDecals": true
-					}
-				]
-			}
 		},
 		{
 			"ID": "aa2a5895485e823b62bb7ebb8d45ca24",

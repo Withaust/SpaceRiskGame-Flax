@@ -71,3 +71,7 @@ if(!Name) { UERR("Data field {0} is empty for object {1}", TEXT(#Name), GetEntit
 if (Name->WaitForLoaded()) { \
     UERR("Data field {0} is failed to load on object {1}", TEXT(#Name), GetEntity()->GetName()); return; \
 } On##Name##Changed();
+
+// Struct serialization related stuff
+#define UDESERIALIZE_MEMBER(member) DESERIALIZE_MEMBER(member, v.member)
+#define USERIALIZE_MEMBER(member) stream.JKEY(#member); Serialize(stream, v.member, nullptr);

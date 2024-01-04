@@ -286,6 +286,18 @@
 			"ParentID": "8915c3114265ca897a772996ce731461"
 		},
 		{
+			"ID": "38a26d3f43b015e4ecd3408ea85a9459",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "df3598904da36af0d20c0798f9b4b690",
+			"Name": "RobotRespawns"
+		},
+		{
+			"ID": "478125a74da2425b849f13aab710de41",
+			"TypeName": "Game.RobotRespawns",
+			"ParentID": "38a26d3f43b015e4ecd3408ea85a9459",
+			"RobotPrefab": "51cc057441557d1662e76680c07f42fa"
+		},
+		{
 			"ID": "d160097b45efbbc385e6849bcbcad5d0",
 			"TypeName": "FlaxEngine.EmptyActor",
 			"ParentID": "5324473c46f1496a46410a9188243083",

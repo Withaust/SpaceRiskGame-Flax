@@ -33,7 +33,7 @@ public:
     void OnPlayerDisconnected(NetworkClient* client) override;
     void OnUpdate() override;
 
-    API_FUNCTION(NetworkRpc = "Server, Reliable") void SendInfo(NetworkRpcParams param = NetworkRpcParams());
-    API_FUNCTION(NetworkRpc = "Client, Reliable") void RecievedInfo(NetworkRpcParams param = NetworkRpcParams());
+    API_FUNCTION(NetworkRpc = "Server, ReliableOrdered") void SendInfo(NetworkRpcParams param = NetworkRpcParams());
+    API_FUNCTION(NetworkRpc = "Client, ReliableOrdered") void RecievedInfo(NetworkRpcParams param = NetworkRpcParams());
     void RequestSpawnSync();
 };

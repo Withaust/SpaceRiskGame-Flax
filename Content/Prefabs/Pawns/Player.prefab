@@ -1,7 +1,7 @@
 {
 	"ID": "4cab2b9f4ec52072b975c2b5967524b4",
 	"TypeName": "FlaxEngine.Prefab",
-	"EngineBuild": 6405,
+	"EngineBuild": 6407,
 	"Data": [
 	{
 		"ID": "140348bb4794ddf592b1b0b82dc7c9a7",
@@ -10,6 +10,7 @@
 		"StaticFlags": 0,
 		"Layer": 4,
 		"Tag": "Player",
+		"Priority": 0,
 		"Icon": "470b67c04b01a3b18aac359aaabbfbee"
 	},
 	{

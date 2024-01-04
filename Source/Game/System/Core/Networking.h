@@ -35,7 +35,6 @@ API_CLASS() class GAME_API Networking : public ISystem
     friend class INetworkedObject;
     friend class Core;
     friend class EngineHelper;
-
 private:
     bool _gameStarted = false;
     bool _isHosting = false;

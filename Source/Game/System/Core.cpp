@@ -104,6 +104,7 @@ ScriptingObjectReference<ISystem> Core::Get(const ScriptingTypeHandle& type)
 #include <Game/System/Game/Player/PlayerManager.h>
 #include <Game/System/Game/Chat.h>
 #include <Game/System/Game/KillFeed.h>
+#include <Game/System/Game/RobotRespawns.h>
 // PostFx
 #include <Game/PostFx/PostFx.h>
 // UI
@@ -131,6 +132,7 @@ void Core::LoadSystems()
     Add<PlayerManager>(INetworkedObject::NetworkingType::Registered);
     Add<Chat>(INetworkedObject::NetworkingType::Registered);
     Add<KillFeed>(INetworkedObject::NetworkingType::Registered);
+    Add<RobotRespawns>(INetworkedObject::NetworkingType::Registered);
 
     // PostFx
     Add<PostFx>();

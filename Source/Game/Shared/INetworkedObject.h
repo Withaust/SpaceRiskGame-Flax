@@ -19,5 +19,5 @@ public:
     };
 
     API_FIELD() NetworkingType Type = NetworkingType::None;
-    API_FUNCTION(NetworkRpc = "Client, Reliable") void SendData(bool compressed, const Array<byte>& data, uint32 srcSize, NetworkRpcParams info);
+    API_FUNCTION(NetworkRpc = "Client, ReliableOrdered") void SendData(bool compressed, const Array<byte>& data, uint32 srcSize, NetworkRpcParams info);
 };

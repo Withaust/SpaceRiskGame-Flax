@@ -16,6 +16,7 @@
 
 #include <Game/Shared/Components/IComponent.h>
 #include <Game/System/Core/Logger.h>
+#include <Game/Shared/ReplicationPriority.h>
 
 API_CLASS(Attributes = "ActorContextMenu(\"New/Entity\"), ActorToolbox(\"Other\")")
 class GAME_API Entity : public Actor
@@ -45,7 +46,8 @@ public:
     };
 
     API_FIELD() NetworkingType Type = NetworkingType::None;
-    API_FUNCTION(NetworkRpc = "Client, Reliable") void SendData(bool compressed, const Array<byte>& data, uint32 srcSize, NetworkRpcParams info);
+    API_FIELD() ReplicationPriority Priority = ReplicationPriority::Medium;
+    API_FUNCTION(NetworkRpc = "Client, ReliableOrdered") void SendData(bool compressed, const Array<byte>& data, uint32 srcSize, NetworkRpcParams info);
 #if USE_EDITOR
     API_FIELD() AssetReference<Texture> Icon;
     void OnDebugDrawSelected() override;

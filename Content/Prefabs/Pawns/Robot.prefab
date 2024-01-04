@@ -1,0 +1,77 @@
+{
+	"ID": "51cc057441557d1662e76680c07f42fa",
+	"TypeName": "FlaxEngine.Prefab",
+	"EngineBuild": 6407,
+	"Data": [
+	{
+		"ID": "c0fd9ed44bd3767009199594beb0a3b8",
+		"TypeName": "Game.Entity",
+		"Name": "Robot",
+		"Transform": {
+			"Translation": {
+				"X": 0.0,
+				"Y": 90.51983642578125,
+				"Z": 0.0
+			}
+		},
+		"Icon": "470b67c04b01a3b18aac359aaabbfbee"
+	},
+	{
+		"ID": "2627a26d4cbb4125d6e49a9d86f1ec98",
+		"TypeName": "Game.RobotAI",
+		"ParentID": "c0fd9ed44bd3767009199594beb0a3b8",
+		"Type": 2
+	},
+	{
+		"ID": "30353b914f3fd08ffda70aab003dc314",
+		"TypeName": "Game.RobotInteractor",
+		"ParentID": "c0fd9ed44bd3767009199594beb0a3b8",
+		"Type": 2,
+		"InteractionTarget": "0078006100640045007400690072006f"
+	},
+	{
+		"ID": "172b57654c176ab6ca0df4aec2899fa7",
+		"TypeName": "Game.RobotSquad",
+		"ParentID": "c0fd9ed44bd3767009199594beb0a3b8",
+		"Type": 2,
+		"SquadId": "0078006100640045007400690072006f"
+	},
+	{
+		"ID": "7b8b6164454ec9188dd6d9bb51217865",
+		"TypeName": "Game.RobotState",
+		"ParentID": "c0fd9ed44bd3767009199594beb0a3b8",
+		"Type": 2
+	},
+	{
+		"ID": "f09ebc044ee89f2d9e3c80a71804d200",
+		"TypeName": "Game.RobotEquipment",
+		"ParentID": "c0fd9ed44bd3767009199594beb0a3b8",
+		"Type": 2
+	},
+	{
+		"ID": "5d5d90d340642cd459dd948668243c55",
+		"TypeName": "Game.ImmediateInfo",
+		"ParentID": "c0fd9ed44bd3767009199594beb0a3b8",
+		"Type": 2,
+		"Position": "c0fd9ed44bd3767009199594beb0a3b8",
+		"Rotation": "c0fd9ed44bd3767009199594beb0a3b8"
+	},
+	{
+		"ID": "caa50e6b4ee8acc7ab8480b25fdc58af",
+		"TypeName": "FlaxEngine.StaticModel",
+		"ParentID": "c0fd9ed44bd3767009199594beb0a3b8",
+		"Name": "StaticModel",
+		"Model": "3f82e57744f57c28285150b646ad2198",
+		"Buffer": {
+			"Entries": [
+				{
+					"Material": "00000000000000000000000000000000",
+					"ShadowsMode": 3,
+					"Visible": true,
+					"ReceiveDecals": true
+				}
+			]
+		}
+	}
+]
+}
