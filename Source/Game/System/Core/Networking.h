@@ -47,7 +47,7 @@ private:
         ScriptingObjectReference<ScriptingObject> object;
     };
 
-    HashSet<ScriptingObjectReference<ScriptingObject>> _spawnList;
+    Dictionary<ReplicationPriority, HashSet<ScriptingObjectReference<ScriptingObject>>> _spawnList;
     Array<SyncEvent> _syncEvents;
 
     API_FUNCTION() void AddReplicatedSystem(ScriptingObjectReference<ScriptingObject> obj);

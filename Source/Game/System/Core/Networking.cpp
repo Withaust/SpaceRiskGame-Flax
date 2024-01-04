@@ -13,7 +13,7 @@ void Networking::AddReplicatedSystem(ScriptingObjectReference<ScriptingObject> o
 {
     if (NetworkManager::IsHost())
     {
-        _spawnList.Add(obj);
+        _spawnList[ReplicationPriority::High].Add(obj);
     }
 }
 
@@ -53,24 +53,39 @@ void Networking::OnNetworkClientDisconnected(NetworkClient* client)
 
 void Networking::OnSynced(NetworkClient* client)
 {
-    Array<ScriptingObjectReference<ScriptingObject>> deleted;
-    for (const auto& spawn : _spawnList)
+    Dictionary<ReplicationPriority, Array<ScriptingObjectReference<ScriptingObject>>> deleted;
+
+    for (byte i = static_cast<byte>(ReplicationPriority::High); i < static_cast<byte>(ReplicationPriority::Low); i++)
     {
-        if (spawn.Item)
+        ReplicationPriority priority = static_cast<ReplicationPriority>(i);
+        const auto& targetPriority = _spawnList[priority];
+        uint32 counter = 0;
+
+        for (const auto& entry : targetPriority)
         {
-            SyncEvent newEvent;
-            newEvent.client = client;
-            newEvent.object = spawn.Item;
-            _syncEvents.Enqueue(newEvent);
+            if (entry.Item)
+            {
+                SyncEvent newEvent;
+                newEvent.client = client;
+                newEvent.object = entry.Item;
+                _syncEvents.Enqueue(newEvent);
+                counter++;
+            }
+            else
+            {
+                deleted[priority].Add(entry.Item);
+            }
         }
-        else
-        {
-            deleted.Add(spawn.Item);
-        }
+
+        UINFO("Replicating {0} {1} priority entities.", counter, ScriptingEnum::ToString(priority));
     }
-    for (const auto& invalid : deleted)
+
+    for (const auto& priority : deleted)
     {
-        _spawnList.Remove(invalid);
+        for (const auto& entry : priority.Value)
+        {
+            _spawnList[priority.Key].Remove(entry);
+        }
     }
 }
 
@@ -94,6 +109,10 @@ void Networking::OnInitialize()
     NetworkReplicator::EnableLog = true;
 #endif
     _stream = New<NetworkStream>();
+
+    _spawnList[ReplicationPriority::Low] = {};
+    _spawnList[ReplicationPriority::Medium] = {};
+    _spawnList[ReplicationPriority::High] = {};
 }
 
 void Networking::OnDeinitialize()
@@ -283,7 +302,7 @@ ScriptingObjectReference<Entity> Networking::SpawnPrefab(Prefab* prefab, Actor* 
             }
             if (NetworkManager::IsHost() && comp->Type == INetworkedObject::NetworkingType::Replicated)
             {
-                _spawnList.Add(Cast<ScriptingObject>(target));
+                _spawnList[target->Priority].Add(Cast<ScriptingObject>(target));
             }
             if (PlayerOwned* owned = Cast<PlayerOwned>(comp))
             {
@@ -335,7 +354,7 @@ void Networking::DespawnPrefab(ScriptingObjectReference<Entity> target)
         {
             if (NetworkManager::IsHost() && comp->Type == INetworkedObject::NetworkingType::Replicated)
             {
-                _spawnList.Remove(Cast<ScriptingObject>(target));
+                _spawnList[target->Priority].Remove(Cast<ScriptingObject>(target));
             }
             if (comp->Type != INetworkedObject::NetworkingType::None)
             {
@@ -361,7 +380,7 @@ void Networking::StartReplicating(ScriptingObjectReference<Entity> target)
             }
             if (NetworkManager::IsHost() && comp->Type == INetworkedObject::NetworkingType::Replicated)
             {
-                _spawnList.Add(Cast<ScriptingObject>(target));
+                _spawnList[target->Priority].Add(Cast<ScriptingObject>(target));
             }
         }
     }
@@ -402,7 +421,7 @@ void Networking::StopReplicating(ScriptingObjectReference<Entity> target)
         {
             if (NetworkManager::IsHost() && comp->Type == INetworkedObject::NetworkingType::Replicated)
             {
-                _spawnList.Remove(Cast<ScriptingObject>(target));
+                _spawnList[target->Priority].Remove(Cast<ScriptingObject>(target));
             }
             if (comp->Type != INetworkedObject::NetworkingType::None)
             {
@@ -431,7 +450,7 @@ void Networking::DespawnReplicating(ScriptingObjectReference<Entity> target)
         {
             if (NetworkManager::IsHost() && comp->Type == INetworkedObject::NetworkingType::Replicated)
             {
-                _spawnList.Remove(Cast<ScriptingObject>(target));
+                _spawnList[target->Priority].Remove(Cast<ScriptingObject>(target));
             }
             if (comp->Type != INetworkedObject::NetworkingType::None)
             {
