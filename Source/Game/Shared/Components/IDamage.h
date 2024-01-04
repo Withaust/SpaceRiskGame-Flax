@@ -6,7 +6,7 @@
 #include <Game/Shared/Defines.h>
 #include <Game/System/Core/Networking.h>
 #include <Game/Shared/Components/IHitBox.h>
-#include <Game/Shared/Components/ImmediateInfo.h>
+#include <Game/Shared/Components/SpatialSync.h>
 
 API_CLASS() class GAME_API IDamage : public IComponent, public INetworkObject
 {

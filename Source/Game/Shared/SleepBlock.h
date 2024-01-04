@@ -17,7 +17,8 @@ private:
     enum class Type
     {
         Range,
-        Singular
+        Singular,
+        Disabled
     } _type;
 
     float _span = 0.0f;

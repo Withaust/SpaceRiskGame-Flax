@@ -56,7 +56,7 @@ void Weapon::OnEnable()
     float Rate = (1000.0f / DataPtr->FireRate) - 1.0f;
     BulletsEffect->SetParameterValue(TEXT("Main"), TEXT("Rate"), Rate);
     MuzzleEffect->SetParameterValue(TEXT("Main"), TEXT("Rate"), Rate);
-    _info = GetEntity()->GetComponent<ImmediateInfo>();
+    _info = GetEntity()->GetComponent<SpatialSync>();
     _movement = GetEntity()->GetComponent<PlayerMovement>();
 }
 
@@ -80,7 +80,7 @@ void Weapon::OnUpdate()
                 if (!_firedBefore)
                 {
                     _firedBefore = true;
-                    _info->Buttons |= ImmediateInfo::ButtonsMask::AttackLeft;
+                    _info->Buttons |= SpatialSync::ButtonsMask::AttackLeft;
                 }
             }
             else
@@ -90,14 +90,14 @@ void Weapon::OnUpdate()
                 if (_firedBefore)
                 {
                     _firedBefore = false;
-                    _info->Buttons &= ~ImmediateInfo::ButtonsMask::AttackLeft;
+                    _info->Buttons &= ~SpatialSync::ButtonsMask::AttackLeft;
                 }
             }
         }
     }
     else
     {
-        if (EnumHasAllFlags(_info->Buttons, ImmediateInfo::ButtonsMask::AttackLeft))
+        if (EnumHasAllFlags(_info->Buttons, SpatialSync::ButtonsMask::AttackLeft))
         {
             ShootForVisual();
         }

@@ -55,7 +55,7 @@ void Networking::OnSynced(NetworkClient* client)
 {
     Dictionary<ReplicationPriority, Array<ScriptingObjectReference<ScriptingObject>>> deleted;
 
-    for (byte i = static_cast<byte>(ReplicationPriority::High); i < static_cast<byte>(ReplicationPriority::Low); i++)
+    for (byte i = static_cast<byte>(ReplicationPriority::High); i < static_cast<byte>(ReplicationPriority::Max); i++)
     {
         ReplicationPriority priority = static_cast<ReplicationPriority>(i);
         const auto& targetPriority = _spawnList[priority];

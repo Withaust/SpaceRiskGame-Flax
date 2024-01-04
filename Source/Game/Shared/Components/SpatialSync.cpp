@@ -3,7 +3,7 @@
 // Interpolation and prediction logic based on https://www.gabrielgambetta.com/client-server-game-architecture.html
 // Overall archetecture revamped in favor of https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/game/shared/usercmd.h
 
-#include "ImmediateInfo.h"
+#include "SpatialSync.h"
 
 namespace
 {
@@ -17,16 +17,16 @@ namespace
     }
 }
 
-ImmediateInfo::ImmediateInfo(const SpawnParams& params)
+SpatialSync::SpatialSync(const SpawnParams& params)
     : IComponent(params)
 {
     _tickUpdate = true;
 }
 
-void ImmediateInfo::OnEnable()
+void SpatialSync::OnEnable()
 {
     // Initialize state
-    _sendBlock = 20.0f;
+    _sendBlock = TPS;
     _bufferHasDeltas = false;
     _lastPosition = GetEntity() ? Position->GetPosition() : Vector3::Zero;
     _lastRotation = GetEntity() ? Rotation->GetOrientation() : Quaternion::Identity;
@@ -34,12 +34,12 @@ void ImmediateInfo::OnEnable()
     _buffer.Clear();
 }
 
-void ImmediateInfo::OnDisable()
+void SpatialSync::OnDisable()
 {
     _buffer.Resize(0);
 }
 
-void ImmediateInfo::InitiateUpdate()
+void SpatialSync::InitiateUpdate()
 {
     const auto& position = Position->GetPosition();
     const auto& rotation = Rotation->GetOrientation();
@@ -50,12 +50,17 @@ void ImmediateInfo::InitiateUpdate()
         _lastPosition = position;
         _lastRotation = rotation;
         _lastButtonsMask = buttonsMask;
-        SendInfo(Position->GetPosition(), Rotation->GetOrientation(), buttonsMask);
+        SendSync(Position->GetPosition(), Rotation->GetOrientation(), buttonsMask);
     }
 }
 
-void ImmediateInfo::OnUpdate()
+void SpatialSync::OnUpdate()
 {
+    if (TPS == 0.0f)
+    {
+        return;
+    }
+
     const NetworkObjectRole role = NetworkReplicator::GetObjectRole(this);
     if (role == NetworkObjectRole::OwnedAuthoritative)
     {
@@ -107,7 +112,7 @@ void ImmediateInfo::OnUpdate()
     }
 }
 
-void ImmediateInfo::Serialize(NetworkStream* stream)
+void SpatialSync::Serialize(NetworkStream* stream)
 {
     stream->Write(Position->GetPosition());
     stream->Write(Rotation->GetOrientation());
@@ -116,7 +121,7 @@ void ImmediateInfo::Serialize(NetworkStream* stream)
         stream->Write(Buttons);
 }
 
-void ImmediateInfo::Deserialize(NetworkStream* stream)
+void SpatialSync::Deserialize(NetworkStream* stream)
 {
     Vector3 position;
     stream->Read(position);
@@ -132,15 +137,15 @@ void ImmediateInfo::Deserialize(NetworkStream* stream)
     }
 }
 
-void ImmediateInfo::SendInfo(const Vector3& position, const Quaternion& rotation, const ButtonsMask& buttons)
+void SpatialSync::SendSync(const Vector3& position, const Quaternion& rotation, const ButtonsMask& buttons)
 {
-    NETWORK_RPC_IMPL(ImmediateInfo, SendInfo, position, rotation, buttons);
-    RecieveInfo(position, rotation, buttons);
+    NETWORK_RPC_IMPL(SpatialSync, SendSync, position, rotation, buttons);
+    RecieveSync(position, rotation, buttons);
 }
 
-void ImmediateInfo::RecieveInfo(const Vector3& position, const Quaternion& rotation, const ButtonsMask& buttons)
+void SpatialSync::RecieveSync(const Vector3& position, const Quaternion& rotation, const ButtonsMask& buttons)
 {
-    NETWORK_RPC_IMPL(ImmediateInfo, RecieveInfo, position, rotation, buttons);
+    NETWORK_RPC_IMPL(SpatialSync, RecieveSync, position, rotation, buttons);
 
     const NetworkObjectRole role = NetworkReplicator::GetObjectRole(this);
     if (role == NetworkObjectRole::OwnedAuthoritative)
@@ -155,16 +160,23 @@ void ImmediateInfo::RecieveInfo(const Vector3& position, const Quaternion& rotat
 
     Transform transform(position, rotation);
     // Add to the interpolation buffer
-    const float now = Time::Update.UnscaledTime.GetTotalSeconds();
-    _buffer.Add({ now, transform });
-    if (_bufferHasDeltas)
+    if (TPS == 0.0f)
     {
-        _buffer.Clear();
-        _bufferHasDeltas = false;
+        Set(transform);
+    }
+    else
+    {
+        const float now = Time::Update.UnscaledTime.GetTotalSeconds();
+        _buffer.Add({ now, transform });
+        if (_bufferHasDeltas)
+        {
+            _buffer.Clear();
+            _bufferHasDeltas = false;
+        }
     }
 }
 
-void ImmediateInfo::Set(const Transform& transform)
+void SpatialSync::Set(const Transform& transform)
 {
     Position->SetPosition(transform.Translation);
     Rotation->SetOrientation(transform.Orientation);

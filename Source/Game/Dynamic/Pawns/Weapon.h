@@ -13,7 +13,7 @@
 #include <Game/System/Core/Networking.h>
 #include <Game/Dynamic/Pawns/Humanlike/Player/PlayerMovement.h>
 #include <Game/Shared/Components/IComponent.h>
-#include <Game/Shared/Components/ImmediateInfo.h>
+#include <Game/Shared/Components/SpatialSync.h>
 #include <Game/Shared/Components/IHitBox.h>
 #include <Game/Shared/Components/IDamagePenetratable.h>
 
@@ -40,7 +40,7 @@ API_CLASS() class GAME_API Weapon : public IComponent, public INetworkObject
 
 private:
 
-    ImmediateInfo* _info = nullptr;
+    SpatialSync* _info = nullptr;
     PlayerMovement* _movement = nullptr;
 
     SleepBlock _batchBlock;

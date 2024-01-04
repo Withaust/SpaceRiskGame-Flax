@@ -6,6 +6,11 @@ float SleepBlock::_currentStep = 0.0f;
 
 void SleepBlock::operator=(float tps)
 {
+    if (tps == 0.0f)
+    {
+        _type = Type::Disabled;
+        return;
+    }
     _timeout = 1.0f / tps;
     _timer = _timeout + 1.0f;
     _type = Type::Singular;
@@ -19,6 +24,11 @@ void SleepBlock::operator=(float tps)
 
 void SleepBlock::operator=(Pair<float, float> seconds)
 {
+    if (seconds.First == 0.0f && seconds.Second == 0.0f)
+    {
+        _type = Type::Disabled;
+        return;
+    }
     _span = seconds.Second;
     _timeout = seconds.First;
     _type = Type::Range;
@@ -32,10 +42,15 @@ void SleepBlock::operator=(Pair<float, float> seconds)
 
 bool SleepBlock::Poll(float delta)
 {
+    _timer += delta;
+
     // Acting as sleep with range
-    if (_type == Type::Range)
+    if (_type == Type::Disabled)
     {
-        _timer += delta;
+        return false;
+    }
+    else if (_type == Type::Range)
+    {
         if (_sleeping)
         {
             if (_timer >= _timeout)
@@ -60,7 +75,6 @@ bool SleepBlock::Poll(float delta)
     // Acting as a singular sleep
     else
     {
-        _timer += delta;
         if (_timer >= _timeout)
         {
             _timer = 0.0f;

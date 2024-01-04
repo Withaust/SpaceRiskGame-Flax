@@ -22,10 +22,10 @@
 /// </summary>
 /// <remarks>Interpolation and prediction logic based on https://www.gabrielgambetta.com/client-server-game-architecture.html.</remarks>
 /// <remarks>Overall archetecture revamped in favor of https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/game/shared/usercmd.h</remarks>
-API_CLASS() class GAME_API ImmediateInfo : public IComponent, public INetworkSerializable
+API_CLASS() class GAME_API SpatialSync : public IComponent, public INetworkSerializable
 {
     API_AUTO_SERIALIZATION();
-    DECLARE_SCRIPTING_TYPE(ImmediateInfo);
+    DECLARE_SCRIPTING_TYPE(SpatialSync);
 
 public:
 
@@ -56,6 +56,7 @@ private:
 
 public:
 
+    API_FIELD(Attributes = "EditorOrder(0)") float TPS = 20.0f;
     API_FIELD(Attributes = "EditorOrder(10)") ScriptingObjectReference<Actor> Position;
     API_FIELD(Attributes = "EditorOrder(20)") ScriptingObjectReference<Actor> Rotation;
     API_FIELD(Attributes = "EditorOrder(30)") bool ReplicateButtons = false;
@@ -71,11 +72,11 @@ public:
     void Serialize(NetworkStream* stream) override;
     void Deserialize(NetworkStream* stream) override;
 
-    API_FUNCTION(NetworkRpc = "Server, Unreliable") void SendInfo(const Vector3& position, const Quaternion& rotation, const ButtonsMask& buttons);
-    API_FUNCTION(NetworkRpc = "Client, Unreliable") void RecieveInfo(const Vector3& position, const Quaternion& rotation, const ButtonsMask& buttons);
+    API_FUNCTION(NetworkRpc = "Server, Unreliable") void SendSync(const Vector3& position, const Quaternion& rotation, const ButtonsMask& buttons);
+    API_FUNCTION(NetworkRpc = "Client, Unreliable") void RecieveSync(const Vector3& position, const Quaternion& rotation, const ButtonsMask& buttons);
 
 private:
     void Set(const Transform& transform);
 };
 
-DECLARE_ENUM_OPERATORS(ImmediateInfo::ButtonsMask);
+DECLARE_ENUM_OPERATORS(SpatialSync::ButtonsMask);

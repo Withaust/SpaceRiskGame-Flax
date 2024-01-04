@@ -51,9 +51,10 @@
 	},
 	{
 		"ID": "5d5d90d340642cd459dd948668243c55",
-		"TypeName": "Game.ImmediateInfo",
+		"TypeName": "Game.SpatialSync",
 		"ParentID": "c0fd9ed44bd3767009199594beb0a3b8",
 		"Type": 2,
+		"TPS": 0.0,
 		"Position": "c0fd9ed44bd3767009199594beb0a3b8",
 		"Rotation": "c0fd9ed44bd3767009199594beb0a3b8"
 	},
