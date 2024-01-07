@@ -16,8 +16,8 @@ private:
 
 public:
 
-    API_PROPERTY(NetworkReplicated, Attributes = "NoSerialize, FlaxEngine.ReadOnly") Guid GetServerIdLocal() const { UIMPL_NETPROP_GETLOCAL(_serverId); }
-    API_PROPERTY(NetworkReplicated, Attributes = "NoSerialize, FlaxEngine.ReadOnly") void SetServerIdLocal(Guid value) { UIMPL_NETPROP_SETLOCAL(_serverId); }
-    API_FUNCTION(NetworkRpc = "Server, Reliable") void SetServerIdRemote(const Guid& value) { UIMPL_NETPROP_SETREMOTE(PlayerOwned, ServerId); }
-    API_FUNCTION(NetworkRpc = "Client, Reliable") void SetServerIdSync(const Guid& value) { UIMPL_NETPROP_SETSYNC(PlayerOwned, ServerId); }
+    API_PROPERTY(NetworkReplicated, Attributes = "NoSerialize, FlaxEngine.ReadOnly") Guid GetServerIdLocal() const { UNETPROP_GETLOCAL(_serverId); }
+    API_PROPERTY(NetworkReplicated, Attributes = "NoSerialize, FlaxEngine.ReadOnly") void SetServerIdLocal(Guid value) { UNETPROP_SETLOCAL(_serverId); }
+    API_FUNCTION(NetworkRpc = "Server, ReliableOrdered") void SetServerIdRemote(const Guid& value) { UNETPROP_SETREMOTE(PlayerOwned, ServerId); }
+    API_FUNCTION(NetworkRpc = "Client, ReliableOrdered") void SetServerIdSync(const Guid& value, NetworkRpcParams p) { UNETPROP_SETSYNC(PlayerOwned, ServerId); }
 };

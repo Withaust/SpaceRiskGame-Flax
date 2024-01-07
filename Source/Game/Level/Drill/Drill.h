@@ -32,15 +32,19 @@ private:
 
 public:
 
-    API_PROPERTY(NetworkReplicated) float GetFuelLocal() const { UIMPL_NETPROP_GETLOCAL(_fuel); }
+    API_PROPERTY(NetworkReplicated) float GetFuelLocal() const { UNETPROP_GETLOCAL(_fuel); }
     API_PROPERTY(NetworkReplicated) void SetFuelLocal(float value);
-    API_FUNCTION(NetworkRpc = "Server, Reliable") void SetFuelRemote(float value) { UIMPL_NETPROP_SETREMOTE(Drill, Fuel); }
-    API_FUNCTION(NetworkRpc = "Client, Reliable") void SetFuelSync(float value) { UIMPL_NETPROP_SETSYNC(Drill, Fuel); }
+    API_FUNCTION(NetworkRpc = "Server, ReliableOrdered") void SetFuelRemote(float value)
+    { UNETPROP_SETREMOTE(Drill, Fuel); }
+    API_FUNCTION(NetworkRpc = "Client, ReliableOrdered") void SetFuelSync(float value, NetworkRpcParams p)
+    { UNETPROP_SETSYNC(Drill, Fuel); }
 
     API_FIELD(NetworkReplicated, Attributes = "AssetReference(typeof(DrillData))") AssetReference<JsonAsset> Data;
     UDECLARE_DATA(DrillData, Data);
-    API_FUNCTION(NetworkRpc = "Server, Reliable") void SetDataRemote(const AssetReference<JsonAsset>& value) { UIMPL_NETPROP_SETREMOTE(Drill, Data); }
-    API_FUNCTION(NetworkRpc = "Client, Reliable") void SetDataSync(const AssetReference<JsonAsset>& value) { NETWORK_RPC_IMPL(Drill, SetDataSync, value); Data = value; }
+    API_FUNCTION(NetworkRpc = "Server, ReliableOrdered") void SetDataRemote(const AssetReference<JsonAsset>& value)
+    { UNETPROP_SETREMOTE(Drill, Data); }
+    API_FUNCTION(NetworkRpc = "Client, ReliableOrdered") void SetDataSync(const AssetReference<JsonAsset>& value, NetworkRpcParams p)
+    { UNETPROP_SETSYNC_DATA(Drill, Data); }
 
     API_FIELD() ScriptingObjectReference<Actor> Start;
     API_FIELD() ScriptingObjectReference<Actor> End;

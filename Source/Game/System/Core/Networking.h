@@ -58,6 +58,7 @@ public:
 
     void OnNetworkStateChanged();
     void OnNetworkClientConnected(NetworkClient* client);
+    void OnNetworkClientLoaded(NetworkClient* client);
     void OnNetworkClientDisconnected(NetworkClient* client);
     void OnSynced(NetworkClient* client);
 
@@ -78,6 +79,6 @@ public:
     API_FUNCTION() void DespawnReplicating(ScriptingObjectReference<Entity> target);
 
     API_FUNCTION() Guid SerializeEntity(ScriptingObjectReference<Entity> target);
-    API_FUNCTION() ScriptingObjectReference<Entity> DeserializeEntity(Guid id, NetworkRpcParams rpcParams);
+    API_FUNCTION() ScriptingObjectReference<Entity> ConvertEntity(Guid id);
     API_FUNCTION() Span<uint32> GetClientIdsExcept(uint32 exception);
 };

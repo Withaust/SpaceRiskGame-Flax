@@ -46,6 +46,11 @@ void Networking::OnNetworkClientConnected(NetworkClient* client)
     Core::Instance->OnPlayerConnected(client);
 }
 
+void Networking::OnNetworkClientLoaded(NetworkClient* client)
+{
+    Core::Instance->OnPlayerLoaded(client);
+}
+
 void Networking::OnNetworkClientDisconnected(NetworkClient* client)
 {
     Core::Instance->OnPlayerDisconnected(client);
@@ -87,6 +92,8 @@ void Networking::OnSynced(NetworkClient* client)
             _spawnList[priority.Key].Remove(entry);
         }
     }
+
+    OnNetworkClientLoaded(client);
 }
 
 void Networking::BindEvents()
@@ -470,7 +477,7 @@ Guid Networking::SerializeEntity(ScriptingObjectReference<Entity> target)
     return target->GetID();
 }
 
-ScriptingObjectReference<Entity> Networking::DeserializeEntity(Guid id, NetworkRpcParams rpcParams)
+ScriptingObjectReference<Entity> Networking::ConvertEntity(Guid id)
 {
     return Cast<Entity>(NetworkReplicator::ResolveForeignObject(id));
 }

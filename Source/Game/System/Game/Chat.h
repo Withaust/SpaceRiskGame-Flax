@@ -18,7 +18,7 @@ public:
 
     void OnDeinitialize() override;
 
-    API_FUNCTION(NetworkRpc = "Server, Reliable") void SendMessage(const String& text, NetworkRpcParams info = NetworkRpcParams());
-    API_FUNCTION(NetworkRpc = "Client, Reliable") void RecieveMessage(uint32 sender, const String& text);
+    API_FUNCTION(NetworkRpc = "Server, ReliableOrdered") void SendMessage(const String& text, NetworkRpcParams p = NetworkRpcParams());
+    API_FUNCTION(NetworkRpc = "Client, ReliableOrdered") void RecieveMessage(uint32 sender, const String& text, NetworkRpcParams p);
 
 };

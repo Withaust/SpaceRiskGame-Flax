@@ -67,6 +67,13 @@ public:
     }
 
     /// <summary>
+    /// Executes when a client loads on the level after connected to a server (this only fires on host)
+    /// </summary>
+    API_FUNCTION(Attributes = "NoAnimate") virtual void OnPlayerLoaded(NetworkClient* client)
+    {
+    }
+
+    /// <summary>
     /// Executes when a client gets disconnected from a server (this only fires on host)
     /// </summary>
     API_FUNCTION(Attributes = "NoAnimate") virtual void OnPlayerDisconnected(NetworkClient* client)

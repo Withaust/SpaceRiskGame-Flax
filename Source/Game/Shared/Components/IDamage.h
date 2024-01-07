@@ -23,8 +23,8 @@ public:
     API_EVENT() Delegate<uint32, Entity*, float> OnDamage;
     API_EVENT() Delegate<uint32, Entity*, float> OnDestroyed;
 
-    API_FUNCTION(NetworkRpc = "Server, Reliable") void InflictDamageServer(uint32 HitBox, Guid Inflictor, float Damage, NetworkRpcParams rpcParams = NetworkRpcParams());
-    API_FUNCTION(NetworkRpc = "Client, Reliable") void InflictDamageClient(uint32 HitBox, Guid Inflictor, float Damage);
+    API_FUNCTION(NetworkRpc = "Server, ReliableOrdered") void InflictDamageServer(uint32 HitBox, Guid Inflictor, float Damage);
+    API_FUNCTION(NetworkRpc = "Client, ReliableOrdered") void InflictDamageClient(uint32 HitBox, Guid Inflictor, float Damage, NetworkRpcParams p);
 
     void OnNetworkSpawn() override;
     void OnNetworkDespawn() override;

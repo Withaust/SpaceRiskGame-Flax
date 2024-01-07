@@ -61,9 +61,9 @@ void Entity::CacheComponents()
     }
 }
 
-void Entity::SendData(bool compressed, const Array<byte>& data, uint32 srcSize, NetworkRpcParams info)
+void Entity::SendData(bool compressed, const Array<byte>& data, uint32 srcSize, NetworkRpcParams p)
 {
-    NETWORK_RPC_IMPL(Entity, SendData, compressed, data, srcSize, info);
+    NETWORK_RPC_IMPL(Entity, SendData, compressed, data, srcSize, p);
 
     MemoryReadStream readStream;
 

@@ -27,13 +27,15 @@ public:
 
     API_FIELD() static SyncInfo* Instance;
 
+    const HashSet<uint32> GetSyncList() const { return _syncList; }
+
     void OnInitialize() override;
     void OnDeinitialize() override;
     void OnPlayerConnected(NetworkClient* client) override;
     void OnPlayerDisconnected(NetworkClient* client) override;
     void OnUpdate() override;
 
-    API_FUNCTION(NetworkRpc = "Server, ReliableOrdered") void SendInfo(NetworkRpcParams param = NetworkRpcParams());
-    API_FUNCTION(NetworkRpc = "Client, ReliableOrdered") void RecievedInfo(NetworkRpcParams param = NetworkRpcParams());
+    API_FUNCTION(NetworkRpc = "Server, ReliableOrdered") void SendInfo(NetworkRpcParams p = NetworkRpcParams());
+    API_FUNCTION(NetworkRpc = "Client, ReliableOrdered") void RecievedInfo(NetworkRpcParams p);
     void RequestSpawnSync();
 };

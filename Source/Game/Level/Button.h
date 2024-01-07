@@ -20,10 +20,10 @@ private:
 
 public:
 
-    API_PROPERTY(NetworkReplicated) bool GetStateLocal() const { UIMPL_NETPROP_GETLOCAL(_state); }
+    API_PROPERTY(NetworkReplicated) bool GetStateLocal() const { UNETPROP_GETLOCAL(_state); }
     API_PROPERTY(NetworkReplicated) void SetStateLocal(bool value);
-    API_FUNCTION(NetworkRpc = "Server, Reliable") void SetStateRemote(float value) { UIMPL_NETPROP_SETREMOTE(Button, State); }
-    API_FUNCTION(NetworkRpc = "Client, Reliable") void SetStateSync(float value) { UIMPL_NETPROP_SETSYNC(Button, State); }
+    API_FUNCTION(NetworkRpc = "Server, ReliableOrdered") void SetStateRemote(bool value) { UNETPROP_SETREMOTE(Button, State); }
+    API_FUNCTION(NetworkRpc = "Client, ReliableOrdered") void SetStateSync(bool value, NetworkRpcParams p) { UNETPROP_SETSYNC(Button, State); }
 
     API_FIELD() Array<ScriptingObjectReference<SpotLight>> Lights;
 

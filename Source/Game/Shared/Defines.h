@@ -26,11 +26,25 @@
 #define UNOT_OWNED !NetworkReplicator::IsObjectOwned(GetEntity())
 #define UNOT_OWNED_RETURN(returnValue) if(!NetworkReplicator::IsObjectOwned(GetEntity())) { return returnValue; }
 
+// Implements filtering for RPC calls that should never arrive to the clients that arent synced yet
+#define UFILTER_RPC(params) \
+NetworkRpcParams params; \
+Array<uint32> targets = { 0 }; \
+if (SyncInfo::Instance && SyncInfo::Instance->GetSyncList().Count() > 0) { \
+    for (const auto& client : NetworkManager::Clients) { \
+        if (!SyncInfo::Instance->GetSyncList().Contains(client->ClientId)) { \
+            targets.Add(client->ClientId); } } } \
+else { \
+    for (const auto& client : NetworkManager::Clients) { \
+        targets.Add(client->ClientId); } } \
+params.TargetIds = ToSpan(targets.Get(), targets.Count());
+
 // Implements generic networked property for a component
-#define UIMPL_NETPROP_GETLOCAL(PrivateValue) return PrivateValue;
-#define UIMPL_NETPROP_SETLOCAL(PrivateValue) PrivateValue = value;
-#define UIMPL_NETPROP_SETREMOTE(Class, ValueName) NETWORK_RPC_IMPL(Class, Set##ValueName##Remote, value); Set##ValueName##Sync(value);
-#define UIMPL_NETPROP_SETSYNC(Class, ValueName) NETWORK_RPC_IMPL(Class, Set##ValueName##Sync, value); Set##ValueName##Local(value);
+#define UNETPROP_GETLOCAL(PrivateValue) return PrivateValue;
+#define UNETPROP_SETLOCAL(PrivateValue) PrivateValue = value;
+#define UNETPROP_SETREMOTE(Class, ValueName) NETWORK_RPC_IMPL(Class, Set##ValueName##Remote, value); UFILTER_RPC(params); Set##ValueName##Sync(value, params);
+#define UNETPROP_SETSYNC(Class, ValueName) NETWORK_RPC_IMPL(Class, Set##ValueName##Sync, value, p); Set##ValueName##Local(value);
+#define UNETPROP_SETSYNC_DATA(Class, ValueName) NETWORK_RPC_IMPL(Class, Set##ValueName##Sync, value, p); ValueName = value;
 
 #ifdef BUILD_DEBUG
 #define UINFO(text, ...) Logger::Instance->Info(String::Format(TEXT(text), ##__VA_ARGS__))

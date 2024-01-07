@@ -6,9 +6,9 @@ INetworkedObject::INetworkedObject(const SpawnParams& params)
 {
 }
 
-void INetworkedObject::SendData(bool compressed, const Array<byte>& data, uint32 srcSize, NetworkRpcParams info)
+void INetworkedObject::SendData(bool compressed, const Array<byte>& data, uint32 srcSize, NetworkRpcParams p)
 {
-    NETWORK_RPC_IMPL(INetworkedObject, SendData, compressed, data, srcSize, info);
+    NETWORK_RPC_IMPL(INetworkedObject, SendData, compressed, data, srcSize, p);
 
     NetworkStream* stream = Networking::Instance->_stream;
 

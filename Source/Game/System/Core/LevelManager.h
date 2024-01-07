@@ -26,6 +26,6 @@ public:
     void OnSceneLoaded(Scene* scene, const Guid& id);
     void OnSceneUnloaded(Scene* scene, const Guid& id);
 
-    API_FUNCTION(NetworkRpc = "Client, Reliable") void RequestLoadLevel(NetworkRpcParams info, String scene);
+    API_FUNCTION(NetworkRpc = "Client, ReliableOrdered") void RequestLoadLevel(String scene, NetworkRpcParams p);
     API_FUNCTION() void LoadLevel(String scene);
 };

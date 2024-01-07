@@ -514,8 +514,7 @@
 			"ParentID": "d0407b42463cd5f7d244688ce027a6b4",
 			"FilterTags": [
 				"Player"
-			],
-			"RobotPrefab": "51cc057441557d1662e76680c07f42fa"
+			]
 		},
 		{
 			"ID": "4cf227684adc42ded90916aff988625e",

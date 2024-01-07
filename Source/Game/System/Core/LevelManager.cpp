@@ -28,10 +28,10 @@ void LevelManager::OnPlayerConnected(NetworkClient* client)
     }
 
     NetworkRpcParams params;
-    uint32 targets[] = { client->ClientId };
-    Span<uint32>(targets, 1);
+    uint32 ids[1] = { client->ClientId };
+    params.TargetIds = ToSpan(ids, ARRAY_COUNT(ids));
 
-    RequestLoadLevel(params, _mainScene);
+    RequestLoadLevel(_mainScene, params);
 }
 
 void LevelManager::OnSceneLoaded(Scene* scene, const Guid& id)
@@ -52,9 +52,9 @@ void LevelManager::OnSceneUnloaded(Scene* scene, const Guid& id)
     Core::Instance->OnSceneUnloaded(scene);
 }
 
-void LevelManager::RequestLoadLevel(NetworkRpcParams info, String scene)
+void LevelManager::RequestLoadLevel(String scene, NetworkRpcParams p)
 {
-    NETWORK_RPC_IMPL(LevelManager, RequestLoadLevel, info, scene);
+    NETWORK_RPC_IMPL(LevelManager, RequestLoadLevel, scene, p);
     LoadLevel(scene);
 }
 

@@ -21,45 +21,43 @@ void IDamage::OnNetworkDespawn()
 
 }
 
-
-void IDamage::InflictDamageServer(uint32 HitBox, Guid Inflictor, float Damage, NetworkRpcParams rpcParams)
+void IDamage::InflictDamageServer(uint32 HitBox, Guid Inflictor, float Damage)
 {
-    NETWORK_RPC_IMPL(IDamage, InflictDamageServer, HitBox, Inflictor, Damage, rpcParams);
+    NETWORK_RPC_IMPL(IDamage, InflictDamageServer, HitBox, Inflictor, Damage);
 
-    if (Entity* entity = Networking::Instance->DeserializeEntity(Inflictor, rpcParams))
+    if (Entity* entity = Networking::Instance->ConvertEntity(Inflictor))
     {
-        InflictDamageClient(HitBox, entity->GetID(), Damage);
+        UFILTER_RPC(params);
+        InflictDamageClient(HitBox, entity->GetID(), Damage, params);
     }
     else
     {
-        UERR("SERVER Failed to resolve entity!");
+        UERR("Failed to resolve entity!");
     }
 }
 
-void IDamage::InflictDamageClient(uint32 HitBox, Guid Inflictor, float Damage)
+void IDamage::InflictDamageClient(uint32 HitBox, Guid Inflictor, float Damage, NetworkRpcParams p)
 {
-    NETWORK_RPC_IMPL(IDamage, InflictDamageClient, HitBox, Inflictor, Damage);
+    NETWORK_RPC_IMPL(IDamage, InflictDamageClient, HitBox, Inflictor, Damage, p);
 
-    ScriptingObject* foreign = NetworkReplicator::ResolveForeignObject(Inflictor);
-
-    if (!foreign)
+    if (Entity* inflictor = Networking::Instance->ConvertEntity(Inflictor))
     {
-        UERR("CLIENT Failed to resolve entity!");
+        IHitBox* hitBox = _hitboxes[HitBox];
+
+        if (hitBox->Health <= 0.0f)
+        {
+            return;
+        }
+
+        hitBox->Health -= Damage * hitBox->DamageMultiplier;
+        OnDamage(HitBox, inflictor, Damage);
+        if (hitBox->Health <= 0.0f)
+        {
+            OnDestroyed(HitBox, inflictor, Damage);
+        }
     }
-
-    Entity* inflictor = Cast<Entity>(foreign);
-
-    IHitBox* hitBox = _hitboxes[HitBox];
-
-    if (hitBox->Health <= 0.0f)
+    else
     {
-        return;
-    }
-
-    hitBox->Health -= Damage * hitBox->DamageMultiplier;
-    OnDamage(HitBox, inflictor, Damage);
-    if (hitBox->Health <= 0.0f)
-    {
-        OnDestroyed(HitBox, inflictor, Damage);
+        UERR("Failed to resolve entity!");
     }
 }

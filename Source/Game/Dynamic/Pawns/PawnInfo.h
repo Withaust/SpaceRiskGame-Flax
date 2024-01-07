@@ -30,8 +30,8 @@ public:
 
     API_PROPERTY(NetworkReplicated) String GetNameLocal() const;
     API_PROPERTY(NetworkReplicated) void SetNameLocal(String value);
-    API_FUNCTION(NetworkRpc = "Server, Reliable") void SetNameRemote(const String& value) { UIMPL_NETPROP_SETREMOTE(PawnInfo, Name); }
-    API_FUNCTION(NetworkRpc = "Client, Reliable") void SetNameSync(const String& value) { UIMPL_NETPROP_SETSYNC(PawnInfo, Name); }
+    API_FUNCTION(NetworkRpc = "Server, ReliableOrdered") void SetNameRemote(const String& value) { UNETPROP_SETREMOTE(PawnInfo, Name); }
+    API_FUNCTION(NetworkRpc = "Client, ReliableOrdered") void SetNameSync(const String& value, NetworkRpcParams p) { UNETPROP_SETSYNC(PawnInfo, Name); }
 
     API_FIELD(NetworkReplicated, Attributes = "AssetReference(typeof(PawnData))") AssetReference<JsonAsset> Data;
     UDECLARE_DATA(PawnData, Data);

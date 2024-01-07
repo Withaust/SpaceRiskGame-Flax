@@ -47,7 +47,7 @@ public:
 
     API_FIELD() NetworkingType Type = NetworkingType::None;
     API_FIELD() ReplicationPriority Priority = ReplicationPriority::Medium;
-    API_FUNCTION(NetworkRpc = "Client, ReliableOrdered") void SendData(bool compressed, const Array<byte>& data, uint32 srcSize, NetworkRpcParams info);
+    API_FUNCTION(NetworkRpc = "Client, ReliableOrdered") void SendData(bool compressed, const Array<byte>& data, uint32 srcSize, NetworkRpcParams p);
 #if USE_EDITOR
     API_FIELD() AssetReference<Texture> Icon;
     void OnDebugDrawSelected() override;

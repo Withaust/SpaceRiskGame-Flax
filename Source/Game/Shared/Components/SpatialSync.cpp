@@ -56,7 +56,7 @@ void SpatialSync::InitiateUpdate()
 
 void SpatialSync::OnUpdate()
 {
-    if (TPS == 0.0f)
+    if (TPS < ZeroTolerance)
     {
         return;
     }
@@ -123,13 +123,10 @@ void SpatialSync::Serialize(NetworkStream* stream)
 
 void SpatialSync::Deserialize(NetworkStream* stream)
 {
-    Vector3 position;
-    stream->Read(position);
-    Position->SetPosition(position);
-
-    Quaternion rotation;
-    stream->Read(rotation);
-    Rotation->SetOrientation(rotation);
+    Transform transform;
+    stream->Read(transform.Translation);
+    stream->Read(transform.Orientation);
+    Set(transform);
 
     if (ReplicateButtons)
     {
@@ -160,7 +157,7 @@ void SpatialSync::RecieveSync(const Vector3& position, const Quaternion& rotatio
 
     Transform transform(position, rotation);
     // Add to the interpolation buffer
-    if (TPS == 0.0f)
+    if (TPS < ZeroTolerance)
     {
         Set(transform);
     }

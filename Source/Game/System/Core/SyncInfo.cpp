@@ -20,17 +20,22 @@ void SyncInfo::OnDeinitialize()
 
 void SyncInfo::OnPlayerConnected(NetworkClient* client)
 {
-    _syncList.Add(client->ClientId);
+    if (client->ClientId != 0)
+    {
+        _syncList.Add(client->ClientId);
+    }
 }
 
 void SyncInfo::OnPlayerDisconnected(NetworkClient* client)
 {
-    _syncList.Remove(client->ClientId);
+    if (client->ClientId != 0)
+    {
+        _syncList.Remove(client->ClientId);
+    }
 }
 
 void SyncInfo::OnUpdate()
 {
-    // TODO: https://github.com/FlaxEngine/FlaxEngine/issues/1211
     if (USLEEP(_syncBlock))
     {
         if (_askToSync)
@@ -40,26 +45,27 @@ void SyncInfo::OnUpdate()
     }
 }
 
-void SyncInfo::SendInfo(NetworkRpcParams param)
+void SyncInfo::SendInfo(NetworkRpcParams p)
 {
-    NETWORK_RPC_IMPL(SyncInfo, SendInfo, param);
-    if (!_syncList.Contains(param.SenderId))
+    NETWORK_RPC_IMPL(SyncInfo, SendInfo, p);
+    if (!_syncList.Contains(p.SenderId))
     {
         return;
     }
-    _syncList.Remove(param.SenderId);
 
     NetworkRpcParams params;
-    uint32 ids[1] = { param.SenderId };
+    uint32 ids[1] = { p.SenderId };
     params.TargetIds = ToSpan(ids, ARRAY_COUNT(ids));
     RecievedInfo(params);
 
-    Networking::Instance->OnSynced(NetworkManager::GetClient(param.SenderId));
+    Networking::Instance->OnSynced(NetworkManager::GetClient(p.SenderId));
+
+    _syncList.Remove(p.SenderId);
 }
 
-void SyncInfo::RecievedInfo(NetworkRpcParams param)
+void SyncInfo::RecievedInfo(NetworkRpcParams p)
 {
-    NETWORK_RPC_IMPL(SyncInfo, RecievedInfo, param);
+    NETWORK_RPC_IMPL(SyncInfo, RecievedInfo, p);
     _syncState = SyncState::Connected;
     _askToSync = false;
 }

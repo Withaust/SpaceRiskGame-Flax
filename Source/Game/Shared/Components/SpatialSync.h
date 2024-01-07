@@ -56,11 +56,11 @@ private:
 
 public:
 
-    API_FIELD(Attributes = "EditorOrder(0)") float TPS = 20.0f;
-    API_FIELD(Attributes = "EditorOrder(10)") ScriptingObjectReference<Actor> Position;
-    API_FIELD(Attributes = "EditorOrder(20)") ScriptingObjectReference<Actor> Rotation;
-    API_FIELD(Attributes = "EditorOrder(30)") bool ReplicateButtons = false;
-    API_FIELD(Attributes = "EditorOrder(40), NoSerialize, FlaxEngine.ReadOnly") ButtonsMask Buttons = ButtonsMask::None;
+    API_FIELD(Attributes = "EditorOrder(10)") float TPS = 20.0f;
+    API_FIELD(Attributes = "EditorOrder(20)") ScriptingObjectReference<Actor> Position;
+    API_FIELD(Attributes = "EditorOrder(30)") ScriptingObjectReference<Actor> Rotation;
+    API_FIELD(Attributes = "EditorOrder(40)") bool ReplicateButtons = false;
+    API_FIELD(Attributes = "EditorOrder(50), NoSerialize, FlaxEngine.ReadOnly") ButtonsMask Buttons = ButtonsMask::None;
 
     // [Script]
     void OnEnable() override;

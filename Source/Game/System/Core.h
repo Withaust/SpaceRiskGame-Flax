@@ -56,6 +56,7 @@ public:
     void OnConnected() { DISPATCH_SYSTEM(OnConnected) }
     void OnDisconnected() { DISPATCH_SYSTEM(OnDisconnected) }
     void OnPlayerConnected(NetworkClient* client) { DISPATCH_SYSTEM(OnPlayerConnected, client) }
+    void OnPlayerLoaded(NetworkClient* client) { DISPATCH_SYSTEM(OnPlayerLoaded, client) }
     void OnPlayerDisconnected(NetworkClient* client) { DISPATCH_SYSTEM(OnPlayerDisconnected, client) }
 
 #undef DISPATCH_SYSTEM
