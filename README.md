@@ -1,3 +1,5 @@
+# Archived since I no longer help develop/use Flax engine. Active repo of a project that this tool was originally made for: https://github.com/UnarySoftware/SpaceRisk
+
 # SpaceRisk
 A sandbox PvE looter-shooter under development since 25 Febrary 2023 by Unary Software with Flax Engine.
 
