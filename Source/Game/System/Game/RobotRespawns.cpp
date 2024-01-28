@@ -20,7 +20,7 @@ void RobotRespawns::OnPlayerConnected(NetworkClient* client)
         {
             const Vector3 target((float)x * 100.0f, 0.0f, (float)y * 100.0f);
 
-            Networking::Instance->SpawnPrefab(RobotPrefab, GetActor(), 0, target);
+            //Networking::Instance->SpawnPrefab(RobotPrefab, GetActor(), 0, target);
         }
     }
 

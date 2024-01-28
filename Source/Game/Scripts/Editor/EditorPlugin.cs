@@ -26,6 +26,7 @@ namespace Game
             CustomPlayButtons.AddCustomPlayButtons();
             SaveSelector.AddButton();
             UIRefresh.AddButton();
+            CSGRefresh.AddButton();
             WindowResize.ProcessCmd();
 
             Editor.UI.ToolStrip.PerformLayout(true);
@@ -37,6 +38,7 @@ namespace Game
             AssetIconsProxy.RemoveProxies();
             SaveSelector.RemoveButton();
             UIRefresh.RemoveButton();
+            CSGRefresh.RemoveButton();
             CustomPlayButtons.RemoveCustomPlayButtons();
             Editor.Instance.StateMachine.PlayingState.GameSettingsApplied -= OnStartedPlaying;
             Editor.Instance.StateMachine.PlayingState.SceneRestored -= OnStoppedPlaying;

@@ -145,6 +145,7 @@
 		"Layer": 4,
 		"Tag": "Player",
 		"FOV": 100.0,
+		"Near": 1.0,
 		"RenderLayersMask": 3758096383
 	},
 	{
